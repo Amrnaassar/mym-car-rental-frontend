@@ -1,0 +1,101 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+
+// ============================================================
+// BUTTON BASE
+// ============================================================
+
+.btn {
+  @include flex-center;
+
+  min-height: 48px;
+  padding: 0 $space-6;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+
+  transition:
+    transform $transition-normal,
+    background $transition-normal,
+    color $transition-normal,
+    border-color $transition-normal,
+    box-shadow $transition-normal;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+
+// ============================================================
+// PRIMARY
+// ============================================================
+
+.btn-primary {
+  @extend .btn;
+
+  color: $color-primary-dark;
+  background: $gradient-gold;
+
+  box-shadow: $shadow-gold;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow:
+      0 14px 40px rgba(200, 169, 107, 0.28);
+  }
+}
+
+
+// ============================================================
+// OUTLINE
+// ============================================================
+
+.btn-outline {
+  @extend .btn;
+
+  color: $color-accent;
+  background: transparent;
+
+  border: 1px solid rgba(200, 169, 107, 0.5);
+
+  &:hover:not(:disabled) {
+    background: rgba(200, 169, 107, 0.08);
+    border-color: $color-accent;
+  }
+}
+
+
+// ============================================================
+// GHOST
+// ============================================================
+
+.btn-ghost {
+  @extend .btn;
+
+  color: $color-text-primary;
+
+  &:hover:not(:disabled) {
+    color: $color-accent;
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
+
+// ============================================================
+// SIZES
+// ============================================================
+
+.btn-sm {
+  min-height: 40px;
+  padding-inline: $space-4;
+}
+
+.btn-lg {
+  min-height: 56px;
+  padding-inline: $space-8;
+}

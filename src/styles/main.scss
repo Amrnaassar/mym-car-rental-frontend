@@ -1,0 +1,25 @@
+// ============================================================
+// MYM CAR RENTAL — GLOBAL STYLES
+// ============================================================
+
+
+// ABSTRACTS
+@use "abstracts/variables";
+@use "abstracts/mixins";
+@use "abstracts/functions";
+
+
+// BASE
+@use "base/reset";
+@use "base/typography";
+@use "base/base";
+
+
+// COMPONENTS
+@use "components/buttons";
+@use "components/forms";
+@use "components/cards";
+
+
+// UTILITIES
+@use "utilities/utilities";

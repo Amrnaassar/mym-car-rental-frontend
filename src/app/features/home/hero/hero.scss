@@ -1,0 +1,634 @@
+
+
+@use "../../../../styles/abstracts/variables" as *;
+@use "../../../../styles/abstracts/mixins" as *;
+
+// ============================================================
+// HERO
+// ============================================================
+
+:host {
+  display: block;
+}
+
+.hero {
+  position: relative;
+
+  min-height: 92vh;
+
+  display: flex;
+  align-items: center;
+
+  padding-block: $space-8 * 2;
+
+  overflow: visible;
+
+  background: $color-primary-dark;
+
+  // ----------------------------------------------------------
+  // BACKGROUND
+  // ----------------------------------------------------------
+
+  &__bg {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 0;
+
+    overflow: hidden;
+  }
+
+  &__bg-img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    /*
+     * Keep the image proportional.
+     * cover prevents distortion.
+     */
+    object-fit: cover;
+
+    /*
+     * Move the image slightly toward the right
+     * so the car remains visible while the text
+     * stays on the darker side.
+     */
+    object-position: 68% center;
+
+    /*
+     * Slightly scale the image instead of aggressively
+     * cropping it.
+     */
+    transform: scale(1.01);
+
+    transform-origin: center center;
+  }
+
+  // ----------------------------------------------------------
+  // OVERLAY
+  // ----------------------------------------------------------
+
+  &__overlay {
+    position: absolute;
+
+    inset: 0;
+
+    /*
+     * Darker on the left for readable text.
+     * Much more transparent on the right so the
+     * actual car image remains visible.
+     */
+    background:
+      linear-gradient(
+        90deg,
+        rgba(7, 15, 24, 0.94) 0%,
+        rgba(7, 15, 24, 0.82) 20%,
+        rgba(7, 15, 24, 0.58) 38%,
+        rgba(7, 15, 24, 0.25) 58%,
+        rgba(7, 15, 24, 0.08) 78%,
+        rgba(7, 15, 24, 0.02) 100%
+      );
+
+    /*
+     * Small bottom gradient so the image blends
+     * naturally into the next section.
+     */
+    &::after {
+      content: "";
+
+      position: absolute;
+
+      inset: auto 0 0;
+
+      height: 180px;
+
+      background:
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          rgba(7, 15, 24, 0.15) 45%,
+          rgba(7, 15, 24, 0.7) 100%
+        );
+
+      pointer-events: none;
+    }
+  }
+
+  // ----------------------------------------------------------
+  // CONTAINER
+  // ----------------------------------------------------------
+
+  &__container {
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+
+    max-width: $breakpoint-2xl;
+
+    margin-inline: auto;
+
+    padding-inline: $space-8;
+  }
+
+  // ----------------------------------------------------------
+  // CONTENT
+  // ----------------------------------------------------------
+
+  &__content {
+    max-width: 620px;
+  }
+
+  // ----------------------------------------------------------
+  // TITLE
+  // ----------------------------------------------------------
+
+  &__title {
+    max-width: 620px;
+
+    margin: 0 0 $space-5;
+
+    color: $color-text-primary;
+
+    text-transform: uppercase;
+
+    /*
+     * Better visual hierarchy for the luxury hero.
+     */
+    font-size: clamp(
+      3rem,
+      6vw,
+      5.5rem
+    );
+
+    line-height: 0.98;
+
+    letter-spacing: -0.045em;
+
+    text-shadow:
+      0 3px 25px rgba(0, 0, 0, 0.28);
+  }
+
+  // ----------------------------------------------------------
+  // SUBTITLE
+  // ----------------------------------------------------------
+
+  &__subtitle {
+    max-width: 440px;
+
+    margin: 0 0 $space-6;
+
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: $font-size-lg;
+
+    line-height: 1.7;
+  }
+
+  // ----------------------------------------------------------
+  // RENTAL PLAN TOGGLE
+  // ----------------------------------------------------------
+
+  &__plans {
+    display: flex;
+
+    align-items: center;
+
+    gap: $space-6;
+
+    margin: 0 0 $space-8;
+
+    padding: 0;
+
+    border: 0;
+  }
+
+  &__plan {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: $space-2;
+
+    cursor: pointer;
+
+    color: rgba(255, 255, 255, 0.58);
+
+    font-size: $font-size-sm;
+
+    transition:
+      color $transition-fast,
+      transform $transition-fast;
+
+    input {
+      position: absolute;
+
+      width: 1px;
+      height: 1px;
+
+      overflow: hidden;
+
+      clip: rect(0 0 0 0);
+
+      white-space: nowrap;
+
+      &:focus-visible + .hero__plan-icon {
+        @include focus-ring;
+
+        border-radius: $radius-full;
+      }
+    }
+
+    &-icon {
+      width: 18px;
+      height: 18px;
+
+      color: rgba(255, 255, 255, 0.42);
+
+      transition:
+        color $transition-fast,
+        transform $transition-fast;
+    }
+
+    &:hover {
+      color: $color-text-primary;
+
+      .hero__plan-icon {
+        color: $color-accent;
+
+        transform: translateY(-1px);
+      }
+    }
+
+    &--active {
+      color: $color-text-primary;
+
+      .hero__plan-icon {
+        color: $color-accent;
+
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  // ----------------------------------------------------------
+  // CTA
+  // ----------------------------------------------------------
+
+  &__cta {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: auto;
+
+    min-height: 48px;
+
+    padding: $space-3 $space-6;
+
+    margin-bottom: $space-8;
+
+    font-size: $font-size-sm;
+  }
+
+  // ----------------------------------------------------------
+  // SEARCH WIDGET
+  // ----------------------------------------------------------
+
+  &__search {
+    position: absolute;
+
+    left: $space-8;
+    right: $space-8;
+    bottom: -180px;
+
+    z-index: 10;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr) auto;
+
+    gap: $space-4;
+
+    align-items: end;
+
+    padding: $space-6;
+
+    border-radius: $radius-lg;
+
+    box-shadow: $shadow-md;
+
+    label {
+      display: block;
+
+      margin-bottom: $space-2;
+
+      font-size: $font-size-xs;
+
+      font-weight: $font-weight-semibold;
+
+      letter-spacing: 0.04em;
+
+      text-transform: uppercase;
+
+      color: $color-text-muted;
+    }
+  }
+  // ----------------------------------------------------------
+  // SEARCH FIELD
+  // ----------------------------------------------------------
+
+  &__search-field {
+    min-width: 0;
+  }
+
+  // ----------------------------------------------------------
+  // SEARCH BUTTON
+  // ----------------------------------------------------------
+
+  &__search-btn {
+    white-space: nowrap;
+  }
+
+  // ==========================================================
+  // LARGE DESKTOP
+  // ==========================================================
+
+  @media (min-width: 1440px) {
+
+    min-height: 90vh;
+
+    &__bg-img {
+      object-position: 70% center;
+    }
+
+    &__container {
+      padding-inline: $space-10;
+    }
+  }
+
+  // ==========================================================
+  // XL
+  // ==========================================================
+
+  @media (max-width: $breakpoint-xl) {
+
+    &__title {
+      font-size: clamp(
+        3rem,
+        5.5vw,
+        5rem
+      );
+    }
+
+    &__search {
+      left: $space-6;
+      right: $space-6;
+    }
+  }
+
+  // ==========================================================
+  // LG
+  // ==========================================================
+
+  @media (max-width: $breakpoint-lg) {
+
+    &__search {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      bottom: -180px;
+    }
+
+    &__search-btn {
+      grid-column: 1 / -1;
+    }
+  }
+
+  // ==========================================================
+  // MD
+  // ==========================================================
+
+  @media (max-width: $breakpoint-md) {
+
+    min-height: 88vh;
+
+    &__bg-img {
+      /*
+       * Keep the car toward the right side.
+       */
+      object-position: 70% center;
+    }
+
+    &__overlay {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(7, 15, 24, 0.95) 0%,
+          rgba(7, 15, 24, 0.82) 25%,
+          rgba(7, 15, 24, 0.52) 45%,
+          rgba(7, 15, 24, 0.18) 70%,
+          rgba(7, 15, 24, 0.05) 100%
+        );
+
+      &::after {
+        height: 140px;
+      }
+    }
+
+    &__container {
+      padding-inline: $space-6;
+    }
+
+    &__content {
+      max-width: 560px;
+    }
+
+    &__search {
+      left: $space-6;
+      right: $space-6;
+    }
+  }
+
+  // ==========================================================
+  // SM / MOBILE
+  // ==========================================================
+
+  @media (max-width: $breakpoint-sm) {
+
+    min-height: auto;
+
+    padding-block:
+      $space-8 * 2
+      $space-8;
+
+    margin-bottom: 0;
+
+    text-align: left;
+
+    &__bg {
+      min-height: 720px;
+    }
+
+    &__bg-img {
+      /*
+       * On mobile we shift the image slightly right.
+       * This keeps the car visible while the text stays readable.
+       */
+      object-position: 68% center;
+
+      transform: scale(1.015);
+    }
+
+    &__overlay {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(7, 15, 24, 0.72) 0%,
+          rgba(7, 15, 24, 0.58) 32%,
+          rgba(7, 15, 24, 0.55) 58%,
+          rgba(7, 15, 24, 0.88) 100%
+        );
+
+      &::after {
+        height: 160px;
+      }
+    }
+
+    &__container {
+      padding-inline: $space-4;
+    }
+
+    &__content {
+      max-width: 100%;
+    }
+
+    &__title {
+      max-width: 500px;
+
+      font-size: clamp(
+        2.6rem,
+        12vw,
+        4rem
+      );
+
+      line-height: 0.98;
+    }
+
+    &__subtitle {
+      max-width: 390px;
+
+      font-size: $font-size-md;
+
+      line-height: 1.65;
+    }
+
+    // --------------------------------------------------------
+    // PLANS
+    // --------------------------------------------------------
+
+    &__plans {
+      flex-wrap: wrap;
+
+      gap: $space-4;
+
+      margin-bottom: $space-6;
+    }
+
+    // --------------------------------------------------------
+    // CTA
+    // --------------------------------------------------------
+
+    &__cta {
+      width: auto;
+
+      min-height: 46px;
+
+      padding-inline: $space-5;
+
+      margin-bottom: $space-8;
+
+      text-align: center;
+    }
+
+    // --------------------------------------------------------
+    // SEARCH
+    // --------------------------------------------------------
+
+    &__search {
+      position: relative;
+
+      left: auto;
+      right: auto;
+      bottom: auto;
+
+      width: 100%;
+
+      margin-top: $space-6;
+
+      grid-template-columns: 1fr;
+
+      padding: $space-5;
+    }
+
+    &__search-btn {
+      grid-column: auto;
+
+      width: 100%;
+    }
+  }
+
+  // ==========================================================
+  // SMALL MOBILE
+  // ==========================================================
+
+  @media (max-width: 400px) {
+
+    &__bg {
+      min-height: 680px;
+    }
+
+    &__title {
+      font-size: 2.45rem;
+    }
+
+    &__plans {
+      gap: $space-3;
+    }
+
+    &__search {
+      padding: $space-4;
+    }
+  }
+}
+
+// ============================================================
+// ACCESSIBILITY
+// ============================================================
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0 0 0 0);
+
+  white-space: nowrap;
+
+  border: 0;
+}

@@ -1,0 +1,184 @@
+@use "../../../../styles/abstracts/variables" as *;
+@use "../../../../styles/abstracts/mixins" as *;
+
+// ============================================================
+// WHY CHOOSE US
+// ============================================================
+
+.why-choose-us {
+  position: relative;
+
+  background: $color-primary-dark;
+
+  padding-block: 28px;
+
+  // ----------------------------------------------------------
+  // CONTAINER
+  // ----------------------------------------------------------
+
+  &__container {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    width: 100%;
+
+    max-width: $breakpoint-2xl;
+
+    margin-inline: auto;
+
+    padding-inline: $space-8;
+  }
+
+  // ----------------------------------------------------------
+  // ITEM
+  // ----------------------------------------------------------
+
+  &__item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 72px;
+
+    padding-inline: $space-6;
+
+    border-right: 1px solid $color-border;
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  // ----------------------------------------------------------
+  // ICON
+  // ----------------------------------------------------------
+
+  &__icon {
+    flex: 0 0 auto;
+
+    width: 42px;
+
+    height: 42px;
+
+    margin-right: $space-4;
+
+    color: $color-accent;
+
+    svg {
+      width: 100%;
+
+      height: 100%;
+    }
+  }
+
+  // ----------------------------------------------------------
+  // CONTENT
+  // ----------------------------------------------------------
+
+  &__content {
+    min-width: 0;
+
+    h3 {
+      margin: 0 0 4px;
+
+      color: $color-text-primary;
+
+      font-family: $font-family-display;
+
+      font-size: $font-size-sm;
+
+      font-weight: $font-weight-medium;
+
+      line-height: 1.2;
+
+      white-space: nowrap;
+    }
+
+    p {
+      margin: 0;
+
+      color: $color-text-secondary;
+
+      font-family: $font-family-primary;
+
+      font-size: $font-size-xs;
+
+      line-height: 1.3;
+
+      white-space: nowrap;
+    }
+  }
+
+  // ----------------------------------------------------------
+  // LARGE
+  // ----------------------------------------------------------
+
+  @media (max-width: $breakpoint-lg) {
+    &__container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &__item {
+      padding-block: $space-4;
+
+      &:nth-child(2) {
+        border-right: 0;
+      }
+
+      &:nth-child(-n + 2) {
+        border-bottom: 1px solid $color-border;
+      }
+    }
+  }
+
+  // ----------------------------------------------------------
+  // MOBILE
+  // ----------------------------------------------------------
+
+  @media (max-width: $breakpoint-sm) {
+    padding-block: $space-5;
+
+    &__container {
+      grid-template-columns: 1fr;
+
+      padding-inline: $space-4;
+    }
+
+    &__item {
+      justify-content: flex-start;
+
+      min-height: 64px;
+
+      padding-block: $space-3;
+
+      padding-inline: $space-2;
+
+      border-right: 0;
+
+      border-bottom: 1px solid $color-border;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      &:nth-child(2) {
+        border-right: 0;
+      }
+
+      &:nth-child(-n + 2) {
+        border-bottom: 1px solid $color-border;
+      }
+    }
+
+    &__icon {
+      width: 36px;
+
+      height: 36px;
+
+      margin-right: $space-4;
+    }
+  }
+}

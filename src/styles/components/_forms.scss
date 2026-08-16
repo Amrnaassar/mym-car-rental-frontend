@@ -1,0 +1,92 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+
+// ============================================================
+// FORM GROUP
+// ============================================================
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+
+// ============================================================
+// LABEL
+// ============================================================
+
+.form-label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+
+// ============================================================
+// INPUT
+// ============================================================
+
+.form-control {
+  width: 100%;
+  min-height: 50px;
+
+  padding: 0 $space-4;
+
+  color: $color-text-primary;
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  transition:
+    border-color $transition-normal,
+    box-shadow $transition-normal,
+    background $transition-normal;
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:hover {
+    border-color: $color-border-light;
+  }
+
+  &:focus {
+    border-color: $color-accent;
+    background: $color-surface-light;
+
+    @include focus-ring;
+  }
+}
+
+
+// ============================================================
+// TEXTAREA
+// ============================================================
+
+textarea.form-control {
+  min-height: 140px;
+  padding-block: $space-4;
+  resize: vertical;
+}
+
+
+// ============================================================
+// SELECT
+// ============================================================
+
+select.form-control {
+  cursor: pointer;
+}
+
+
+// ============================================================
+// ERROR
+// ============================================================
+
+.form-error {
+  font-size: $font-size-xs;
+  color: $color-danger;
+}

@@ -1,0 +1,454 @@
+@use "../../../styles/abstracts/variables" as *;
+@use "../../../styles/abstracts/mixins" as *;
+
+
+// ============================================================
+// FAQ
+// ============================================================
+
+.faq {
+  position: relative;
+
+  background: $color-primary-dark;
+
+  padding-block: 80px;
+
+
+  // ==========================================================
+  // CONTAINER
+  // ==========================================================
+
+  &__container {
+    width: 100%;
+
+    max-width: 900px;
+
+    margin-inline: auto;
+
+    padding-inline: $space-8;
+  }
+
+
+  // ==========================================================
+  // HEADER
+  // ==========================================================
+
+  &__header {
+    text-align: center;
+
+    margin-bottom: $space-8;
+  }
+
+
+  // ==========================================================
+  // EYEBROW
+  // ==========================================================
+
+  &__eyebrow {
+    display: block;
+
+    margin-bottom: $space-3;
+
+    color: $color-accent;
+
+    font-family: $font-family-primary;
+
+    font-size: $font-size-xs;
+
+    font-weight: $font-weight-semibold;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+  }
+
+
+  // ==========================================================
+  // TITLE
+  // ==========================================================
+
+  &__title {
+    margin: 0 0 $space-4;
+
+    color: $color-text-primary;
+
+    font-family: $font-family-display;
+
+    font-size: clamp(
+      2rem,
+      4vw,
+      $font-size-4xl
+    );
+
+    font-weight: $font-weight-medium;
+
+    line-height: 1.15;
+  }
+
+
+  // ==========================================================
+  // SUBTITLE
+  // ==========================================================
+
+  &__subtitle {
+    max-width: 520px;
+
+    margin-inline: auto;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-md;
+
+    line-height: $line-height-relaxed;
+  }
+
+
+  // ==========================================================
+  // LIST
+  // ==========================================================
+
+  &__list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: $space-3;
+  }
+
+
+  // ==========================================================
+  // ITEM
+  // ==========================================================
+
+  &__item {
+    overflow: hidden;
+
+    background: rgba(17, 20, 25, 0.72);
+
+    border: 1px solid $color-border;
+
+    border-radius: $radius-lg;
+
+    transition:
+      border-color $transition-normal,
+      background $transition-normal,
+      box-shadow $transition-normal;
+
+
+    // --------------------------------------------------------
+    // HOVER
+    // --------------------------------------------------------
+
+    &:hover {
+      border-color: rgba(200, 169, 107, 0.3);
+    }
+
+
+    // --------------------------------------------------------
+    // OPEN
+    // --------------------------------------------------------
+
+    &[open] {
+      border-color: rgba(200, 169, 107, 0.35);
+
+      background: rgba(20, 23, 28, 0.85);
+
+      box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.12);
+
+
+      .faq__question {
+        color: $color-accent;
+      }
+
+
+      .faq__icon {
+        color: $color-accent;
+
+        background: rgba(200, 169, 107, 0.08);
+
+        border-color: rgba(200, 169, 107, 0.3);
+
+
+        i {
+          transform: rotate(180deg);
+
+          &::before {
+            content: "\f068";
+          }
+        }
+      }
+    }
+  }
+
+
+  // ==========================================================
+  // QUESTION
+  // ==========================================================
+
+  &__question {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: $space-6;
+
+    min-height: 70px;
+
+    padding: $space-5 $space-6;
+
+    cursor: pointer;
+
+    list-style: none;
+
+    color: $color-text-primary;
+
+    font-family: $font-family-primary;
+
+    font-size: $font-size-md;
+
+    font-weight: $font-weight-medium;
+
+    transition:
+      color $transition-fast,
+      background $transition-fast;
+
+
+    // Remove default marker - Chrome / Safari
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+
+    // Remove default marker - Firefox
+
+    &::marker {
+      display: none;
+
+      content: "";
+    }
+
+
+    // --------------------------------------------------------
+    // HOVER
+    // --------------------------------------------------------
+
+    &:hover {
+      color: $color-accent;
+
+
+      .faq__icon {
+        color: $color-accent;
+
+        background: rgba(200, 169, 107, 0.06);
+
+        border-color: rgba(200, 169, 107, 0.3);
+      }
+    }
+
+
+    // --------------------------------------------------------
+    // ACCESSIBILITY
+    // --------------------------------------------------------
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+
+  // ==========================================================
+  // ICON
+  // ==========================================================
+
+  &__icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    width: 32px;
+    height: 32px;
+
+    color: $color-text-muted;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: $radius-full;
+
+    transition:
+      color $transition-normal,
+      background $transition-normal,
+      border-color $transition-normal;
+
+
+    i {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      height: 100%;
+
+      font-size: 0.75rem;
+
+      line-height: 1;
+
+      transition:
+        transform $transition-normal;
+    }
+  }
+
+
+  // ==========================================================
+  // ANSWER
+  // ==========================================================
+
+  &__answer {
+    padding: 0 $space-6 $space-6;
+
+
+    p {
+      max-width: 720px;
+
+      margin: 0;
+
+      color: $color-text-secondary;
+
+      font-size: $font-size-sm;
+
+      line-height: $line-height-relaxed;
+    }
+  }
+
+
+  // ==========================================================
+  // TABLET
+  // ==========================================================
+
+  @media (max-width: $breakpoint-md) {
+
+    padding-block: 64px;
+
+
+    &__container {
+      padding-inline: $space-6;
+    }
+  }
+
+
+  // ==========================================================
+  // MOBILE
+  // ==========================================================
+
+  @media (max-width: $breakpoint-sm) {
+
+    padding-block: 56px;
+
+
+    &__container {
+      padding-inline: $space-4;
+    }
+
+
+    // --------------------------------------------------------
+    // HEADER
+    // --------------------------------------------------------
+
+    &__header {
+      margin-bottom: $space-6;
+    }
+
+
+    // --------------------------------------------------------
+    // TITLE
+    // --------------------------------------------------------
+
+    &__title {
+      font-size: $font-size-2xl;
+    }
+
+
+    // --------------------------------------------------------
+    // SUBTITLE
+    // --------------------------------------------------------
+
+    &__subtitle {
+      font-size: $font-size-sm;
+    }
+
+
+    // --------------------------------------------------------
+    // LIST
+    // --------------------------------------------------------
+
+    &__list {
+      gap: $space-2;
+    }
+
+
+    // --------------------------------------------------------
+    // QUESTION
+    // --------------------------------------------------------
+
+    &__question {
+      min-height: 62px;
+
+      padding: $space-4;
+
+      font-size: $font-size-sm;
+    }
+
+
+    // --------------------------------------------------------
+    // ANSWER
+    // --------------------------------------------------------
+
+    &__answer {
+      padding: 0 $space-4 $space-5;
+
+
+      p {
+        font-size: $font-size-xs;
+      }
+    }
+
+
+    // --------------------------------------------------------
+    // ICON
+    // --------------------------------------------------------
+
+    &__icon {
+      width: 28px;
+      height: 28px;
+
+
+      i {
+        font-size: 0.68rem;
+      }
+    }
+  }
+
+
+  // ==========================================================
+  // REDUCED MOTION
+  // ==========================================================
+
+  @media (prefers-reduced-motion: reduce) {
+
+    &__item,
+    &__question,
+    &__icon,
+    &__icon i {
+      transition: none !important;
+    }
+  }
+}

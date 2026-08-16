@@ -1,0 +1,929 @@
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/mixins' as *;
+
+
+// ============================================================
+// ABOUT PAGE
+// ============================================================
+
+.about-page {
+  position: relative;
+
+  min-height: 100vh;
+
+  padding-block: 140px 100px;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(200, 169, 107, 0.06),
+      transparent 30%
+    ),
+    $color-primary-dark;
+
+  overflow: hidden;
+}
+
+
+// ============================================================
+// CONTAINER
+// ============================================================
+
+.about-page__container {
+  width: min(
+    100% - 40px,
+    1380px
+  );
+
+  margin-inline: auto;
+}
+
+
+// ============================================================
+// HEADER
+// ============================================================
+
+.about-page__header {
+  max-width: 720px;
+
+  margin-bottom: 70px;
+}
+
+.about-page__eyebrow,
+.about-page__section-label {
+  display: inline-block;
+
+  margin-bottom: 16px;
+
+  color: $color-accent;
+
+  font-size: $font-size-xs;
+
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+
+// ============================================================
+// PAGE TITLE
+// ============================================================
+
+.about-page__title {
+  margin: 0 0 22px;
+
+  color: $color-text-primary;
+
+  font-family: $font-family-display;
+
+  font-size: clamp(
+    3rem,
+    7vw,
+    6rem
+  );
+
+  line-height: 0.95;
+
+  span {
+    display: block;
+
+    @include gold-text;
+  }
+}
+
+.about-page__intro {
+  max-width: 600px;
+
+  margin: 0;
+
+  color: $color-text-secondary;
+
+  font-size: $font-size-lg;
+
+  line-height: 1.8;
+}
+
+
+// ============================================================
+// ABOUT HERO
+// ============================================================
+
+.about-page__hero {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  min-height: 620px;
+
+  margin-bottom: 120px;
+
+  overflow: hidden;
+
+  background: #061523;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-2xl;
+
+  box-shadow: $shadow-lg;
+}
+
+
+// ============================================================
+// HERO BACKGROUND
+// ============================================================
+
+.about-page__hero-bg {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  overflow: hidden;
+}
+
+.about-page__hero-bg img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  transform: scale(1.01);
+
+  transition:
+    transform 1.2s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+// ============================================================
+// HERO OVERLAY
+// ============================================================
+
+.about-page__hero-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(6, 21, 35, 0.96) 0%,
+      rgba(6, 21, 35, 0.86) 28%,
+      rgba(6, 21, 35, 0.45) 52%,
+      rgba(6, 21, 35, 0.12) 75%,
+      rgba(6, 21, 35, 0.05) 100%
+    );
+
+  pointer-events: none;
+}
+
+
+// ============================================================
+// HERO CONTENT
+// ============================================================
+
+.about-page__hero-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(
+    100%,
+    600px
+  );
+
+  padding: clamp(
+    45px,
+    7vw,
+    90px
+  );
+
+  color: $color-text-primary;
+}
+
+.about-page__hero-content h2 {
+  margin: 0 0 25px;
+
+  color: $color-text-primary;
+
+  font-family: $font-family-display;
+
+  font-size: clamp(
+    2.5rem,
+    5vw,
+    4.5rem
+  );
+
+  line-height: 1.05;
+}
+
+.about-page__hero-content p {
+  max-width: 500px;
+
+  margin: 0 0 16px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: $font-size-md;
+
+  line-height: 1.8;
+}
+
+
+// ============================================================
+// HERO BUTTON
+// ============================================================
+
+.about-page__button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  width: fit-content;
+
+  min-height: 50px;
+
+  margin-top: 18px;
+
+  padding-inline: 24px;
+
+  color: $color-primary-dark;
+
+  background: $gradient-gold;
+
+  border-radius: $radius-sm;
+
+  font-size: $font-size-sm;
+
+  font-weight: $font-weight-semibold;
+
+  box-shadow: $shadow-gold;
+
+  transition:
+    transform $transition-luxury,
+    box-shadow $transition-normal;
+}
+
+.about-page__button:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 14px 40px
+    rgba(200, 169, 107, 0.28);
+}
+
+.about-page__button i {
+  font-size: 12px;
+
+  transition:
+    transform $transition-normal;
+}
+
+.about-page__button:hover i {
+  transform: translateX(4px);
+}
+
+
+// ============================================================
+// HERO HOVER
+// ============================================================
+
+.about-page__hero:hover
+.about-page__hero-bg img {
+  transform: scale(1.04);
+}
+
+
+// ============================================================
+// SECTION
+// ============================================================
+
+.about-page__section {
+  margin-bottom: 120px;
+}
+
+
+// ============================================================
+// SECTION HEADING
+// ============================================================
+
+.about-page__section-heading {
+  max-width: 650px;
+
+  margin-bottom: 50px;
+}
+
+.about-page__section-heading h2 {
+  margin: 0 0 20px;
+
+  color: $color-text-primary;
+
+  font-size: clamp(
+    2.3rem,
+    5vw,
+    4rem
+  );
+
+  span {
+    @include gold-text;
+  }
+}
+
+.about-page__section-heading p {
+  max-width: 600px;
+
+  margin: 0;
+
+  color: $color-text-secondary;
+
+  font-size: $font-size-md;
+
+  line-height: 1.8;
+}
+
+
+// ============================================================
+// FEATURES
+// ============================================================
+
+.about-page__features {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+
+// ============================================================
+// FEATURE CARD
+// ============================================================
+
+.about-feature {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 22px;
+
+  padding: 30px;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-lg;
+
+  transition:
+    transform $transition-luxury,
+    border-color $transition-normal,
+    box-shadow $transition-normal;
+}
+
+.about-feature:hover {
+  transform: translateY(-5px);
+
+  border-color:
+    rgba(200, 169, 107, 0.35);
+
+  box-shadow: $shadow-md;
+}
+
+
+// ============================================================
+// FEATURE ICON
+// ============================================================
+
+.about-feature__icon {
+  display: flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+
+  color: $color-accent;
+
+  background:
+    rgba(200, 169, 107, 0.08);
+
+  border:
+    1px solid rgba(200, 169, 107, 0.18);
+
+  border-radius: $radius-md;
+
+  transition:
+    transform $transition-luxury,
+    background $transition-normal,
+    border-color $transition-normal;
+}
+
+.about-feature__icon i {
+  font-size: 18px;
+}
+
+.about-feature:hover
+.about-feature__icon {
+  transform: translateY(-2px);
+
+  background:
+    rgba(200, 169, 107, 0.12);
+
+  border-color:
+    rgba(200, 169, 107, 0.3);
+}
+
+
+// ============================================================
+// FEATURE CONTENT
+// ============================================================
+
+.about-feature h3 {
+  margin: 0 0 8px;
+
+  color: $color-text-primary;
+
+  font-family: $font-family-display;
+
+  font-size: $font-size-xl;
+}
+
+.about-feature p {
+  margin: 0;
+
+  color: $color-text-secondary;
+
+  font-size: $font-size-sm;
+
+  line-height: 1.75;
+}
+
+
+// ============================================================
+// MISSION
+// ============================================================
+
+.about-page__mission {
+  display: grid;
+
+  grid-template-columns:
+    1.4fr 0.6fr;
+
+  align-items: center;
+
+  gap: 80px;
+
+  margin-bottom: 120px;
+
+  padding: clamp(
+    40px,
+    6vw,
+    80px
+  );
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200, 169, 107, 0.07),
+      rgba(255, 255, 255, 0.02)
+    );
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-2xl;
+}
+
+
+// ============================================================
+// MISSION CONTENT
+// ============================================================
+
+.about-page__mission-content h2 {
+  margin: 0 0 22px;
+
+  color: $color-text-primary;
+
+  font-size: clamp(
+    2.3rem,
+    5vw,
+    4rem
+  );
+
+  span {
+    @include gold-text;
+  }
+}
+
+.about-page__mission-content p {
+  max-width: 650px;
+
+  margin: 0 0 15px;
+
+  color: $color-text-secondary;
+
+  line-height: 1.85;
+}
+
+
+// ============================================================
+// STATS
+// ============================================================
+
+.about-page__mission-stats {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.about-stat {
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 24px;
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-md;
+
+  transition:
+    transform $transition-luxury,
+    border-color $transition-normal;
+}
+
+.about-stat:hover {
+  transform: translateY(-3px);
+
+  border-color:
+    rgba(200, 169, 107, 0.3);
+}
+
+.about-stat strong {
+  margin-bottom: 5px;
+
+  font-family: $font-family-display;
+
+  font-size: $font-size-2xl;
+
+  @include gold-text;
+}
+
+.about-stat span {
+  color: $color-text-secondary;
+
+  font-size: $font-size-sm;
+}
+
+
+// ============================================================
+// CTA
+// ============================================================
+
+.about-page__cta {
+  position: relative;
+
+  padding: clamp(
+    50px,
+    8vw,
+    100px
+  );
+
+  overflow: hidden;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #071a2b,
+      #0b2538
+    );
+
+  border:
+    1px solid rgba(200, 169, 107, 0.2);
+
+  border-radius: $radius-2xl;
+
+  box-shadow: $shadow-lg;
+}
+
+.about-page__cta::before {
+  content: '';
+
+  position: absolute;
+
+  top: -250px;
+  right: -100px;
+
+  width: 400px;
+  height: 400px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(200, 169, 107, 0.14),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+
+// ============================================================
+// CTA CONTENT
+// ============================================================
+
+.about-page__cta-content {
+  position: relative;
+
+  z-index: 1;
+
+  max-width: 700px;
+
+  margin-inline: auto;
+}
+
+.about-page__cta h2 {
+  margin: 0 0 18px;
+
+  color: $color-text-primary;
+
+  font-size: clamp(
+    2.5rem,
+    5vw,
+    4.5rem
+  );
+
+  span {
+    @include gold-text;
+  }
+}
+
+.about-page__cta p {
+  max-width: 550px;
+
+  margin: 0 auto;
+
+  color: $color-text-secondary;
+
+  line-height: 1.8;
+}
+
+.about-page__button--light {
+  margin-top: 30px;
+}
+
+
+// ============================================================
+// LARGE TABLET
+// ============================================================
+
+@media (max-width: $breakpoint-lg) {
+
+  .about-page {
+    padding-block: 120px 80px;
+  }
+
+  .about-page__hero {
+    min-height: 560px;
+  }
+
+  .about-page__hero-content {
+    width: min(
+      100%,
+      560px
+    );
+  }
+
+  .about-page__mission {
+    gap: 50px;
+  }
+
+}
+
+
+// ============================================================
+// TABLET
+// ============================================================
+
+@media (max-width: $breakpoint-md) {
+
+  .about-page__container {
+    width: min(
+      100% - 32px,
+      700px
+    );
+  }
+
+  .about-page__header {
+    margin-bottom: 50px;
+  }
+
+  .about-page__hero {
+    min-height: 520px;
+
+    margin-bottom: 80px;
+
+    border-radius: $radius-xl;
+  }
+
+  .about-page__hero-content {
+    width: min(
+      100%,
+      520px
+    );
+
+    padding: 55px 40px;
+  }
+
+  .about-page__features {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page__section {
+    margin-bottom: 80px;
+  }
+
+  .about-page__mission {
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+
+    margin-bottom: 80px;
+
+    border-radius: $radius-xl;
+  }
+
+  .about-page__mission-stats {
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+}
+
+
+// ============================================================
+// MOBILE
+// ============================================================
+
+@media (max-width: $breakpoint-sm) {
+
+  .about-page {
+    padding-block: 100px 60px;
+  }
+
+  .about-page__container {
+    width: min(
+      100% - 28px,
+      500px
+    );
+  }
+
+  .about-page__title {
+    font-size: clamp(
+      2.7rem,
+      13vw,
+      4rem
+    );
+  }
+
+  .about-page__intro {
+    font-size: $font-size-md;
+  }
+
+  .about-page__hero {
+    min-height: 520px;
+
+    align-items: flex-end;
+  }
+
+  .about-page__hero-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(6, 21, 35, 0.15) 0%,
+        rgba(6, 21, 35, 0.55) 35%,
+        rgba(6, 21, 35, 0.96) 100%
+      );
+  }
+
+  .about-page__hero-content {
+    width: 100%;
+
+    padding: 35px 25px;
+  }
+
+  .about-page__hero-content h2 {
+    font-size: clamp(
+      2.3rem,
+      10vw,
+      3.2rem
+    );
+  }
+
+  .about-page__hero-content p {
+    font-size: $font-size-sm;
+  }
+
+  .about-feature {
+    padding: 22px;
+
+    gap: 16px;
+  }
+
+  .about-page__mission {
+    padding: 30px 25px;
+  }
+
+  .about-page__mission-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page__cta {
+    padding: 45px 25px;
+
+    border-radius: $radius-xl;
+  }
+
+}
+
+
+// ============================================================
+// SMALL MOBILE
+// ============================================================
+
+@media (max-width: $breakpoint-xs) {
+
+  .about-page {
+    padding-block: 90px 50px;
+  }
+
+  .about-page__hero {
+    min-height: 500px;
+  }
+
+  .about-page__hero-content {
+    padding: 30px 20px;
+  }
+
+  .about-feature {
+    flex-direction: column;
+  }
+
+  .about-feature__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .about-feature__icon i {
+    font-size: 17px;
+  }
+
+  .about-page__mission {
+    padding: 25px 20px;
+  }
+
+  .about-page__cta {
+    padding: 40px 20px;
+  }
+
+}
+
+
+// ============================================================
+// REDUCED MOTION
+// ============================================================
+
+@media (prefers-reduced-motion: reduce) {
+
+  .about-page *,
+  .about-page *::before,
+  .about-page *::after {
+    transition: none !important;
+  }
+
+}

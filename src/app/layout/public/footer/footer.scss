@@ -1,0 +1,613 @@
+@use '../../../../styles/abstracts/variables' as *;
+@use '../../../../styles/abstracts/mixins' as *;
+
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+.footer {
+  position: relative;
+
+  width: 100%;
+
+  background:
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(200, 169, 107, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #061523 0%,
+      $color-primary-dark 100%
+    );
+
+  border-top: 1px solid rgba(200, 169, 107, 0.16);
+
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   CONTAINER
+============================================================ */
+
+.footer__container {
+  width: min(100% - 40px, 1380px);
+
+  margin-inline: auto;
+}
+
+
+/* ============================================================
+   MAIN
+============================================================ */
+
+.footer__main {
+  display: grid;
+
+  grid-template-columns:
+    minmax(260px, 1.5fr)
+    repeat(2, minmax(150px, 0.8fr))
+    minmax(240px, 1fr);
+
+  gap: clamp(40px, 5vw, 90px);
+
+  padding-block: 80px 60px;
+}
+
+
+/* ============================================================
+   BRAND
+============================================================ */
+
+.footer__brand {
+  max-width: 310px;
+}
+
+.footer__logo {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 105px;
+  height: 105px;
+
+  margin-bottom: 20px;
+
+  transition:
+    transform $transition-luxury,
+    filter $transition-normal;
+
+  &:hover {
+    transform: translateY(-3px);
+
+    filter:
+      drop-shadow(
+        0 12px 28px rgba(200, 169, 107, 0.18)
+      );
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+  }
+}
+
+
+/* ============================================================
+   BRAND TEXT
+============================================================ */
+
+.footer__tagline {
+  margin-bottom: 8px;
+
+  font-family: $font-family-display;
+
+  font-size: $font-size-lg;
+
+  font-weight: $font-weight-medium;
+
+  color: $color-text-primary;
+
+  letter-spacing: 0.02em;
+}
+
+.footer__description {
+  max-width: 270px;
+
+  margin-bottom: 24px;
+
+  font-size: $font-size-sm;
+
+  line-height: 1.8;
+
+  color: $color-text-secondary;
+}
+
+
+/* ============================================================
+   SOCIAL
+============================================================ */
+
+.footer__social {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.footer__social-link {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  color: $color-text-secondary;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-sm;
+
+  transition:
+    color $transition-normal,
+    background $transition-normal,
+    border-color $transition-normal,
+    transform $transition-luxury;
+
+  &:hover {
+    color: $color-primary-dark;
+
+    background: $color-accent;
+
+    border-color: $color-accent;
+
+    transform: translateY(-3px);
+  }
+
+  i {
+    font-size: 14px;
+  }
+}
+
+
+/* ============================================================
+   FOOTER COLUMNS
+============================================================ */
+
+.footer__column {
+  padding-top: 8px;
+}
+
+.footer__title {
+  position: relative;
+
+  margin-bottom: 25px;
+
+  padding-bottom: 12px;
+
+  font-family: $font-family-primary;
+
+  font-size: $font-size-sm;
+
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  color: $color-text-primary;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 28px;
+    height: 1px;
+
+    background: $color-accent;
+  }
+}
+
+
+/* ============================================================
+   NAV LINKS
+============================================================ */
+
+.footer__nav {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 14px;
+}
+
+.footer__nav a {
+  position: relative;
+
+  display: inline-block;
+
+  font-size: $font-size-sm;
+
+  color: $color-text-secondary;
+
+  transition:
+    color $transition-normal,
+    transform $transition-luxury;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+
+    left: 0;
+    bottom: -4px;
+
+    width: 0;
+    height: 1px;
+
+    background: $color-accent;
+
+    transition: width $transition-normal;
+  }
+
+  &:hover {
+    color: $color-accent;
+
+    transform: translateX(4px);
+
+    &::before {
+      width: 100%;
+    }
+  }
+}
+
+
+/* ============================================================
+   CONTACT
+============================================================ */
+
+.footer__column--contact {
+  min-width: 0;
+}
+
+.footer__contact {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.footer__contact-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-width: 0;
+
+  color: $color-text-secondary;
+
+  font-size: $font-size-sm;
+
+  transition:
+    color $transition-normal,
+    transform $transition-luxury;
+
+  &:hover {
+    color: $color-accent;
+
+    transform: translateX(3px);
+  }
+}
+
+.footer__contact-icon {
+  display: inline-flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  color: $color-accent;
+
+  background: rgba(200, 169, 107, 0.07);
+
+  border: 1px solid rgba(200, 169, 107, 0.15);
+
+  border-radius: $radius-sm;
+
+  transition:
+    background $transition-normal,
+    border-color $transition-normal;
+
+  .footer__contact-item:hover & {
+    background: rgba(200, 169, 107, 0.14);
+
+    border-color: rgba(200, 169, 107, 0.35);
+  }
+
+  i {
+    font-size: 13px;
+  }
+}
+
+
+/* ============================================================
+   DIVIDER
+============================================================ */
+
+.footer__divider {
+  width: 100%;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(200, 169, 107, 0.25),
+      transparent
+    );
+}
+
+
+/* ============================================================
+   BOTTOM
+============================================================ */
+
+.footer__bottom {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  min-height: 80px;
+}
+
+.footer__copyright {
+  margin: 0;
+
+  font-size: $font-size-xs;
+
+  color: $color-text-muted;
+}
+
+
+/* ============================================================
+   PAYMENTS
+============================================================ */
+
+.footer__payments {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+.footer__payment-label {
+  font-size: $font-size-xs;
+
+  color: $color-text-muted;
+}
+
+.footer__payment-methods {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.footer__payment {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 45px;
+  height: 28px;
+
+  color: $color-text-primary;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 5px;
+
+  transition:
+    background $transition-normal,
+    border-color $transition-normal,
+    transform $transition-luxury;
+
+  &:hover {
+    background: rgba(200, 169, 107, 0.1);
+
+    border-color: rgba(200, 169, 107, 0.3);
+
+    transform: translateY(-2px);
+  }
+
+  i {
+    font-size: 18px;
+  }
+}
+
+
+/* ============================================================
+   LARGE TABLET
+============================================================ */
+
+@media (max-width: $breakpoint-xl) {
+
+  .footer__main {
+    grid-template-columns:
+      1.4fr
+      1fr
+      1fr;
+
+    gap: 50px;
+  }
+
+  .footer__column--contact {
+    grid-column: 2 / -1;
+  }
+}
+
+
+/* ============================================================
+   TABLET
+============================================================ */
+
+@media (max-width: $breakpoint-lg) {
+
+  .footer__main {
+    grid-template-columns:
+      1.4fr
+      1fr
+      1fr;
+
+    padding-block: 65px 50px;
+
+    gap: 45px 35px;
+  }
+
+  .footer__brand {
+    max-width: 280px;
+  }
+
+  .footer__column--contact {
+    grid-column: auto;
+  }
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: $breakpoint-md) {
+
+  .footer__container {
+    width: min(100% - 32px, 600px);
+  }
+
+  .footer__main {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 45px 30px;
+
+    padding-block: 55px 40px;
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
+
+    max-width: 360px;
+  }
+
+  .footer__column--contact {
+    grid-column: 1 / -1;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+
+    justify-content: center;
+
+    text-align: center;
+
+    gap: 18px;
+
+    padding-block: 24px;
+  }
+}
+
+
+/* ============================================================
+   SMALL MOBILE
+============================================================ */
+
+@media (max-width: $breakpoint-sm) {
+
+  .footer__container {
+    width: min(100% - 28px, 500px);
+  }
+
+  .footer__main {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+
+    padding-block: 45px 35px;
+  }
+
+  .footer__brand {
+    grid-column: auto;
+
+    max-width: 100%;
+  }
+
+  .footer__column--contact {
+    grid-column: auto;
+  }
+
+  .footer__logo {
+    width: 90px;
+    height: 90px;
+  }
+
+  .footer__description {
+    max-width: 320px;
+  }
+
+  .footer__bottom {
+    min-height: auto;
+
+    padding-block: 22px;
+  }
+
+  .footer__payments {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .footer *,
+  .footer *::before,
+  .footer *::after {
+    transition: none !important;
+  }
+}
