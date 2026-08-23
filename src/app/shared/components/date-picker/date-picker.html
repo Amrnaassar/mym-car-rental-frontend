@@ -1,0 +1,196 @@
+<div class="date-picker">
+
+  <!-- ==========================================================
+       DATE FIELD
+  =========================================================== -->
+
+  <button
+    type="button"
+    class="date-picker__field"
+    [class.date-picker__field--open]="isOpen"
+    [attr.aria-expanded]="isOpen"
+    [attr.aria-label]="label"
+    (click)="toggleCalendar()"
+  >
+
+    <!-- Calendar Icon -->
+
+    <span
+      class="date-picker__icon"
+      aria-hidden="true"
+    >
+      <i class="fa-solid fa-calendar-days"></i>
+    </span>
+
+
+    <!-- Content -->
+
+    <span class="date-picker__content">
+
+      <span class="date-picker__label">
+        {{ label }}
+      </span>
+
+      <span
+        class="date-picker__value"
+        [class.date-picker__value--placeholder]="!value"
+      >
+        {{ formattedDate }}
+      </span>
+
+    </span>
+
+
+    <!-- Arrow -->
+
+    <span
+      class="date-picker__arrow"
+      [class.date-picker__arrow--open]="isOpen"
+      aria-hidden="true"
+    >
+      <i
+        class="fa-solid"
+        [class.fa-chevron-down]="!isOpen"
+        [class.fa-chevron-up]="isOpen"
+      ></i>
+    </span>
+
+  </button>
+
+
+  <!-- ==========================================================
+       CUSTOM CALENDAR
+  =========================================================== -->
+
+  @if (isOpen) {
+
+    <div
+      class="date-picker__calendar"
+      role="dialog"
+      aria-label="Calendar"
+    >
+
+      <!-- ======================================================
+           HEADER
+      ======================================================= -->
+
+      <div class="date-picker__calendar-header">
+
+        <div class="date-picker__month-info">
+
+          <span class="date-picker__month">
+            {{ monthYearLabel }}
+          </span>
+
+          <span class="date-picker__month-caption">
+            Select your rental date
+          </span>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <div class="date-picker__navigation">
+
+          <button
+            type="button"
+            class="date-picker__nav-button"
+            aria-label="Previous month"
+            (click)="previousMonth(); $event.stopPropagation()"
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+
+
+          <button
+            type="button"
+            class="date-picker__nav-button"
+            aria-label="Next month"
+            (click)="nextMonth(); $event.stopPropagation()"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ======================================================
+           WEEK DAYS
+      ======================================================= -->
+
+      <div class="date-picker__weekdays">
+
+        @for (
+          weekDay of weekDays;
+          track weekDay
+        ) {
+
+          <span class="date-picker__weekday">
+            {{ weekDay }}
+          </span>
+
+        }
+
+      </div>
+
+
+      <!-- ======================================================
+           DAYS
+      ======================================================= -->
+
+      <div class="date-picker__days">
+
+        @for (
+          day of calendarDays;
+          track day.date.getTime()
+        ) {
+
+          <button
+            type="button"
+            class="date-picker__day"
+            [class.date-picker__day--outside]="!day.currentMonth"
+            [class.date-picker__day--today]="day.today"
+            [class.date-picker__day--selected]="day.selected"
+            [class.date-picker__day--disabled]="day.disabled"
+            [disabled]="
+              day.disabled ||
+              !day.currentMonth
+            "
+            (click)="selectDate(day); $event.stopPropagation()"
+          >
+
+            <span>
+              {{ day.day }}
+            </span>
+
+          </button>
+
+        }
+
+      </div>
+
+
+      <!-- ======================================================
+           FOOTER
+      ======================================================= -->
+
+      <div class="date-picker__footer">
+
+        <span
+          class="date-picker__footer-dot"
+        ></span>
+
+        <span>
+          Available dates only
+        </span>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

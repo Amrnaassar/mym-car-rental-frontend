@@ -1,0 +1,621 @@
+@use '../../../../styles/abstracts/variables' as *;
+
+/* ============================================================
+   DATE PICKER
+============================================================ */
+
+.date-picker {
+  position: relative;
+  width: 100%;
+}
+
+
+/* ============================================================
+   DATE FIELD
+============================================================ */
+
+.date-picker__field {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-height: 68px;
+
+  gap: 12px;
+  padding: 10px 14px;
+
+  color: $color-text-primary;
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color $transition-normal,
+    background $transition-normal,
+    box-shadow $transition-normal;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.025);
+    border-color: rgba(200, 169, 107, 0.35);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    border-color: rgba(200, 169, 107, 0.7);
+
+    box-shadow:
+      0 0 0 3px rgba(200, 169, 107, 0.08),
+      0 10px 30px rgba(0, 0, 0, 0.14);
+  }
+
+  &--open {
+    border-color: rgba(200, 169, 107, 0.7);
+
+    box-shadow:
+      0 0 0 3px rgba(200, 169, 107, 0.08),
+      0 10px 30px rgba(0, 0, 0, 0.14);
+  }
+}
+
+
+/* ============================================================
+   ICON
+============================================================ */
+
+.date-picker__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 40px;
+
+  width: 40px;
+  height: 40px;
+
+  color: $color-primary;
+
+  background: rgba(200, 169, 107, 0.08);
+
+  border: 1px solid rgba(200, 169, 107, 0.16);
+  border-radius: $radius-sm;
+
+  font-size: 15px;
+
+  transition:
+    color $transition-normal,
+    background $transition-normal,
+    border-color $transition-normal;
+
+  .date-picker__field:hover &,
+  .date-picker__field--open & {
+    color: $color-primary-dark;
+    background: $gradient-gold;
+    border-color: rgba(200, 169, 107, 0.4);
+  }
+}
+
+
+/* ============================================================
+   CONTENT
+============================================================ */
+
+.date-picker__content {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-width: 0;
+  flex: 1;
+}
+
+
+/* ============================================================
+   LABEL
+============================================================ */
+
+.date-picker__label {
+  margin-bottom: 4px;
+
+  color: $color-text-muted;
+
+  font-size: 9px;
+  font-weight: $font-weight-semibold;
+
+  line-height: 1;
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   VALUE
+============================================================ */
+
+.date-picker__value {
+  overflow: hidden;
+
+  color: $color-text-primary;
+
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+
+  line-height: 1.3;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.date-picker__value--placeholder {
+  color: $color-text-muted;
+  font-weight: $font-weight-medium;
+}
+
+
+/* ============================================================
+   ARROW
+============================================================ */
+
+.date-picker__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  color: $color-text-muted;
+
+  font-size: 9px;
+
+  pointer-events: none;
+
+  transition:
+    color $transition-normal,
+    transform $transition-normal;
+
+  .date-picker__field:hover & {
+    color: $color-primary;
+  }
+
+  &--open {
+    color: $color-primary;
+  }
+}
+
+
+/* ============================================================
+   CALENDAR
+============================================================ */
+
+.date-picker__calendar {
+  position: absolute;
+
+  top: calc(100% + 10px);
+  left: 0;
+
+  z-index: 1000;
+
+  width: 330px;
+
+  padding: 18px;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.28),
+    0 8px 20px rgba(0, 0, 0, 0.12);
+
+  animation:
+    datePickerEnter 180ms ease-out;
+}
+
+
+/* ============================================================
+   CALENDAR HEADER
+============================================================ */
+
+.date-picker__calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+
+/* ============================================================
+   MONTH
+============================================================ */
+
+.date-picker__month-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-picker__month {
+  color: $color-text-primary;
+
+  font-size: 16px;
+  font-weight: $font-weight-semibold;
+
+  line-height: 1.2;
+}
+
+.date-picker__month-caption {
+  margin-top: 4px;
+
+  color: $color-text-muted;
+
+  font-size: 9px;
+  font-weight: $font-weight-medium;
+
+  letter-spacing: 0.04em;
+}
+
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+
+.date-picker__navigation {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.date-picker__nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+
+  color: $color-text-muted;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+
+  font-size: 9px;
+
+  cursor: pointer;
+
+  transition:
+    color $transition-fast,
+    background $transition-fast,
+    border-color $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    color: $color-primary-dark;
+
+    background: $gradient-gold;
+
+    border-color: rgba(200, 169, 107, 0.4);
+
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    border-color: $color-primary;
+  }
+}
+
+
+/* ============================================================
+   WEEK DAYS
+============================================================ */
+
+.date-picker__weekdays {
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  margin-bottom: 7px;
+}
+
+.date-picker__weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 30px;
+
+  color: $color-text-muted;
+
+  font-size: 9px;
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.05em;
+
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   DAYS
+============================================================ */
+
+.date-picker__days {
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 4px;
+}
+
+.date-picker__day {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  aspect-ratio: 1;
+
+  padding: 0;
+
+  color: $color-text-primary;
+
+  background: transparent;
+
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+
+  font: inherit;
+  font-size: 11px;
+  font-weight: $font-weight-medium;
+
+  cursor: pointer;
+
+  transition:
+    color $transition-fast,
+    background $transition-fast,
+    border-color $transition-fast,
+    transform $transition-fast;
+
+  &:hover:not(:disabled) {
+    color: $color-primary-dark;
+
+    background: rgba(200, 169, 107, 0.12);
+
+    border-color: rgba(200, 169, 107, 0.2);
+
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    border-color: $color-primary;
+  }
+}
+
+
+/* ============================================================
+   OUTSIDE MONTH
+============================================================ */
+
+.date-picker__day--outside {
+  color: rgba(255, 255, 255, 0.18);
+
+  cursor: default;
+}
+
+
+/* ============================================================
+   TODAY
+============================================================ */
+
+.date-picker__day--today {
+  color: $color-primary;
+
+  font-weight: $font-weight-semibold;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+
+    bottom: 5px;
+    left: 50%;
+
+    width: 3px;
+    height: 3px;
+
+    background: $color-primary;
+
+    border-radius: $radius-full;
+
+    transform: translateX(-50%);
+  }
+}
+
+
+/* ============================================================
+   SELECTED
+============================================================ */
+
+.date-picker__day--selected {
+  color: $color-primary-dark !important;
+
+  background: $gradient-gold !important;
+
+  border-color: rgba(200, 169, 107, 0.45);
+
+  box-shadow:
+    0 6px 16px rgba(200, 169, 107, 0.14);
+
+  font-weight: $font-weight-semibold;
+
+  transform: none !important;
+
+  &::after {
+    display: none;
+  }
+}
+
+
+/* ============================================================
+   DISABLED
+============================================================ */
+
+.date-picker__day--disabled {
+  color: rgba(255, 255, 255, 0.18);
+
+  background: transparent;
+
+  border-color: transparent;
+
+  cursor: not-allowed;
+
+  opacity: 0.55;
+}
+
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+.date-picker__footer {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: 14px;
+  padding-top: 12px;
+
+  color: $color-text-muted;
+
+  border-top: 1px solid $color-border;
+
+  font-size: 9px;
+}
+
+.date-picker__footer-dot {
+  width: 5px;
+  height: 5px;
+
+  flex: 0 0 5px;
+
+  background: $color-primary;
+
+  border-radius: $radius-full;
+}
+
+
+/* ============================================================
+   ANIMATION
+============================================================ */
+
+@keyframes datePickerEnter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-6px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: 576px) {
+
+  .date-picker__field {
+    min-height: 64px;
+
+    padding: 9px 12px;
+
+    gap: 10px;
+  }
+
+  .date-picker__icon {
+    flex-basis: 36px;
+
+    width: 36px;
+    height: 36px;
+
+    font-size: 14px;
+  }
+
+  .date-picker__label {
+    font-size: 8px;
+  }
+
+  .date-picker__value {
+    font-size: 12px;
+  }
+
+  .date-picker__calendar {
+    left: 50%;
+
+    width: min(
+      330px,
+      calc(100vw - 32px)
+    );
+
+    transform: translateX(-50%);
+
+    animation:
+      datePickerMobileEnter
+      180ms ease-out;
+  }
+}
+
+
+@keyframes datePickerMobileEnter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(-6px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1);
+  }
+}

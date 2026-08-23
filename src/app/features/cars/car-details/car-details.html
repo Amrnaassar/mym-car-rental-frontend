@@ -1,0 +1,770 @@
+<section class="car-details">
+
+  <div class="car-details__container">
+
+    <!-- ========================================================
+         INVALID CAR
+    ========================================================= -->
+
+    @if (!car()) {
+
+      <div class="car-details__empty">
+
+        <i class="fa-solid fa-car-burst"></i>
+
+        <h1>
+          Car Not Found
+        </h1>
+
+        <p>
+          Sorry, we couldn't find the car you're looking for.
+        </p>
+
+        <a
+          routerLink="/cars"
+          class="car-details__back"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to Cars
+        </a>
+
+      </div>
+    }
+
+
+    @if (car(); as currentCar) {
+
+      <!-- ======================================================
+           BREADCRUMB
+      ======================================================= -->
+
+      <nav
+        class="car-details__breadcrumb"
+        aria-label="Breadcrumb"
+      >
+
+        <a routerLink="/">
+          Home
+        </a>
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <a routerLink="/cars">
+          Cars
+        </a>
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <strong>
+          {{ currentCar.name }}
+        </strong>
+
+      </nav>
+
+
+      <!-- ======================================================
+           GALLERY
+      ======================================================= -->
+
+      <section class="car-gallery">
+
+        <div class="car-gallery__main">
+
+          <img
+            [src]="selectedImage() || currentCar.image"
+            [alt]="currentCar.name"
+            width="1200"
+            height="700"
+            fetchpriority="high"
+            decoding="async"
+          />
+
+          <div
+            class="car-gallery__overlay"
+            aria-hidden="true"
+          ></div>
+
+          <span class="car-gallery__category">
+
+            <i class="fa-solid fa-car-side"></i>
+
+            {{ currentCar.categoryId }}
+
+          </span>
+
+          <span class="car-gallery__counter">
+
+            <i class="fa-regular fa-images"></i>
+
+            {{ galleryImages().indexOf(selectedImage()) + 1 }}
+
+            /
+
+            {{ galleryImages().length }}
+
+          </span>
+
+        </div>
+
+
+        @if (galleryImages().length > 1) {
+
+          <div
+            class="car-gallery__thumbnails"
+            role="list"
+            aria-label="Car gallery"
+          >
+
+            @for (
+              image of galleryImages();
+              track image;
+              let index = $index
+            ) {
+
+              <button
+                type="button"
+                class="car-gallery__thumbnail"
+                [class.car-gallery__thumbnail--active]="
+                  selectedImage() === image
+                "
+                [attr.aria-label]="
+                  'View image ' +
+                  (index + 1) +
+                  ' of ' +
+                  galleryImages().length
+                "
+                [attr.aria-current]="
+                  selectedImage() === image
+                    ? 'true'
+                    : null
+                "
+                (click)="selectImage(image)"
+              >
+
+                <img
+                  [src]="image"
+                  [alt]="
+                    currentCar.name +
+                    ' view ' +
+                    (index + 1)
+                  "
+                  width="240"
+                  height="140"
+                  loading="lazy"
+                  decoding="async"
+                />
+
+              </button>
+            }
+
+          </div>
+        }
+
+      </section>
+
+
+      <!-- ======================================================
+           CONTENT LAYOUT
+      ======================================================= -->
+
+      <div class="car-details__layout">
+
+
+        <!-- ====================================================
+             LEFT CONTENT
+        ===================================================== -->
+
+        <main class="car-details__content">
+
+
+          <!-- ==================================================
+               HEADER
+          =================================================== -->
+
+          <header class="car-details__header">
+
+            <div>
+
+              <span class="car-details__eyebrow">
+                {{ currentCar.categoryId }}
+              </span>
+
+              <h1 class="car-details__title">
+                {{ currentCar.name }}
+              </h1>
+
+
+              <div
+                class="car-details__rating"
+                aria-label="Car rating"
+              >
+
+                <span
+                  class="car-details__stars"
+                  aria-hidden="true"
+                >
+                  ★★★★★
+                </span>
+
+                <strong>
+                  {{ currentCar.rating }}
+                </strong>
+
+                <span>
+                  ({{ currentCar.reviews }} reviews)
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- DISPLAY SELECTED PLAN PRICE -->
+
+            <div class="car-details__price">
+
+              <strong>
+                AED {{ currentPrice() | number:'1.0-0' }}
+              </strong>
+
+              <span>
+                / {{ currentPlanLabel() }}
+              </span>
+
+            </div>
+
+          </header>
+
+
+          <!-- ==================================================
+               SPECIFICATIONS
+          =================================================== -->
+
+          <section
+            class="car-specifications"
+            aria-label="Car specifications"
+          >
+
+            <div class="car-specification">
+
+              <span
+                class="car-specification__icon"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-gears"></i>
+              </span>
+
+              <div>
+
+                <span>
+                  Transmission
+                </span>
+
+                <strong>
+                  {{ currentCar.transmission }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="car-specification">
+
+              <span
+                class="car-specification__icon"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-gauge-high"></i>
+              </span>
+
+              <div>
+
+                <span>
+                  Engine
+                </span>
+
+                <strong>
+                  —
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="car-specification">
+
+              <span
+                class="car-specification__icon"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-users"></i>
+              </span>
+
+              <div>
+
+                <span>
+                  Seats
+                </span>
+
+                <strong>
+                  {{ currentCar.seats }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="car-specification">
+
+              <span
+                class="car-specification__icon"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-door-open"></i>
+              </span>
+
+              <div>
+
+                <span>
+                  Doors
+                </span>
+
+                <strong>
+                  {{ currentCar.doors }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="car-specification">
+
+              <span
+                class="car-specification__icon"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-gas-pump"></i>
+              </span>
+
+              <div>
+
+                <span>
+                  Fuel Type
+                </span>
+
+                <strong>
+                  {{ currentCar.fuelType }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- ==================================================
+               ABOUT
+          =================================================== -->
+
+          <section class="car-about">
+
+            <span class="car-details__eyebrow">
+              ABOUT THIS CAR
+            </span>
+
+            <h2>
+              Luxury meets performance
+            </h2>
+
+            <p>
+              {{ currentCar.description }}
+            </p>
+
+            <p>
+              Designed for drivers who expect more from every
+              journey, this vehicle combines sophisticated styling,
+              premium comfort and advanced technology to create an
+              exceptional driving experience.
+            </p>
+
+          </section>
+
+
+          <!-- ==================================================
+               FEATURES
+          =================================================== -->
+
+          <section class="car-features">
+
+            <span class="car-details__eyebrow">
+              FEATURES
+            </span>
+
+            <h2>
+              Everything you need
+            </h2>
+
+            <div class="car-features__grid">
+
+              @for (
+                feature of features;
+                track feature
+              ) {
+
+                <div class="car-feature">
+
+                  <span
+                    class="car-feature__check"
+                    aria-hidden="true"
+                  >
+                    <i class="fa-solid fa-check"></i>
+                  </span>
+
+                  <span>
+                    {{ feature }}
+                  </span>
+
+                </div>
+              }
+
+            </div>
+
+          </section>
+
+        </main>
+
+
+        <!-- ====================================================
+             BOOKING CARD
+        ===================================================== -->
+
+        <aside class="booking-card">
+
+
+          <div class="booking-card__header">
+
+            <span>
+              RESERVE YOUR CAR
+            </span>
+
+            <h2>
+              Book This Car
+            </h2>
+
+            <p>
+              Select your dates and pickup location.
+            </p>
+
+
+            <!-- ==================================================
+                 RENTAL PLAN
+            =================================================== -->
+
+            <div class="rental-plan rental-plan--details">
+
+              <div class="rental-plan__options">
+
+
+                <!-- DAILY -->
+
+                <button
+                  type="button"
+                  class="rental-plan__option"
+                  [class.rental-plan__option--active]="
+                    selectedPlan() === 'daily'
+                  "
+                  (click)="setPlan('daily')"
+                >
+
+                  <span class="rental-plan__option-title">
+                    Daily
+                  </span>
+
+                  <span class="rental-plan__option-subtitle">
+                    AED {{ currentCar.pricePerDay | number:'1.0-0' }} / Day
+                  </span>
+
+                </button>
+
+
+                <!-- WEEKLY -->
+
+                <button
+                  type="button"
+                  class="rental-plan__option"
+                  [class.rental-plan__option--active]="
+                    selectedPlan() === 'weekly'
+                  "
+                  (click)="setPlan('weekly')"
+                >
+
+                  <span class="rental-plan__option-title">
+                    Weekly
+                  </span>
+
+                  <span class="rental-plan__option-subtitle">
+                    AED {{ currentCar.pricePerWeek | number:'1.0-0' }} / Week
+                  </span>
+
+                </button>
+
+
+                <!-- MONTHLY -->
+
+                <button
+                  type="button"
+                  class="rental-plan__option"
+                  [class.rental-plan__option--active]="
+                    selectedPlan() === 'monthly'
+                  "
+                  (click)="setPlan('monthly')"
+                >
+
+                  <span class="rental-plan__option-title">
+                    Monthly
+                  </span>
+
+                  <span class="rental-plan__option-subtitle">
+                    AED {{ currentCar.pricePerMonth | number:'1.0-0' }} / Month
+                  </span>
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               PICK-UP DATE
+          =================================================== -->
+
+          <div class="booking-field">
+
+            <app-date-picker
+              label="Pick-up Date"
+              [value]="pickupDate()"
+              (valueChange)="setPickupDate($event)"
+            ></app-date-picker>
+
+          </div>
+
+
+          <!-- ==================================================
+               RETURN DATE
+          =================================================== -->
+
+          <div class="booking-field">
+
+            <app-date-picker
+              label="Return Date"
+              [minDate]="pickupDate()"
+              [value]="returnDate()"
+              (valueChange)="setReturnDate($event)"
+            ></app-date-picker>
+
+          </div>
+
+
+          <!-- ==================================================
+               LOCATION
+          =================================================== -->
+
+          <div class="booking-field">
+
+            <label for="pickup-location">
+              Pick-up Location
+            </label>
+
+            <div class="booking-field__input">
+
+              <select
+                id="pickup-location"
+                [value]="pickupLocation()"
+                (change)="
+                  setPickupLocation(
+                    $any($event.target).value
+                  )
+                "
+              >
+
+                <option value="">
+                  Select location
+                </option>
+
+                <option value="dubai">
+                  Dubai
+                </option>
+
+                <option value="abu-dhabi">
+                  Abu Dhabi
+                </option>
+
+                <option value="sharjah">
+                  Sharjah
+                </option>
+
+              </select>
+
+              <span aria-hidden="true">
+                <i class="fa-solid fa-chevron-down"></i>
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               PRICE SUMMARY
+          =================================================== -->
+
+          @if (rentalDays() > 0) {
+
+            <div class="booking-card__price">
+
+
+              <!-- RATE -->
+
+              <div class="booking-card__price-row">
+
+                <span>
+                  {{ activeRateLabel() }}
+                </span>
+
+                <strong>
+                  AED {{ activeRate() | number:'1.0-0' }}
+                </strong>
+
+              </div>
+
+
+              <!-- RENTAL PERIOD -->
+
+              <div class="booking-card__price-row">
+
+                <span>
+                  Rental Period
+                </span>
+
+                <strong>
+                  {{ rentalDays() }}
+                  {{ rentalDays() === 1 ? 'Day' : 'Days' }}
+                </strong>
+
+              </div>
+
+
+              <!-- EFFECTIVE DAILY RATE -->
+<!-- 
+              <div class="booking-card__price-row">
+
+                <span>
+                  Effective Daily Rate
+                </span>
+
+                <strong>
+                  AED {{ effectiveDailyRate() | number:'1.0-2' }}
+                </strong>
+
+              </div> -->
+
+
+              <!-- RENTAL TOTAL -->
+
+              <div class="booking-card__price-row">
+
+                <span>
+                  Rental Cost
+                </span>
+
+                <strong>
+                  AED {{ totalPrice() | number:'1.0-0' }}
+                </strong>
+
+              </div>
+
+
+              <!-- INSURANCE -->
+
+              <div class="booking-card__price-row">
+
+                <span>
+                  Insurance
+                </span>
+
+                <strong>
+                  AED {{ insurancePrice | number:'1.0-0' }}
+                </strong>
+
+              </div>
+
+
+              <!-- GRAND TOTAL -->
+
+              <div class="booking-card__price-total">
+
+                <span>
+                  Total
+                </span>
+
+                <strong>
+                  AED {{ grandTotal() | number:'1.0-0' }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          }
+
+
+          <!-- ==================================================
+               CTA
+          =================================================== -->
+
+          <button
+            type="button"
+            class="booking-card__button"
+            [disabled]="
+              !pickupDate() ||
+              !returnDate() ||
+              !pickupLocation() ||
+              rentalDays() <= 0
+            "
+            (click)="bookNow()"
+          >
+
+            <span>
+              Book Now
+            </span>
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+          </button>
+
+
+          <p class="booking-card__note">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            No payment required to reserve.
+
+          </p>
+
+        </aside>
+
+      </div>
+
+    }
+
+  </div>
+
+</section>

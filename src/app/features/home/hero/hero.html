@@ -3,18 +3,10 @@
   <!-- =====================================================
        HERO BACKGROUND
   ====================================================== -->
-
   <div class="hero__bg" aria-hidden="true">
 
-    <img
-      class="hero__bg-img"
-      src="assets/images/hero/hero.png"
-      alt=""
-      width="1920"
-      height="1080"
-      fetchpriority="high"
-      loading="eager"
-    />
+    <img class="hero__bg-img" src="assets/images/hero/hero.png" alt="" width="1920" height="1080" fetchpriority="high"
+      loading="eager" />
 
     <div class="hero__overlay"></div>
 
@@ -24,27 +16,21 @@
   <!-- =====================================================
        HERO CONTAINER
   ====================================================== -->
-
   <div class="hero__container">
-
 
     <!-- ===================================================
          HERO CONTENT
     ==================================================== -->
-
     <div class="hero__content">
 
       <span class="hero__eyebrow">
         Premium Car Rental
       </span>
 
-
       <h1 class="hero__title">
         Luxury
-        
         <span>on your terms</span>
       </h1>
-
 
       <p class="hero__subtitle">
         Premium Cars. Flexible Rentals. Exceptional Experience.
@@ -54,7 +40,6 @@
       <!-- =================================================
            RENTAL PLANS
       ================================================== -->
-
       <fieldset class="hero__plans">
 
         <legend class="visually-hidden">
@@ -63,24 +48,12 @@
 
 
         <!-- DAILY -->
+        <label class="hero__plan" [class.hero__plan--active]="selectedPlan() === 'daily'">
 
-        <label
-          class="hero__plan"
-          [class.hero__plan--active]="selectedPlan() === 'daily'"
-        >
+          <input type="radio" name="rentalPlan" value="daily" [checked]="selectedPlan() === 'daily'"
+            (change)="selectPlan('daily')" />
 
-          <input
-            type="radio"
-            name="rentalPlan"
-            value="daily"
-            [checked]="selectedPlan() === 'daily'"
-            (change)="selectPlan('daily')"
-          />
-
-          <span
-            class="hero__plan-icon"
-            aria-hidden="true"
-          >
+          <span class="hero__plan-icon" aria-hidden="true">
             <i class="fa-regular fa-clock"></i>
           </span>
 
@@ -88,31 +61,18 @@
             <span class="hero__plan-label">
               Daily
             </span>
-
           </span>
 
         </label>
 
 
         <!-- WEEKLY -->
+        <label class="hero__plan" [class.hero__plan--active]="selectedPlan() === 'weekly'">
 
-        <label
-          class="hero__plan"
-          [class.hero__plan--active]="selectedPlan() === 'weekly'"
-        >
+          <input type="radio" name="rentalPlan" value="weekly" [checked]="selectedPlan() === 'weekly'"
+            (change)="selectPlan('weekly')" />
 
-          <input
-            type="radio"
-            name="rentalPlan"
-            value="weekly"
-            [checked]="selectedPlan() === 'weekly'"
-            (change)="selectPlan('weekly')"
-          />
-
-          <span
-            class="hero__plan-icon"
-            aria-hidden="true"
-          >
+          <span class="hero__plan-icon" aria-hidden="true">
             <i class="fa-regular fa-calendar-days"></i>
           </span>
 
@@ -120,31 +80,18 @@
             <span class="hero__plan-label">
               Weekly
             </span>
-
           </span>
 
         </label>
 
 
         <!-- MONTHLY -->
+        <label class="hero__plan" [class.hero__plan--active]="selectedPlan() === 'monthly'">
 
-        <label
-          class="hero__plan"
-          [class.hero__plan--active]="selectedPlan() === 'monthly'"
-        >
+          <input type="radio" name="rentalPlan" value="monthly" [checked]="selectedPlan() === 'monthly'"
+            (change)="selectPlan('monthly')" />
 
-          <input
-            type="radio"
-            name="rentalPlan"
-            value="monthly"
-            [checked]="selectedPlan() === 'monthly'"
-            (change)="selectPlan('monthly')"
-          />
-
-          <span
-            class="hero__plan-icon"
-            aria-hidden="true"
-          >
+          <span class="hero__plan-icon" aria-hidden="true">
             <i class="fa-regular fa-calendar-check"></i>
           </span>
 
@@ -152,8 +99,6 @@
             <span class="hero__plan-label">
               Monthly
             </span>
-
-            
           </span>
 
         </label>
@@ -164,20 +109,15 @@
       <!-- =================================================
            CTA
       ================================================== -->
+      <button type="button" class="btn btn-primary hero__cta" (click)="onExploreCars()">
 
-      <a
-        routerLink="/cars"
-        class="btn btn-primary hero__cta"
-      >
         <span>
           Explore Cars
         </span>
 
-        <i
-          class="fa-solid fa-arrow-right"
-          aria-hidden="true"
-        ></i>
-      </a>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+
+      </button>
 
     </div>
 
@@ -185,147 +125,70 @@
     <!-- ===================================================
          SEARCH CARD
     ==================================================== -->
+    <form class="hero__search glass-card" (submit)="onSearchSubmit($event)">
 
-    <form
-      class="hero__search glass-card"
-      (submit)="onSearchSubmit($event)"
-    >
-
-      <!-- PICKUP LOCATION -->
-
-      <div class="hero__search-field">
-
-        <label for="pickupLocation">
-          <i
-            class="fa-solid fa-location-dot"
-            aria-hidden="true"
-          ></i>
-
-          Pick-up Location
-        </label>
-
-
-        <select
-          id="pickupLocation"
-          name="pickupLocation"
-          class="form-control"
-        >
-
-          <option value="dubai">
-            Dubai
-          </option>
-
-          <option value="abu-dhabi">
-            Abu Dhabi
-          </option>
-
-          <option value="sharjah">
-            Sharjah
-          </option>
-
-          <option value="ras-al-khaimah">
-            Ras Al Khaimah
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- PICKUP DATE -->
-
-      <div class="hero__search-field">
-
-        <label for="pickupDate">
-
-          <i
-            class="fa-regular fa-calendar"
-            aria-hidden="true"
-          ></i>
-
-          Pick-up Date
-
-        </label>
-
-
-        <input
-          type="text"
-          id="pickupDate"
-          name="pickupDate"
-          class="form-control"
-          placeholder="Select Date"
-        />
-
-      </div>
-
-
-      <!-- RETURN DATE -->
-
-      <div class="hero__search-field">
-
-        <label for="returnDate">
-
-          <i
-            class="fa-regular fa-calendar-check"
-            aria-hidden="true"
-          ></i>
-
-          Return Date
-
-        </label>
-
-
-        <input
-          type="text"
-          id="returnDate"
-          name="returnDate"
-          class="form-control"
-          placeholder="Select Date"
-        />
-
-      </div>
-
-
-      <!-- CAR TYPE -->
-
+  
+      <!-- =================================================
+           CAR TYPE
+      ================================================== -->
       <div class="hero__search-field">
 
         <label for="carType">
-
-          <i
-            class="fa-solid fa-car"
-            aria-hidden="true"
-          ></i>
+          <i class="fa-solid fa-car" aria-hidden="true"></i>
 
           Car Type
-
         </label>
 
-
-        <select
-          id="carType"
-          name="carType"
-          class="form-control"
-        >
+        <select id="carType" name="carType" class="form-control">
 
           <option value="all">
             All Types
           </option>
 
-          <option value="suv">
-            SUV
+          @for (category of categories; track category.id) {
+
+          <option [value]="category.id">
+            {{ category.name }}
           </option>
 
-          <option value="sedan">
-            Sedan
+          }
+
+        </select>
+
+      </div>
+
+
+      <!-- =================================================
+           PRICE RANGE
+      ================================================== -->
+      <div class="hero__search-field">
+
+        <label for="priceRange">
+          <i class="fa-solid fa-tag" aria-hidden="true"></i>
+
+          Price Range
+        </label>
+
+        <select id="priceRange" name="priceRange" class="form-control">
+
+          <option value="all">
+            Any Price
           </option>
 
-          <option value="sports">
-            Sports
+          <option value="500">
+            Up to AED 500
           </option>
 
-          <option value="economy">
-            Economy
+          <option value="750">
+            Up to AED 750
+          </option>
+
+          <option value="1000">
+            Up to AED 1,000
+          </option>
+
+          <option value="1200">
+            Up to AED 1,200
           </option>
 
         </select>
@@ -333,17 +196,64 @@
       </div>
 
 
-      <!-- SEARCH BUTTON -->
+      <!-- =================================================
+           TRANSMISSION
+      ================================================== -->
+      <div class="hero__search-field">
 
-      <button
-        type="submit"
-        class="btn btn-primary hero__search-btn"
-      >
+        <label for="transmission">
+          <i class="fa-solid fa-gears" aria-hidden="true"></i>
 
-        <i
-          class="fa-solid fa-magnifying-glass"
-          aria-hidden="true"
-        ></i>
+          Transmission
+        </label>
+
+        <select id="transmission" name="transmission" class="form-control">
+
+          <option value="All">
+            All Transmissions
+          </option>
+
+          <option value="Automatic">
+            Automatic
+          </option>
+
+          <option value="Manual">
+            Manual
+          </option>
+
+        </select>
+
+      </div>
+  <!-- =================================================
+           Fuel Type
+      ================================================== -->
+      <div class="hero__search-field">
+
+        <label for="fuelType">
+          <i class="fa-solid fa-gas-pump" aria-hidden="true"></i>
+
+          Fuel Type
+        </label>
+
+        <select id="fuelType" name="fuelType" class="form-control">
+
+          @for ( fuelType of fuelTypes; track fuelType) {
+          <option (value)="fuelType">
+            {{fuelType}}
+          </option>
+          }
+
+        </select>
+
+      </div>
+
+
+      <!-- =================================================
+           SEARCH BUTTON
+      ================================================== -->
+      <button type="submit" class="btn btn-primary hero__search-btn">
+
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 
         <span>
           Search Cars

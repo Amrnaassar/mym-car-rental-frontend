@@ -1,0 +1,1359 @@
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/mixins' as *;
+
+
+/* ============================================================
+   PAGE
+============================================================ */
+
+.cars-page {
+  min-height: 100vh;
+  padding: 140px 0 100px;
+
+  background:
+    radial-gradient(
+      circle at 80% 5%,
+      rgba(200, 169, 107, 0.08),
+      transparent 30%
+    ),
+    $color-primary-dark;
+}
+
+
+.cars-page__container {
+  width: min(1440px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+.cars-page__header {
+  position: relative;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+
+.cars-page__heading {
+  max-width: 720px;
+}
+
+
+.cars-page__eyebrow,
+.cars-content__eyebrow,
+.cars-filters__eyebrow {
+  display: inline-block;
+
+  margin-bottom: 12px;
+
+  color: $color-accent;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+
+.cars-page__title {
+  margin-bottom: 18px;
+
+  font-family: $font-family-display;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: $font-weight-medium;
+
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+
+.cars-page__title span {
+  display: block;
+
+  @include gold-text;
+}
+
+
+.cars-page__description {
+  max-width: 620px;
+
+  color: $color-text-secondary;
+
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+}
+
+
+.cars-page__header-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 180px;
+
+  padding-inline-end: 100px;
+
+}
+
+.cars-page__header-decoration img {
+  display: block;
+
+  width: 420px;
+  max-width: 100%;
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* ============================================================
+   TOOLBAR
+============================================================ */
+
+.cars-toolbar {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+
+.cars-toolbar__search {
+  position: relative;
+  flex: 1;
+}
+
+
+.cars-toolbar__search-icon {
+  position: absolute;
+
+  top: 50%;
+  left: 18px;
+
+  transform: translateY(-50%);
+
+  color: $color-text-muted;
+
+  font-size: 24px;
+}
+
+
+.cars-toolbar__search-input {
+  width: 100%;
+  height: 54px;
+
+  padding: 0 20px 0 52px;
+
+  color: $color-text-primary;
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  outline: none;
+
+  transition:
+    border-color $transition-normal,
+    background $transition-normal,
+    box-shadow $transition-normal;
+}
+
+
+.cars-toolbar__search-input::placeholder {
+  color: $color-text-muted;
+}
+
+
+.cars-toolbar__search-input:focus {
+  border-color: $color-accent;
+
+  background: $color-surface-light;
+
+  box-shadow:
+    0 0 0 3px rgba(200, 169, 107, 0.1);
+}
+
+
+/* ============================================================
+   RENTAL PLAN
+============================================================ */
+
+.rental-plan {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  min-height: 54px;
+  padding: 5px;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+}
+
+
+.rental-plan__label {
+  padding-inline: 10px;
+
+  color: $color-text-muted;
+
+  font-size: 10px;
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+
+.rental-plan__options {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+}
+
+
+.rental-plan__option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 82px;
+  min-height: 42px;
+
+  padding: 5px 10px;
+
+  color: $color-text-muted;
+
+  background: transparent;
+
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+
+  cursor: pointer;
+
+  transition:
+    color $transition-fast,
+    background $transition-normal,
+    border-color $transition-normal,
+    transform $transition-fast;
+}
+
+
+.rental-plan__option:hover {
+  color: $color-text-primary;
+
+  background: rgba(255, 255, 255, 0.04);
+}
+
+
+.rental-plan__option--active {
+  color: $color-primary-dark;
+
+  background: $gradient-gold;
+
+  border-color: rgba(200, 169, 107, 0.4);
+
+  box-shadow:
+    0 8px 20px rgba(200, 169, 107, 0.12);
+}
+
+
+.rental-plan__option--active:hover {
+  color: $color-primary-dark;
+
+  background: $gradient-gold;
+
+  transform: translateY(-1px);
+}
+
+
+.rental-plan__option-title {
+  font-size: 11px;
+  font-weight: $font-weight-semibold;
+}
+
+
+.rental-plan__option-subtitle {
+  margin-top: 1px;
+
+  font-size: 9px;
+
+  opacity: 0.7;
+}
+
+
+/* ============================================================
+   MOBILE FILTER BUTTON
+============================================================ */
+
+.cars-toolbar__filter-button {
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 54px;
+
+  padding-inline: 20px;
+
+  color: $color-primary-dark;
+
+  background: $gradient-gold;
+
+  border-radius: $radius-md;
+
+  font-weight: $font-weight-semibold;
+}
+
+
+/* ============================================================
+   LAYOUT
+============================================================ */
+
+.cars-layout {
+  display: grid;
+
+  grid-template-columns: 280px minmax(0, 1fr);
+
+  gap: 32px;
+
+  align-items: start;
+}
+
+
+/* ============================================================
+   FILTER SIDEBAR
+============================================================ */
+
+.cars-filters {
+  position: sticky;
+  top: 110px;
+
+  padding: 24px;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+
+  box-shadow: $shadow-md;
+}
+
+
+.cars-filters__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 28px;
+}
+
+
+.cars-filters__title {
+  margin: 0;
+
+  font-size: $font-size-xl;
+}
+
+
+.cars-filters__clear {
+  padding: 4px 0;
+
+  color: $color-text-muted;
+
+  font-size: $font-size-xs;
+
+  transition: color $transition-fast;
+}
+
+
+.cars-filters__clear:hover {
+  color: $color-accent;
+}
+
+
+.cars-filters__close {
+  display: none;
+}
+
+
+/* ============================================================
+   FILTER GROUP
+============================================================ */
+
+.filter-group {
+  padding: 24px 0;
+
+  border-top: 1px solid $color-border;
+}
+
+
+.filter-group:first-of-type {
+  padding-top: 0;
+
+  border-top: 0;
+}
+
+
+.filter-group__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+
+  color: $color-text-primary;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+
+.filter-group__icon {
+  color: $color-text-muted;
+
+  font-size: 12px;
+}
+
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+.filter-option {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  width: 100%;
+
+  padding: 3px 0;
+
+  color: $color-text-secondary;
+
+  font-size: $font-size-sm;
+
+  text-align: left;
+
+  transition: color $transition-fast;
+}
+
+
+.filter-option:hover,
+.filter-option--active {
+  color: $color-text-primary;
+}
+
+
+.filter-option__radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 16px;
+  height: 16px;
+
+  flex: 0 0 16px;
+
+  border: 1px solid $color-border-light;
+
+  border-radius: 50%;
+}
+
+
+.filter-option__radio span {
+  width: 7px;
+  height: 7px;
+
+  background: $color-accent;
+
+  border-radius: 50%;
+
+  opacity: 0;
+
+  transform: scale(0.5);
+
+  transition:
+    opacity $transition-fast,
+    transform $transition-fast;
+}
+
+
+.filter-option--active .filter-option__radio {
+  border-color: $color-accent;
+}
+
+
+.filter-option--active .filter-option__radio span {
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+
+/* ============================================================
+   PRICE FILTER
+============================================================ */
+
+.price-filter__values {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+
+  color: $color-text-muted;
+
+  font-size: $font-size-xs;
+}
+
+
+.price-filter__values strong {
+  color: $color-accent;
+
+  font-weight: $font-weight-semibold;
+}
+
+
+.price-filter__range {
+  width: 100%;
+  height: 4px;
+
+  accent-color: $color-accent;
+
+  cursor: pointer;
+}
+
+
+.price-filter__limits {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 8px;
+
+  color: $color-text-muted;
+
+  font-size: 10px;
+}
+
+
+.cars-filters__apply {
+  width: 100%;
+
+  margin-top: 8px;
+}
+
+
+/* ============================================================
+   CONTENT HEADER
+============================================================ */
+
+.cars-content__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin-bottom: 24px;
+}
+
+
+.cars-content__title {
+  margin: 0 0 4px;
+
+  font-size: $font-size-3xl;
+}
+
+
+.cars-content__count {
+  color: $color-text-muted;
+
+  font-size: $font-size-sm;
+}
+
+
+.cars-sort {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  white-space: nowrap;
+}
+
+
+.cars-sort label {
+  color: $color-text-muted;
+
+  font-size: $font-size-xs;
+}
+
+
+.cars-sort__select {
+  min-width: 150px;
+  min-height: 44px;
+
+  padding-inline: 14px;
+
+  color: $color-text-primary;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  cursor: pointer;
+}
+
+
+/* ============================================================
+   ACTIVE FILTERS
+============================================================ */
+
+.active-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-bottom: 24px;
+}
+
+
+.active-filters__label {
+  color: $color-text-muted;
+
+  font-size: $font-size-xs;
+}
+
+
+.active-filter {
+  padding: 6px 10px;
+
+  color: $color-accent;
+
+  background: rgba(200, 169, 107, 0.08);
+
+  border: 1px solid rgba(200, 169, 107, 0.2);
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-xs;
+}
+
+
+.active-filters__clear {
+  color: $color-text-muted;
+
+  font-size: $font-size-xs;
+}
+
+
+/* ============================================================
+   CARS GRID
+============================================================ */
+
+.cars-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+
+/* ============================================================
+   CAR CARD
+============================================================ */
+
+.car-card {
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+
+  box-shadow: $shadow-sm;
+
+  transition:
+    transform $transition-luxury,
+    border-color $transition-normal,
+    box-shadow $transition-normal;
+}
+
+
+.car-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(200, 169, 107, 0.3);
+
+  box-shadow: $shadow-lg;
+}
+
+
+/* ============================================================
+   IMAGE
+============================================================ */
+
+.car-card__image {
+  position: relative;
+
+  display: block;
+
+  height: 210px;
+
+  overflow: hidden;
+
+  background: $color-primary-dark;
+}
+
+
+.car-card__image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.car-card:hover .car-card__image img {
+  transform: scale(1.06);
+}
+
+
+.car-card__image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.05),
+      transparent 50%,
+      rgba(0, 0, 0, 0.55)
+    );
+}
+
+
+.car-card__category {
+  position: absolute;
+
+  top: 14px;
+  left: 14px;
+
+  padding: 5px 9px;
+
+  color: $color-accent;
+
+  background: rgba(5, 13, 22, 0.8);
+
+  border: 1px solid rgba(200, 169, 107, 0.25);
+
+  border-radius: $radius-full;
+
+  backdrop-filter: blur(8px);
+
+  font-size: 10px;
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+
+.car-card__favorite {
+  position: absolute;
+
+  top: 14px;
+  right: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  color: white;
+
+  background: rgba(5, 13, 22, 0.7);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: 50%;
+
+  backdrop-filter: blur(8px);
+
+  font-size: 18px;
+}
+
+
+/* ============================================================
+   CARD BODY
+============================================================ */
+
+.car-card__body {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  padding: 20px;
+}
+
+
+.car-card__name {
+  margin: 0 0 8px;
+
+  font-family: $font-family-display;
+
+  font-size: $font-size-xl;
+  font-weight: $font-weight-medium;
+}
+
+
+.car-card__rating {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  color: $color-text-muted;
+
+  font-size: $font-size-xs;
+}
+
+
+.car-card__stars {
+  color: $color-accent;
+
+  letter-spacing: 1px;
+
+  font-size: 10px;
+}
+
+
+.car-card__rating small {
+  color: $color-text-muted;
+}
+
+
+/* ============================================================
+   SPECS
+============================================================ */
+
+.car-card__specs {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin: 20px 0;
+
+  padding: 16px 0;
+
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+}
+
+
+.car-card__spec {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color: $color-text-secondary;
+
+  font-size: 11px;
+}
+
+
+.car-card__spec-icon {
+  color: $color-accent;
+
+  font-size: 13px;
+}
+
+
+/* ============================================================
+   CARD FOOTER
+============================================================ */
+
+.car-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-top: auto;
+}
+
+
+.car-card__price {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.car-card__price strong {
+  color: $color-accent;
+
+  font-family: $font-family-display;
+
+  font-size: $font-size-lg;
+}
+
+
+.car-card__price span {
+  color: $color-text-muted;
+
+  font-size: 10px;
+}
+
+
+.car-card__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 40px;
+
+  padding: 0 14px;
+
+  color: $color-primary-dark;
+
+  background: $gradient-gold;
+
+  border-radius: $radius-sm;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-normal;
+}
+
+
+.car-card__button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(200, 169, 107, 0.2);
+}
+
+
+/* ============================================================
+   EMPTY STATE
+============================================================ */
+
+.cars-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 420px;
+
+  padding: 40px;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-xl;
+
+  text-align: center;
+}
+
+
+.cars-empty__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+
+  margin-bottom: 20px;
+
+  color: $color-accent;
+
+  background: rgba(200, 169, 107, 0.08);
+
+  border-radius: 50%;
+
+  font-size: 28px;
+}
+
+
+.cars-empty h3 {
+  margin-bottom: 8px;
+}
+
+
+.cars-empty p {
+  margin-bottom: 24px;
+}
+
+
+/* ============================================================
+   RESPONSIVE — 1200
+============================================================ */
+
+@media (max-width: $breakpoint-xl) {
+
+  .cars-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 992
+============================================================ */
+
+@media (max-width: $breakpoint-lg) {
+
+  .cars-page {
+    padding-top: 120px;
+  }
+
+
+  .cars-layout {
+    grid-template-columns: 250px minmax(0, 1fr);
+
+    gap: 20px;
+  }
+
+
+  .cars-grid {
+    gap: 16px;
+  }
+
+
+  .car-card__body {
+    padding: 16px;
+  }
+
+
+  .rental-plan {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 3px;
+
+    padding: 5px;
+  }
+
+
+  .rental-plan__label {
+    padding: 3px 8px;
+
+    text-align: center;
+  }
+
+
+  .rental-plan__options {
+    justify-content: center;
+  }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 768
+============================================================ */
+
+@media (max-width: $breakpoint-md) {
+
+  .cars-page {
+    padding: 110px 0 70px;
+  }
+
+
+  .cars-page__container {
+    width: min(100% - 32px, 680px);
+  }
+
+
+  .cars-page__header-decoration {
+    display: none;
+  }
+
+
+  .cars-page__header {
+    margin-bottom: 32px;
+  }
+
+
+  .cars-page__title {
+    font-size: clamp(2.5rem, 11vw, 4rem);
+  }
+
+
+  .cars-toolbar {
+    flex-wrap: wrap;
+  }
+
+
+  .cars-toolbar__search {
+    flex: 1 1 100%;
+  }
+
+
+  .rental-plan {
+    flex: 1;
+
+    flex-direction: row;
+    align-items: center;
+
+    min-width: 0;
+  }
+
+
+  .rental-plan__label {
+    display: none;
+  }
+
+
+  .rental-plan__options {
+    width: 100%;
+  }
+
+
+  .rental-plan__option {
+    flex: 1;
+    min-width: 0;
+  }
+
+
+  .cars-toolbar__filter-button {
+    display: inline-flex;
+  }
+
+
+  .cars-layout {
+    display: block;
+  }
+
+
+  .cars-filters {
+    position: fixed;
+
+    z-index: $z-dropdown;
+
+    inset: 0 auto 0 0;
+
+    width: min(330px, 88vw);
+
+    overflow-y: auto;
+
+    border-radius: 0 $radius-xl $radius-xl 0;
+
+    transform: translateX(-105%);
+
+    transition:
+      transform $transition-luxury;
+  }
+
+
+  .cars-filters--open {
+    transform: translateX(0);
+  }
+
+
+  .cars-filters__close {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    color: $color-text-primary;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    border: 1px solid $color-border;
+
+    border-radius: 50%;
+
+    font-size: 22px;
+  }
+
+
+  .cars-content__header {
+    align-items: flex-start;
+  }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 576
+============================================================ */
+
+@media (max-width: $breakpoint-sm) {
+
+  .cars-page__container {
+    width: calc(100% - 24px);
+  }
+
+
+  .cars-page {
+    padding-top: 100px;
+  }
+
+
+  .cars-page__description {
+    font-size: $font-size-sm;
+  }
+
+
+  .cars-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+
+  .rental-plan {
+    width: 100%;
+  }
+
+
+  .rental-plan__options {
+    width: 100%;
+  }
+
+
+  .cars-toolbar__filter-button {
+    width: 100%;
+  }
+
+
+  .cars-content__header {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 16px;
+  }
+
+
+  .cars-sort {
+    justify-content: space-between;
+  }
+
+
+  .cars-sort__select {
+    flex: 1;
+  }
+
+
+  .cars-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .car-card__image {
+    height: 230px;
+  }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 480
+============================================================ */
+
+@media (max-width: $breakpoint-xs) {
+
+  .cars-page__title {
+    font-size: 2.45rem;
+  }
+
+
+  .rental-plan {
+    padding: 4px;
+  }
+
+
+  .rental-plan__option {
+    min-height: 44px;
+
+    padding-inline: 5px;
+  }
+
+
+  .rental-plan__option-title {
+    font-size: 10px;
+  }
+
+
+  .rental-plan__option-subtitle {
+    font-size: 8px;
+  }
+
+
+  .car-card__footer {
+    align-items: flex-end;
+  }
+
+
+  .car-card__price strong {
+    font-size: $font-size-md;
+  }
+
+
+  .car-card__button {
+    padding-inline: 12px;
+  }
+
+}

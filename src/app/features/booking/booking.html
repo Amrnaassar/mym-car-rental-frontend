@@ -1,0 +1,1158 @@
+<section class="booking-page">
+
+  <div class="booking-page__container">
+
+    <!-- ========================================================
+         PAGE HEADER
+    ========================================================= -->
+
+    <header class="booking-page__header">
+
+      <div>
+
+        <span class="booking-page__eyebrow">
+          RESERVE YOUR VEHICLE
+        </span>
+
+        <h1 class="booking-page__title">
+          Complete Your
+          <span>Booking</span>
+        </h1>
+
+        <p class="booking-page__intro">
+          Follow the steps below to reserve your vehicle
+          and complete your rental.
+        </p>
+
+      </div>
+
+      <a
+        routerLink="/cars"
+        class="booking-page__back"
+      >
+        ← Back to Cars
+      </a>
+
+    </header>
+
+
+    <!-- ========================================================
+         PROGRESS STEPPER
+    ========================================================= -->
+
+    <nav
+      class="booking-progress"
+      aria-label="Booking progress"
+    >
+
+      <!-- STEP 1 -->
+
+      <button
+        type="button"
+        class="booking-progress__step"
+        [class.booking-progress__step--active]="isActive(1)"
+        [class.booking-progress__step--completed]="isCompleted(1)"
+        (click)="goToStep(1)"
+      >
+
+        <span class="booking-progress__number">
+
+          @if (isCompleted(1)) {
+            ✓
+          } @else {
+            1
+          }
+
+        </span>
+
+        <span class="booking-progress__label">
+          Select Car
+        </span>
+
+      </button>
+
+
+      <span
+        class="booking-progress__line"
+        [class.booking-progress__line--completed]="isCompleted(2)"
+      ></span>
+
+
+      <!-- STEP 2 -->
+
+      <button
+        type="button"
+        class="booking-progress__step"
+        [class.booking-progress__step--active]="isActive(2)"
+        [class.booking-progress__step--completed]="isCompleted(2)"
+        (click)="goToStep(2)"
+      >
+
+        <span class="booking-progress__number">
+
+          @if (isCompleted(2)) {
+            ✓
+          } @else {
+            2
+          }
+
+        </span>
+
+        <span class="booking-progress__label">
+          Details
+        </span>
+
+      </button>
+
+
+      <span
+        class="booking-progress__line"
+        [class.booking-progress__line--completed]="isCompleted(3)"
+      ></span>
+
+
+      <!-- STEP 3 -->
+
+      <button
+        type="button"
+        class="booking-progress__step"
+        [class.booking-progress__step--active]="isActive(3)"
+        [class.booking-progress__step--completed]="isCompleted(3)"
+        (click)="goToStep(3)"
+      >
+
+        <span class="booking-progress__number">
+
+          @if (isCompleted(3)) {
+            ✓
+          } @else {
+            3
+          }
+
+        </span>
+
+        <span class="booking-progress__label">
+          Review
+        </span>
+
+      </button>
+
+
+      <span
+        class="booking-progress__line"
+        [class.booking-progress__line--completed]="isCompleted(4)"
+      ></span>
+
+
+      <!-- STEP 4 -->
+
+      <button
+        type="button"
+        class="booking-progress__step"
+        [class.booking-progress__step--active]="isActive(4)"
+        [class.booking-progress__step--completed]="isCompleted(4)"
+        (click)="goToStep(4)"
+      >
+
+        <span class="booking-progress__number">
+
+          @if (isCompleted(4)) {
+            ✓
+          } @else {
+            4
+          }
+
+        </span>
+
+        <span class="booking-progress__label">
+          Confirm
+        </span>
+
+      </button>
+
+    </nav>
+
+
+    <!-- ========================================================
+         BOOKING CONTENT
+    ========================================================= -->
+
+    <main class="booking-content">
+
+
+      <!-- ======================================================
+           STEP 1 — SELECT CAR
+      ======================================================= -->
+
+      @if (currentStep() === 1) {
+
+        <section class="booking-step">
+
+          <div class="booking-step__header">
+
+            <span class="booking-step__eyebrow">
+              STEP 01
+            </span>
+
+            <h2>
+              Select Your Car
+            </h2>
+
+            <p>
+              Choose the vehicle you would like to rent.
+            </p>
+
+          </div>
+
+
+          <div class="booking-step__grid">
+
+            <!-- CAR CARD -->
+
+            <article
+              class="booking-car-card booking-car-card--selected"
+            >
+
+              <div class="booking-car-card__image">
+
+                <img
+                  [src]="car.image"
+                  [alt]="car.name"
+                  width="700"
+                  height="420"
+                />
+
+                <span>
+                  Selected
+                </span>
+
+              </div>
+
+
+              <div class="booking-car-card__body">
+
+                <div>
+
+                  <span class="booking-car-card__category">
+                    {{ car.category }}
+                  </span>
+
+                  <h3>
+                    {{ car.name }}
+                  </h3>
+
+                </div>
+
+
+                <div class="booking-car-card__rating">
+
+                  <span>
+                    ★
+                  </span>
+
+                  {{ car.rating }}
+
+                </div>
+
+
+                <div class="booking-car-card__specs">
+
+                  <span>
+                    ⚙ {{ car.transmission }}
+                  </span>
+
+                  <span>
+                    ♙ {{ car.seats }} Seats
+                  </span>
+
+                  <span>
+                    ⛽ {{ car.fuelType }}
+                  </span>
+
+                </div>
+
+
+                <div class="booking-car-card__footer">
+
+                  <strong>
+                    AED {{ car.pricePerDay }}
+                    <small>/ Day</small>
+                  </strong>
+
+                  <span>
+                    ✓ Available
+                  </span>
+
+                </div>
+
+              </div>
+
+            </article>
+
+
+            <!-- SUMMARY -->
+
+            <aside class="booking-summary">
+
+              <div class="booking-summary__header">
+
+                <span>
+                  YOUR SELECTION
+                </span>
+
+                <h3>
+                  Rental Summary
+                </h3>
+
+              </div>
+
+
+              <div class="booking-summary__car">
+
+                <img
+                  [src]="car.image"
+                  [alt]="car.name"
+                  width="180"
+                  height="110"
+                />
+
+                <div>
+
+                  <strong>
+                    {{ car.name }}
+                  </strong>
+
+                  <span>
+                    AED {{ car.pricePerDay }} / Day
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="booking-summary__row">
+
+                <span>
+                  Pick-up
+                </span>
+
+                <strong>
+                  {{ booking.pickupDate }}
+                </strong>
+
+              </div>
+
+
+              <div class="booking-summary__row">
+
+                <span>
+                  Return
+                </span>
+
+                <strong>
+                  {{ booking.returnDate }}
+                </strong>
+
+              </div>
+
+
+              <div class="booking-summary__row">
+
+                <span>
+                  Location
+                </span>
+
+                <strong>
+                  {{ booking.pickupLocation }}
+                </strong>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="booking-button booking-button--primary"
+                (click)="nextStep()"
+              >
+                Continue
+                <span>→</span>
+              </button>
+
+            </aside>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- ======================================================
+           STEP 2 — DETAILS
+      ======================================================= -->
+
+      @if (currentStep() === 2) {
+
+        <section class="booking-step">
+
+          <div class="booking-step__header">
+
+            <span class="booking-step__eyebrow">
+              STEP 02
+            </span>
+
+            <h2>
+              Your Details
+            </h2>
+
+            <p>
+              Tell us a little about yourself to complete your reservation.
+            </p>
+
+          </div>
+
+
+          <div class="booking-details-layout">
+
+            <!-- FORM -->
+
+            <div class="booking-form">
+
+              <div class="booking-form__section">
+
+                <h3>
+                  Personal Information
+                </h3>
+
+                <p>
+                  Please enter your contact information.
+                </p>
+
+
+                <div class="booking-form__grid">
+
+                  <div class="booking-field">
+
+                    <label for="full-name">
+                      Full Name
+                    </label>
+
+                    <input
+                      id="full-name"
+                      type="text"
+                      placeholder="Enter your full name"
+                    />
+
+                  </div>
+
+
+                  <div class="booking-field">
+
+                    <label for="email">
+                      Email Address
+                    </label>
+
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder="you@example.com"
+                    />
+
+                  </div>
+
+
+                  <div class="booking-field">
+
+                    <label for="phone">
+                      Phone Number
+                    </label>
+
+                    <input
+                      id="phone"
+                      type="tel"
+                      placeholder="+971 50 000 0000"
+                    />
+
+                  </div>
+
+
+                  <div class="booking-field">
+
+                    <label for="license">
+                      Driving License
+                    </label>
+
+                    <input
+                      id="license"
+                      type="text"
+                      placeholder="License number"
+                    />
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="booking-form__section">
+
+                <h3>
+                  Rental Information
+                </h3>
+
+                <p>
+                  Select your preferred rental dates and location.
+                </p>
+
+
+                <div class="booking-form__grid">
+
+                  <div class="booking-field">
+
+                    <label for="pickup">
+                      Pick-up Date
+                    </label>
+
+                    <input
+                      id="pickup"
+                      type="date"
+                    />
+
+                  </div>
+
+
+                  <div class="booking-field">
+
+                    <label for="return">
+                      Return Date
+                    </label>
+
+                    <input
+                      id="return"
+                      type="date"
+                    />
+
+                  </div>
+
+
+                  <div class="booking-field booking-field--full">
+
+                    <label for="location">
+                      Pick-up Location
+                    </label>
+
+                    <select id="location">
+
+                      <option>
+                        Dubai
+                      </option>
+
+                      <option>
+                        Abu Dhabi
+                      </option>
+
+                      <option>
+                        Sharjah
+                      </option>
+
+                    </select>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- SIDE CARD -->
+
+            <aside class="booking-side-card">
+
+              <span>
+                SELECTED VEHICLE
+              </span>
+
+              <img
+                [src]="car.image"
+                [alt]="car.name"
+                width="500"
+                height="300"
+              />
+
+              <h3>
+                {{ car.name }}
+              </h3>
+
+              <div class="booking-side-card__price">
+
+                <strong>
+                  AED {{ car.pricePerDay }}
+                </strong>
+
+                <span>
+                  / Day
+                </span>
+
+              </div>
+
+              <div class="booking-side-card__divider"></div>
+
+              <div class="booking-side-card__item">
+
+                <span>
+                  Pick-up
+                </span>
+
+                <strong>
+                  {{ booking.pickupDate }}
+                </strong>
+
+              </div>
+
+              <div class="booking-side-card__item">
+
+                <span>
+                  Return
+                </span>
+
+                <strong>
+                  {{ booking.returnDate }}
+                </strong>
+
+              </div>
+
+            </aside>
+
+          </div>
+
+
+          <!-- ACTIONS -->
+
+          <div class="booking-actions">
+
+            <button
+              type="button"
+              class="booking-button booking-button--secondary"
+              (click)="previousStep()"
+            >
+              ← Back
+            </button>
+
+            <button
+              type="button"
+              class="booking-button booking-button--primary"
+              (click)="nextStep()"
+            >
+              Continue to Review
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- ======================================================
+           STEP 3 — REVIEW
+      ======================================================= -->
+
+      @if (currentStep() === 3) {
+
+        <section class="booking-step">
+
+          <div class="booking-step__header">
+
+            <span class="booking-step__eyebrow">
+              STEP 03
+            </span>
+
+            <h2>
+              Review Your Booking
+            </h2>
+
+            <p>
+              Please review your reservation details before confirming.
+            </p>
+
+          </div>
+
+
+          <div class="review-layout">
+
+            <!-- BOOKING SUMMARY -->
+
+            <div class="review-card">
+
+              <div class="review-card__header">
+
+                <div>
+
+                  <span>
+                    VEHICLE
+                  </span>
+
+                  <h3>
+                    {{ car.name }}
+                  </h3>
+
+                </div>
+
+                <span class="review-card__status">
+                  Available
+                </span>
+
+              </div>
+
+
+              <div class="review-car">
+
+                <img
+                  [src]="car.image"
+                  [alt]="car.name"
+                  width="500"
+                  height="300"
+                />
+
+                <div class="review-car__info">
+
+                  <div>
+
+                    <span>
+                      Category
+                    </span>
+
+                    <strong>
+                      {{ car.category }}
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Transmission
+                    </span>
+
+                    <strong>
+                      {{ car.transmission }}
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Seats
+                    </span>
+
+                    <strong>
+                      {{ car.seats }}
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Fuel
+                    </span>
+
+                    <strong>
+                      {{ car.fuelType }}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="review-card__divider"></div>
+
+
+              <!-- DATES -->
+
+              <div class="review-section">
+
+                <div class="review-section__title">
+
+                  <span>
+                    RENTAL PERIOD
+                  </span>
+
+                  <button
+                    type="button"
+                    (click)="goToStep(2)"
+                  >
+                    Edit
+                  </button>
+
+                </div>
+
+
+                <div class="review-dates">
+
+                  <div>
+
+                    <span>
+                      Pick-up Date
+                    </span>
+
+                    <strong>
+                      {{ booking.pickupDate }}
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Return Date
+                    </span>
+
+                    <strong>
+                      {{ booking.returnDate }}
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Location
+                    </span>
+
+                    <strong>
+                      {{ booking.pickupLocation }}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="review-card__divider"></div>
+
+
+              <!-- CUSTOMER -->
+
+              <div class="review-section">
+
+                <div class="review-section__title">
+
+                  <span>
+                    CUSTOMER INFORMATION
+                  </span>
+
+                  <button
+                    type="button"
+                    (click)="goToStep(2)"
+                  >
+                    Edit
+                  </button>
+
+                </div>
+
+
+                <div class="review-customer">
+
+                  <div>
+
+                    <span>
+                      Full Name
+                    </span>
+
+                    <strong>
+                      Omar Ahmed
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Email
+                    </span>
+
+                    <strong>
+                      omar@example.com
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Phone
+                    </span>
+
+                    <strong>
+                      +971 50 000 0000
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- PRICE CARD -->
+
+            <aside class="price-card">
+
+              <span>
+                BOOKING SUMMARY
+              </span>
+
+              <h3>
+                Price Details
+              </h3>
+
+
+              <div class="price-card__rows">
+
+                <div>
+
+                  <span>
+                    AED 600 × 2 Days
+                  </span>
+
+                  <strong>
+                    AED 1,200
+                  </strong>
+
+                </div>
+
+                <div>
+
+                  <span>
+                    Insurance
+                  </span>
+
+                  <strong>
+                    Included
+                  </strong>
+
+                </div>
+
+                <div>
+
+                  <span>
+                    Taxes & Fees
+                  </span>
+
+                  <strong>
+                    Included
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <div class="price-card__total">
+
+                <span>
+                  Total
+                </span>
+
+                <strong>
+                  AED 1,200
+                </strong>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="booking-button booking-button--primary"
+                (click)="nextStep()"
+              >
+                Confirm Booking
+                <span>→</span>
+              </button>
+
+              <p>
+                By confirming, you agree to our
+                rental terms and conditions.
+              </p>
+
+            </aside>
+
+          </div>
+
+
+          <div class="booking-actions">
+
+            <button
+              type="button"
+              class="booking-button booking-button--secondary"
+              (click)="previousStep()"
+            >
+              ← Back
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- ======================================================
+           STEP 4 — CONFIRM
+      ======================================================= -->
+
+      @if (currentStep() === 4) {
+
+        <section class="booking-confirmation">
+
+          <div class="booking-confirmation__icon">
+            ✓
+          </div>
+
+
+          <span class="booking-confirmation__eyebrow">
+            BOOKING CONFIRMED
+          </span>
+
+
+          <h2>
+            Booking Confirmed!
+          </h2>
+
+
+          <p>
+            Your booking has been successfully submitted.
+            We will contact you shortly with the final confirmation.
+          </p>
+
+
+          <div class="booking-confirmation__card">
+
+            <div class="booking-confirmation__car">
+
+              <img
+                [src]="car.image"
+                [alt]="car.name"
+                width="300"
+                height="180"
+              />
+
+              <div>
+
+                <span>
+                  VEHICLE
+                </span>
+
+                <h3>
+                  {{ car.name }}
+                </h3>
+
+                <strong>
+                  AED {{ car.pricePerDay }} / Day
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="booking-confirmation__details">
+
+              <div>
+
+                <span>
+                  Pick-up
+                </span>
+
+                <strong>
+                  {{ booking.pickupDate }}
+                </strong>
+
+              </div>
+
+              <div>
+
+                <span>
+                  Return
+                </span>
+
+                <strong>
+                  {{ booking.returnDate }}
+                </strong>
+
+              </div>
+
+              <div>
+
+                <span>
+                  Location
+                </span>
+
+                <strong>
+                  {{ booking.pickupLocation }}
+                </strong>
+
+              </div>
+
+              <div>
+
+                <span>
+                  Total
+                </span>
+
+                <strong>
+                  AED 1,200
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="booking-confirmation__actions">
+
+            <a
+              routerLink="/"
+              class="booking-button booking-button--primary"
+            >
+              Back to Home
+            </a>
+
+            <a
+              routerLink="/cars"
+              class="booking-button booking-button--secondary"
+            >
+              Browse More Cars
+            </a>
+
+          </div>
+
+          <p class="booking-confirmation__note">
+            A confirmation email will be sent to your registered email address.
+          </p>
+
+        </section>
+
+      }
+
+    </main>
+
+  </div>
+
+</section>
