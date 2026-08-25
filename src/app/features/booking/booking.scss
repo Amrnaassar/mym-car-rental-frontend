@@ -493,6 +493,288 @@
 
 
 /* ============================================================
+   RENTAL PLAN
+============================================================ */
+
+.rental-plan--details {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin-top: 5px;
+}
+
+
+.rental-plan__option {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  min-height: 82px;
+
+  padding: 15px 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.012)
+    );
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  cursor: default;
+
+  transition:
+    border-color $transition-normal,
+    background $transition-normal,
+    transform $transition-normal,
+    box-shadow $transition-normal;
+}
+
+
+.rental-plan__option:hover {
+  border-color: rgba(200, 169, 107, 0.35);
+
+  transform: translateY(-2px);
+}
+
+
+/* ICON */
+
+.rental-plan__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  color: $color-text-muted;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+
+  font-size: 13px;
+
+  transition:
+    color $transition-normal,
+    background $transition-normal,
+    border-color $transition-normal;
+}
+
+
+/* CONTENT */
+
+.rental-plan__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  min-width: 0;
+}
+
+
+.rental-plan__option-title {
+  color: $color-text-secondary;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+}
+
+
+.rental-plan__option-subtitle {
+  display: flex;
+  align-items: baseline;
+
+  gap: 4px;
+
+  white-space: nowrap;
+}
+
+
+.rental-plan__option-subtitle strong {
+  color: $color-text-primary;
+
+  font-size: 12px;
+  font-weight: $font-weight-semibold;
+}
+
+
+.rental-plan__option-subtitle small {
+  color: $color-text-muted;
+
+  font-size: 9px;
+}
+
+
+/* ACTIVE */
+
+.rental-plan__option--active {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(200, 169, 107, 0.12),
+      rgba(200, 169, 107, 0.035)
+    );
+
+  border-color: $color-accent;
+
+  box-shadow:
+    0 0 0 1px rgba(200, 169, 107, 0.08),
+    0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+
+.rental-plan__option--active
+.rental-plan__icon {
+  color: $color-primary-dark;
+
+  background: $gradient-gold;
+
+  border-color: $color-accent;
+}
+
+
+.rental-plan__option--active
+.rental-plan__option-title {
+  color: $color-text-primary;
+}
+
+
+.rental-plan__option--active
+.rental-plan__option-subtitle strong {
+  color: $color-accent;
+}
+
+
+/* CHECK */
+
+.rental-plan__check {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  color: $color-primary-dark;
+
+  background: $color-accent;
+
+  border-radius: 50%;
+
+  font-size: 9px;
+}
+/* ============================================================
+   PICK-UP LOCATION
+============================================================ */
+
+.booking-location {
+  margin-bottom: 18px;
+}
+
+
+.booking-location label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: $color-text-secondary;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+
+.booking-location__input {
+  position: relative;
+}
+
+
+.booking-location__input input,
+.booking-location__input select {
+  width: 100%;
+  height: 50px;
+
+  padding:
+    0 42px 0 14px;
+
+  color: $color-text-primary;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  outline: none;
+
+  font-family: inherit;
+  font-size: $font-size-sm;
+
+  transition:
+    border-color $transition-normal,
+    box-shadow $transition-normal;
+}
+
+
+.booking-location__input input:focus,
+.booking-location__input select:focus {
+  border-color: $color-accent;
+
+  box-shadow:
+    0 0 0 3px rgba(200, 169, 107, 0.1);
+}
+
+
+.booking-location__input span {
+  position: absolute;
+
+  top: 50%;
+  right: 14px;
+
+  display: flex;
+  align-items: center;
+
+  transform: translateY(-50%);
+
+  color: $color-accent;
+
+  pointer-events: none;
+
+  font-size: 13px;
+}
+
+
+.booking-location__input select {
+  appearance: none;
+
+  cursor: pointer;
+}
+
+
+.booking-location input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+
+/* ============================================================
    SUMMARY
 ============================================================ */
 
@@ -1501,6 +1783,13 @@
     grid-template-columns: 1fr 1fr;
   }
 
+   .rental-plan--details {
+    grid-template-columns: 1fr;
+  }
+
+  .rental-plan__option {
+    min-height: 70px;
+  }
 }
 
 

@@ -422,55 +422,42 @@ export class CarDetails {
   // BOOK NOW
   // ============================================================
 
-  bookNow(): void {
+ bookNow(): void {
 
-    const currentCar = this.car();
+  const currentCar = this.car();
 
-    if (!currentCar) {
-      return;
-    }
-
-    const pickup = this.pickupDate();
-    const returnDate = this.returnDate();
-    const location = this.pickupLocation();
-
-    if (
-      !pickup ||
-      !returnDate ||
-      !location
-    ) {
-      return;
-    }
-
-    const days = this.rentalDays();
-    const rentalTotal = this.totalPrice();
-    const insurance = this.insurancePrice;
-    const total = this.grandTotal();
-
-    if (
-      days <= 0 ||
-      rentalTotal <= 0
-    ) {
-      return;
-    }
-
-    this.router.navigate(
-      ['/booking'],
-      {
-        queryParams: {
-          car: currentCar.id,
-          pickupDate: pickup,
-          returnDate: returnDate,
-          location: location,
-          days: days,
-          plan: this.calculatedPlan(),
-          rentalTotal: rentalTotal,
-          insurance: insurance,
-          total: total
-        }
-      }
-    );
+  if (!currentCar) {
+    return;
   }
+
+  if (
+    !this.pickupDate ||
+    !this.returnDate ||
+    !this.pickupLocation
+  ) {
+    return;
+  }
+
+  const days = this.rentalDays();
+
+  if (days <= 0) {
+    return;
+  }
+
+  this.router.navigate(
+    ['/booking'],
+    {
+      queryParams: {
+        car: currentCar.id,
+        pickupDate: this.pickupDate(),
+        returnDate: this.returnDate(),
+        location: this.pickupLocation(),
+        plan: this.selectedPlan()
+      }
+    }
+  );
+
+}
 
 
   // ============================================================
