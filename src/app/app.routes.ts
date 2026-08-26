@@ -7,6 +7,7 @@ import { Services } from './features/company-services/services';
 import { Cars } from './features/cars/cars';
 import { CarDetails } from './features/cars/car-details/car-details';
 import { Booking } from './features/booking/booking';
+import { NotFound } from './features/not-found/not-found';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -17,7 +18,6 @@ export const routes: Routes = [
     { path: 'faq', component: Faq },
     { path: 'contact', component: Contact },
     { path: 'services', component: Services },
-
-    // { path: '**', component: NotFoundComponent },
+    { path: '**', component: NotFound },
 
 ];
