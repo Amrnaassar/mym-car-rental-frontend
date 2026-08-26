@@ -1,0 +1,270 @@
+<section class="booking-step">
+
+  <div class="booking-step__header">
+
+    <span class="booking-step__eyebrow">
+      STEP 01
+    </span>
+
+    <h2>
+      Select Your Car
+    </h2>
+
+    <p>
+      Review the vehicle you selected and your rental information.
+    </p>
+
+  </div>
+
+
+  <div class="booking-step__grid">
+
+    <!-- ======================================================
+         CAR CARD
+    ======================================================= -->
+
+    <article
+      class="booking-car-card booking-car-card--selected"
+    >
+
+      <div class="booking-car-card__image">
+
+        <img
+          [src]="car.image"
+          [alt]="car.name"
+          width="700"
+          height="420"
+        />
+
+        <span>
+          Selected
+        </span>
+
+      </div>
+
+
+      <div class="booking-car-card__body">
+
+        <div>
+
+          <span class="booking-car-card__category">
+            Vehicle
+          </span>
+
+          <h3>
+            {{ car.name }}
+          </h3>
+
+        </div>
+
+
+        <div class="booking-car-card__rating">
+
+          <span>
+            ★
+          </span>
+
+          {{ car.rating }}
+
+          <small>
+            ({{ car.reviews }})
+          </small>
+
+        </div>
+
+
+        <div class="booking-car-card__specs">
+
+          <span>
+            <i class="fa-solid fa-gears"></i>
+            {{ car.transmission }}
+          </span>
+
+          <span>
+            <i class="fa-solid fa-users"></i>
+            {{ car.seats }} Seats
+          </span>
+
+          <span>
+            <i class="fa-solid fa-gas-pump"></i>
+            {{ car.fuelType }}
+          </span>
+
+        </div>
+
+
+        <div class="booking-car-card__footer">
+
+          <strong>
+            AED
+            {{ currentPrice | number:'1.0-0' }}
+
+            <small>
+              / {{ currentPlanLabel }}
+            </small>
+          </strong>
+
+          <span>
+            <i class="fa-solid fa-circle-check"></i>
+            Available
+          </span>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- ======================================================
+         SUMMARY
+    ======================================================= -->
+
+    <aside class="booking-summary">
+
+      <div class="booking-summary__header">
+
+        <span>
+          YOUR SELECTION
+        </span>
+
+        <h3>
+          Rental Summary
+        </h3>
+
+      </div>
+
+
+      <div class="booking-summary__car">
+
+        <img
+          [src]="car.image"
+          [alt]="car.name"
+          width="180"
+          height="110"
+        />
+
+        <div>
+
+          <strong>
+            {{ car.name }}
+          </strong>
+
+          <span>
+            AED
+            {{ currentPrice | number:'1.0-0' }}
+            / {{ currentPlanLabel }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="booking-summary__row">
+
+        <span>
+          Rental Plan
+        </span>
+
+        <strong>
+          AED
+          {{ activeRate | number:'1.0-0' }}
+          /
+          {{ currentPlanLabel }}
+        </strong>
+
+      </div>
+
+
+      <div class="booking-summary__row">
+
+        <span>
+          Pick-up
+        </span>
+
+        <strong>
+          {{ formatDate(booking.pickupDate) }}
+        </strong>
+
+      </div>
+
+
+      <div class="booking-summary__row">
+
+        <span>
+          Return
+        </span>
+
+        <strong>
+          {{ formatDate(booking.returnDate) }}
+        </strong>
+
+      </div>
+
+
+      <div class="booking-summary__row">
+
+        <span>
+          Location
+        </span>
+
+        <strong>
+          {{ booking.pickupLocation || 'Not selected' }}
+        </strong>
+
+      </div>
+
+
+      @if (rentalDays > 0) {
+
+        <div class="booking-summary__row">
+
+          <span>
+            Rental Period
+          </span>
+
+          <strong>
+            {{ rentalDays }}
+            {{ rentalDays === 1 ? 'Day' : 'Days' }}
+          </strong>
+
+        </div>
+
+
+        <div class="booking-summary__row">
+
+          <span>
+            Estimated Total
+          </span>
+
+          <strong>
+            AED
+            {{ grandTotal | number:'1.0-0' }}
+          </strong>
+
+        </div>
+
+      }
+
+
+      <button
+        type="button"
+        class="btn btn-primary booking-button"
+        [disabled]="!car"
+        (click)="onContinue()"
+      >
+
+        Continue
+
+        <span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </span>
+
+      </button>
+
+    </aside>
+
+  </div>
+
+</section>

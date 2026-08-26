@@ -9,8 +9,7 @@ import { CarDetails } from './features/cars/car-details/car-details';
 import { Booking } from './features/booking/booking';
 
 export const routes: Routes = [
-    { path: "", redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: Home },
+    { path: '', component: Home },
     { path: 'about-us', component: AboutUs },
     { path: 'cars', component: Cars },
     { path: 'cars/:id', component: CarDetails },

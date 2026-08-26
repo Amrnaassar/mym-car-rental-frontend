@@ -1,0 +1,414 @@
+<section class="booking-step">
+
+  <div class="booking-step__header">
+
+    <span class="booking-step__eyebrow">
+      STEP 03
+    </span>
+
+    <h2>
+      Review Your Booking
+    </h2>
+
+    <p>
+      Please review your reservation details before confirming.
+    </p>
+
+  </div>
+
+
+  <div class="review-layout">
+
+    <!-- ======================================================
+         BOOKING SUMMARY
+    ======================================================= -->
+
+    <div class="review-card">
+
+      <div class="review-card__header">
+
+        <div>
+
+          <span>
+            VEHICLE
+          </span>
+
+          <h3>
+            {{ car.name }}
+          </h3>
+
+        </div>
+
+        <span class="review-card__status">
+          Available
+        </span>
+
+      </div>
+
+
+      <!-- CAR -->
+
+      <div class="review-car">
+
+        <img
+          [src]="car.image"
+          [alt]="car.name"
+          width="500"
+          height="300"
+        />
+
+
+        <div class="review-car__info">
+
+          <div>
+
+            <span>
+              Vehicle
+            </span>
+
+            <strong>
+              {{ car.name }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Transmission
+            </span>
+
+            <strong>
+              {{ car.transmission }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Seats
+            </span>
+
+            <strong>
+              {{ car.seats }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Fuel
+            </span>
+
+            <strong>
+              {{ car.fuelType }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="review-card__divider"></div>
+
+
+      <!-- RENTAL PERIOD -->
+
+      <div class="review-section">
+
+        <div class="review-section__title">
+
+          <span>
+            RENTAL PERIOD
+          </span>
+
+          <button
+            type="button"
+            (click)="editDetails()"
+          >
+            Edit
+          </button>
+
+        </div>
+
+
+        <div class="review-dates">
+
+          <div>
+
+            <span>
+              Pick-up Date
+            </span>
+
+            <strong>
+              {{ formatDate(booking.pickupDate) }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Return Date
+            </span>
+
+            <strong>
+              {{ formatDate(booking.returnDate) }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Location
+            </span>
+
+            <strong>
+              {{ booking.pickupLocation }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="review-card__divider"></div>
+
+
+      <!-- CUSTOMER -->
+
+      <div class="review-section">
+
+        <div class="review-section__title">
+
+          <span>
+            CUSTOMER INFORMATION
+          </span>
+
+          <button
+            type="button"
+            (click)="editDetails()"
+          >
+            Edit
+          </button>
+
+        </div>
+
+
+        <div class="review-customer">
+
+          <div>
+
+            <span>
+              Full Name
+            </span>
+
+            <strong>
+              {{ booking.fullName }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Email
+            </span>
+
+            <strong>
+              {{ booking.email }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Phone
+            </span>
+
+            <strong>
+              {{ booking.phone }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Driving License
+            </span>
+
+            <strong>
+              {{ booking.drivingLicense }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         PRICE CARD
+    ======================================================= -->
+
+    <aside class="price-card">
+
+      <span>
+        BOOKING SUMMARY
+      </span>
+
+      <h3>
+        Price Details
+      </h3>
+
+
+      <div class="price-card__plan">
+
+        <span>
+          Selected Plan
+        </span>
+
+        <strong>
+          {{ currentPlanLabel }}
+        </strong>
+
+      </div>
+
+
+      <div class="price-card__rows">
+
+        <div>
+
+          <span>
+            Rental Period
+          </span>
+
+          <strong>
+            {{ rentalDays }}
+            {{ rentalDays === 1 ? 'Day' : 'Days' }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Rental Cost
+          </span>
+
+          <strong>
+            AED
+            {{ totalPrice | number:'1.0-0' }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Insurance
+          </span>
+
+          <strong>
+            AED
+            {{ insurancePrice | number:'1.0-0' }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Taxes & Fees
+          </span>
+
+          <strong>
+            Included
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="price-card__total">
+
+        <span>
+          Total
+        </span>
+
+        <strong>
+          AED
+          {{ grandTotal | number:'1.0-0' }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="btn btn-primary booking-button"
+        (click)="onConfirm()"
+      >
+
+        Confirm Booking
+
+        <span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </span>
+
+      </button>
+
+
+      <p>
+        By confirming, you agree to our
+        rental terms and conditions.
+      </p>
+
+    </aside>
+
+  </div>
+
+
+  <!-- ACTIONS -->
+
+  <div class="booking-actions">
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="onBack()"
+    >
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back
+
+    </button>
+
+  </div>
+
+</section>

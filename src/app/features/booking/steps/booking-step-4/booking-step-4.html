@@ -1,0 +1,173 @@
+<section class="booking-confirmation">
+
+  <div class="booking-confirmation__icon">
+
+    <i class="fa-solid fa-check"></i>
+
+  </div>
+
+
+  <span class="booking-confirmation__eyebrow">
+    BOOKING CONFIRMED
+  </span>
+
+
+  <h2>
+    Booking Confirmed!
+  </h2>
+
+
+  <p>
+    Your booking has been successfully submitted.
+    We will contact you shortly with the final confirmation.
+  </p>
+
+
+  <div class="booking-confirmation__card">
+
+    <!-- ======================================================
+         CAR
+    ======================================================= -->
+
+    <div class="booking-confirmation__car">
+
+      <img
+        [src]="car.image"
+        [alt]="car.name"
+        width="300"
+        height="180"
+      />
+
+
+      <div>
+
+        <span>
+          VEHICLE
+        </span>
+
+        <h3>
+          {{ car.name }}
+        </h3>
+
+        <strong>
+          AED
+          {{ currentPrice | number:'1.0-0' }}
+          /
+          {{ currentPlanLabel }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         DETAILS
+    ======================================================= -->
+
+    <div class="booking-confirmation__details">
+
+      <div>
+
+        <span>
+          Pick-up
+        </span>
+
+        <strong>
+          {{ formatDate(booking.pickupDate) }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Return
+        </span>
+
+        <strong>
+          {{ formatDate(booking.returnDate) }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Location
+        </span>
+
+        <strong>
+          {{ booking.pickupLocation }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Rental Period
+        </span>
+
+        <strong>
+          {{ rentalDays }}
+          {{ rentalDays === 1 ? 'Day' : 'Days' }}
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Total
+        </span>
+
+        <strong>
+          AED
+          {{ grandTotal | number:'1.0-0' }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       ACTIONS
+  ======================================================= -->
+
+  <div class="booking-confirmation__actions">
+
+    <a
+      routerLink="/"
+      class="booking-button btn btn-outline"
+    >
+      Back to Home
+    </a>
+
+
+    <a
+      routerLink="/cars"
+      class="booking-button btn btn-primary"
+    >
+      Browse More Cars
+    </a>
+
+  </div>
+
+
+  <p class="booking-confirmation__note">
+
+    <i class="fa-solid fa-envelope"></i>
+
+    A confirmation email will be sent to your registered email address.
+
+  </p>
+
+</section>

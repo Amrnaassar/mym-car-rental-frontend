@@ -22,7 +22,7 @@
     ====================================================== -->
     <nav class="navbar__nav" aria-label="Main navigation">
 
-      <a routerLink="/home" routerLinkActive="navbar__link--active" [routerLinkActiveOptions]="{ exact: true }"
+      <a routerLink="/" routerLinkActive="navbar__link--active" [routerLinkActiveOptions]="{ exact: true }"
         class="navbar__link">
         <span>Home</span>
       </a>
@@ -93,7 +93,7 @@
       <nav class="navbar__mobile-nav" aria-label="Mobile navigation">
 
         <!-- Home -->
-        <a routerLink="/home" routerLinkActive="navbar__mobile-link--active" [routerLinkActiveOptions]="{ exact: true }"
+        <a routerLink="/" routerLinkActive="navbar__mobile-link--active" [routerLinkActiveOptions]="{ exact: true }"
           class="navbar__mobile-link" (click)="closeMobileMenu()">
           <span class="navbar__mobile-icon">
             <i class="fa-solid fa-house" aria-hidden="true"></i>

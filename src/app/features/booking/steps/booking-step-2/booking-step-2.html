@@ -1,0 +1,529 @@
+<section class="booking-step">
+
+  <div class="booking-step__header">
+
+    <span class="booking-step__eyebrow">
+      STEP 02
+    </span>
+
+    <h2>
+      Your Details
+    </h2>
+
+    <p>
+      Tell us a little about yourself to complete your reservation.
+    </p>
+
+  </div>
+
+
+  <div class="booking-details-layout">
+
+    <!-- ======================================================
+         FORM
+    ======================================================= -->
+
+    <div class="booking-form">
+
+      <!-- PERSONAL INFORMATION -->
+
+      <div class="booking-form__section">
+
+        <h3>
+          Personal Information
+        </h3>
+
+        <p>
+          Please enter your contact information.
+        </p>
+
+
+        <div class="booking-form__grid">
+
+          <div class="booking-field">
+
+            <label for="full-name">
+              Full Name
+            </label>
+
+            <input
+              id="full-name"
+              type="text"
+              placeholder="Enter your full name"
+              [value]="booking.fullName"
+              (input)="
+                updateField(
+                  'fullName',
+                  $any($event.target).value
+                )
+              "
+            />
+
+          </div>
+
+
+          <div class="booking-field">
+
+            <label for="email">
+              Email Address
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              [value]="booking.email"
+              (input)="
+                updateField(
+                  'email',
+                  $any($event.target).value
+                )
+              "
+            />
+
+          </div>
+
+
+          <div class="booking-field">
+
+            <label for="phone">
+              Phone Number
+            </label>
+
+            <input
+              id="phone"
+              type="tel"
+              placeholder="+971 50 000 0000"
+              [value]="booking.phone"
+              (input)="
+                updateField(
+                  'phone',
+                  $any($event.target).value
+                )
+              "
+            />
+
+          </div>
+
+
+          <div class="booking-field">
+
+            <label for="license">
+              Driving License
+            </label>
+
+            <input
+              id="license"
+              type="text"
+              placeholder="License number"
+              [value]="booking.drivingLicense"
+              (input)="
+                updateField(
+                  'drivingLicense',
+                  $any($event.target).value
+                )
+              "
+            />
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RENTAL INFORMATION -->
+
+      <div class="booking-form__section">
+
+        <h3>
+          Rental Information
+        </h3>
+
+        <p>
+          Select your preferred rental dates and location.
+        </p>
+
+
+        <div class="booking-form__grid">
+
+          <!-- PICKUP DATE -->
+
+          <div class="booking-field">
+
+            <app-date-picker
+              label="Pick-up Date"
+              [value]="booking.pickupDate"
+              (valueChange)="setPickupDate($event)"
+            ></app-date-picker>
+
+          </div>
+
+
+          <!-- RETURN DATE -->
+
+          <div class="booking-field">
+
+            <app-date-picker
+              label="Return Date"
+              [minDate]="booking.pickupDate"
+              [value]="booking.returnDate"
+              (valueChange)="setReturnDate($event)"
+            ></app-date-picker>
+
+          </div>
+
+
+          <!-- LOCATION -->
+
+          <div class="booking-location">
+
+            <label for="pickup-location">
+              Pick-up Location
+            </label>
+
+            <div class="booking-location__input">
+
+              <select
+                id="pickup-location"
+                [value]="booking.pickupLocation"
+                (change)="
+                  updateField(
+                    'pickupLocation',
+                    $any($event.target).value
+                  )
+                "
+              >
+
+                <option value="">
+                  Select location
+                </option>
+
+                <option value="Dubai">
+                  Dubai
+                </option>
+
+                <option value="Abu Dhabi">
+                  Abu Dhabi
+                </option>
+
+                <option value="Sharjah">
+                  Sharjah
+                </option>
+
+                <option value="Ajman">
+                  Ajman
+                </option>
+
+              </select>
+
+              <span aria-hidden="true">
+                <i class="fa-solid fa-chevron-down"></i>
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RENTAL PLAN -->
+
+      <div class="booking-form__section">
+
+        <h3>
+          Rental Plan
+        </h3>
+
+        <p>
+          Your rental plan is automatically selected based on the rental period.
+        </p>
+
+
+        <div class="rental-plan rental-plan--details">
+
+          <!-- DAILY -->
+
+          <div
+            class="rental-plan__option"
+            [class.rental-plan__option--active]="booking.rentalPlan === 'daily'"
+          >
+
+            <div class="rental-plan__icon">
+              <i class="fa-solid fa-calendar-day"></i>
+            </div>
+
+            <div class="rental-plan__content">
+
+              <span class="rental-plan__option-title">
+                Daily
+              </span>
+
+              <span class="rental-plan__option-subtitle">
+
+                <strong>
+                  AED
+                  {{ car.pricePerDay | number:'1.0-0' }}
+                </strong>
+
+                <small>
+                  / Day
+                </small>
+
+              </span>
+
+            </div>
+
+            @if (booking.rentalPlan === 'daily') {
+
+              <span class="rental-plan__check">
+                <i class="fa-solid fa-check"></i>
+              </span>
+
+            }
+
+          </div>
+
+
+          <!-- WEEKLY -->
+
+          <div
+            class="rental-plan__option"
+            [class.rental-plan__option--active]="booking.rentalPlan === 'weekly'"
+          >
+
+            <div class="rental-plan__icon">
+              <i class="fa-solid fa-calendar-week"></i>
+            </div>
+
+            <div class="rental-plan__content">
+
+              <span class="rental-plan__option-title">
+                Weekly
+              </span>
+
+              <span class="rental-plan__option-subtitle">
+
+                <strong>
+                  AED
+                  {{ car.pricePerWeek | number:'1.0-0' }}
+                </strong>
+
+                <small>
+                  / Week
+                </small>
+
+              </span>
+
+            </div>
+
+            @if (booking.rentalPlan === 'weekly') {
+
+              <span class="rental-plan__check">
+                <i class="fa-solid fa-check"></i>
+              </span>
+
+            }
+
+          </div>
+
+
+          <!-- MONTHLY -->
+
+          <div
+            class="rental-plan__option"
+            [class.rental-plan__option--active]="booking.rentalPlan === 'monthly'"
+          >
+
+            <div class="rental-plan__icon">
+              <i class="fa-solid fa-calendar-days"></i>
+            </div>
+
+            <div class="rental-plan__content">
+
+              <span class="rental-plan__option-title">
+                Monthly
+              </span>
+
+              <span class="rental-plan__option-subtitle">
+
+                <strong>
+                  AED
+                  {{ car.pricePerMonth | number:'1.0-0' }}
+                </strong>
+
+                <small>
+                  / Month
+                </small>
+
+              </span>
+
+            </div>
+
+            @if (booking.rentalPlan === 'monthly') {
+
+              <span class="rental-plan__check">
+                <i class="fa-solid fa-check"></i>
+              </span>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         SIDE CARD
+    ======================================================= -->
+
+    <aside class="booking-side-card">
+
+      <span>
+        SELECTED VEHICLE
+      </span>
+
+
+      <img
+        [src]="car.image"
+        [alt]="car.name"
+        width="500"
+        height="300"
+      />
+
+
+      <h3>
+        {{ car.name }}
+      </h3>
+
+
+      <div class="booking-side-card__price">
+
+        <strong>
+          AED
+          {{ currentPrice | number:'1.0-0' }}
+        </strong>
+
+        <span>
+          / {{ currentPlanLabel }}
+        </span>
+
+      </div>
+
+
+      <div class="booking-side-card__divider"></div>
+
+
+      <div class="booking-side-card__item">
+
+        <span>
+          Pick-up
+        </span>
+
+        <strong>
+          {{ formatDate(booking.pickupDate) }}
+        </strong>
+
+      </div>
+
+
+      <div class="booking-side-card__item">
+
+        <span>
+          Return
+        </span>
+
+        <strong>
+          {{ formatDate(booking.returnDate) }}
+        </strong>
+
+      </div>
+
+
+      @if (rentalDays > 0) {
+
+        <div class="booking-side-card__item">
+
+          <span>
+            Rental Period
+          </span>
+
+          <strong>
+            {{ rentalDays }}
+            {{ rentalDays === 1 ? 'Day' : 'Days' }}
+          </strong>
+
+        </div>
+
+      }
+
+
+      <div class="booking-side-card__item">
+
+        <span>
+          Total
+        </span>
+
+        <strong>
+          AED
+          {{ grandTotal | number:'1.0-0' }}
+        </strong>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+
+  <!-- ======================================================
+       ACTIONS
+  ======================================================= -->
+
+  <div class="booking-actions">
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="onBack()"
+    >
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back
+
+    </button>
+
+
+    <button
+      type="button"
+      class="btn btn-primary continue-button"
+      [disabled]="!booking.fullName ||
+                  !booking.email ||
+                  !booking.phone ||
+                  !booking.drivingLicense ||
+                  !booking.pickupDate ||
+                  !booking.returnDate ||
+                  !booking.pickupLocation ||
+                  rentalDays <= 0"
+      (click)="onContinue()"
+    >
+
+      Continue to Review
+
+      <span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </span>
+
+    </button>
+
+  </div>
+
+</section>
