@@ -37,7 +37,9 @@ export class CarService {
       luggage: 3,
 
       description:
-        'Experience luxury, comfort and advanced technology with the Mercedes S-Class.'
+        'Experience luxury, comfort and advanced technology with the Mercedes S-Class.',
+         isAvailable:true ,
+         isFeatured:false 
     },
 
     {
@@ -65,7 +67,9 @@ export class CarService {
       luggage: 3,
 
       description:
-        'A refined executive sedan combining dynamic performance with premium comfort.'
+        'A refined executive sedan combining dynamic performance with premium comfort.',
+        isAvailable:true ,
+         isFeatured:false 
     },
 
     {
@@ -93,7 +97,9 @@ export class CarService {
       luggage: 4,
 
       description:
-        'Luxury SUV with commanding presence, exceptional comfort and all-terrain capability.'
+        'Luxury SUV with commanding presence, exceptional comfort and all-terrain capability.',
+        isAvailable:true ,
+         isFeatured:true 
     },
 
     {
@@ -121,7 +127,9 @@ export class CarService {
       luggage: 2,
 
       description:
-        'Iconic sports car delivering thrilling performance and unmistakable Porsche design.'
+        'Iconic sports car delivering thrilling performance and unmistakable Porsche design.',
+        isAvailable:true ,
+         isFeatured:true 
     },
 
     {
@@ -149,7 +157,9 @@ export class CarService {
       luggage: 2,
 
       description:
-        'A breathtaking performance coupe engineered for an unforgettable driving experience.'
+        'A breathtaking performance coupe engineered for an unforgettable driving experience.',
+        isAvailable:true ,
+         isFeatured:false 
     },
 
     {
@@ -177,7 +187,9 @@ export class CarService {
       luggage: 2,
 
       description:
-        'Pure Italian performance with dramatic styling and extraordinary road presence.'
+        'Pure Italian performance with dramatic styling and extraordinary road presence.',
+        isAvailable:true ,
+         isFeatured:true 
     },
 
     {
@@ -205,7 +217,9 @@ export class CarService {
       luggage: 3,
 
       description:
-        'A sophisticated business sedan offering comfort, technology and elegant design.'
+        'A sophisticated business sedan offering comfort, technology and elegant design.',
+        isAvailable:true ,
+         isFeatured:false 
     },
 
     {
@@ -233,13 +247,21 @@ export class CarService {
       luggage: 4,
 
       description:
-        'Premium SUV combining spaciousness, power and sophisticated BMW technology.'
+        'Premium SUV combining spaciousness, power and sophisticated BMW technology.',
+        isAvailable:true ,
+         isFeatured:true 
     }
 
   ];
 
   getCars(): readonly Car[] {
     return this.cars;
+  }
+  getAvailableCars(): readonly Car[] {
+    return this.cars.filter(car => car.isAvailable);
+  }
+  getFeaturedCars(): readonly Car[] {
+    return this.cars.filter(car => car.isFeatured);
   }
 
   getCarById(

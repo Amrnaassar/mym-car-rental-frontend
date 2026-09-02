@@ -12,25 +12,36 @@ export class CarCategoryService {
     {
       id: 1,
       name: 'SUV',
-      slug: 'suv'
+      slug: 'suv',
+      image: 'assets/images/categories/suv.webp',
+      description: 'Spacious and versatile, perfect for family adventures.'
     },
 
     {
       id: 2,
       name: 'Sedan',
-      slug: 'sedan'
+      slug: 'sedan',
+      image: 'assets/images/categories/luxury.webp',
+      description: 'Comfortable and stylish, ideal for city driving.'
+
     },
 
     {
       id: 3,
       name: 'Coupe',
-      slug: 'coupe'
+      slug: 'coupe',
+      image: 'assets/images/categories/sports.webp',
+      description: 'Sleek and sporty, designed for performance and style.'
+
+
     },
 
     {
       id: 4,
       name: 'Convertible',
-      slug: 'convertible'
+      slug: 'convertible',
+      image: 'assets/images/categories/economy.webp',
+      description: 'Enjoy the open air with a stylish and fun ride.'
     }
 
   ];

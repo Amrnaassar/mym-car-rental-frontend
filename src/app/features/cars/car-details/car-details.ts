@@ -408,6 +408,21 @@ export class CarDetails {
     this.selectedPlan.set(plan);
   }
 
+   readonly rentalPlan = computed<RentalPlan>(() => {
+
+    const days = this.rentalDays();
+
+    if (days >= 30) {
+      return 'monthly';
+    }
+
+    if (days >= 7) {
+      return 'weekly';
+    }
+
+    return 'daily';
+  });
+  
 
   // ============================================================
   // IMAGE SELECTION
@@ -422,42 +437,42 @@ export class CarDetails {
   // BOOK NOW
   // ============================================================
 
- bookNow(): void {
+  bookNow(): void {
 
-  const currentCar = this.car();
+    const currentCar = this.car();
 
-  if (!currentCar) {
-    return;
-  }
-
-  if (
-    !this.pickupDate ||
-    !this.returnDate ||
-    !this.pickupLocation
-  ) {
-    return;
-  }
-
-  const days = this.rentalDays();
-
-  if (days <= 0) {
-    return;
-  }
-
-  this.router.navigate(
-    ['/booking'],
-    {
-      queryParams: {
-        car: currentCar.id,
-        pickupDate: this.pickupDate(),
-        returnDate: this.returnDate(),
-        location: this.pickupLocation(),
-        plan: this.selectedPlan()
-      }
+    if (!currentCar) {
+      return;
     }
-  );
 
-}
+    if (
+      !this.pickupDate ||
+      !this.returnDate ||
+      !this.pickupLocation
+    ) {
+      return;
+    }
+
+    const days = this.rentalDays();
+
+    if (days <= 0) {
+      return;
+    }
+
+    this.router.navigate(
+      ['/booking'],
+      {
+        queryParams: {
+          car: currentCar.id,
+          pickupDate: this.pickupDate(),
+          returnDate: this.returnDate(),
+          location: this.pickupLocation(),
+          plan: this.selectedPlan()
+        }
+      }
+    );
+
+  }
 
 
   // ============================================================

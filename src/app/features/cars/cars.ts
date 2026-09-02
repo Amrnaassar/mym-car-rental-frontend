@@ -43,7 +43,7 @@ export class Cars {
   // DATA
   // ============================================================
 
-  readonly cars = this.carService.getCars();
+  readonly cars = this.carService.getAvailableCars();
 
   readonly categories =
     this.carCategoryService.getCategories();

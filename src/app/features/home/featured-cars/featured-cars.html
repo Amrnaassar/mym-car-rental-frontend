@@ -5,10 +5,7 @@
     <div class="featured-cars__header">
       <h2 class="featured-cars__title">Featured Cars</h2>
 
-      <a
-        routerLink="/cars"
-        class="featured-cars__view-all"
-      >
+      <a routerLink="/cars" class="featured-cars__view-all">
         View All
       </a>
     </div>
@@ -16,125 +13,32 @@
     <!-- CARS -->
     <div class="featured-cars__grid">
 
-      <!-- Mercedes -->
-      <article class="car-card">
+      @for (car of cars; track car.id) {
+      <article class="car-card"
+        (click)="goToCarDetails(car.id)">
         <div class="car-card__image">
-          <img
-            src="assets/images/cars/mercedes s class.png"
-            alt="Mercedes S-Class"
-            width="600"
-            height="400"
-            loading="lazy"
-          />
+          <img src="{{ car.image }}" alt="{{ car.name }}" width="600" height="400" loading="lazy" />
         </div>
 
         <div class="car-card__body">
           <h3 class="car-card__name">
-            Mercedes S-Class
+            {{ car.name }}
           </h3>
 
           <div class="car-card__info">
             <span class="car-card__price">
-              AED 600 / Day
+              {{ car.pricePerDay | currency:'AED':'symbol' }} / Day
             </span>
 
             <span class="car-card__rating">
               <span class="car-card__star">★</span>
-              4.9
+              {{ car.rating }}
             </span>
           </div>
         </div>
       </article>
+      }
 
-      <!-- BMW -->
-      <article class="car-card">
-        <div class="car-card__image">
-          <img
-            src="assets/images/cars/BMW 7 Series.png"
-            alt="BMW 7 Series"
-            width="600"
-            height="400"
-            loading="lazy"
-          />
-        </div>
-
-        <div class="car-card__body">
-          <h3 class="car-card__name">
-            BMW 7 Series
-          </h3>
-
-          <div class="car-card__info">
-            <span class="car-card__price">
-              AED 550 / Day
-            </span>
-
-            <span class="car-card__rating">
-              <span class="car-card__star">★</span>
-              4.8
-            </span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Range Rover -->
-      <article class="car-card">
-        <div class="car-card__image">
-          <img
-            src="assets/images/cars/Range Rover Vogue.png"
-            alt="Range Rover Vogue"
-            width="600"
-            height="400"
-            loading="lazy"
-          />
-        </div>
-
-        <div class="car-card__body">
-          <h3 class="car-card__name">
-            Range Rover Vogue
-          </h3>
-
-          <div class="car-card__info">
-            <span class="car-card__price">
-              AED 700 / Day
-            </span>
-
-            <span class="car-card__rating">
-              <span class="car-card__star">★</span>
-              4.9
-            </span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Porsche -->
-      <article class="car-card">
-        <div class="car-card__image">
-          <img
-            src="assets/images/cars/Porsche 911 Carrera.png"
-            alt="Porsche 911 Carrera"
-            width="600"
-            height="400"
-            loading="lazy"
-          />
-        </div>
-
-        <div class="car-card__body">
-          <h3 class="car-card__name">
-            Porsche 911 Carrera
-          </h3>
-
-          <div class="car-card__info">
-            <span class="car-card__price">
-              AED 850 / Day
-            </span>
-
-            <span class="car-card__rating">
-              <span class="car-card__star">★</span>
-              4.9
-            </span>
-          </div>
-        </div>
-      </article>
 
     </div>
   </div>

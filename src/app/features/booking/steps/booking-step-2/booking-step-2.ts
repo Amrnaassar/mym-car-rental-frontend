@@ -32,38 +32,25 @@ import { BookingModel } from '../../../../core/models/booking.model';
 })
 export class BookingStep2 {
 
-  @Input({ required: true })
-  booking!: BookingModel;
+  @Input({ required: true }) booking!: BookingModel;
 
-  @Input({ required: true })
-  car!: Car;
+  @Input({ required: true })car!: Car;
 
-  @Input()
-  currentPrice = 0;
+  @Input() currentPrice = 0;
 
-  @Input()
-  currentPlanLabel = 'Day';
+  @Input() currentPlanLabel = 'Day';
 
-  @Input()
-  rentalDays = 0;
+  @Input() rentalDays = 0;
 
-  @Input()
-  grandTotal = 0;
+  @Input() grandTotal = 0;
 
-  @Input()
-  formatDate!: (value: string) => string;
+  @Input() formatDate!: (value: string) => string;
 
-  @Output()
-  bookingChange =
-    new EventEmitter<Partial<BookingModel>>();
+  @Output() bookingChange = new EventEmitter<Partial<BookingModel>>();
 
-  @Output()
-  back =
-    new EventEmitter<void>();
+  @Output() back =  new EventEmitter<void>();
 
-  @Output()
-  continue =
-    new EventEmitter<void>();
+  @Output()continue = new EventEmitter<void>();
 
 
   updateField(

@@ -145,10 +145,7 @@ export class Booking {
 
   readonly rentalDays = computed<number>(() => {
 
-    const {
-      pickupDate,
-      returnDate
-    } = this.booking();
+    const { pickupDate, returnDate} = this.booking();
 
     if (!pickupDate || !returnDate) {
       return 0;
@@ -162,9 +159,7 @@ export class Booking {
       return 0;
     }
 
-    const difference =
-      returnDateValue.getTime() -
-      pickup.getTime();
+    const difference = returnDateValue.getTime() - pickup.getTime();
 
     const days = Math.ceil(
       difference / (1000 * 60 * 60 * 24)

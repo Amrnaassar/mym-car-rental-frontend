@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
+import { CarCategoryService } from '../../../core/services/car-category';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-popular-categories',
   imports: [],
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './popular-categories.scss',
 })
 export class PopularCategories {
+  categoriesService = inject(CarCategoryService);
+  categories = this.categoriesService.getCategories();
+  router = inject(Router);
+
+  goToCategory(categoryId: number): void {
+    this.router.navigate(['/cars'], { queryParams: { category: categoryId } });
+  }
 
 }

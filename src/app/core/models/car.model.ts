@@ -37,4 +37,9 @@ export interface Car {
   luggage: number;
 
   description: string;
+
+  isAvailable: boolean;
+  isFeatured: boolean;
+  
+ 
 }
