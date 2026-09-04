@@ -1,30 +1,24 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  Output
+  Output,
+  EventEmitter
 } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 
-import { Car } from '../../../../core/models/car.model';
-import { BookingModel } from '../../../../core/models/booking.model';
-
+import {
+  BookingModel
+} from '../../../../core/models/booking.model';
 
 @Component({
   selector: 'app-booking-step-3',
-
   standalone: true,
-
   imports: [
     CommonModule
   ],
-
   templateUrl: './booking-step-3.html',
-
   styleUrl: './booking-step-3.scss',
-
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookingStep3 {
@@ -32,17 +26,11 @@ export class BookingStep3 {
   @Input({ required: true })
   booking!: BookingModel;
 
-  @Input({ required: true })
-  car!: Car;
-
-  @Input()
-  currentPlanLabel = 'Day';
-
   @Input()
   rentalDays = 0;
 
   @Input()
-  totalPrice = 0;
+  rentalPrice = 0;
 
   @Input()
   insurancePrice = 0;
@@ -51,35 +39,36 @@ export class BookingStep3 {
   grandTotal = 0;
 
   @Input()
-  formatDate!: (value: string) => string;
+  currentPlanLabel = 'Day';
+
+  @Input()
+  isSubmitting = false;
+
+  @Input()
+  bookingError = '';
 
   @Output()
-  goToStep =
-    new EventEmitter<number>();
+  confirm = new EventEmitter<void>();
 
   @Output()
-  back =
-    new EventEmitter<void>();
-
-  @Output()
-  confirm =
-    new EventEmitter<void>();
+  back = new EventEmitter<void>();
 
 
-  editDetails(): void {
+  confirmBooking(): void {
 
-    this.goToStep.emit(2);
-  }
-
-
-  onBack(): void {
-
-    this.back.emit();
-  }
-
-
-  onConfirm(): void {
+    if (this.isSubmitting) {
+      return;
+    }
 
     this.confirm.emit();
+
   }
+
+
+  previous(): void {
+    if (!this.isSubmitting) {
+      this.back.emit();
+    }
+  }
+
 }

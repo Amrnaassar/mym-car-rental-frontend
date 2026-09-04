@@ -1,45 +1,127 @@
 <section class="featured-cars">
+
   <div class="featured-cars__container">
 
     <!-- HEADER -->
-    <div class="featured-cars__header">
-      <h2 class="featured-cars__title">Featured Cars</h2>
 
-      <a routerLink="/cars" class="featured-cars__view-all">
-        View All
+    <div class="featured-cars__header">
+
+      <h2 class="featured-cars__title">
+        {{ currentLanguage === 'ar'
+          ? 'السيارات المميزة'
+          : 'Featured Cars'
+        }}
+      </h2>
+
+      <a
+        routerLink="/cars"
+        class="featured-cars__view-all"
+      >
+        {{ currentLanguage === 'ar'
+          ? 'عرض الكل'
+          : 'View All'
+        }}
       </a>
+
     </div>
 
+
     <!-- CARS -->
+
     <div class="featured-cars__grid">
 
       @for (car of cars; track car.id) {
-      <article class="car-card"
-        (click)="goToCarDetails(car.id)">
-        <div class="car-card__image">
-          <img src="{{ car.image }}" alt="{{ car.name }}" width="600" height="400" loading="lazy" />
-        </div>
 
-        <div class="car-card__body">
-          <h3 class="car-card__name">
-            {{ car.name }}
-          </h3>
+        <article
+          class="car-card"
+          (click)="goToCarDetails(car.id)"
+        >
 
-          <div class="car-card__info">
-            <span class="car-card__price">
-              {{ car.pricePerDay | currency:'AED':'symbol' }} / Day
-            </span>
+          <!-- IMAGE -->
 
-            <span class="car-card__rating">
-              <span class="car-card__star">★</span>
-              {{ car.rating }}
-            </span>
+          <div class="car-card__image">
+
+            <img
+              [src]="
+                car.primaryImageUrl ||
+                'assets/images/placeholder-car.jpg'
+              "
+              [alt]="getCarName(car)"
+              width="600"
+              height="400"
+              loading="lazy"
+              decoding="async"
+            />
+
           </div>
-        </div>
-      </article>
+
+
+          <!-- BODY -->
+
+          <div class="car-card__body">
+
+            <!-- CATEGORY -->
+
+            <span class="car-card__category">
+
+              {{ getCategoryName(car) }}
+
+            </span>
+
+
+            <!-- NAME -->
+
+            <h3 class="car-card__name">
+
+              {{ getCarName(car) }}
+
+            </h3>
+
+
+            <!-- INFO -->
+
+            <div class="car-card__info">
+
+              <span class="car-card__price">
+
+                {{
+                  car.pricePerDay
+                    | currency:'AED':'symbol'
+                }}
+
+                /
+
+                {{ currentLanguage === 'ar'
+                  ? 'اليوم'
+                  : 'Day'
+                }}
+
+              </span>
+
+
+              <span class="car-card__rating">
+
+                <span
+                  class="car-card__star"
+                  aria-hidden="true"
+                >
+                  ★
+                </span>
+
+                {{ car.rating }}
+
+              </span>
+
+            </div>
+
+          </div>
+
+        </article>
+
       }
 
-
     </div>
+
   </div>
+
 </section>

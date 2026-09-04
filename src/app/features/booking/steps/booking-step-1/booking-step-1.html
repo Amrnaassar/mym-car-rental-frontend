@@ -1,269 +1,258 @@
 <section class="booking-step">
 
-  <div class="booking-step__header">
+  <div class="booking-step__container">
 
-    <span class="booking-step__eyebrow">
-      STEP 01
-    </span>
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="booking-step__header">
+      <span class="booking-step__eyebrow">
+        Step 1 of 4
+      </span>
 
-    <h2>
-      Select Your Car
-    </h2>
+      <h1 class="booking-step__title">
+        Choose Your Rental Details
+      </h1>
 
-    <p>
-      Review the vehicle you selected and your rental information.
-    </p>
+      <p class="booking-step__description">
+        Select your rental dates and pickup location.
+      </p>
+    </header>
 
-  </div>
+
+    <!-- =========================
+         CAR
+    ========================== -->
+    @if (car) {
+
+      <div class="booking-step__car-card">
+
+        <div class="booking-step__car-image">
+
+          <img
+            [src]="car.primaryImageUrl"
+            [alt]="car.nameAr"
+            loading="eager"
+          />
+
+        </div>
+
+        <div class="booking-step__car-content">
+
+          <span class="booking-step__car-category">
+            {{ car.categoryId }}
+          </span>
+
+          <h2>
+            {{ car.nameEn }}
+          </h2>
+
+          <div class="booking-step__car-meta">
+
+            <span>
+              <i class="fa-solid fa-gas-pump"></i>
+              {{ car.fuelType }}
+            </span>
+
+            <span>
+              <i class="fa-solid fa-gears"></i>
+              {{ car.transmission }}
+            </span>
+
+            <span>
+              <i class="fa-solid fa-users"></i>
+              {{ car.seats }} Seats
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    }
 
 
-  <div class="booking-step__grid">
+    <!-- =========================
+         RENTAL FORM
+    ========================== -->
+    <div class="booking-step__form">
 
-    <!-- ======================================================
-         CAR CARD
-    ======================================================= -->
+      <!-- Pickup Date -->
+      <div class="form-group">
 
-    <article
-      class="booking-car-card booking-car-card--selected"
-    >
+        <label for="pickupDate">
+          Pickup Date
+        </label>
 
-      <div class="booking-car-card__image">
+        <div class="input-wrapper">
 
-        <img
-          [src]="car.image"
-          [alt]="car.name"
-          width="700"
-          height="420"
-        />
+          <i class="fa-regular fa-calendar"></i>
+
+          <input
+            id="pickupDate"
+            type="date"
+            [value]="booking.pickupDate"
+            (change)="onPickupDateChange($event)"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- Return Date -->
+      <div class="form-group">
+
+        <label for="returnDate">
+          Return Date
+        </label>
+
+        <div class="input-wrapper">
+
+          <i class="fa-regular fa-calendar-check"></i>
+
+          <input
+            id="returnDate"
+            type="date"
+            [value]="booking.returnDate"
+            [min]="booking.pickupDate"
+            (change)="onReturnDateChange($event)"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- Pickup Location -->
+      <div class="form-group form-group--full">
+
+        <label for="pickupLocation">
+          Pickup Location
+        </label>
+
+        <div class="input-wrapper">
+
+          <i class="fa-solid fa-location-dot"></i>
+
+          <select
+            id="pickupLocation"
+            [value]="booking.pickupLocation"
+            (change)="onLocationChange($event)"
+          >
+
+            <option value="">
+              Select pickup location
+            </option>
+
+            <option value="Dubai">
+              Dubai
+            </option>
+
+            <option value="Abu Dhabi">
+              Abu Dhabi
+            </option>
+
+            <option value="Sharjah">
+              Sharjah
+            </option>
+
+            <option value="Ajman">
+              Ajman
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         RENTAL SUMMARY
+    ========================== -->
+    <div class="booking-step__summary">
+
+      <div class="summary-item">
 
         <span>
-          Selected
+          Rental Duration
         </span>
 
-      </div>
-
-
-      <div class="booking-car-card__body">
-
-        <div>
-
-          <span class="booking-car-card__category">
-            Vehicle
-          </span>
-
-          <h3>
-            {{ car.name }}
-          </h3>
-
-        </div>
-
-
-        <div class="booking-car-card__rating">
-
-          <span>
-            ★
-          </span>
-
-          {{ car.rating }}
-
-          <small>
-            ({{ car.reviews }})
-          </small>
-
-        </div>
-
-
-        <div class="booking-car-card__specs">
-
-          <span>
-            <i class="fa-solid fa-gears"></i>
-            {{ car.transmission }}
-          </span>
-
-          <span>
-            <i class="fa-solid fa-users"></i>
-            {{ car.seats }} Seats
-          </span>
-
-          <span>
-            <i class="fa-solid fa-gas-pump"></i>
-            {{ car.fuelType }}
-          </span>
-
-        </div>
-
-
-        <div class="booking-car-card__footer">
-
-          <strong>
-            AED
-            {{ currentPrice | number:'1.0-0' }}
-
-            <small>
-              / {{ currentPlanLabel }}
-            </small>
-          </strong>
-
-          <span>
-            <i class="fa-solid fa-circle-check"></i>
-            Available
-          </span>
-
-        </div>
-
-      </div>
-
-    </article>
-
-
-    <!-- ======================================================
-         SUMMARY
-    ======================================================= -->
-
-    <aside class="booking-summary">
-
-      <div class="booking-summary__header">
-
-        <span>
-          YOUR SELECTION
-        </span>
-
-        <h3>
-          Rental Summary
-        </h3>
+        <strong>
+          {{ rentalDays }}
+          {{ rentalDays === 1 ? 'Day' : 'Days' }}
+        </strong>
 
       </div>
 
 
-      <div class="booking-summary__car">
-
-        <img
-          [src]="car.image"
-          [alt]="car.name"
-          width="180"
-          height="110"
-        />
-
-        <div>
-
-          <strong>
-            {{ car.name }}
-          </strong>
-
-          <span>
-            AED
-            {{ currentPrice | number:'1.0-0' }}
-            / {{ currentPlanLabel }}
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <div class="booking-summary__row">
+      <div class="summary-item">
 
         <span>
           Rental Plan
         </span>
 
         <strong>
-          AED
-          {{ activeRate | number:'1.0-0' }}
-          /
           {{ currentPlanLabel }}
         </strong>
 
       </div>
 
 
-      <div class="booking-summary__row">
+      <div class="summary-item">
 
         <span>
-          Pick-up
+          Current Rate
         </span>
 
         <strong>
-          {{ formatDate(booking.pickupDate) }}
+          AED {{ currentPrice | number:'1.0-2' }}
+          / {{ currentPlanLabel.toLowerCase() }}
         </strong>
 
       </div>
 
-
-      <div class="booking-summary__row">
-
-        <span>
-          Return
-        </span>
-
-        <strong>
-          {{ formatDate(booking.returnDate) }}
-        </strong>
-
-      </div>
+    </div>
 
 
-      <div class="booking-summary__row">
+    <!-- =========================
+         NOTE
+    ========================== -->
+    <div class="booking-step__notice">
 
-        <span>
-          Location
-        </span>
+      <i class="fa-solid fa-circle-info"></i>
 
-        <strong>
-          {{ booking.pickupLocation || 'Not selected' }}
-        </strong>
+      <p>
+        The final rental price will be calculated and
+        validated by the server when you confirm your booking.
+      </p>
 
-      </div>
-
-
-      @if (rentalDays > 0) {
-
-        <div class="booking-summary__row">
-
-          <span>
-            Rental Period
-          </span>
-
-          <strong>
-            {{ rentalDays }}
-            {{ rentalDays === 1 ? 'Day' : 'Days' }}
-          </strong>
-
-        </div>
+    </div>
 
 
-        <div class="booking-summary__row">
-
-          <span>
-            Estimated Total
-          </span>
-
-          <strong>
-            AED
-            {{ grandTotal | number:'1.0-0' }}
-          </strong>
-
-        </div>
-
-      }
-
+    <!-- =========================
+         ACTIONS
+    ========================== -->
+    <div class="booking-step__actions">
 
       <button
         type="button"
-        class="btn btn-primary booking-button"
+        class="btn btn-primary"
         [disabled]="!car"
-        (click)="onContinue()"
+        (click)="continue()"
       >
 
         Continue
 
-        <span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </span>
+        <i class="fa-solid fa-arrow-right"></i>
 
       </button>
 
-    </aside>
+    </div>
 
   </div>
 

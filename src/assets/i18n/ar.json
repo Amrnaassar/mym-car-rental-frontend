@@ -1,0 +1,16 @@
+{
+  "NAVBAR": {
+    "HOME": "الرئيسية",
+    "CARS": "السيارات",
+    "ABOUT": "من نحن",
+    "CONTACT": "اتصل بنا",
+    "LOGIN": "تسجيل الدخول",
+    "LOGOUT": "تسجيل الخروج"
+  },
+
+  "COMMON": {
+    "ENGLISH": "English",
+    "ARABIC": "العربية",
+    "BOOK_NOW": "احجز الآن"
+  }
+}

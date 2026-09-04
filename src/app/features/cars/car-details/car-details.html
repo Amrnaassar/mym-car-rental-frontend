@@ -3,10 +3,32 @@
   <div class="car-details__container">
 
     <!-- ========================================================
+         LOADING
+    ========================================================= -->
+
+    @if (isLoading()) {
+
+      <div class="car-details__empty">
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        <h1>
+          Loading Car
+        </h1>
+
+        <p>
+          Please wait while we load the car details.
+        </p>
+
+      </div>
+    }
+
+
+    <!-- ========================================================
          INVALID CAR
     ========================================================= -->
 
-    @if (!car()) {
+    @else if (hasError() || !car()) {
 
       <div class="car-details__empty">
 
@@ -25,6 +47,7 @@
           class="car-details__back"
         >
           <i class="fa-solid fa-arrow-left"></i>
+
           Back to Cars
         </a>
 
@@ -32,7 +55,11 @@
     }
 
 
-    @if (car(); as currentCar) {
+    <!-- ========================================================
+         CAR DETAILS
+    ========================================================= -->
+
+    @else if (car(); as currentCar) {
 
       <!-- ======================================================
            BREADCRUMB
@@ -56,7 +83,7 @@
         <i class="fa-solid fa-chevron-right"></i>
 
         <strong>
-          {{ currentCar.name }}
+          {{ getCarName(currentCar) }}
         </strong>
 
       </nav>
@@ -71,8 +98,12 @@
         <div class="car-gallery__main">
 
           <img
-            [src]="selectedImage() || currentCar.image"
-            [alt]="currentCar.name"
+            [src]="
+              selectedImage() ||
+              currentCar.primaryImageUrl ||
+              'assets/images/placeholder-car.jpg'
+            "
+            [alt]="getCarName(currentCar)"
             width="1200"
             height="700"
             fetchpriority="high"
@@ -84,28 +115,43 @@
             aria-hidden="true"
           ></div>
 
+
+          <!-- CATEGORY -->
+
           <span class="car-gallery__category">
 
             <i class="fa-solid fa-car-side"></i>
 
-            {{ currentCar.categoryId }}
+            {{ currentCar.categoryNameEn }}
 
           </span>
 
-          <span class="car-gallery__counter">
 
-            <i class="fa-regular fa-images"></i>
+          <!-- COUNTER -->
 
-            {{ galleryImages().indexOf(selectedImage()) + 1 }}
+          @if (galleryImages().length > 0) {
 
-            /
+            <span class="car-gallery__counter">
 
-            {{ galleryImages().length }}
+              <i class="fa-regular fa-images"></i>
 
-          </span>
+              {{
+                galleryImages().indexOf(selectedImage()) + 1
+              }}
+
+              /
+
+              {{ galleryImages().length }}
+
+            </span>
+          }
 
         </div>
 
+
+        <!-- ====================================================
+             THUMBNAILS
+        ===================================================== -->
 
         @if (galleryImages().length > 1) {
 
@@ -124,27 +170,31 @@
               <button
                 type="button"
                 class="car-gallery__thumbnail"
+
                 [class.car-gallery__thumbnail--active]="
                   selectedImage() === image
                 "
+
                 [attr.aria-label]="
                   'View image ' +
                   (index + 1) +
                   ' of ' +
                   galleryImages().length
                 "
+
                 [attr.aria-current]="
                   selectedImage() === image
                     ? 'true'
                     : null
                 "
+
                 (click)="selectImage(image)"
               >
 
                 <img
                   [src]="image"
                   [alt]="
-                    currentCar.name +
+                    getCarName(currentCar) +
                     ' view ' +
                     (index + 1)
                   "
@@ -186,11 +236,15 @@
             <div>
 
               <span class="car-details__eyebrow">
-                {{ currentCar.categoryId }}
+
+                {{ currentCar.categoryNameEn }}
+
               </span>
 
               <h1 class="car-details__title">
-                {{ currentCar.name }}
+
+                {{ getCarName(currentCar) }}
+
               </h1>
 
 
@@ -211,7 +265,7 @@
                 </strong>
 
                 <span>
-                  ({{ currentCar.reviews }} reviews)
+                  ({{ currentCar.reviewsCount }} reviews)
                 </span>
 
               </div>
@@ -219,12 +273,13 @@
             </div>
 
 
-            <!-- DISPLAY SELECTED PLAN PRICE -->
+            <!-- PRICE -->
 
             <div class="car-details__price">
 
               <strong>
-                AED {{ currentPrice() | number:'1.0-0' }}
+                AED
+                {{ currentPrice() | number:'1.0-0' }}
               </strong>
 
               <span>
@@ -245,6 +300,8 @@
             aria-label="Car specifications"
           >
 
+            <!-- TRANSMISSION -->
+
             <div class="car-specification">
 
               <span
@@ -261,13 +318,19 @@
                 </span>
 
                 <strong>
-                  {{ currentCar.transmission }}
+                  {{
+                    getTransmissionLabel(
+                      currentCar.transmission
+                    )
+                  }}
                 </strong>
 
               </div>
 
             </div>
 
+
+            <!-- FUEL -->
 
             <div class="car-specification">
 
@@ -275,23 +338,29 @@
                 class="car-specification__icon"
                 aria-hidden="true"
               >
-                <i class="fa-solid fa-gauge-high"></i>
+                <i class="fa-solid fa-gas-pump"></i>
               </span>
 
               <div>
 
                 <span>
-                  Engine
+                  Fuel Type
                 </span>
 
                 <strong>
-                  —
+                  {{
+                    getFuelTypeLabel(
+                      currentCar.fuelType
+                    )
+                  }}
                 </strong>
 
               </div>
 
             </div>
 
+
+            <!-- SEATS -->
 
             <div class="car-specification">
 
@@ -317,6 +386,8 @@
             </div>
 
 
+            <!-- DOORS -->
+
             <div class="car-specification">
 
               <span
@@ -341,23 +412,25 @@
             </div>
 
 
+            <!-- LUGGAGE -->
+
             <div class="car-specification">
 
               <span
                 class="car-specification__icon"
                 aria-hidden="true"
               >
-                <i class="fa-solid fa-gas-pump"></i>
+                <i class="fa-solid fa-suitcase"></i>
               </span>
 
               <div>
 
                 <span>
-                  Fuel Type
+                  Luggage
                 </span>
 
                 <strong>
-                  {{ currentCar.fuelType }}
+                  {{ currentCar.luggage }}
                 </strong>
 
               </div>
@@ -381,16 +454,21 @@
               Luxury meets performance
             </h2>
 
-            <p>
-              {{ currentCar.description }}
-            </p>
+            @if (getCarDescription(currentCar)) {
 
-            <p>
-              Designed for drivers who expect more from every
-              journey, this vehicle combines sophisticated styling,
-              premium comfort and advanced technology to create an
-              exceptional driving experience.
-            </p>
+              <p>
+                {{ getCarDescription(currentCar) }}
+              </p>
+
+            } @else {
+
+              <p>
+                Designed for drivers who expect more from every
+                journey, this vehicle combines sophisticated styling,
+                premium comfort and advanced technology to create an
+                exceptional driving experience.
+              </p>
+            }
 
           </section>
 
@@ -475,18 +553,26 @@
                 <button
                   type="button"
                   class="rental-plan__option"
+
                   [class.rental-plan__option--active]="
                     selectedPlan() === 'daily'
                   "
+
                   (click)="setPlan('daily')"
                 >
 
-                  <span class="rental-plan__option-title">
+                  <span
+                    class="rental-plan__option-title"
+                  >
                     Daily
                   </span>
 
-                  <span class="rental-plan__option-subtitle">
-                    AED {{ currentCar.pricePerDay | number:'1.0-0' }} / Day
+                  <span
+                    class="rental-plan__option-subtitle"
+                  >
+                    AED
+                    {{ currentCar.pricePerDay | number:'1.0-0' }}
+                    / Day
                   </span>
 
                 </button>
@@ -497,18 +583,26 @@
                 <button
                   type="button"
                   class="rental-plan__option"
+
                   [class.rental-plan__option--active]="
                     selectedPlan() === 'weekly'
                   "
+
                   (click)="setPlan('weekly')"
                 >
 
-                  <span class="rental-plan__option-title">
+                  <span
+                    class="rental-plan__option-title"
+                  >
                     Weekly
                   </span>
 
-                  <span class="rental-plan__option-subtitle">
-                    AED {{ currentCar.pricePerWeek | number:'1.0-0' }} / Week
+                  <span
+                    class="rental-plan__option-subtitle"
+                  >
+                    AED
+                    {{ currentCar.pricePerWeek | number:'1.0-0' }}
+                    / Week
                   </span>
 
                 </button>
@@ -519,18 +613,26 @@
                 <button
                   type="button"
                   class="rental-plan__option"
+
                   [class.rental-plan__option--active]="
                     selectedPlan() === 'monthly'
                   "
+
                   (click)="setPlan('monthly')"
                 >
 
-                  <span class="rental-plan__option-title">
+                  <span
+                    class="rental-plan__option-title"
+                  >
                     Monthly
                   </span>
 
-                  <span class="rental-plan__option-subtitle">
-                    AED {{ currentCar.pricePerMonth | number:'1.0-0' }} / Month
+                  <span
+                    class="rental-plan__option-subtitle"
+                  >
+                    AED
+                    {{ currentCar.pricePerMonth | number:'1.0-0' }}
+                    / Month
                   </span>
 
                 </button>
@@ -550,8 +652,12 @@
 
             <app-date-picker
               label="Pick-up Date"
+
               [value]="pickupDate()"
-              (valueChange)="setPickupDate($event)"
+
+              (valueChange)="
+                setPickupDate($event)
+              "
             ></app-date-picker>
 
           </div>
@@ -565,9 +671,14 @@
 
             <app-date-picker
               label="Return Date"
+
               [minDate]="pickupDate()"
+
               [value]="returnDate()"
-              (valueChange)="setReturnDate($event)"
+
+              (valueChange)="
+                setReturnDate($event)
+              "
             ></app-date-picker>
 
           </div>
@@ -587,7 +698,9 @@
 
               <select
                 id="pickup-location"
+
                 [value]="pickupLocation()"
+
                 (change)="
                   setPickupLocation(
                     $any($event.target).value
@@ -610,14 +723,17 @@
                 <option value="Sharjah">
                   Sharjah
                 </option>
-                 <option value="Ajman">
+
+                <option value="Ajman">
                   Ajman
                 </option>
 
               </select>
 
               <span aria-hidden="true">
+
                 <i class="fa-solid fa-chevron-down"></i>
+
               </span>
 
             </div>
@@ -643,7 +759,8 @@
                 </span>
 
                 <strong>
-                  AED {{ activeRate() | number:'1.0-0' }}
+                  AED
+                  {{ activeRate() | number:'1.0-0' }}
                 </strong>
 
               </div>
@@ -658,26 +775,17 @@
                 </span>
 
                 <strong>
+
                   {{ rentalDays() }}
-                  {{ rentalDays() === 1 ? 'Day' : 'Days' }}
+
+                  {{ rentalDays() === 1
+                    ? 'Day'
+                    : 'Days'
+                  }}
+
                 </strong>
 
               </div>
-
-
-              <!-- EFFECTIVE DAILY RATE -->
-<!-- 
-              <div class="booking-card__price-row">
-
-                <span>
-                  Effective Daily Rate
-                </span>
-
-                <strong>
-                  AED {{ effectiveDailyRate() | number:'1.0-2' }}
-                </strong>
-
-              </div> -->
 
 
               <!-- RENTAL TOTAL -->
@@ -689,7 +797,8 @@
                 </span>
 
                 <strong>
-                  AED {{ totalPrice() | number:'1.0-0' }}
+                  AED
+                  {{ totalPrice() | number:'1.0-0' }}
                 </strong>
 
               </div>
@@ -704,7 +813,8 @@
                 </span>
 
                 <strong>
-                  AED {{ insurancePrice | number:'1.0-0' }}
+                  AED
+                  {{ insurancePrice | number:'1.0-0' }}
                 </strong>
 
               </div>
@@ -719,13 +829,13 @@
                 </span>
 
                 <strong>
-                  AED {{ grandTotal() | number:'1.0-0' }}
+                  AED
+                  {{ grandTotal() | number:'1.0-0' }}
                 </strong>
 
               </div>
 
             </div>
-
           }
 
 
@@ -736,12 +846,14 @@
           <button
             type="button"
             class="booking-card__button"
+
             [disabled]="
               !pickupDate() ||
               !returnDate() ||
               !pickupLocation() ||
               rentalDays() <= 0
             "
+
             (click)="bookNow()"
           >
 
@@ -765,7 +877,6 @@
         </aside>
 
       </div>
-
     }
 
   </div>

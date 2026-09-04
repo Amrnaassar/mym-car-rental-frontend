@@ -1,51 +1,81 @@
 <section class="popular-categories">
+
   <div class="popular-categories__container">
 
     <!-- HEADER -->
     <div class="popular-categories__header">
+
       <div class="popular-categories__heading">
+
         <span class="popular-categories__eyebrow">
-          Explore Our Fleet
+          {{ currentLanguage === 'ar'
+            ? 'استكشف أسطولنا'
+            : 'Explore Our Fleet'
+          }}
         </span>
 
         <h2 class="popular-categories__title">
-          Popular Categories
+          {{ currentLanguage === 'ar'
+            ? 'الفئات الشائعة'
+            : 'Popular Categories'
+          }}
         </h2>
+
       </div>
 
       <a
         routerLink="/cars"
         class="popular-categories__view-all"
       >
-        View All
+        {{ currentLanguage === 'ar'
+          ? 'عرض الكل'
+          : 'View All'
+        }}
       </a>
+
     </div>
 
     <!-- CATEGORIES -->
     <div class="popular-categories__grid">
 
-      @for (cat of categories; track cat.id) {
-        <a
-          (click)="goToCategory(cat.id)"
-          class="popular-categories__card"
-        >
-        <div class="popular-categories__image">
-          <img
-            src="{{ cat.image }}"
-            alt="{{ cat.name }} Cars"
-            width="600"
-            height="400"
-            loading="lazy"
-          />
-        </div>
+      @for (cat of categories(); track cat.id) {
 
-        <div class="popular-categories__content">
-          <h3>{{ cat.name }}</h3>
-          <span>{{ cat.description }}</span>
-        </div>
-      </a>
+        <a
+          class="popular-categories__card"
+          (click)="goToCategory(cat.id)"
+        >
+
+          <div class="popular-categories__image">
+
+            <img
+              [src]="cat.imageUrl || 'assets/images/placeholder-car.jpg'"
+              [alt]="getCategoryName(cat)"
+              width="600"
+              height="400"
+              loading="lazy"
+              decoding="async"
+            />
+
+          </div>
+
+          <div class="popular-categories__content">
+
+            <h3>
+              {{ getCategoryName(cat) }}
+            </h3>
+
+            <span>
+              {{ getCategoryDescription(cat) }}
+            </span>
+
+          </div>
+
+        </a>
+
       }
 
     </div>
+
   </div>
+
 </section>

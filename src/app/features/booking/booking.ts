@@ -8,28 +8,44 @@ import {
 } from '@angular/core';
 
 import {
+  toObservable,
+  toSignal
+} from '@angular/core/rxjs-interop';
+
+import {
+  distinctUntilChanged,
+  map,
+  of,
+  switchMap
+} from 'rxjs';
+
+import {
   ActivatedRoute,
   RouterLink
 } from '@angular/router';
+import { PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
-import { CommonModule } from '@angular/common';
+import {
 
+  BookingModel,
+  BookingRentalPlan,
+  BookingResponse,
+  CreateBookingDto
+} from '../../core/models/booking.model';
 
-import { CarService } from '../../core/services/car-service';
-
+import { Car } from '../../core/models/car.model';
 
 import { BookingStep1 } from './steps/booking-step-1/booking-step-1';
 import { BookingStep2 } from './steps/booking-step-2/booking-step-2';
 import { BookingStep3 } from './steps/booking-step-3/booking-step-3';
 import { BookingStep4 } from './steps/booking-step-4/booking-step-4';
-import { BookingModel } from '../../core/models/booking.model';
-import { Car, RentalPlan } from '../../core/models/car.model';
+import { BookingService } from '../../core/services/booking.service';
+import { CarService } from '../../core/services/car.service';
 
 @Component({
   selector: 'app-booking',
-
   standalone: true,
-
   imports: [
     CommonModule,
     RouterLink,
@@ -38,25 +54,20 @@ import { Car, RentalPlan } from '../../core/models/car.model';
     BookingStep3,
     BookingStep4
   ],
-
   templateUrl: './booking.html',
-
   styleUrl: './booking.scss',
-
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Booking {
-
-
 
   // ============================================================
   // DEPENDENCIES
   // ============================================================
 
   private readonly route = inject(ActivatedRoute);
-
   private readonly carService = inject(CarService);
-
+  private readonly bookingService = inject(BookingService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   // ============================================================
   // BOOKING STEP
@@ -64,9 +75,8 @@ export class Booking {
 
   readonly currentStep = signal<number>(1);
 
-
   // ============================================================
-  // BOOKING MODEL
+  // BOOKING FORM
   // ============================================================
 
   readonly booking = signal<BookingModel>({
@@ -76,121 +86,120 @@ export class Booking {
     returnDate: '',
     pickupLocation: '',
 
-    rentalPlan: 'daily',
-
-    fullName: '',
-    email: '',
-    phone: '',
+    customerFullName: '',
+    customerEmail: '',
+    customerPhone: '',
     drivingLicense: '',
 
+    includeInsurance: false,
+
+    notes: '',
+
+    rentalPlan: BookingRentalPlan.Daily,
     rentalDays: 0,
     rentalPrice: 0,
-    insurancePrice: 1000,
+    insurancePrice: 0,
     grandTotal: 0
   });
 
+  // ============================================================
+  // CREATED BOOKING
+  // Backend response after successful confirmation
+  // ============================================================
+
+  readonly createdBooking = signal<BookingResponse | null>(null);
+
+  // ============================================================
+  // SUBMIT STATE
+  // ============================================================
+
+  readonly isSubmitting = signal<boolean>(false);
+
+  // ============================================================
+  // ERROR STATE
+  // ============================================================
+
+  readonly bookingError = signal<string>('');
 
   // ============================================================
   // CAR
   // ============================================================
 
-  readonly car = computed<Car | undefined>(() => {
-
-    const id = this.booking().carId;
-
-    if (!id) {
-      return undefined;
-    }
-
-    return this.carService.getCarById(id);
-  });
-
-
-  // ============================================================
-  // SHORTCUTS
-  // ============================================================
-
-  readonly pickupDate = computed(
-    () => this.booking().pickupDate
+  readonly car = toSignal(
+    toObservable(this.booking).pipe(
+      map(booking => booking.carId),
+      distinctUntilChanged(),
+      switchMap(id =>
+        id
+          ? this.carService.getCarById(id)
+          : of(undefined)
+      )
+    ),
+    { initialValue: undefined }
   );
-
-  readonly returnDate = computed(
-    () => this.booking().returnDate
-  );
-
-  readonly pickupLocation = computed(
-    () => this.booking().pickupLocation
-  );
-
-  readonly fullName = computed(
-    () => this.booking().fullName
-  );
-
-  readonly email = computed(
-    () => this.booking().email
-  );
-
-  readonly phone = computed(
-    () => this.booking().phone
-  );
-
-  readonly drivingLicense = computed(
-    () => this.booking().drivingLicense
-  );
-
 
   // ============================================================
   // RENTAL DAYS
+  // Must match backend:
+  // ceil(returnDate - pickupDate)
   // ============================================================
 
   readonly rentalDays = computed<number>(() => {
 
-    const { pickupDate, returnDate} = this.booking();
+    const {
+      pickupDate,
+      returnDate
+    } = this.booking();
 
     if (!pickupDate || !returnDate) {
       return 0;
     }
 
     const pickup = this.parseDate(pickupDate);
-
     const returnDateValue = this.parseDate(returnDate);
 
     if (!pickup || !returnDateValue) {
       return 0;
     }
 
-    const difference = returnDateValue.getTime() - pickup.getTime();
+    const difference =
+      returnDateValue.getTime() -
+      pickup.getTime();
 
     const days = Math.ceil(
-      difference / (1000 * 60 * 60 * 24)
+      difference /
+      (1000 * 60 * 60 * 24)
     );
 
     return Math.max(days, 0);
   });
 
-
   // ============================================================
   // RENTAL PLAN
+  // Must match backend:
+  //
+  // < 7  => Daily
+  // < 30 => Weekly
+  // >=30 => Monthly
   // ============================================================
 
-  readonly rentalPlan = computed<RentalPlan>(() => {
+  readonly rentalPlan = computed<BookingRentalPlan>(() => {
 
     const days = this.rentalDays();
 
-    if (days >= 30) {
-      return 'monthly';
+    if (days < 7) {
+      return BookingRentalPlan.Daily;
     }
 
-    if (days >= 7) {
-      return 'weekly';
+    if (days < 30) {
+      return BookingRentalPlan.Weekly;
     }
 
-    return 'daily';
+    return BookingRentalPlan.Monthly;
   });
 
-
   // ============================================================
-  // CURRENT PRICE
+  // CURRENT RATE
   // ============================================================
 
   readonly currentPrice = computed<number>(() => {
@@ -203,18 +212,17 @@ export class Booking {
 
     switch (this.rentalPlan()) {
 
-      case 'weekly':
+      case BookingRentalPlan.Weekly:
         return currentCar.pricePerWeek;
 
-      case 'monthly':
+      case BookingRentalPlan.Monthly:
         return currentCar.pricePerMonth;
 
-      case 'daily':
+      case BookingRentalPlan.Daily:
       default:
         return currentCar.pricePerDay;
     }
   });
-
 
   // ============================================================
   // PLAN LABEL
@@ -224,91 +232,135 @@ export class Booking {
 
     switch (this.rentalPlan()) {
 
-      case 'weekly':
+      case BookingRentalPlan.Weekly:
         return 'Week';
 
-      case 'monthly':
+      case BookingRentalPlan.Monthly:
         return 'Month';
 
-      case 'daily':
+      case BookingRentalPlan.Daily:
       default:
         return 'Day';
     }
   });
-
 
   // ============================================================
   // ACTIVE RATE
   // ============================================================
 
   readonly activeRate = computed<number>(() => {
-
     return this.currentPrice();
   });
 
-
   // ============================================================
   // TOTAL RENTAL PRICE
+  //
+  // IMPORTANT:
+  // This now matches Backend CalculateRentalCost()
+  //
+  // Weekly:
+  // full weeks * weeklyRate
+  // + remaining days * dailyRate
+  //
+  // Monthly:
+  // full months * monthlyRate
+  // + remaining days * dailyRate
   // ============================================================
 
   readonly totalPrice = computed<number>(() => {
 
     const currentCar = this.car();
-
     const days = this.rentalDays();
 
     if (!currentCar || days <= 0) {
       return 0;
     }
 
-    if (days < 7) {
+    switch (this.rentalPlan()) {
 
-      return days *
-        currentCar.pricePerDay;
+      case BookingRentalPlan.Weekly:
+        return (
+          Math.floor(days / 7) *
+          currentCar.pricePerWeek
+        ) +
+          (
+            days % 7 *
+            currentCar.pricePerDay
+          );
+
+      case BookingRentalPlan.Monthly:
+        return (
+          Math.floor(days / 30) *
+          currentCar.pricePerMonth
+        ) +
+          (
+            days % 30 *
+            currentCar.pricePerDay
+          );
+
+      case BookingRentalPlan.Daily:
+      default:
+        return (
+          days *
+          currentCar.pricePerDay
+        );
     }
-
-    if (days < 30) {
-
-      return days *
-        (currentCar.pricePerWeek / 7);
-    }
-
-    return days *
-      (currentCar.pricePerMonth / 30);
   });
-
 
   // ============================================================
   // INSURANCE
+  // Backend uses fixed 1000 AED
   // ============================================================
 
-  readonly insurancePrice = 1000;
+  readonly insurancePrice = computed<number>(() => {
 
+    return this.booking().includeInsurance
+      ? 1000
+      : 0;
+  });
 
   // ============================================================
   // GRAND TOTAL
+  //
+  // Backend:
+  // rentalCost
+  // + insuranceCost
+  // + taxCost
+  // - discount
+  //
+  // Current Backend:
+  // Tax = 0
+  // Discount = 0
   // ============================================================
 
   readonly grandTotal = computed<number>(() => {
 
     const rentalTotal = this.totalPrice();
+    const insurance = this.insurancePrice();
 
     if (rentalTotal <= 0) {
       return 0;
     }
 
-    return rentalTotal +
-      this.insurancePrice;
+    return (
+      rentalTotal +
+      insurance
+    );
   });
 
-
   // ============================================================
-  // LOAD QUERY PARAMETERS
+  // CONSTRUCTOR
   // ============================================================
 
   constructor() {
+
+    // Scroll to top whenever booking step changes.
     effect(() => {
       this.currentStep();
+
+      if (!isPlatformBrowser(this.platformId)) {
+        return;
+      }
 
       setTimeout(() => {
         window.scrollTo({
@@ -317,15 +369,19 @@ export class Booking {
         });
       });
     });
+
+    // Load booking data from query parameters.
     this.route.queryParams.subscribe(params => {
 
       const carId = Number(params['car']);
 
       this.booking.update(current => ({
+
         ...current,
 
         carId:
-          Number.isInteger(carId) && carId > 0
+          Number.isInteger(carId) &&
+            carId > 0
             ? carId
             : null,
 
@@ -347,7 +403,6 @@ export class Booking {
     });
   }
 
-
   // ============================================================
   // UPDATE BOOKING
   // ============================================================
@@ -364,7 +419,6 @@ export class Booking {
     this.syncCalculatedValues();
   }
 
-
   // ============================================================
   // SYNC CALCULATED VALUES
   // ============================================================
@@ -372,31 +426,78 @@ export class Booking {
   private syncCalculatedValues(): void {
 
     const days = this.rentalDays();
-
     const plan = this.rentalPlan();
-
     const rentalPrice = this.totalPrice();
+    const insurance = this.insurancePrice();
 
     const grandTotal =
-      rentalPrice > 0
-        ? rentalPrice + this.insurancePrice
-        : 0;
+      rentalPrice +
+      insurance;
 
     this.booking.update(current => ({
+
       ...current,
 
       rentalPlan: plan,
-
       rentalDays: days,
-
       rentalPrice,
-
-      insurancePrice: this.insurancePrice,
-
+      insurancePrice: insurance,
       grandTotal
     }));
   }
 
+  // ============================================================
+  // CREATE API REQUEST
+  //
+  // IMPORTANT:
+  // Only send fields expected by backend.
+  // ============================================================
+
+  private buildCreateBookingDto(): CreateBookingDto {
+
+    const data = this.booking();
+
+    if (!data.carId) {
+      throw new InvalidOperationError(
+        'A vehicle must be selected.'
+      );
+    }
+
+    return {
+
+      carId:
+        data.carId,
+
+      pickupLocation:
+        data.pickupLocation.trim(),
+
+      pickupDate:
+        data.pickupDate,
+
+      returnDate:
+        data.returnDate,
+
+      customerFullName:
+        data.customerFullName.trim(),
+
+      customerEmail:
+        data.customerEmail
+          .trim()
+          .toLowerCase(),
+
+      customerPhone:
+        data.customerPhone.trim(),
+
+      drivingLicense:
+        data.drivingLicense.trim(),
+
+      includeInsurance:
+        data.includeInsurance,
+
+      notes:
+        data.notes.trim() || null
+    };
+  }
 
   // ============================================================
   // STEP NAVIGATION
@@ -404,7 +505,8 @@ export class Booking {
 
   nextStep(): void {
 
-    const current = this.currentStep();
+    const current =
+      this.currentStep();
 
     if (current >= 4) {
       return;
@@ -424,9 +526,10 @@ export class Booking {
       return;
     }
 
-    this.currentStep.set(current + 1);
+    this.currentStep.set(
+      current + 1
+    );
   }
-
 
   // ============================================================
   // PREVIOUS STEP
@@ -434,15 +537,17 @@ export class Booking {
 
   previousStep(): void {
 
-    const current = this.currentStep();
+    const current =
+      this.currentStep();
 
     if (current <= 1) {
       return;
     }
 
-    this.currentStep.set(current - 1);
+    this.currentStep.set(
+      current - 1
+    );
   }
-
 
   // ============================================================
   // GO TO STEP
@@ -450,7 +555,8 @@ export class Booking {
 
   goToStep(step: number): void {
 
-    const current = this.currentStep();
+    const current =
+      this.currentStep();
 
     if (
       step < 1 ||
@@ -462,22 +568,17 @@ export class Booking {
     this.currentStep.set(step);
   }
 
-
   // ============================================================
   // STEP HELPERS
   // ============================================================
 
   isCompleted(step: number): boolean {
-
     return step < this.currentStep();
   }
 
-
   isActive(step: number): boolean {
-
     return step === this.currentStep();
   }
-
 
   // ============================================================
   // STEP 1 VALIDATION
@@ -485,9 +586,15 @@ export class Booking {
 
   canContinueFromStepOne(): boolean {
 
-    return !!this.car();
+    return !!(
+      this.car() &&
+      this.booking().pickupDate &&
+      this.booking().returnDate &&
+      this.booking().pickupLocation &&
+      this.rentalDays() > 0 &&
+      this.isValidDateRange()
+    );
   }
-
 
   // ============================================================
   // STEP 2 VALIDATION
@@ -495,16 +602,17 @@ export class Booking {
 
   canContinueFromStepTwo(): boolean {
 
-    const data = this.booking();
+    const data =
+      this.booking();
 
     const fullName =
-      data.fullName.trim();
+      data.customerFullName.trim();
 
     const email =
-      data.email.trim();
+      data.customerEmail.trim();
 
     const phone =
-      data.phone.trim();
+      data.customerPhone.trim();
 
     const drivingLicense =
       data.drivingLicense.trim();
@@ -532,7 +640,6 @@ export class Booking {
     );
   }
 
-
   // ============================================================
   // DATE VALIDATION
   // ============================================================
@@ -559,7 +666,6 @@ export class Booking {
     );
   }
 
-
   // ============================================================
   // EMAIL VALIDATION
   // ============================================================
@@ -578,7 +684,6 @@ export class Booking {
     return emailPattern.test(email);
   }
 
-
   // ============================================================
   // DATE PARSER
   // ============================================================
@@ -591,17 +696,21 @@ export class Booking {
       return null;
     }
 
-    const parts = value.split('-');
+    const parts =
+      value.split('-');
 
     if (parts.length !== 3) {
       return null;
     }
 
-    const year = Number(parts[0]);
+    const year =
+      Number(parts[0]);
 
-    const month = Number(parts[1]);
+    const month =
+      Number(parts[1]);
 
-    const day = Number(parts[2]);
+    const day =
+      Number(parts[2]);
 
     if (
       !Number.isInteger(year) ||
@@ -611,11 +720,12 @@ export class Booking {
       return null;
     }
 
-    const date = new Date(
-      year,
-      month - 1,
-      day
-    );
+    const date =
+      new Date(
+        year,
+        month - 1,
+        day
+      );
 
     if (
       date.getFullYear() !== year ||
@@ -627,7 +737,6 @@ export class Booking {
 
     return date;
   }
-
 
   // ============================================================
   // NORMALIZE QUERY DATE
@@ -651,12 +760,13 @@ export class Booking {
     return value;
   }
 
-
   // ============================================================
   // FORMAT DATE
   // ============================================================
 
-  formatDate(value: string): string {
+  formatDate(
+    value: string
+  ): string {
 
     if (!value) {
       return 'Not selected';
@@ -679,28 +789,121 @@ export class Booking {
     ).format(date);
   }
 
-
   // ============================================================
   // CONFIRM BOOKING
+  //
+  // STEP 3 -> API -> STEP 4
   // ============================================================
 
   confirmBooking(): void {
 
-    if (!this.canContinueFromStepTwo()) {
+    if (
+      !this.canContinueFromStepTwo() ||
+      this.isSubmitting()
+    ) {
       return;
     }
 
     this.syncCalculatedValues();
 
-    this.currentStep.set(4);
+    this.bookingError.set('');
 
-    /*
-     * Later:
-     *
-     * this.bookingService
-     *   .createBooking(this.booking())
-     *
-     * will send the model to the backend.
-     */
+    let dto: CreateBookingDto;
+
+    try {
+
+      dto =
+        this.buildCreateBookingDto();
+
+    } catch (error) {
+
+      if (error instanceof InvalidOperationError) {
+        this.bookingError.set(
+          error.message
+        );
+      }
+
+      return;
+    }
+
+    this.isSubmitting.set(true);
+
+    this.bookingService
+      .createBooking(dto)
+      .subscribe({
+
+        next: booking => {
+
+          this.createdBooking.set(
+            booking
+          );
+
+          this.isSubmitting.set(false);
+
+          this.currentStep.set(4);
+        },
+
+        error: error => {
+
+          this.isSubmitting.set(false);
+
+          this.bookingError.set(
+            this.getBookingErrorMessage(error)
+          );
+        }
+      });
+  }
+
+  // ============================================================
+  // API ERROR MESSAGE
+  // ============================================================
+
+  private getBookingErrorMessage(
+    error: unknown
+  ): string {
+
+    const response =
+      error as {
+        error?: {
+          message?: string;
+          title?: string;
+        };
+        status?: number;
+      };
+
+    if (
+      response?.error?.message
+    ) {
+      return response.error.message;
+    }
+
+    if (
+      response?.status === 401
+    ) {
+      return 'Please login before confirming your booking.';
+    }
+
+    if (
+      response?.status === 409
+    ) {
+      return 'The selected vehicle is not available for these dates.';
+    }
+
+    return 'Something went wrong while creating your booking. Please try again.';
+  }
+}
+
+// ============================================================
+// SMALL INTERNAL ERROR
+// ============================================================
+
+class InvalidOperationError extends Error {
+
+  constructor(message: string) {
+
+    super(message);
+
+    this.name =
+      'InvalidOperationError';
   }
 }

@@ -1,7 +1,18 @@
-export interface CarCategory {
+export interface Category {
   id: number;
-  name: string;
+
+  nameAr: string;
+  nameEn: string;
+
   slug: string;
-  image: string;
-  description:string;
+
+  descriptionAr: string | null;
+  descriptionEn: string | null;
+
+  imageUrl: string | null;
+
+  isActive: boolean;
+
+  createdAt: string;
+  updatedAt: string;
 }

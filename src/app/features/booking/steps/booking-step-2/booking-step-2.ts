@@ -1,101 +1,106 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  Output
+  Output,
+  EventEmitter
 } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 
-import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker';
-
-import { Car } from '../../../../core/models/car.model';
-import { BookingModel } from '../../../../core/models/booking.model';
-
+import {
+  BookingModel
+} from '../../../../core/models/booking.model';
 
 @Component({
   selector: 'app-booking-step-2',
-
   standalone: true,
-
   imports: [
-    CommonModule,
-    DatePickerComponent
+    CommonModule
   ],
-
   templateUrl: './booking-step-2.html',
-
   styleUrl: './booking-step-2.scss',
-
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookingStep2 {
 
-  @Input({ required: true }) booking!: BookingModel;
+  @Input({ required: true })
+  booking!: BookingModel;
 
-  @Input({ required: true })car!: Car;
+  @Input()
+  rentalDays = 0;
 
-  @Input() currentPrice = 0;
+  @Input()
+  grandTotal = 0;
 
-  @Input() currentPlanLabel = 'Day';
+  @Input()
+  insurancePrice = 0;
 
-  @Input() rentalDays = 0;
+  @Output()
+  bookingChange = new EventEmitter<Partial<BookingModel>>();
 
-  @Input() grandTotal = 0;
+  @Output()
+  next = new EventEmitter<void>();
 
-  @Input() formatDate!: (value: string) => string;
-
-  @Output() bookingChange = new EventEmitter<Partial<BookingModel>>();
-
-  @Output() back =  new EventEmitter<void>();
-
-  @Output()continue = new EventEmitter<void>();
+  @Output()
+  back = new EventEmitter<void>();
 
 
-  updateField(
-    field: keyof BookingModel,
-    value: string
+  onTextChange(
+    field:
+      | 'customerFullName'
+      | 'customerEmail'
+      | 'customerPhone'
+      | 'drivingLicense'
+      | 'notes',
+    event: Event
   ): void {
 
+    const input = event.target as HTMLInputElement | HTMLTextAreaElement;
+
     this.bookingChange.emit({
-      [field]: value
+      [field]: input.value
     });
   }
 
 
-  setPickupDate(value: string): void {
+  onInsuranceChange(event: Event): void {
 
-    const changes: Partial<BookingModel> = {
-      pickupDate: value
-    };
-
-    if (
-      this.booking.returnDate &&
-      value &&
-      this.booking.returnDate <= value
-    ) {
-      changes.returnDate = '';
-    }
-
-    this.bookingChange.emit(changes);
-  }
-
-
-  setReturnDate(value: string): void {
+    const input = event.target as HTMLInputElement;
 
     this.bookingChange.emit({
-      returnDate: value
+      includeInsurance: input.checked
     });
   }
 
 
-  onBack(): void {
+  continue(): void {
+    this.next.emit();
+  }
+
+
+  previous(): void {
     this.back.emit();
   }
 
 
-  onContinue(): void {
-    this.continue.emit();
+  get isValid(): boolean {
+
+    return !!(
+      this.booking.customerFullName.trim() &&
+      this.isValidEmail(this.booking.customerEmail) &&
+      this.booking.customerPhone.trim() &&
+      this.booking.drivingLicense.trim()
+    );
+
   }
+
+
+  private isValidEmail(email: string): boolean {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+      email.trim()
+    );
+
+  }
+
 }

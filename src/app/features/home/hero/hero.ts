@@ -8,8 +8,9 @@ import {
 import { Router } from '@angular/router';
 
 import { RentalPlan } from '../../../core/models/car.model';
+import { CarCategoryService } from '../../../core/services/car-category.service';
+import { Category } from '../../../core/models/car-category.model';
 
-import { CarCategoryService } from '../../../core/services/car-category';
 
 @Component({
   selector: 'app-hero',
@@ -41,8 +42,8 @@ export class Hero {
   // CATEGORIES
   // ============================================================
 
-  readonly categories =
-    this.carCategoryService.getCategories();
+  readonly categories :Category[] =[]
+    
 
 
   // ============================================================

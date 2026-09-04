@@ -24,7 +24,7 @@
 
       <a routerLink="/" routerLinkActive="navbar__link--active" [routerLinkActiveOptions]="{ exact: true }"
         class="navbar__link">
-        <span>Home</span>
+        <span> {{ 'NAVBAR.HOME' | translate }}</span>
       </a>
 
       <a routerLink="/cars" routerLinkActive="navbar__link--active" class="navbar__link">
@@ -55,13 +55,37 @@
     ====================================================== -->
     <div class="navbar__actions">
 
+      <button type="button" class="language-switcher" (click)="toggleLanguage()">
+        {{ languageService.isArabic() ? 'English' : 'العربية' }}
+      </button>
       <!-- WhatsApp -->
       <a href="https://wa.me/971XXXXXXXXX" target="_blank" rel="noopener noreferrer" class="navbar__whatsapp"
         aria-label="Contact MYM on WhatsApp">
         <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
       </a>
+      <!-- Authentication -->
+      @if (authService.isLoggedIn()) {
 
+      <button type="button" class="navbar__login btn btn-outline" (click)="logout()"
+        aria-label="Logout from MYM Car Rental">
 
+        <i class="fa-solid fa-right-from-bracket" aria-hidden="true">
+        </i>
+
+        <span>Logout</span>
+      </button>
+
+      } @else {
+
+      <a routerLink="/login" class="navbar__login btn btn-outline" aria-label="Login to MYM Car Rental">
+
+        <i class="fa-solid fa-user" aria-hidden="true">
+        </i>
+
+        <span>Login</span>
+      </a>
+
+      }
       <!-- Booking CTA -->
       <a routerLink="/cars" class="navbar__cta" (click)="closeMobileMenu()">
         <span>Book a Car</span>
@@ -190,17 +214,47 @@
       <div class="navbar__mobile-actions">
 
         <a routerLink="/cars" class="btn btn-primary" (click)="closeMobileMenu()">
+
           <span>Book a Car</span>
 
-          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-        </a>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true">
+          </i>
 
+        </a>
 
         <a href="https://wa.me/971XXXXXXXXX" target="_blank" rel="noopener noreferrer" class="navbar__mobile-whatsapp">
-          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+
+          <i class="fa-brands fa-whatsapp" aria-hidden="true">
+          </i>
 
           <span>WhatsApp</span>
+
         </a>
+
+        <!-- Authentication -->
+        @if (authService.isLoggedIn()) {
+
+        <button type="button" class="navbar__mobile-auth btn btn-outline" (click)="logout()">
+
+          <i class="fa-solid fa-right-from-bracket" aria-hidden="true">
+          </i>
+
+          <span>Logout</span>
+
+        </button>
+
+        } @else {
+
+        <a routerLink="/login" class="navbar__mobile-auth btn btn-outline" (click)="closeMobileMenu()">
+
+          <i class="fa-solid fa-user" aria-hidden="true">
+          </i>
+
+          <span>Login</span>
+
+        </a>
+
+        }
 
       </div>
 

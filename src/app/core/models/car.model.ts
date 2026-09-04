@@ -3,43 +3,57 @@ export type RentalPlan =
   | 'weekly'
   | 'monthly';
 
-export type Transmission =
-  | 'Automatic'
-  | 'Manual';
+export enum Transmission {
+  Automatic = 0,
+  Manual = 1
+}
 
-export type FuelType =
-  | 'Petrol'
-  | 'Diesel'
-  | 'Hybrid';
+export enum FuelType {
+  Petrol = 0,
+  Diesel = 1,
+  Hybrid = 2
+}
+
+export interface CarImage {
+  id: number;
+  imageUrl: string;
+  isPrimary: boolean;
+  sortOrder: number;
+}
 
 export interface Car {
   id: number;
-
-  name: string;
-
   categoryId: number;
 
-  image: string;
+  nameAr: string;
+  nameEn: string;
+
+  descriptionAr: string | null;
+  descriptionEn: string | null;
+
+  categoryNameAr: string;
+  categoryNameEn: string;
 
   pricePerDay: number;
   pricePerWeek: number;
   pricePerMonth: number;
 
-  rating: number;
-  reviews: number;
-
   transmission: Transmission;
-
   fuelType: FuelType;
 
   seats: number;
   doors: number;
   luggage: number;
 
-  description: string;
+  rating: number;
+  reviewsCount: number;
 
-  isAvailable: boolean;
+  isActive: boolean;
   isFeatured: boolean;
-  
- 
+
+  primaryImageUrl: string | null;
+  images: CarImage[];
+
+  createdAt: string;
+  updatedAt: string;
 }

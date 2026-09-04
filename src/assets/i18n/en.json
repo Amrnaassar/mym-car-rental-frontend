@@ -1,0 +1,16 @@
+{
+  "NAVBAR": {
+    "HOME": "Home",
+    "CARS": "Cars",
+    "ABOUT": "About Us",
+    "CONTACT": "Contact",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout"
+  },
+
+  "COMMON": {
+    "ENGLISH": "English",
+    "ARABIC": "Arabic",
+    "BOOK_NOW": "Book Now"
+  }
+}

@@ -8,6 +8,7 @@ import { Cars } from './features/cars/cars';
 import { CarDetails } from './features/cars/car-details/car-details';
 import { Booking } from './features/booking/booking';
 import { NotFound } from './features/not-found/not-found';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -17,7 +18,17 @@ export const routes: Routes = [
     { path: 'booking', component: Booking },
     { path: 'faq', component: Faq },
     { path: 'contact', component: Contact },
-    { path: 'services', component: Services },
+    {
+        path: 'services', component: Services, canActivate: [
+            authGuard
+        ]
+    },
+    {
+        path: 'login',
+        loadComponent: () =>
+            import('./features/login/login')
+                .then(m => m.LoginComponent)
+    },
     { path: '**', component: NotFound },
 
 ];

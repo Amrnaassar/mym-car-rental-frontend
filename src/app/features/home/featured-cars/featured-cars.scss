@@ -7,9 +7,7 @@
 
 .featured-cars {
   position: relative;
-
   background: #f7f7f6;
-
   padding-block: 82px 64px;
 
   // ----------------------------------------------------------
@@ -18,11 +16,8 @@
 
   &__container {
     width: 100%;
-
     max-width: $breakpoint-2xl;
-
     margin-inline: auto;
-
     padding-inline: $space-8;
   }
 
@@ -32,11 +27,8 @@
 
   &__header {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     margin-bottom: $space-5;
   }
 
@@ -44,31 +36,21 @@
     margin: 0;
 
     color: #17202a;
-
     font-family: $font-family-display;
-
     font-size: $font-size-lg;
-
     font-weight: $font-weight-medium;
-
     line-height: 1.2;
-
     letter-spacing: 0.02em;
-
     text-transform: uppercase;
   }
 
   &__view-all {
     display: inline-flex;
-
     align-items: center;
 
     color: #59636e;
-
     font-family: $font-family-primary;
-
     font-size: $font-size-xs;
-
     font-weight: $font-weight-medium;
 
     transition:
@@ -77,7 +59,6 @@
 
     &:hover {
       color: #17202a;
-
       transform: translateX(2px);
     }
   }
@@ -88,9 +69,7 @@
 
   &__grid {
     display: grid;
-
     grid-template-columns: repeat(4, minmax(0, 1fr));
-
     gap: $space-3;
   }
 
@@ -100,19 +79,23 @@
 
   .car-card {
     min-width: 0;
-
     overflow: hidden;
 
     background: #ffffff;
 
     border: 1px solid #e1e4e7;
-
     border-radius: $radius-md;
+
+    cursor: pointer;
 
     transition:
       transform $transition-luxury,
       box-shadow $transition-normal,
       border-color $transition-normal;
+
+    // --------------------------------------------------------
+    // CARD HOVER
+    // --------------------------------------------------------
 
     &:hover {
       transform: translateY(-4px);
@@ -120,6 +103,10 @@
       box-shadow: $shadow-sm;
 
       border-color: rgba(200, 169, 107, 0.35);
+
+      .car-card__image img {
+        transform: scale(1.035);
+      }
     }
 
     // --------------------------------------------------------
@@ -130,7 +117,6 @@
       position: relative;
 
       width: 100%;
-
       aspect-ratio: 1.45 / 1;
 
       overflow: hidden;
@@ -146,18 +132,33 @@
       }
     }
 
-    &:hover {
-      .car-card__image img {
-        transform: scale(1.035);
-      }
-    }
-
     // --------------------------------------------------------
     // BODY
     // --------------------------------------------------------
 
     &__body {
       padding: 11px 12px 12px;
+    }
+
+    // --------------------------------------------------------
+    // CATEGORY
+    // --------------------------------------------------------
+
+    &__category {
+      display: block;
+
+      margin-bottom: 4px;
+
+      color: #8a929a;
+
+      font-family: $font-family-primary;
+      font-size: 10px;
+      font-weight: $font-weight-regular;
+      line-height: 1.2;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     // --------------------------------------------------------
@@ -170,17 +171,12 @@
       color: #202832;
 
       font-family: $font-family-primary;
-
       font-size: $font-size-sm;
-
       font-weight: $font-weight-semibold;
-
       line-height: 1.25;
 
       white-space: nowrap;
-
       overflow: hidden;
-
       text-overflow: ellipsis;
     }
 
@@ -190,9 +186,7 @@
 
     &__info {
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
 
       gap: $space-2;
@@ -206,9 +200,7 @@
       color: #3f4852;
 
       font-family: $font-family-primary;
-
       font-size: $font-size-xs;
-
       font-weight: $font-weight-regular;
 
       white-space: nowrap;
@@ -220,7 +212,6 @@
 
     &__rating {
       display: inline-flex;
-
       align-items: center;
 
       gap: 4px;
@@ -228,38 +219,39 @@
       color: #4d5660;
 
       font-family: $font-family-primary;
-
       font-size: $font-size-xs;
 
       white-space: nowrap;
     }
 
+    // --------------------------------------------------------
+    // STAR
+    // --------------------------------------------------------
+
     &__star {
       color: $color-accent;
 
       font-size: 11px;
-
       line-height: 1;
     }
   }
 
-  // ----------------------------------------------------------
+  // ==========================================================
   // LARGE
-  // ----------------------------------------------------------
+  // ==========================================================
 
   @media (max-width: $breakpoint-lg) {
     padding-block: 72px 56px;
 
     &__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-
       gap: $space-4;
     }
   }
 
-  // ----------------------------------------------------------
+  // ==========================================================
   // TABLET
-  // ----------------------------------------------------------
+  // ==========================================================
 
   @media (max-width: $breakpoint-md) {
     &__container {
@@ -268,14 +260,13 @@
 
     &__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-
       gap: $space-3;
     }
   }
 
-  // ----------------------------------------------------------
+  // ==========================================================
   // MOBILE
-  // ----------------------------------------------------------
+  // ==========================================================
 
   @media (max-width: $breakpoint-sm) {
     padding-block: 64px 48px;
@@ -294,27 +285,52 @@
 
     &__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-
       gap: 8px;
     }
 
     .car-card {
       border-radius: $radius-sm;
 
+      // ------------------------------------------------------
+      // MOBILE BODY
+      // ------------------------------------------------------
+
       &__body {
         padding: 9px 9px 10px;
       }
 
-      &__name {
-        font-size: 11px;
+      // ------------------------------------------------------
+      // MOBILE CATEGORY
+      // ------------------------------------------------------
 
-        margin-bottom: 5px;
+      &__category {
+        margin-bottom: 3px;
+
+        font-size: 8px;
       }
+
+      // ------------------------------------------------------
+      // MOBILE NAME
+      // ------------------------------------------------------
+
+      &__name {
+        margin-bottom: 5px;
+
+        font-size: 11px;
+      }
+
+      // ------------------------------------------------------
+      // MOBILE PRICE + RATING
+      // ------------------------------------------------------
 
       &__price,
       &__rating {
         font-size: 9px;
       }
+
+      // ------------------------------------------------------
+      // MOBILE STAR
+      // ------------------------------------------------------
 
       &__star {
         font-size: 9px;

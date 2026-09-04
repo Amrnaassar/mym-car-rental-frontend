@@ -3,50 +3,81 @@ import {
   Component,
   computed,
   inject,
+  OnInit,
   signal
 } from '@angular/core';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  DecimalPipe
+} from '@angular/common';
+
+import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
 
 import {
   Car,
-  RentalPlan
+  FuelType,
+  RentalPlan,
+  Transmission
 } from '../../core/models/car.model';
 
-import { CarCategoryService } from '../../core/services/car-category';
-import { CarService } from '../../core/services/car-service';
-import { DecimalPipe } from '@angular/common';
 
+import {
+  LanguageService
+} from '../../core/services/language.service';
+import { CarService } from '../../core/services/car.service';
+import { CarCategoryService } from '../../core/services/car-category.service';
+import { Category } from '../../core/models/car-category.model';
 
 @Component({
   selector: 'app-cars',
   standalone: true,
-  imports: [DecimalPipe],
+  imports: [
+    DecimalPipe
+  ],
   templateUrl: './cars.html',
   styleUrl: './cars.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Cars {
+export class Cars implements OnInit {
 
   // ============================================================
   // SERVICES
   // ============================================================
 
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
+  private readonly route =
+    inject(ActivatedRoute);
 
-  private readonly carService = inject(CarService);
-  private readonly carCategoryService = inject(CarCategoryService);
+  private readonly router =
+    inject(Router);
+
+  private readonly carService =
+    inject(CarService);
+
+  private readonly carCategoryService =
+    inject(CarCategoryService);
+
+  readonly languageService =
+    inject(LanguageService);
 
 
   // ============================================================
   // DATA
   // ============================================================
 
-  readonly cars = this.carService.getAvailableCars();
+  readonly cars =
+    signal<Car[]>([]);
 
   readonly categories =
-    this.carCategoryService.getCategories();
+    signal<Category[]>([]);
+
+  readonly loading =
+    signal(true);
+
+  readonly error =
+    signal(false);
 
 
   // ============================================================
@@ -68,13 +99,13 @@ export class Cars {
     signal<number | null>(null);
 
   readonly selectedTransmission =
-    signal('All');
+    signal<Transmission | 'All'>('All');
 
   readonly selectedFuelType =
-    signal('All');
+    signal<FuelType | 'All'>('All');
 
   readonly maxPrice =
-    signal(1200);
+    signal(0);
 
   readonly sortBy =
     signal('popular');
@@ -105,159 +136,239 @@ export class Cars {
   // CURRENT PLAN MAX PRICE
   // ============================================================
 
-  readonly currentPlanMaxPrice = computed(() =>
-    this.getMaxPriceForPlan(this.selectedPlan())
-  );
+  readonly currentPlanMaxPrice =
+    computed(() =>
+      this.getMaxPriceForPlan(
+        this.selectedPlan()
+      )
+    );
 
 
   // ============================================================
   // FILTERED CARS
   // ============================================================
 
-  readonly filteredCars = computed(() => {
+  readonly filteredCars =
+    computed(() => {
 
-    const search =
-      this.searchQuery()
-        .trim()
-        .toLowerCase();
+      const search =
+        this.searchQuery()
+          .trim()
+          .toLowerCase();
 
-    const categoryId =
-      this.selectedCategory();
+      const categoryId =
+        this.selectedCategory();
 
-    const transmission =
-      this.selectedTransmission();
+      const transmission =
+        this.selectedTransmission();
 
-    const fuelType =
-      this.selectedFuelType();
+      const fuelType =
+        this.selectedFuelType();
 
-    const maxPrice =
-      this.maxPrice();
+      const maxPrice =
+        this.maxPrice();
 
-    const plan =
-      this.selectedPlan();
+      const plan =
+        this.selectedPlan();
 
-    const sort =
-      this.sortBy();
-
-
-    let result = this.cars.filter(car => {
-
-      // Search
-      const matchesSearch =
-        !search ||
-        car.name
-          .toLowerCase()
-          .includes(search);
+      const sort =
+        this.sortBy();
 
 
-      // Category
-      const matchesCategory =
-        categoryId === null ||
-        car.categoryId === categoryId;
+      let result =
+        this.cars().filter(car => {
+
+          // ------------------------------------------------------
+          // Search
+          // ------------------------------------------------------
+
+          const matchesSearch =
+            !search ||
+            car.nameEn
+              .toLowerCase()
+              .includes(search) ||
+            car.nameAr
+              .toLowerCase()
+              .includes(search);
 
 
-      // Transmission
-      const matchesTransmission =
-        transmission === 'All' ||
-        car.transmission === transmission;
+          // ------------------------------------------------------
+          // Category
+          // ------------------------------------------------------
+
+          const matchesCategory =
+            categoryId === null ||
+            car.categoryId === categoryId;
 
 
-      // Fuel
-      const matchesFuel =
-        fuelType === 'All' ||
-        car.fuelType === fuelType;
+          // ------------------------------------------------------
+          // Transmission
+          // ------------------------------------------------------
+
+          const matchesTransmission =
+            transmission === 'All' ||
+            car.transmission === transmission;
 
 
-      // Price
-      const price =
-        this.carService.getPrice(
-          car,
-          plan
-        );
+          // ------------------------------------------------------
+          // Fuel
+          // ------------------------------------------------------
 
-      const matchesPrice =
-        price <= maxPrice;
+          const matchesFuel =
+            fuelType === 'All' ||
+            car.fuelType === fuelType;
 
 
-      return (
-        matchesSearch &&
-        matchesCategory &&
-        matchesTransmission &&
-        matchesFuel &&
-        matchesPrice
-      );
+          // ------------------------------------------------------
+          // Price
+          // ------------------------------------------------------
 
+          const price =
+            this.carService.getPrice(
+              car,
+              plan
+            );
+
+          const matchesPrice =
+            price <= maxPrice;
+
+
+          return (
+            matchesSearch &&
+            matchesCategory &&
+            matchesTransmission &&
+            matchesFuel &&
+            matchesPrice
+          );
+        });
+
+
+      // ==========================================================
+      // SORTING
+      // ==========================================================
+
+      result = [...result];
+
+      switch (sort) {
+
+        case 'price-low':
+          result.sort(
+            (a, b) =>
+              this.carService.getPrice(a, plan) -
+              this.carService.getPrice(b, plan)
+          );
+          break;
+
+
+        case 'price-high':
+          result.sort(
+            (a, b) =>
+              this.carService.getPrice(b, plan) -
+              this.carService.getPrice(a, plan)
+          );
+          break;
+
+
+        case 'rating':
+          result.sort(
+            (a, b) =>
+              b.rating - a.rating
+          );
+          break;
+
+
+        case 'name':
+          result.sort(
+            (a, b) =>
+              this.getCarName(a)
+                .localeCompare(
+                  this.getCarName(b)
+                )
+          );
+          break;
+
+
+        default:
+          result.sort(
+            (a, b) =>
+              b.rating - a.rating
+          );
+          break;
+      }
+
+
+      return result;
     });
 
 
-    // ==========================================================
-    // SORTING
-    // ==========================================================
-
-    result = [...result];
-
-    switch (sort) {
-
-      case 'price-low':
-
-        result.sort((a, b) =>
-          this.carService.getPrice(a, plan) -
-          this.carService.getPrice(b, plan)
-        );
-
-        break;
-
-
-      case 'price-high':
-
-        result.sort((a, b) =>
-          this.carService.getPrice(b, plan) -
-          this.carService.getPrice(a, plan)
-        );
-
-        break;
-
-
-      case 'rating':
-
-        result.sort(
-          (a, b) => b.rating - a.rating
-        );
-
-        break;
-
-
-      case 'name':
-
-        result.sort(
-          (a, b) =>
-            a.name.localeCompare(b.name)
-        );
-
-        break;
-
-
-      default:
-
-        result.sort(
-          (a, b) => b.rating - a.rating
-        );
-
-        break;
-    }
-
-
-    return result;
-
-  });
-
-
   // ============================================================
-  // CONSTRUCTOR
+  // INITIALIZATION
   // ============================================================
 
-  constructor() {
+  ngOnInit(): void {
     this.loadSearchParams();
+    this.loadData();
+  }
+
+
+  // ============================================================
+  // LOAD API DATA
+  // ============================================================
+
+  private loadData(): void {
+
+    this.loading.set(true);
+    this.error.set(false);
+
+    this.carService
+      .getAvailableCars()
+      .subscribe({
+        next: cars => {
+
+          this.cars.set(
+            cars.filter(
+              car => car.isActive
+            )
+          );
+
+          this.maxPrice.set(
+            this.getMaxPriceForPlan(
+              this.selectedPlan()
+            )
+          );
+
+          this.loading.set(false);
+        },
+
+        error: error => {
+
+          console.error(
+            'Failed to load cars:',
+            error
+          );
+
+          this.error.set(true);
+          this.loading.set(false);
+        }
+      });
+
+
+    this.carCategoryService
+      .getCategories()
+      .subscribe({
+        next: categories => {
+          this.categories.set(
+            categories
+          );
+        },
+
+        error: error => {
+          console.error(
+            'Failed to load categories:',
+            error
+          );
+        }
+      });
   }
 
 
@@ -267,126 +378,230 @@ export class Cars {
 
   private loadSearchParams(): void {
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams
+      .subscribe(params => {
 
-      // ----------------------------------------------------------
-      // RENTAL PLAN
-      // ----------------------------------------------------------
+        // --------------------------------------------------------
+        // RENTAL PLAN
+        // --------------------------------------------------------
 
-      const plan =
-        params['plan'];
+        const plan =
+          params['plan'];
 
-      if (
-        plan === 'daily' ||
-        plan === 'weekly' ||
-        plan === 'monthly'
-      ) {
-
-        this.selectedPlan.set(plan);
-
-      }
-
-      // ----------------------------------------------------------
-      // CATEGORY
-      // ----------------------------------------------------------
-
-      const category =
-        Number(params['category']);
-
-      if (
-        Number.isInteger(category) &&
-        category > 0
-      ) {
-
-        this.selectedCategory.set(category);
-
-      } else {
-
-        this.selectedCategory.set(null);
-
-      }
+        if (
+          plan === 'daily' ||
+          plan === 'weekly' ||
+          plan === 'monthly'
+        ) {
+          this.selectedPlan.set(plan);
+        }
 
 
-      // ----------------------------------------------------------
-      // TRANSMISSION
-      // ----------------------------------------------------------
+        // --------------------------------------------------------
+        // CATEGORY
+        // --------------------------------------------------------
 
-      const transmission =
-        params['transmission'];
+        const category =
+          Number(params['category']);
 
-      if (
-        transmission &&
-        this.transmissions.includes(transmission)
-      ) {
-
-        this.selectedTransmission.set(
-          transmission
-        );
-
-      } else {
-
-        this.selectedTransmission.set('All');
-
-      }
+        if (
+          Number.isInteger(category) &&
+          category > 0
+        ) {
+          this.selectedCategory.set(
+            category
+          );
+        } else {
+          this.selectedCategory.set(null);
+        }
 
 
-      // ----------------------------------------------------------
-      // MAX PRICE
-      // ----------------------------------------------------------
+        // --------------------------------------------------------
+        // TRANSMISSION
+        // --------------------------------------------------------
 
-      const price =
-        Number(params['maxPrice']);
+        const transmission =
+          params['transmission'];
 
-      const planMaxPrice =
-        this.getMaxPriceForPlan(
-          this.selectedPlan()
-        );
+        if (
+          transmission === 'Automatic'
+        ) {
+          this.selectedTransmission.set(
+            Transmission.Automatic
+          );
+        } else if (
+          transmission === 'Manual'
+        ) {
+          this.selectedTransmission.set(
+            Transmission.Manual
+          );
+        } else {
+          this.selectedTransmission.set(
+            'All'
+          );
+        }
 
 
-      if (
-        Number.isFinite(price) &&
-        price > 0
-      ) {
+        // --------------------------------------------------------
+        // MAX PRICE
+        // --------------------------------------------------------
 
-        this.maxPrice.set(
-          Math.min(
-            price,
-            planMaxPrice
-          )
-        );
+        const price =
+          Number(params['maxPrice']);
 
-      } else {
+        if (
+          Number.isFinite(price) &&
+          price > 0
+        ) {
+          this.maxPrice.set(price);
+        }
 
-        this.maxPrice.set(
-          planMaxPrice
-        );
 
-      }
+        // --------------------------------------------------------
+        // FUEL TYPE
+        // --------------------------------------------------------
 
-      // ----------------------------------------------------------
-      // Fuel type
-      // ----------------------------------------------------------
+        const fuelType =
+          params['fuelType'];
 
-      const fuelType =
-        params['fuelType'];
+        if (
+          fuelType === 'Petrol'
+        ) {
+          this.selectedFuelType.set(
+            FuelType.Petrol
+          );
+        } else if (
+          fuelType === 'Diesel'
+        ) {
+          this.selectedFuelType.set(
+            FuelType.Diesel
+          );
+        } else if (
+          fuelType === 'Hybrid'
+        ) {
+          this.selectedFuelType.set(
+            FuelType.Hybrid
+          );
+        } else {
+          this.selectedFuelType.set(
+            'All'
+          );
+        }
+      });
+  }
 
-      if (
-        fuelType &&
-        this.fuelTypes.includes(fuelType)
-      ) {
 
-        this.selectedFuelType.set(
-          fuelType
-        );
+  // ============================================================
+  // CAR NAME
+  // ============================================================
 
-      } else {
+  getCarName(car: Car): string {
 
-        this.selectedFuelType.set('All');
+    return this.languageService.isArabic()
+      ? car.nameAr
+      : car.nameEn;
+  }
 
-      }
 
-    });
+  // ============================================================
+  // CAR DESCRIPTION
+  // ============================================================
 
+  getCarDescription(
+    car: Car
+  ): string {
+
+    return this.languageService.isArabic()
+      ? car.descriptionAr ?? ''
+      : car.descriptionEn ?? '';
+  }
+
+
+  // ============================================================
+  // CATEGORY NAME
+  // ============================================================
+
+  getCategoryName(
+    categoryId: number | null
+  ): string {
+
+    if (categoryId === null) {
+      return this.languageService.isArabic()
+        ? 'الكل'
+        : 'All';
+    }
+
+    const category =
+      this.categories().find(
+        item => item.id === categoryId
+      );
+
+    if (!category) {
+      return this.languageService.isArabic()
+        ? 'غير معروف'
+        : 'Unknown';
+    }
+
+    return this.languageService.isArabic()
+      ? category.nameAr
+      : category.nameEn;
+  }
+
+
+  // ============================================================
+  // TRANSMISSION LABEL
+  // ============================================================
+
+  getTransmissionLabel(
+    transmission: Transmission
+  ): string {
+
+    const isArabic =
+      this.languageService.isArabic();
+
+    if (
+      transmission === Transmission.Automatic
+    ) {
+      return isArabic
+        ? 'أوتوماتيك'
+        : 'Automatic';
+    }
+
+    return isArabic
+      ? 'مانيوال'
+      : 'Manual';
+  }
+
+
+  // ============================================================
+  // FUEL LABEL
+  // ============================================================
+
+  getFuelTypeLabel(
+    fuelType: FuelType
+  ): string {
+
+    const isArabic =
+      this.languageService.isArabic();
+
+    switch (fuelType) {
+
+      case FuelType.Diesel:
+        return isArabic
+          ? 'ديزل'
+          : 'Diesel';
+
+      case FuelType.Hybrid:
+        return isArabic
+          ? 'هجين'
+          : 'Hybrid';
+
+      case FuelType.Petrol:
+      default:
+        return isArabic
+          ? 'بنزين'
+          : 'Petrol';
+    }
   }
 
 
@@ -400,7 +615,6 @@ export class Cars {
       car,
       this.selectedPlan()
     );
-
   }
 
 
@@ -410,42 +624,27 @@ export class Cars {
 
   getPlanLabel(): string {
 
+    const isArabic =
+      this.languageService.isArabic();
+
     switch (this.selectedPlan()) {
 
       case 'weekly':
-        return 'Week';
+        return isArabic
+          ? 'أسبوع'
+          : 'Week';
 
       case 'monthly':
-        return 'Month';
+        return isArabic
+          ? 'شهر'
+          : 'Month';
 
       case 'daily':
       default:
-        return 'Day';
-
+        return isArabic
+          ? 'يوم'
+          : 'Day';
     }
-
-  }
-
-
-  // ============================================================
-  // CATEGORY NAME
-  // ============================================================
-
-  getCategoryName(
-    categoryId: number | null
-  ): string {
-
-    if (categoryId === null) {
-      return 'All';
-    }
-
-    const category =
-      this.categories.find(
-        item => item.id === categoryId
-      );
-
-    return category?.name ?? 'Unknown';
-
   }
 
 
@@ -453,14 +652,15 @@ export class Cars {
   // PLAN SELECTION
   // ============================================================
 
-  setPlan(plan: RentalPlan): void {
+  setPlan(
+    plan: RentalPlan
+  ): void {
 
     this.selectedPlan.set(plan);
 
     this.maxPrice.set(
       this.getMaxPriceForPlan(plan)
     );
-
   }
 
 
@@ -472,12 +672,15 @@ export class Cars {
     plan: RentalPlan
   ): number {
 
-    if (!this.cars.length) {
+    const cars =
+      this.cars();
+
+    if (!cars.length) {
       return 0;
     }
 
     const prices =
-      this.cars.map(car =>
+      cars.map(car =>
         this.carService.getPrice(
           car,
           plan
@@ -485,7 +688,6 @@ export class Cars {
       );
 
     return Math.max(...prices);
-
   }
 
 
@@ -500,7 +702,6 @@ export class Cars {
     this.selectedCategory.set(
       categoryId
     );
-
   }
 
 
@@ -512,10 +713,27 @@ export class Cars {
     transmission: string
   ): void {
 
-    this.selectedTransmission.set(
-      transmission
-    );
+    if (
+      transmission === 'Automatic'
+    ) {
+      this.selectedTransmission.set(
+        Transmission.Automatic
+      );
+      return;
+    }
 
+    if (
+      transmission === 'Manual'
+    ) {
+      this.selectedTransmission.set(
+        Transmission.Manual
+      );
+      return;
+    }
+
+    this.selectedTransmission.set(
+      'All'
+    );
   }
 
 
@@ -527,10 +745,36 @@ export class Cars {
     fuelType: string
   ): void {
 
-    this.selectedFuelType.set(
-      fuelType
-    );
+    if (
+      fuelType === 'Petrol'
+    ) {
+      this.selectedFuelType.set(
+        FuelType.Petrol
+      );
+      return;
+    }
 
+    if (
+      fuelType === 'Diesel'
+    ) {
+      this.selectedFuelType.set(
+        FuelType.Diesel
+      );
+      return;
+    }
+
+    if (
+      fuelType === 'Hybrid'
+    ) {
+      this.selectedFuelType.set(
+        FuelType.Hybrid
+      );
+      return;
+    }
+
+    this.selectedFuelType.set(
+      'All'
+    );
   }
 
 
@@ -546,7 +790,6 @@ export class Cars {
     this.maxPrice.set(
       Number(input.value)
     );
-
   }
 
 
@@ -562,7 +805,6 @@ export class Cars {
     this.searchQuery.set(
       input.value
     );
-
   }
 
 
@@ -578,7 +820,6 @@ export class Cars {
     this.sortBy.set(
       select.value
     );
-
   }
 
 
@@ -591,7 +832,6 @@ export class Cars {
     this.filtersOpen.update(
       value => !value
     );
-
   }
 
 
@@ -603,18 +843,34 @@ export class Cars {
 
     this.searchQuery.set('');
 
-    this.selectedCategory.set(null);
+    this.selectedCategory.set(
+      null
+    );
 
-    this.selectedTransmission.set('All');
+    this.selectedTransmission.set(
+      'All'
+    );
 
-    this.selectedFuelType.set('All');
+    this.selectedFuelType.set(
+      'All'
+    );
 
     this.maxPrice.set(
       this.currentPlanMaxPrice()
     );
 
-    this.sortBy.set('popular');
+    this.sortBy.set(
+      'popular'
+    );
+  }
 
+
+  // ============================================================
+  // RETRY
+  // ============================================================
+
+  retry(): void {
+    this.loadData();
   }
 
 
@@ -622,7 +878,9 @@ export class Cars {
   // CAR DETAILS
   // ============================================================
 
-  getCarDetails(id: number): void {
+  getCarDetails(
+    id: number
+  ): void {
 
     this.router.navigate(
       ['/cars', id],
@@ -632,29 +890,25 @@ export class Cars {
         }
       }
     );
-
   }
+
 
   // ============================================================
   // BOOK NOW
   // ============================================================
 
-  bookNow(carId: number): void {
-
-
-    
+  bookNow(
+    carId: number
+  ): void {
 
     this.router.navigate(
       ['/booking'],
       {
         queryParams: {
           car: carId,
-          
           plan: this.selectedPlan()
         }
       }
     );
-
   }
-
 }

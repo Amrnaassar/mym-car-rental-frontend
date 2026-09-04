@@ -1,0 +1,49 @@
+.login-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem;
+
+  background: #f8f9fa;
+
+  &__container {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 2.5rem;
+
+    background: #ffffff;
+
+    border-radius: 1rem;
+
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+  }
+
+  &__header {
+    margin-bottom: 2rem;
+
+    h1 {
+      margin-bottom: 0.5rem;
+
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+
+      color: #6c757d;
+    }
+  }
+
+  &__google-button {
+    display: flex;
+    justify-content: center;
+  }
+}
