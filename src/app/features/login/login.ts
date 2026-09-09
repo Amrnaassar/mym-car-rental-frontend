@@ -3,9 +3,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  PLATFORM_ID,
   ViewChild,
   inject
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import {
   ActivatedRoute,
@@ -13,10 +15,7 @@ import {
 } from '@angular/router';
 
 import { AuthService } from '../../core/services/auth.service';
-
-import {
-  GoogleAuthService
-} from '../../core/services/google-auth.service';
+import { GoogleAuthService } from '../../core/services/google-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -25,44 +24,39 @@ import {
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent
-  implements AfterViewInit {
+export class LoginComponent implements AfterViewInit {
 
-  @ViewChild(
-    'googleButton',
-    { static: true }
-  )
+  @ViewChild('googleButton', { static: true })
   googleButton!: ElementRef<HTMLDivElement>;
 
-  private readonly googleAuthService =
-    inject(GoogleAuthService);
+  private readonly googleAuthService = inject(GoogleAuthService);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly platformId = inject(PLATFORM_ID);
 
-  private readonly authService =
-    inject(AuthService);
+  async ngAfterViewInit(): Promise<void> {
 
-  private readonly router =
-    inject(Router);
+    // منع أي محاولة تنفيذ وقت الـ SSR (مفيش window/document على السيرفر)
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
 
-  private readonly activatedRoute =
-    inject(ActivatedRoute);
+    try {
+      await this.googleAuthService.initialize(
+        (idToken: string) => this.loginWithGoogle(idToken)
+      );
 
-  ngAfterViewInit(): void {
+      this.googleAuthService.renderButton(
+        this.googleButton.nativeElement
+      );
 
-    this.googleAuthService.initialize(
-      (idToken: string) => {
-
-        this.loginWithGoogle(idToken);
-      }
-    );
-
-    this.googleAuthService.renderButton(
-      this.googleButton.nativeElement
-    );
+    } catch (error) {
+      console.error('Failed to initialize Google Sign-In:', error);
+    }
   }
 
-  private loginWithGoogle(
-    idToken: string
-  ): void {
+  private loginWithGoogle(idToken: string): void {
 
     this.authService
       .googleLogin(idToken)
@@ -76,17 +70,11 @@ export class LoginComponent
               .queryParamMap
               .get('returnUrl');
 
-          this.router.navigateByUrl(
-            returnUrl || '/'
-          );
+          this.router.navigateByUrl(returnUrl || '/');
         },
 
         error: error => {
-
-          console.error(
-            'Google login failed:',
-            error
-          );
+          console.error('Google login failed:', error);
         }
       });
   }

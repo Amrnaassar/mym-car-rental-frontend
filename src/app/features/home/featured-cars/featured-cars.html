@@ -1,115 +1,184 @@
-<section class="featured-cars">
 
+<section class="featured-cars">
   <div class="featured-cars__container">
 
     <!-- HEADER -->
-
     <div class="featured-cars__header">
 
-      <h2 class="featured-cars__title">
-        {{ currentLanguage === 'ar'
-          ? 'السيارات المميزة'
-          : 'Featured Cars'
-        }}
-      </h2>
+      <div class="featured-cars__heading">
+        <span class="featured-cars__eyebrow">
+          {{ currentLanguage === 'ar'
+            ? 'اختياراتنا'
+            : 'Our Selection'
+          }}
+        </span>
+
+        <h2 class="featured-cars__title">
+          {{ currentLanguage === 'ar'
+            ? 'السيارات المميزة'
+            : 'Featured Cars'
+          }}
+        </h2>
+      </div>
 
       <a
         routerLink="/cars"
         class="featured-cars__view-all"
       >
-        {{ currentLanguage === 'ar'
-          ? 'عرض الكل'
-          : 'View All'
-        }}
+        <span>
+          {{ currentLanguage === 'ar'
+            ? 'عرض الكل'
+            : 'View All'
+          }}
+        </span>
+
+        <span
+          class="featured-cars__view-icon"
+          aria-hidden="true"
+        >
+          →
+        </span>
       </a>
 
     </div>
 
 
     <!-- CARS -->
-
     <div class="featured-cars__grid">
 
-      @for (car of cars; track car.id) {
+      @for (car of cars(); track car.id) {
 
         <article
           class="car-card"
+          tabindex="0"
+          role="link"
+          [attr.aria-label]="getCarName(car)"
           (click)="goToCarDetails(car.id)"
+          (keydown.enter)="goToCarDetails(car.id)"
+          (keydown.space)="goToCarDetails(car.id)"
         >
 
           <!-- IMAGE -->
-
-          <div class="car-card__image">
+          <div class="car-card__media">
 
             <img
+              class="car-card__image"
               [src]="
                 car.primaryImageUrl ||
                 'assets/images/placeholder-car.jpg'
               "
               [alt]="getCarName(car)"
               width="600"
-              height="400"
+              height="420"
               loading="lazy"
               decoding="async"
             />
+
+            <!-- IMAGE OVERLAY -->
+            <div
+              class="car-card__overlay"
+              aria-hidden="true"
+            ></div>
+
+
+            <!-- CATEGORY -->
+            <span class="car-card__category">
+              {{ getCategoryName(car) }}
+            </span>
+
+
+            <!-- RATING -->
+            <div
+              class="car-card__rating"
+              [attr.aria-label]="
+                (currentLanguage === 'ar'
+                  ? 'التقييم '
+                  : 'Rating ') + car.rating
+              "
+            >
+              <span
+                class="car-card__star"
+                aria-hidden="true"
+              >
+                ★
+              </span>
+
+              <span>
+                {{ car.rating }}
+              </span>
+            </div>
+
+
+            <!-- VIEW ACTION -->
+            <div
+              class="car-card__action"
+              aria-hidden="true"
+            >
+              <span class="car-card__action-icon">
+                →
+              </span>
+            </div>
 
           </div>
 
 
           <!-- BODY -->
-
           <div class="car-card__body">
 
-            <!-- CATEGORY -->
+            <!-- TOP -->
+            <div class="car-card__content">
 
-            <span class="car-card__category">
-
-              {{ getCategoryName(car) }}
-
-            </span>
-
-
-            <!-- NAME -->
-
-            <h3 class="car-card__name">
-
-              {{ getCarName(car) }}
-
-            </h3>
-
-
-            <!-- INFO -->
-
-            <div class="car-card__info">
-
-              <span class="car-card__price">
-
-                {{
-                  car.pricePerDay
-                    | currency:'AED':'symbol'
-                }}
-
-                /
-
+              <span class="car-card__label">
                 {{ currentLanguage === 'ar'
-                  ? 'اليوم'
-                  : 'Day'
+                  ? 'للتأجير اليومي'
+                  : 'Daily Rental'
                 }}
-
               </span>
 
+              <h3 class="car-card__name">
+                {{ getCarName(car) }}
+              </h3>
 
-              <span class="car-card__rating">
+            </div>
 
-                <span
-                  class="car-card__star"
-                  aria-hidden="true"
-                >
-                  ★
+
+            <!-- FOOTER -->
+            <div class="car-card__footer">
+
+              <div class="car-card__pricing">
+
+                <span class="car-card__price">
+                  {{
+                    car.pricePerDay
+                      | currency:'AED':'symbol'
+                  }}
                 </span>
 
-                {{ car.rating }}
+                <span class="car-card__period">
+                  /
+                  {{ currentLanguage === 'ar'
+                    ? 'اليوم'
+                    : 'day'
+                  }}
+                </span>
 
+              </div>
+
+
+              <span
+                class="car-card__details"
+                aria-hidden="true"
+              >
+                <span>
+                  {{ currentLanguage === 'ar'
+                    ? 'التفاصيل'
+                    : 'Details'
+                  }}
+                </span>
+
+                <span class="car-card__details-arrow">
+                  →
+                </span>
               </span>
 
             </div>
@@ -123,5 +192,4 @@
     </div>
 
   </div>
-
 </section>

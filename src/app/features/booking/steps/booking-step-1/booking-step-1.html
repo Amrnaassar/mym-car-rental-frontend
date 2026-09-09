@@ -25,50 +25,46 @@
     ========================== -->
     @if (car) {
 
-      <div class="booking-step__car-card">
+    <div class="booking-step__car-card">
 
-        <div class="booking-step__car-image">
+      <div class="booking-step__car-image">
 
-          <img
-            [src]="car.primaryImageUrl"
-            [alt]="car.nameAr"
-            loading="eager"
-          />
+        <img [src]="car.primaryImageUrl" [alt]="car.nameAr" loading="eager" />
 
-        </div>
+      </div>
 
-        <div class="booking-step__car-content">
+      <div class="booking-step__car-content">
 
-          <span class="booking-step__car-category">
-            {{ car.categoryId }}
+        <span class="booking-step__car-category">
+          {{ getCategoryName(car) }}
+        </span>
+
+        <h2>
+          {{ car.nameEn }}
+        </h2>
+
+        <div class="booking-step__car-meta">
+
+          <span>
+            <i class="fa-solid fa-gas-pump"></i>
+           {{ getFuelTypeLabel(car.fuelType) }}
           </span>
 
-          <h2>
-            {{ car.nameEn }}
-          </h2>
+          <span>
+            <i class="fa-solid fa-gears"></i>
+           {{ getTransmissionLabel(car.transmission) }}
+          </span>
 
-          <div class="booking-step__car-meta">
-
-            <span>
-              <i class="fa-solid fa-gas-pump"></i>
-              {{ car.fuelType }}
-            </span>
-
-            <span>
-              <i class="fa-solid fa-gears"></i>
-              {{ car.transmission }}
-            </span>
-
-            <span>
-              <i class="fa-solid fa-users"></i>
-              {{ car.seats }} Seats
-            </span>
-
-          </div>
+          <span>
+            <i class="fa-solid fa-users"></i>
+            {{ car.seats }} Seats
+          </span>
 
         </div>
 
       </div>
+
+    </div>
 
     }
 
@@ -79,49 +75,30 @@
     <div class="booking-step__form">
 
       <!-- Pickup Date -->
-      <div class="form-group">
+      <div class="form-group" [class.form-group--error]="pickupDateError">
+        <app-date-picker label="Pickup Date" [value]="booking.pickupDate"
+          (valueChange)="onPickupDateChange($event)"></app-date-picker>
 
-        <label for="pickupDate">
-          Pickup Date
-        </label>
-
-        <div class="input-wrapper">
-
-          <i class="fa-regular fa-calendar"></i>
-
-          <input
-            id="pickupDate"
-            type="date"
-            [value]="booking.pickupDate"
-            (change)="onPickupDateChange($event)"
-          />
-
-        </div>
-
+        @if (pickupDateError) {
+        <p class="form-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          {{ pickupDateError }}
+        </p>
+        }
       </div>
 
 
       <!-- Return Date -->
-      <div class="form-group">
+      <div class="form-group" [class.form-group--error]="returnDateError">
+        <app-date-picker label="Return Date" [minDate]="booking.pickupDate" [value]="booking.returnDate"
+          (valueChange)="onReturnDateChange($event)"></app-date-picker>
 
-        <label for="returnDate">
-          Return Date
-        </label>
-
-        <div class="input-wrapper">
-
-          <i class="fa-regular fa-calendar-check"></i>
-
-          <input
-            id="returnDate"
-            type="date"
-            [value]="booking.returnDate"
-            [min]="booking.pickupDate"
-            (change)="onReturnDateChange($event)"
-          />
-
-        </div>
-
+        @if (returnDateError) {
+        <p class="form-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          {{ returnDateError }}
+        </p>
+        }
       </div>
 
 
@@ -136,11 +113,7 @@
 
           <i class="fa-solid fa-location-dot"></i>
 
-          <select
-            id="pickupLocation"
-            [value]="booking.pickupLocation"
-            (change)="onLocationChange($event)"
-          >
+          <select id="pickupLocation" [value]="booking.pickupLocation" (change)="onLocationChange($event)">
 
             <option value="">
               Select pickup location
@@ -167,7 +140,12 @@
         </div>
 
       </div>
-
+      @if (pickupLocationError) {
+      <p class="form-error">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        {{ pickupLocationError }}
+      </p>
+      }
     </div>
 
 
@@ -239,12 +217,7 @@
     ========================== -->
     <div class="booking-step__actions">
 
-      <button
-        type="button"
-        class="btn btn-primary"
-        [disabled]="!car"
-        (click)="continue()"
-      >
+      <button type="button" class="btn btn-primary" [disabled]="!car" (click)="continue()">
 
         Continue
 

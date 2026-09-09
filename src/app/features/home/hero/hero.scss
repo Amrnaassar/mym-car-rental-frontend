@@ -1,7 +1,6 @@
-
-
 @use "../../../../styles/abstracts/variables" as *;
 @use "../../../../styles/abstracts/mixins" as *;
+
 
 // ============================================================
 // HERO
@@ -11,23 +10,25 @@
   display: block;
 }
 
+
 .hero {
   position: relative;
 
-  min-height: 92vh;
+  min-height: 760px;
 
   display: flex;
   align-items: center;
 
-  padding-block: $space-8 * 2;
+  padding-block: 110px 100px;
 
   overflow: visible;
 
   background: $color-primary-dark;
 
-  // ----------------------------------------------------------
+
+  // ==========================================================
   // BACKGROUND
-  // ----------------------------------------------------------
+  // ==========================================================
 
   &__bg {
     position: absolute;
@@ -37,7 +38,10 @@
     z-index: 0;
 
     overflow: hidden;
+
+    pointer-events: none;
   }
+
 
   &__bg-img {
     position: absolute;
@@ -47,57 +51,39 @@
     width: 100%;
     height: 100%;
 
-    /*
-     * Keep the image proportional.
-     * cover prevents distortion.
-     */
+    display: block;
+
     object-fit: cover;
 
-    /*
-     * Move the image slightly toward the right
-     * so the car remains visible while the text
-     * stays on the darker side.
-     */
-    object-position: 68% center;
+    object-position: center 58%;
 
-    /*
-     * Slightly scale the image instead of aggressively
-     * cropping it.
-     */
     transform: scale(1.01);
 
     transform-origin: center center;
   }
 
-  // ----------------------------------------------------------
+
+  // ==========================================================
   // OVERLAY
-  // ----------------------------------------------------------
+  // ==========================================================
 
   &__overlay {
     position: absolute;
 
     inset: 0;
 
-    /*
-     * Darker on the left for readable text.
-     * Much more transparent on the right so the
-     * actual car image remains visible.
-     */
     background:
-      linear-gradient(
-        90deg,
-        rgba(7, 15, 24, 0.94) 0%,
-        rgba(7, 15, 24, 0.82) 20%,
-        rgba(7, 15, 24, 0.58) 38%,
-        rgba(7, 15, 24, 0.25) 58%,
-        rgba(7, 15, 24, 0.08) 78%,
-        rgba(7, 15, 24, 0.02) 100%
-      );
+      linear-gradient(90deg,
+        rgba(4, 10, 17, 0.96) 0%,
+        rgba(4, 10, 17, 0.88) 20%,
+        rgba(4, 10, 17, 0.64) 40%,
+        rgba(4, 10, 17, 0.32) 62%,
+        rgba(4, 10, 17, 0.10) 82%,
+        rgba(4, 10, 17, 0.02) 100%);
 
-    /*
-     * Small bottom gradient so the image blends
-     * naturally into the next section.
-     */
+    pointer-events: none;
+
+
     &::after {
       content: "";
 
@@ -105,28 +91,24 @@
 
       inset: auto 0 0;
 
-      height: 180px;
+      height: 190px;
 
       background:
-        linear-gradient(
-          to bottom,
+        linear-gradient(to bottom,
           transparent 0%,
-          rgba(7, 15, 24, 0.15) 45%,
-          rgba(7, 15, 24, 0.7) 100%
-        );
-
-      pointer-events: none;
+          rgba(4, 10, 17, 0.12) 25%,
+          rgba(4, 10, 17, 0.52) 68%,
+          rgba(4, 10, 17, 0.94) 100%);
     }
   }
 
-  // ----------------------------------------------------------
+
+  // ==========================================================
   // CONTAINER
-  // ----------------------------------------------------------
+  // ==========================================================
 
   &__container {
-    position: relative;
-
-    z-index: 1;
+    position: static;
 
     width: 100%;
 
@@ -134,90 +116,167 @@
 
     margin-inline: auto;
 
-    padding-inline: $space-8;
+    padding-inline: $space-10;
   }
 
-  // ----------------------------------------------------------
-  // CONTENT
-  // ----------------------------------------------------------
+
+  // ==========================================================
+  // HERO CONTENT
+  // ==========================================================
 
   &__content {
+    position: relative;
+
+    z-index: 3;
+
     max-width: 620px;
-    
+
+    padding-top: 15px;
   }
 
-  // ----------------------------------------------------------
-  // TITLE
-  // ----------------------------------------------------------
 
-  &__title {
-    max-width: 620px;
+  // ==========================================================
+  // EYEBROW
+  // ==========================================================
 
-    margin: 0 0 $space-5;
+  &__eyebrow {
+    display: inline-flex;
 
-    color: $color-text-primary;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 20px;
+
+    color: $color-accent;
+
+    font-size: $font-size-sm;
+
+    font-weight: $font-weight-semibold;
+
+    letter-spacing: 0.18em;
+
+    line-height: 1;
 
     text-transform: uppercase;
 
-    /*
-     * Better visual hierarchy for the luxury hero.
-     */
-    font-size: clamp(
-      3rem,
-      6vw,
-      5.5rem
-    );
 
-    line-height: 0.98;
+    &::after {
+      content: "";
 
-    letter-spacing: -0.045em;
+      width: 65px;
+      height: 1px;
 
-    text-shadow:
-      0 3px 25px rgba(0, 0, 0, 0.28);
+      background:
+        linear-gradient(90deg,
+          $color-accent,
+          transparent);
+    }
   }
 
-  // ----------------------------------------------------------
+
+  // ==========================================================
+  // TITLE
+  // ==========================================================
+
+  &__title {
+    max-width: 650px;
+
+    margin: 0 0 22px;
+
+    color: $color-text-primary;
+
+    font-size: clamp(4rem,
+        6vw,
+        6.2rem);
+
+    font-weight: 700;
+
+    line-height: 0.9;
+
+    letter-spacing: -0.055em;
+
+    text-transform: uppercase;
+
+    text-shadow:
+      0 14px 45px rgba(0, 0, 0, 0.4);
+
+
+    span {
+
+      color: $color-accent;
+    }
+  }
+
+
+  // ==========================================================
   // SUBTITLE
-  // ----------------------------------------------------------
+  // ==========================================================
 
   &__subtitle {
-    max-width: 440px;
+    max-width: 500px;
 
-    margin: 0 0 $space-6;
+    margin: 0 0 28px;
 
     color: rgba(255, 255, 255, 0.72);
 
     font-size: $font-size-lg;
 
-    line-height: 1.7;
+    font-weight: $font-weight-medium;
+
+    line-height: 1.65;
   }
 
-  // ----------------------------------------------------------
-  // RENTAL PLAN TOGGLE
-  // ----------------------------------------------------------
+
+  // ==========================================================
+  // RENTAL PLANS
+  // ==========================================================
 
   &__plans {
-    display: flex;
+    display: inline-flex;
 
     align-items: center;
 
-    gap: $space-6;
+    gap: 0;
 
-    margin: 0 0 $space-8;
+    margin: 0 0 28px;
 
-    padding: 0;
+    padding: 5px;
 
-    border: 0;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 999px;
+
+    background:
+      rgba(7, 17, 28, 0.62);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
   }
+
+
+  // ==========================================================
+  // PLAN
+  // ==========================================================
 
   &__plan {
     position: relative;
+
+    min-width: 120px;
+    min-height: 46px;
+
+    padding-inline: 17px;
 
     display: inline-flex;
 
     align-items: center;
 
-    gap: $space-2;
+    justify-content: center;
+
+    gap: 9px;
+
+    border-radius: 999px;
 
     cursor: pointer;
 
@@ -225,9 +284,18 @@
 
     font-size: $font-size-sm;
 
+    font-weight: $font-weight-medium;
+
     transition:
       color $transition-fast,
+      background $transition-fast,
+      box-shadow $transition-fast,
       transform $transition-fast;
+
+
+    // --------------------------------------------------------
+    // Radio
+    // --------------------------------------------------------
 
     input {
       position: absolute;
@@ -235,42 +303,66 @@
       width: 1px;
       height: 1px;
 
+      margin: -1px;
+
       overflow: hidden;
 
-      clip: rect(0 0 0 0);
+      clip: rect(0, 0, 0, 0);
 
       white-space: nowrap;
 
-      &:focus-visible + .hero__plan-icon {
-        @include focus-ring;
-
-        border-radius: $radius-full;
-      }
+      border: 0;
     }
+
+
+    // --------------------------------------------------------
+    // Icon
+    // --------------------------------------------------------
 
     &-icon {
       width: 18px;
       height: 18px;
 
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
       color: rgba(255, 255, 255, 0.42);
+
+      font-size: 15px;
 
       transition:
         color $transition-fast,
         transform $transition-fast;
     }
 
+
+    // --------------------------------------------------------
+    // Content
+    // --------------------------------------------------------
+
+    &-content {
+      display: inline-flex;
+
+      align-items: center;
+    }
+
+
+    &-label {
+      white-space: nowrap;
+    }
+
+
+    // --------------------------------------------------------
+    // Hover
+    // --------------------------------------------------------
+
     &:hover {
       color: $color-text-primary;
 
-      .hero__plan-icon {
-        color: $color-accent;
+      transform: translateY(-1px);
 
-        transform: translateY(-1px);
-      }
-    }
-
-    &--active {
-      color: $color-text-primary;
 
       .hero__plan-icon {
         color: $color-accent;
@@ -278,347 +370,923 @@
         transform: scale(1.05);
       }
     }
+
+
+    // --------------------------------------------------------
+    // Active
+    // --------------------------------------------------------
+
+    &--active {
+      color: #101820;
+
+      background:
+        linear-gradient(135deg,
+          #f3d39a,
+          $color-accent );
+
+      box-shadow:
+        0 8px 25px rgba(200, 169, 107, 0.18);
+
+
+      .hero__plan-icon {
+        color: #101820;
+      }
+    }
   }
+
+
+  // ==========================================================
+  // CTA
+  // ==========================================================
+
+  &__cta {
+    min-width: 185px;
+
+    min-height: 52px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-inline-start: 10px;
+
+    padding-inline: 27px;
+  }
+
+
+  // ==========================================================
+  // SEARCH CARD
+  // ==========================================================
+
+  &__search {
+    position: absolute;
+
+    left: $space-10;
+    right: $space-10;
+
+    bottom: -50px;
+
+    z-index: 20;
+
+    width: auto;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+
+    align-items: stretch;
+
+    gap: 0;
+
+    padding: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 24px;
+
+    background:
+      linear-gradient(135deg,
+        rgba(13, 27, 41, 0.95),
+        rgba(6, 15, 25, 0.90));
+
+    backdrop-filter: blur(28px);
+
+    -webkit-backdrop-filter: blur(28px);
+
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+
+  // ==========================================================
+  // SEARCH FIELD
+  // ==========================================================
+
+  &__search-field {
+    min-width: 0;
+
+    min-height: 70px;
+
+    padding-inline: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    border-inline-end:
+      1px solid rgba(255, 255, 255, 0.08);
+
+
+    &:last-of-type {
+      border-inline-end: 0;
+    }
+
+
+    label {
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      margin-bottom: 8px;
+
+      color: rgba(255, 255, 255, 0.48);
+
+      font-size: 10px;
+
+      font-weight: $font-weight-semibold;
+
+      letter-spacing: 0.08em;
+
+      line-height: 1.2;
+
+      text-transform: uppercase;
+
+
+      i {
+        color: $color-accent;
+
+        font-size: 13px;
+      }
+    }
+  }
+
+
+  // ==========================================================
+  // SEARCH SELECT
+  // ==========================================================
+
+  // ============================================================
+  // SEARCH SELECT - PREMIUM STYLE
+  // ============================================================
+
+  .hero__search-field {
+    select.form-control {
+      width: 100%;
+      min-width: 0;
+      height: 38px;
+
+      padding: 0 38px 0 0;
+
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      border: 0;
+      border-radius: 8px;
+
+      outline: none;
+
+      cursor: pointer;
+
+      color: #ffffff;
+
+      background-color: transparent;
+
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23c8a96b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+      background-repeat: no-repeat;
+
+      background-position: right 4px center;
+
+      font-family: inherit;
+
+      font-size: 14px;
+
+      font-weight: 500;
+
+      line-height: 1.4;
+
+      transition:
+        color $transition-fast,
+        background-color $transition-fast;
+
+
+      // --------------------------------------------------------
+      // Hover
+      // --------------------------------------------------------
+
+      &:hover {
+        color: $color-accent;
+      }
+
+
+      // --------------------------------------------------------
+      // Focus
+      // --------------------------------------------------------
+
+      &:focus {
+        color: #ffffff;
+
+        outline: none;
+      }
+
+
+      // --------------------------------------------------------
+      // Options
+      // --------------------------------------------------------
+
+      option {
+        padding: 12px 16px;
+
+        color: #ffffff;
+
+        background-color: #0b1723;
+
+        font-family: inherit;
+
+        font-size: 14px;
+      }
+
+
+      option:checked {
+        color: #101820;
+
+        background-color: $color-accent;
+      }
+    }
+  }
+
+  // ==========================================================
+  // RTL SELECT
+  // ==========================================================
+
+  :host-context([dir="rtl"]) {
+    .hero__search-field {
+      select.form-control {
+        padding:
+          0 0 0 38px;
+
+        background-position: left 4px center;
+      }
+    }
+  }
+
+
+  // ==========================================================
+  // SEARCH BUTTON
+  // ==========================================================
+
+  &__search-btn {
+    align-self: center;
+
+    min-width: 175px;
+
+    min-height: 58px;
+
+    margin: 5px;
+
+    padding-inline: 24px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+  }
+}
+
+
+// ============================================================
+// EXTRA LARGE DESKTOP
+// ============================================================
+
+@media (min-width: 1440px) {
+
+  .hero {
+    min-height: 780px;
+
+    padding-block: 115px 105px;
+
+
+    &__title {
+      font-size: clamp(4.5rem,
+          5.7vw,
+          6.5rem);
+    }
+
+
+    &__search {
+      left: $space-10;
+      right: $space-10;
+
+      bottom: -50px;
+    }
+  }
+}
+
+
+// ============================================================
+// XL
+// ============================================================
+
+@media (max-width: $breakpoint-xl) {
+
+  .hero {
+    min-height: 760px;
+
+    padding-block: 105px 95px;
+
+
+    &__container {
+      padding-inline: $space-6;
+    }
+
+
+    &__content {
+      max-width: 570px;
+    }
+
+
+    &__title {
+      font-size: clamp(3.7rem,
+          6vw,
+          5.6rem);
+    }
+
+
+    &__search {
+      left: $space-6;
+      right: $space-6;
+
+      bottom: -50px;
+    }
+
+
+    &__search-field {
+      padding-inline: 15px;
+    }
+
+
+    &__search-btn {
+      min-width: 155px;
+
+      padding-inline: 20px;
+    }
+  }
+}
+
+
+// ============================================================
+// LG / TABLET LANDSCAPE
+// ============================================================
+
+@media (max-width: $breakpoint-lg) {
+
+  .hero {
+    min-height: 850px;
+
+    padding-block: 115px 115px;
+
+
+    &__container {
+      padding-inline: $space-6;
+    }
+
+
+    &__content {
+      max-width: 560px;
+    }
+
+
+    &__title {
+      font-size: clamp(3.4rem,
+          7vw,
+          5rem);
+    }
+
+
+    // --------------------------------------------------------
+    // Search becomes 2 columns
+    // --------------------------------------------------------
+
+    &__search {
+      left: $space-6;
+      right: $space-6;
+
+      bottom: -50px;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      padding: 10px;
+    }
+
+
+    &__search-field {
+      min-height: 68px;
+
+      padding-inline: 18px;
+
+
+      &:nth-child(2) {
+        border-inline-end: 0;
+      }
+
+
+      &:nth-child(3),
+      &:nth-child(4) {
+        border-top:
+          1px solid rgba(255, 255, 255, 0.08);
+      }
+
+
+      &:nth-child(4) {
+        border-inline-end: 0;
+      }
+    }
+
+
+    &__search-btn {
+      grid-column: 1 / -1;
+
+      width: calc(100% - 10px);
+
+      min-height: 54px;
+
+      margin: 10px 5px 5px;
+    }
+  }
+}
+
+
+// ============================================================
+// MD / TABLET
+// ============================================================
+
+@media (max-width: $breakpoint-md) {
+
+  .hero {
+    min-height: 880px;
+
+    padding-block: 105px 120px;
+
+
+    &__bg-img {
+      object-position: 58% center;
+    }
+
+
+    &__overlay {
+      background:
+        linear-gradient(180deg,
+          rgba(4, 10, 17, 0.82) 0%,
+          rgba(4, 10, 17, 0.68) 30%,
+          rgba(4, 10, 17, 0.48) 55%,
+          rgba(4, 10, 17, 0.84) 80%,
+          rgba(4, 10, 17, 0.98) 100%);
+
+
+      &::after {
+        height: 210px;
+      }
+    }
+
+
+    &__container {
+      padding-inline: $space-6;
+    }
+
+
+    &__content {
+      max-width: 530px;
+    }
+
+
+    &__title {
+      font-size: clamp(3.1rem,
+          9vw,
+          4.7rem);
+    }
+
+
+    &__subtitle {
+      font-size: $font-size-md;
+    }
+
+
+    // --------------------------------------------------------
+    // Search
+    // --------------------------------------------------------
+
+    &__search {
+      left: $space-6;
+      right: $space-6;
+
+      bottom: -50px;
+    }
+  }
+}
+
+
+// ============================================================
+// MOBILE
+// ============================================================
+
+@media (max-width: $breakpoint-sm) {
+
+  .hero {
+    min-height: auto;
+
+    padding-block: 100px 35px;
+
+    overflow: visible;
+  }
+
+
   // ----------------------------------------------------------
-  // Botton
+  // Background
   // ----------------------------------------------------------
+
+  .hero__bg {
+    overflow: hidden;
+  }
+
+
+  .hero__bg-img {
+    object-position: 62% center;
+
+    transform: scale(1.04);
+  }
+
+
+  .hero__overlay {
+    background:
+      linear-gradient(180deg,
+        rgba(4, 10, 17, 0.80) 0%,
+        rgba(4, 10, 17, 0.70) 30%,
+        rgba(4, 10, 17, 0.56) 52%,
+        rgba(4, 10, 17, 0.86) 76%,
+        rgba(4, 10, 17, 0.98) 100%);
+
+
+    &::after {
+      height: 240px;
+    }
+  }
+
+
+  // ----------------------------------------------------------
+  // Container
+  // ----------------------------------------------------------
+
+  .hero__container {
+    padding-inline: $space-4;
+  }
+
+
+  // ----------------------------------------------------------
+  // Content
+  // ----------------------------------------------------------
+
+  .hero__content {
+    max-width: 100%;
+
+    padding-top: 5px;
+  }
+
+
+  // ----------------------------------------------------------
+  // Eyebrow
+  // ----------------------------------------------------------
+
+  .hero__eyebrow {
+    gap: 10px;
+
+    margin-bottom: 17px;
+
+    font-size: 10px;
+
+    letter-spacing: 0.13em;
+
+
+    &::after {
+      width: 42px;
+    }
+  }
+
+
+  // ----------------------------------------------------------
+  // Title
+  // ----------------------------------------------------------
+
+  .hero__title {
+    max-width: 100%;
+
+    margin-bottom: 18px;
+
+    font-size: clamp(2.7rem,
+        13vw,
+        4rem);
+
+    line-height: 0.92;
+  }
+
+
+  // ----------------------------------------------------------
+  // Subtitle
+  // ----------------------------------------------------------
+
+  .hero__subtitle {
+    max-width: 340px;
+
+    margin-bottom: 24px;
+
+    font-size: $font-size-md;
+
+    line-height: 1.6;
+  }
+
+
+  // ----------------------------------------------------------
+  // Rental Plans
+  // ----------------------------------------------------------
+
+  .hero__plans {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    margin-bottom: 22px;
+
+    padding: 4px;
+  }
+
+
+  .hero__plan {
+    min-width: 0;
+
+    min-height: 44px;
+
+    padding-inline: 6px;
+
+    gap: 6px;
+
+    font-size: 11px;
+
+
+    &-icon {
+      width: 15px;
+      height: 15px;
+
+      font-size: 13px;
+    }
+  }
 
 
   // ----------------------------------------------------------
   // CTA
   // ----------------------------------------------------------
 
-  &__cta {
-    display: inline-flex;
+  .hero__cta {
+    width: 100%;
 
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-
-  gap: $space-2;
-
-  width: auto;
-
-  min-height: 48px;
-
-  padding: $space-3 $space-6;
-
-  margin-bottom: $space-8;
-
-  font-size: $font-size-sm;
+    min-height: 51px;
   }
 
-  // ----------------------------------------------------------
-  // SEARCH WIDGET
-  // ----------------------------------------------------------
 
-  &__search {
-    position: absolute;
+  // ==========================================================
+  // MOBILE SEARCH
+  // ==========================================================
 
-    left: $space-8;
-    right: $space-8;
-    bottom: -180px;
+  .hero__search {
+    /*
+     * Important:
+     * On mobile the search card MUST return to normal flow.
+     * No absolute positioning and no negative bottom.
+     */
 
-    z-index: 10;
+    position: relative;
+
+    left: auto;
+    right: auto;
+    bottom: auto;
+
+    width: 100%;
+
+    margin-top: 45px;
+
+    padding: 9px;
 
     display: grid;
 
-    grid-template-columns: repeat(4, 1fr) auto;
+    grid-template-columns: 1fr;
 
-    gap: $space-4;
+    gap: 0;
 
-    align-items: end;
+    border-radius: 20px;
 
-    padding: $space-6;
+    background:
+      linear-gradient(145deg,
+        rgba(13, 27, 41, 0.96),
+        rgba(6, 15, 25, 0.94));
 
-    border-radius: $radius-lg;
+    backdrop-filter: blur(24px);
 
-    box-shadow: $shadow-md;
+    -webkit-backdrop-filter: blur(24px);
+
+    box-shadow:
+      0 24px 55px rgba(0, 0, 0, 0.38);
+  }
+
+
+  // ----------------------------------------------------------
+  // Mobile Search Fields
+  // ----------------------------------------------------------
+
+  .hero__search-field {
+    width: 100%;
+
+    min-height: 63px;
+
+    padding:
+      9px 12px;
+
+    border-inline-end: 0;
+
+    border-bottom:
+      1px solid rgba(255, 255, 255, 0.07);
+
+
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4) {
+      border-top: 0;
+    }
+
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
 
     label {
-      display: block;
+      margin-bottom: 6px;
 
-      margin-bottom: $space-2;
+      font-size: 9px;
 
-      font-size: $font-size-xs;
 
-      font-weight: $font-weight-semibold;
+      i {
+        font-size: 12px;
+      }
+    }
 
-      letter-spacing: 0.04em;
 
-      text-transform: uppercase;
+    select {
+      height: 30px;
 
-      color: $color-text-muted;
+      font-size: 13px;
     }
   }
+
+
   // ----------------------------------------------------------
-  // SEARCH FIELD
+  // Mobile Search Button
   // ----------------------------------------------------------
 
-  &__search-field {
+  .hero__search-btn {
+    grid-column: auto;
+
+    width: calc(100% - 10px);
+
     min-width: 0;
-  }
 
-  // ----------------------------------------------------------
-  // SEARCH BUTTON
-  // ----------------------------------------------------------
+    min-height: 52px;
 
-  &__search-btn {
-    white-space: nowrap;
-  }
+    margin:
+      10px 5px 5px;
 
-  // ==========================================================
-  // LARGE DESKTOP
-  // ==========================================================
+    border-radius: 15px;
 
-  @media (min-width: 1440px) {
-
-    min-height: 90vh;
-
-    &__bg-img {
-      object-position: 70% center;
-    }
-
-    &__container {
-      padding-inline: $space-10;
-    }
-  }
-
-  // ==========================================================
-  // XL
-  // ==========================================================
-
-  @media (max-width: $breakpoint-xl) {
-
-    &__title {
-      font-size: clamp(
-        3rem,
-        5.5vw,
-        5rem
-      );
-    }
-
-    &__search {
-      left: $space-6;
-      right: $space-6;
-    }
-  }
-
-  // ==========================================================
-  // LG
-  // ==========================================================
-
-  @media (max-width: $breakpoint-lg) {
-
-    &__search {
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      bottom: -180px;
-    }
-
-    &__search-btn {
-      grid-column: 1 / -1;
-    }
-  }
-
-  // ==========================================================
-  // MD
-  // ==========================================================
-
-  @media (max-width: $breakpoint-md) {
-
-    min-height: 88vh;
-
-    &__bg-img {
-      /*
-       * Keep the car toward the right side.
-       */
-      object-position: 70% center;
-    }
-
-    &__overlay {
-      background:
-        linear-gradient(
-          90deg,
-          rgba(7, 15, 24, 0.95) 0%,
-          rgba(7, 15, 24, 0.82) 25%,
-          rgba(7, 15, 24, 0.52) 45%,
-          rgba(7, 15, 24, 0.18) 70%,
-          rgba(7, 15, 24, 0.05) 100%
-        );
-
-      &::after {
-        height: 140px;
-      }
-    }
-
-    &__container {
-      padding-inline: $space-6;
-    }
-
-    &__content {
-      max-width: 560px;
-    }
-
-    &__search {
-      left: $space-6;
-      right: $space-6;
-    }
-  }
-
-  // ==========================================================
-  // SM / MOBILE
-  // ==========================================================
-
-  @media (max-width: $breakpoint-sm) {
-
-    min-height: auto;
-
-    padding-block:
-      $space-8 * 2
-      $space-8;
-
-    margin-bottom: 0;
-
-    text-align: left;
-
-    &__bg {
-      min-height: 720px;
-    }
-
-    &__bg-img {
-      /*
-       * On mobile we shift the image slightly right.
-       * This keeps the car visible while the text stays readable.
-       */
-      object-position: 68% center;
-
-      transform: scale(1.015);
-    }
-
-    &__overlay {
-      background:
-        linear-gradient(
-          180deg,
-          rgba(7, 15, 24, 0.72) 0%,
-          rgba(7, 15, 24, 0.58) 32%,
-          rgba(7, 15, 24, 0.55) 58%,
-          rgba(7, 15, 24, 0.88) 100%
-        );
-
-      &::after {
-        height: 160px;
-      }
-    }
-
-    &__container {
-      padding-inline: $space-4;
-    }
-
-    &__content {
-      max-width: 100%;
-    }
-
-    &__title {
-      max-width: 500px;
-
-      font-size: clamp(
-        2.6rem,
-        12vw,
-        4rem
-      );
-
-      line-height: 0.98;
-    }
-
-    &__subtitle {
-      max-width: 390px;
-
-      font-size: $font-size-md;
-
-      line-height: 1.65;
-    }
-
-    // --------------------------------------------------------
-    // PLANS
-    // --------------------------------------------------------
-
-    &__plans {
-      flex-wrap: wrap;
-
-      gap: $space-4;
-
-      margin-bottom: $space-6;
-    }
-
-    // --------------------------------------------------------
-    // CTA
-    // --------------------------------------------------------
-
-    &__cta {
-      width: auto;
-
-      min-height: 46px;
-
-      padding-inline: $space-5;
-
-      margin-bottom: $space-8;
-
-      text-align: center;
-    }
-
-    // --------------------------------------------------------
-    // SEARCH
-    // --------------------------------------------------------
-
-    &__search {
-      position: relative;
-
-      left: auto;
-      right: auto;
-      bottom: auto;
-
-      width: 100%;
-
-      margin-top: $space-6;
-
-      grid-template-columns: 1fr;
-
-      padding: $space-5;
-    }
-
-    &__search-btn {
-      grid-column: auto;
-
-      width: 100%;
-    }
-  }
-
-  // ==========================================================
-  // SMALL MOBILE
-  // ==========================================================
-
-  @media (max-width: 400px) {
-
-    &__bg {
-      min-height: 680px;
-    }
-
-    &__title {
-      font-size: 2.45rem;
-    }
-
-    &__plans {
-      gap: $space-3;
-    }
-
-    &__search {
-      padding: $space-4;
-    }
+    font-size: 13px;
   }
 }
+
+
+// ============================================================
+// SMALL MOBILE
+// ============================================================
+
+@media (max-width: 400px) {
+
+  .hero {
+    padding-block: 92px 28px;
+  }
+
+
+  .hero__container {
+    padding-inline: 12px;
+  }
+
+
+  .hero__title {
+    font-size: 2.55rem;
+  }
+
+
+  .hero__subtitle {
+    max-width: 310px;
+
+    font-size: 14px;
+  }
+
+
+  .hero__plans {
+    padding: 3px;
+  }
+
+
+  .hero__plan {
+    min-height: 41px;
+
+    padding-inline: 4px;
+
+    font-size: 10px;
+
+
+    &-icon {
+      font-size: 12px;
+    }
+  }
+
+
+  .hero__cta {
+    min-height: 49px;
+  }
+
+
+  .hero__search {
+    margin-top: 38px;
+
+    padding: 8px;
+
+    border-radius: 18px;
+  }
+
+
+  .hero__search-field {
+    min-height: 59px;
+
+    padding-inline: 11px;
+  }
+
+
+  .hero__search-btn {
+    min-height: 50px;
+
+    margin-top: 9px;
+  }
+}
+
+
+// ============================================================
+// EXTRA SMALL DEVICES
+// ============================================================
+
+@media (max-width: 360px) {
+
+  .hero__title {
+    font-size: 2.35rem;
+  }
+
+
+  .hero__eyebrow {
+    font-size: 9px;
+  }
+
+
+  .hero__plan {
+    gap: 4px;
+
+    font-size: 9px;
+  }
+
+
+  .hero__plan-icon {
+    width: 13px;
+    height: 13px;
+
+    font-size: 11px;
+  }
+
+
+  .hero__search-field {
+    min-height: 57px;
+  }
+}
+
 
 // ============================================================
 // ACCESSIBILITY
@@ -635,7 +1303,7 @@
 
   overflow: hidden;
 
-  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
 
   white-space: nowrap;
 

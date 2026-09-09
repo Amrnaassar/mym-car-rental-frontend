@@ -19,27 +19,27 @@ import { Category } from '../../../core/models/car-category.model';
 })
 export class PopularCategories {
 
-  private readonly categoriesService = inject(CarCategoryService);
-  private readonly router = inject(Router);
+    private readonly categoriesService = inject(CarCategoryService);
+    private readonly router = inject(Router);
 
-  readonly languageService = inject(LanguageService);
+    readonly languageService = inject(LanguageService);
 
-  readonly categories = toSignal(
-    this.categoriesService.getCategories(),
-    {
-      initialValue: [] as Category[]
+    readonly categories = toSignal(
+      this.categoriesService.getCategories(),
+      {
+        initialValue: [] as Category[]
+      }
+    );
+
+    get currentLanguage(): string {
+      return this.languageService.currentLanguage();
     }
-  );
 
-  get currentLanguage(): string {
-    return this.languageService.currentLanguage();
-  }
-
-  getCategoryName(category: Category): string {
-    return this.currentLanguage === 'ar'
-      ? category.nameAr
-      : category.nameEn;
-  }
+    getCategoryName(category: Category): string {
+      return this.currentLanguage === 'ar'
+        ? category.nameAr
+        : category.nameEn;
+    }
 
   getCategoryDescription(category: Category): string {
     return this.currentLanguage === 'ar'

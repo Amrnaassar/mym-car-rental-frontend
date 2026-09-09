@@ -27,9 +27,11 @@
     ========================== -->
     <div class="booking-step__form">
 
-
       <!-- Full Name -->
-      <div class="form-group form-group--full">
+      <div
+        class="form-group form-group--full"
+        [class.form-group--error]="fullNameError"
+      >
 
         <label for="customerFullName">
           Full Name
@@ -46,15 +48,26 @@
             autocomplete="name"
             [value]="booking.customerFullName"
             (input)="onTextChange('customerFullName', $event)"
+            [attr.aria-invalid]="fullNameError ? 'true' : null"
           />
 
         </div>
+
+        @if (fullNameError) {
+          <p class="form-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            {{ fullNameError }}
+          </p>
+        }
 
       </div>
 
 
       <!-- Email -->
-      <div class="form-group">
+      <div
+        class="form-group"
+        [class.form-group--error]="emailError"
+      >
 
         <label for="customerEmail">
           Email Address
@@ -71,15 +84,26 @@
             autocomplete="email"
             [value]="booking.customerEmail"
             (input)="onTextChange('customerEmail', $event)"
+            [attr.aria-invalid]="emailError ? 'true' : null"
           />
 
         </div>
+
+        @if (emailError) {
+          <p class="form-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            {{ emailError }}
+          </p>
+        }
 
       </div>
 
 
       <!-- Phone -->
-      <div class="form-group">
+      <div
+        class="form-group"
+        [class.form-group--error]="phoneError"
+      >
 
         <label for="customerPhone">
           Phone Number
@@ -92,19 +116,31 @@
           <input
             id="customerPhone"
             type="tel"
-            placeholder="+971 50 000 0000"
+            inputmode="tel"
+            placeholder="+971 50 123 4567"
             autocomplete="tel"
             [value]="booking.customerPhone"
             (input)="onTextChange('customerPhone', $event)"
+            [attr.aria-invalid]="phoneError ? 'true' : null"
           />
 
         </div>
+
+        @if (phoneError) {
+          <p class="form-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            {{ phoneError }}
+          </p>
+        }
 
       </div>
 
 
       <!-- Driving License -->
-      <div class="form-group form-group--full">
+      <div
+        class="form-group form-group--full"
+        [class.form-group--error]="drivingLicenseError"
+      >
 
         <label for="drivingLicense">
           Driving License Number
@@ -120,9 +156,17 @@
             placeholder="Enter your driving license number"
             [value]="booking.drivingLicense"
             (input)="onTextChange('drivingLicense', $event)"
+            [attr.aria-invalid]="drivingLicenseError ? 'true' : null"
           />
 
         </div>
+
+        @if (drivingLicenseError) {
+          <p class="form-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            {{ drivingLicenseError }}
+          </p>
+        }
 
       </div>
 
@@ -216,28 +260,21 @@
 
       <button
         type="button"
-        class="btn btn-outline-secondary"
+        class="btn btn-outline"
         (click)="previous()"
       >
-
         <i class="fa-solid fa-arrow-left"></i>
-
         Back
-
       </button>
 
 
       <button
         type="button"
         class="btn btn-primary"
-        [disabled]="!isValid"
         (click)="continue()"
       >
-
         Continue
-
         <i class="fa-solid fa-arrow-right"></i>
-
       </button>
 
     </div>

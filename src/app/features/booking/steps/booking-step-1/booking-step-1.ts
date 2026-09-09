@@ -3,21 +3,27 @@ import {
   Component,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  inject
 } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 
 import {
   BookingModel
 } from '../../../../core/models/booking.model';
 
-import { Car } from '../../../../core/models/car.model';
+import { Car, FuelType, Transmission } from '../../../../core/models/car.model';
+
+import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker';
+import { LanguageService } from '../../../../core/services/language.service';
 
 @Component({
   selector: 'app-booking-step-1',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    DatePickerComponent
   ],
   templateUrl: './booking-step-1.html',
   styleUrl: './booking-step-1.scss',
@@ -49,21 +55,116 @@ export class BookingStep1 {
   @Output()
   next = new EventEmitter<void>();
 
-  onPickupDateChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
 
+  private languageService = inject(LanguageService);  
+  currentLanguage = this.languageService.currentLanguage();
+  getCategoryName(car: Car): string {
+
+    return this.currentLanguage === 'ar'
+      ? car.categoryNameAr
+      : car.categoryNameEn;
+  }
+
+  // ============================================================
+  // VALIDATION
+  // ============================================================
+
+  showValidation = false;
+
+
+  // ============================================================
+  // PICKUP DATE
+  // ============================================================
+
+  get pickupDateError(): string {
+    if (!this.showValidation) {
+      return '';
+    }
+
+    if (!this.booking.pickupDate) {
+      return 'Please select a pickup date.';
+    }
+
+    return '';
+  }
+
+
+  // ============================================================
+  // RETURN DATE
+  // ============================================================
+
+  get returnDateError(): string {
+    if (!this.showValidation) {
+      return '';
+    }
+
+    if (!this.booking.returnDate) {
+      return 'Please select a return date.';
+    }
+
+    if (
+      this.booking.pickupDate &&
+      this.booking.returnDate
+    ) {
+      const pickup = this.parseDate(
+        this.booking.pickupDate
+      );
+
+      const returnDate = this.parseDate(
+        this.booking.returnDate
+      );
+
+      if (
+        pickup &&
+        returnDate &&
+        returnDate <= pickup
+      ) {
+        return 'Return date must be after pickup date.';
+      }
+    }
+
+    return '';
+  }
+
+
+  // ============================================================
+  // PICKUP LOCATION
+  // ============================================================
+
+  get pickupLocationError(): string {
+    if (!this.showValidation) {
+      return '';
+    }
+
+    if (!this.booking.pickupLocation) {
+      return 'Please select a pickup location.';
+    }
+
+    return '';
+  }
+
+
+  // ============================================================
+  // DATE CHANGES
+  // ============================================================
+
+  onPickupDateChange(value: string): void {
     this.bookingChange.emit({
-      pickupDate: input.value
+      pickupDate: value
     });
   }
 
-  onReturnDateChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
 
+  onReturnDateChange(value: string): void {
     this.bookingChange.emit({
-      returnDate: input.value
+      returnDate: value
     });
   }
+
+
+  // ============================================================
+  // LOCATION
+  // ============================================================
 
   onLocationChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
@@ -73,7 +174,85 @@ export class BookingStep1 {
     });
   }
 
+
+  // ============================================================
+  // CONTINUE
+  // ============================================================
+
   continue(): void {
+    this.showValidation = true;
+
+    if (!this.isValid()) {
+      return;
+    }
+
     this.next.emit();
+  }
+
+
+  // ============================================================
+  // FORM VALIDATION
+  // ============================================================
+
+  private isValid(): boolean {
+    if (!this.booking.pickupDate) {
+      return false;
+    }
+
+    if (!this.booking.returnDate) {
+      return false;
+    }
+
+    if (!this.booking.pickupLocation) {
+      return false;
+    }
+
+    const pickup = this.parseDate(
+      this.booking.pickupDate
+    );
+
+    const returnDate = this.parseDate(
+      this.booking.returnDate
+    );
+
+    if (!pickup || !returnDate) {
+      return false;
+    }
+
+    if (returnDate <= pickup) {
+      return false;
+    }
+
+    return true;
+  }
+
+
+  // ============================================================
+  // DATE PARSER
+  // ============================================================
+
+  private parseDate(value: string): Date | null {
+    if (!value) {
+      return null;
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return null;
+    }
+
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    );
+  }
+   getFuelTypeLabel(fuelType: FuelType): string {
+    return FuelType[fuelType];
+  }
+
+  getTransmissionLabel(transmission: Transmission): string {
+    return Transmission[transmission];
   }
 }

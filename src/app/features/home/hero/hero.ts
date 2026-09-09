@@ -10,11 +10,15 @@ import { Router } from '@angular/router';
 import { RentalPlan } from '../../../core/models/car.model';
 import { CarCategoryService } from '../../../core/services/car-category.service';
 import { Category } from '../../../core/models/car-category.model';
+import { LanguageService } from '../../../core/services/language.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-hero',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './hero.html',
   styleUrl: './hero.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -41,9 +45,26 @@ export class Hero {
   // ============================================================
   // CATEGORIES
   // ============================================================
+private readonly categoriesService = inject(CarCategoryService);
 
-  readonly categories :Category[] =[]
-    
+  readonly languageService = inject(LanguageService);
+
+  readonly categories = toSignal(
+    this.categoriesService.getCategories(),
+    {
+      initialValue: [] as Category[]
+    }
+  );    
+
+  get currentLanguage(): string {
+    return this.languageService.currentLanguage();
+  }
+
+  getCategoryName(category: Category): string {
+    return this.currentLanguage === 'ar'
+      ? category.nameAr
+      : category.nameEn;
+  }
 
 
   // ============================================================

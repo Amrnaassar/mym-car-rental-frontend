@@ -13,6 +13,7 @@ import { Car } from '../../../core/models/car.model';
 import { CarService } from '../../../core/services/car.service';
 
 import { LanguageService } from '../../../core/services/language.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-featured-cars',
@@ -38,25 +39,13 @@ export class FeaturedCars {
   // FEATURED CARS
   // ============================================================
 
-  cars: Car[] = []
+  cars=toSignal(
+    this.carService.getFeaturedCars(),
+    {
+      initialValue: [] as Car[]
+    }
+  );
 
-  constructor() {
-    this.carService.getFeaturedCars().subscribe({
-      next: (cars) => {
-        console.log('Featured cars:', cars);
-        console.log('First car:', cars[0]);
-        console.log('Image:', cars[0]?.primaryImageUrl);
-        console.log('Name EN:', cars[0]?.nameEn);
-        console.log('Name AR:', cars[0]?.nameAr);
-        console.log('Price:', cars[0]?.pricePerDay);
-
-        this.cars = cars;
-      },
-      error: (error) => {
-        console.error('Featured cars ERROR:', error);
-      }
-    });
-  }
   // ============================================================
   // CURRENT LANGUAGE
   // ============================================================

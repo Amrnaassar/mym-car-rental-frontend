@@ -1,340 +1,1200 @@
 @use "../../../../styles/abstracts/variables" as *;
 @use "../../../../styles/abstracts/mixins" as *;
 
+
 // ============================================================
 // FEATURED CARS
 // ============================================================
 
 .featured-cars {
-  position: relative;
-  background: #f7f7f6;
-  padding-block: 82px 64px;
+  --fc-bg: #f6f6f4;
+  --fc-card: #ffffff;
+  --fc-text: #17202a;
+  --fc-muted: #7b838b;
+  --fc-border: rgba(23, 32, 42, 0.08);
+  --fc-gold: #c8a96b;
 
-  // ----------------------------------------------------------
+  position: relative;
+
+  width: 100%;
+  overflow: hidden;
+
+  background: var(--fc-bg);
+
+  padding-block: 88px 76px;
+
+
+  // ==========================================================
   // CONTAINER
-  // ----------------------------------------------------------
+  // ==========================================================
 
   &__container {
     width: 100%;
     max-width: $breakpoint-2xl;
+
     margin-inline: auto;
+
     padding-inline: $space-8;
   }
 
-  // ----------------------------------------------------------
+
+  // ==========================================================
   // HEADER
-  // ----------------------------------------------------------
+  // ==========================================================
 
   &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: $space-5;
+
+    gap: 32px;
+
+    margin-bottom: 30px;
   }
 
-  &__title {
-    margin: 0;
 
-    color: #17202a;
-    font-family: $font-family-display;
-    font-size: $font-size-lg;
-    font-weight: $font-weight-medium;
-    line-height: 1.2;
-    letter-spacing: 0.02em;
+  // ==========================================================
+  // HEADING
+  // ==========================================================
+
+  &__heading {
+    min-width: 0;
+  }
+
+
+  &__eyebrow {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--fc-gold);
+
+    font-family: $font-family-primary;
+    font-size: 9px;
+    font-weight: $font-weight-semibold;
+
+    line-height: 1;
+
+    letter-spacing: 0.18em;
+
     text-transform: uppercase;
   }
+
+
+  &__title {
+    position: relative;
+
+    margin: 0;
+
+    color: var(--fc-text);
+
+    font-family: $font-family-display;
+
+    font-size: clamp(
+      1.45rem,
+      2vw,
+      2rem
+    );
+
+    font-weight: $font-weight-medium;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.015em;
+  }
+
+
+  // ==========================================================
+  // VIEW ALL
+  // ==========================================================
 
   &__view-all {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
 
-    color: #59636e;
+    flex-shrink: 0;
+
+    gap: 10px;
+
+    min-height: 40px;
+
+    padding-inline: 15px;
+
+    color: #4f5962;
+
+    background: rgba(255, 255, 255, 0.65);
+
+    border: 1px solid #dfe2e3;
+    border-radius: 999px;
+
     font-family: $font-family-primary;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
 
+    line-height: 1;
+
+    text-decoration: none;
+
     transition:
-      color $transition-fast,
-      transform $transition-fast;
+      color 250ms ease,
+      background-color 250ms ease,
+      border-color 250ms ease,
+      transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
 
     &:hover {
-      color: #17202a;
-      transform: translateX(2px);
+      color: var(--fc-text);
+
+      background: #ffffff;
+
+      border-color: rgba(
+        200,
+        169,
+        107,
+        0.45
+      );
+
+      transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--fc-gold);
+      outline-offset: 4px;
     }
   }
 
-  // ----------------------------------------------------------
+
+  &__view-icon {
+    display: inline-flex;
+
+    font-size: 13px;
+
+    transition:
+      transform 300ms
+      cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+
+  &__view-all:hover &__view-icon {
+    transform: translateX(3px);
+  }
+
+
+  // ==========================================================
   // GRID
-  // ----------------------------------------------------------
+  // ==========================================================
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: $space-3;
+
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
   }
 
-  // ----------------------------------------------------------
+
+  // ==========================================================
   // CARD
-  // ----------------------------------------------------------
+  // ==========================================================
 
   .car-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
     min-width: 0;
     overflow: hidden;
 
-    background: #ffffff;
+    background: var(--fc-card);
 
-    border: 1px solid #e1e4e7;
-    border-radius: $radius-md;
+    border: 1px solid var(--fc-border);
+    border-radius: 17px;
 
     cursor: pointer;
 
-    transition:
-      transform $transition-luxury,
-      box-shadow $transition-normal,
-      border-color $transition-normal;
+    box-shadow:
+      0 2px 5px rgba(23, 32, 42, 0.025),
+      0 10px 30px rgba(23, 32, 42, 0.035);
 
-    // --------------------------------------------------------
-    // CARD HOVER
-    // --------------------------------------------------------
+    transition:
+      transform 500ms
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+      box-shadow 500ms
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+      border-color 300ms ease;
+
+
+    // ========================================================
+    // TOP ACCENT
+    // ========================================================
+
+    &::before {
+      content: "";
+
+      position: absolute;
+      z-index: 10;
+
+      inset-block-start: 0;
+      inset-inline-start: 0;
+
+      width: 0;
+      height: 2px;
+
+      background: var(--fc-gold);
+
+      transition:
+        width 500ms
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+
+    // ========================================================
+    // HOVER
+    // ========================================================
 
     &:hover {
-      transform: translateY(-4px);
+      transform: translateY(-7px);
 
-      box-shadow: $shadow-sm;
+      border-color:
+        rgba(200, 169, 107, 0.32);
 
-      border-color: rgba(200, 169, 107, 0.35);
+      box-shadow:
+        0 22px 48px rgba(23, 32, 42, 0.095),
+        0 5px 14px rgba(23, 32, 42, 0.045);
 
-      .car-card__image img {
-        transform: scale(1.035);
+
+      &::before {
+        width: 100%;
+      }
+
+
+      .car-card__image {
+        transform: scale(1.055);
+      }
+
+
+      .car-card__overlay {
+        opacity: 0.75;
+      }
+
+
+      .car-card__action {
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+
+      .car-card__details-arrow {
+        transform: translateX(4px);
       }
     }
 
-    // --------------------------------------------------------
-    // IMAGE
-    // --------------------------------------------------------
 
-    &__image {
+    // ========================================================
+    // FOCUS
+    // ========================================================
+
+    &:focus-visible {
+      outline: 2px solid var(--fc-gold);
+      outline-offset: 4px;
+
+      transform: translateY(-4px);
+    }
+
+
+    // ========================================================
+    // MEDIA
+    // ========================================================
+
+    &__media {
       position: relative;
 
       width: 100%;
-      aspect-ratio: 1.45 / 1;
+
+      aspect-ratio: 1.42 / 1;
 
       overflow: hidden;
 
-      background: #e9ebed;
-
-      img {
-        @include image-cover;
-
-        object-position: center;
-
-        transition: transform $transition-slow;
-      }
+      background: #e9ebeb;
     }
 
-    // --------------------------------------------------------
-    // BODY
-    // --------------------------------------------------------
 
-    &__body {
-      padding: 11px 12px 12px;
-    }
+    // ========================================================
+    // IMAGE
+    // ========================================================
 
-    // --------------------------------------------------------
-    // CATEGORY
-    // --------------------------------------------------------
-
-    &__category {
+    &__image {
       display: block;
 
-      margin-bottom: 4px;
+      width: 100%;
+      height: 100%;
 
-      color: #8a929a;
+      @include image-cover;
 
-      font-family: $font-family-primary;
-      font-size: 10px;
-      font-weight: $font-weight-regular;
-      line-height: 1.2;
+      object-position: center;
 
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      transition:
+        transform 850ms
+        cubic-bezier(0.22, 1, 0.36, 1);
+
+      will-change: transform;
     }
 
-    // --------------------------------------------------------
-    // NAME
-    // --------------------------------------------------------
 
-    &__name {
-      margin: 0 0 7px;
+    // ========================================================
+    // IMAGE OVERLAY
+    // ========================================================
 
-      color: #202832;
+    &__overlay {
+      position: absolute;
+      z-index: 1;
 
-      font-family: $font-family-primary;
-      font-size: $font-size-sm;
-      font-weight: $font-weight-semibold;
-      line-height: 1.25;
+      inset: 0;
 
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      pointer-events: none;
+
+      opacity: 0.4;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(10, 15, 20, 0.02) 0%,
+          rgba(10, 15, 20, 0.02) 45%,
+          rgba(10, 15, 20, 0.48) 100%
+        );
+
+      transition:
+        opacity 450ms ease;
     }
 
-    // --------------------------------------------------------
-    // INFO
-    // --------------------------------------------------------
 
-    &__info {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    // ========================================================
+    // CATEGORY
+    // ========================================================
 
-      gap: $space-2;
-    }
+    &__category {
+      position: absolute;
+      z-index: 3;
 
-    // --------------------------------------------------------
-    // PRICE
-    // --------------------------------------------------------
+      inset-block-start: 14px;
+      inset-inline-start: 14px;
 
-    &__price {
-      color: #3f4852;
-
-      font-family: $font-family-primary;
-      font-size: $font-size-xs;
-      font-weight: $font-weight-regular;
-
-      white-space: nowrap;
-    }
-
-    // --------------------------------------------------------
-    // RATING
-    // --------------------------------------------------------
-
-    &__rating {
       display: inline-flex;
       align-items: center;
 
-      gap: 4px;
+      max-width: calc(100% - 28px);
 
-      color: #4d5660;
+      min-height: 25px;
+
+      padding-inline: 9px;
+
+      color: #ffffff;
+
+      background:
+        rgba(23, 32, 42, 0.58);
+
+      border: 1px solid
+        rgba(255, 255, 255, 0.18);
+
+      border-radius: 999px;
+
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
 
       font-family: $font-family-primary;
-      font-size: $font-size-xs;
+      font-size: 8px;
+      font-weight: $font-weight-medium;
+
+      line-height: 1;
+
+      letter-spacing: 0.06em;
+
+      text-transform: uppercase;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+    // ========================================================
+    // RATING
+    // ========================================================
+
+    &__rating {
+      position: absolute;
+      z-index: 4;
+
+      inset-block-start: 14px;
+      inset-inline-end: 14px;
+
+      display: inline-flex;
+      align-items: center;
+
+      gap: 5px;
+
+      min-height: 27px;
+
+      padding-inline: 9px;
+
+      color: #ffffff;
+
+      background:
+        rgba(23, 32, 42, 0.62);
+
+      border: 1px solid
+        rgba(255, 255, 255, 0.16);
+
+      border-radius: 999px;
+
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      font-family: $font-family-primary;
+      font-size: 9px;
+      font-weight: $font-weight-medium;
+
+      line-height: 1;
+    }
+
+
+    // ========================================================
+    // STAR
+    // ========================================================
+
+    &__star {
+      color: var(--fc-gold);
+
+      font-size: 10px;
+
+      line-height: 1;
+    }
+
+
+    // ========================================================
+    // ACTION
+    // ========================================================
+
+    &__action {
+      position: absolute;
+      z-index: 4;
+
+      inset-block-end: 14px;
+      inset-inline-end: 14px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 40px;
+      height: 40px;
+
+      color: #17202a;
+
+      background: #ffffff;
+
+      border-radius: 50%;
+
+      opacity: 0;
+
+      transform:
+        translateY(8px)
+        scale(0.85);
+
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.12);
+
+      transition:
+        opacity 350ms ease,
+
+        transform 450ms
+          cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+
+    &__action-icon {
+      font-size: 15px;
+
+      line-height: 1;
+
+      transition:
+        transform 300ms ease;
+    }
+
+
+    // ========================================================
+    // BODY
+    // ========================================================
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+
+      flex: 1;
+
+      min-width: 0;
+
+      padding: 16px 17px 15px;
+    }
+
+
+    // ========================================================
+    // CONTENT
+    // ========================================================
+
+    &__content {
+      min-width: 0;
+
+      margin-bottom: 16px;
+    }
+
+
+    // ========================================================
+    // LABEL
+    // ========================================================
+
+    &__label {
+      display: block;
+
+      margin-bottom: 6px;
+
+      color: #9aa0a6;
+
+      font-family: $font-family-primary;
+      font-size: 8px;
+      font-weight: $font-weight-medium;
+
+      line-height: 1;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+    }
+
+
+    // ========================================================
+    // NAME
+    // ========================================================
+
+    &__name {
+      min-width: 0;
+
+      margin: 0;
+
+      color: var(--fc-text);
+
+      font-family: $font-family-primary;
+      font-size: 15px;
+      font-weight: $font-weight-semibold;
+
+      line-height: 1.3;
+
+      letter-spacing: -0.01em;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+    // ========================================================
+    // FOOTER
+    // ========================================================
+
+    &__footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin-top: auto;
+
+      padding-top: 13px;
+
+      border-top: 1px solid #edf0f1;
+    }
+
+
+    // ========================================================
+    // PRICING
+    // ========================================================
+
+    &__pricing {
+      display: flex;
+      align-items: baseline;
+
+      min-width: 0;
+
+      gap: 4px;
+    }
+
+
+    // ========================================================
+    // PRICE
+    // ========================================================
+
+    &__price {
+      color: var(--fc-text);
+
+      font-family: $font-family-primary;
+      font-size: 15px;
+      font-weight: $font-weight-semibold;
+
+      line-height: 1.2;
 
       white-space: nowrap;
     }
 
-    // --------------------------------------------------------
-    // STAR
-    // --------------------------------------------------------
 
-    &__star {
-      color: $color-accent;
+    // ========================================================
+    // PERIOD
+    // ========================================================
 
-      font-size: 11px;
+    &__period {
+      color: #8c949b;
+
+      font-family: $font-family-primary;
+      font-size: 9px;
+      font-weight: $font-weight-regular;
+
       line-height: 1;
+
+      white-space: nowrap;
+    }
+
+
+    // ========================================================
+    // DETAILS
+    // ========================================================
+
+    &__details {
+      display: inline-flex;
+      align-items: center;
+
+      flex-shrink: 0;
+
+      gap: 5px;
+
+      color: #7b838b;
+
+      font-family: $font-family-primary;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-medium;
+
+      line-height: 1;
+
+      white-space: nowrap;
+
+      transition:
+        color 250ms ease;
+    }
+
+
+    &__details-arrow {
+      display: inline-block;
+
+      color: var(--fc-gold);
+
+      font-size: $font-size-sm;
+
+      transition:
+        transform 300ms
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+
+    // ========================================================
+    // RTL
+    // ========================================================
+
+    :host-context([dir="rtl"]) & {
+
+      &__category {
+        inset-inline-start: auto;
+        inset-inline-end: 14px;
+      }
+
+
+      &__rating {
+        inset-inline-end: auto;
+        inset-inline-start: 14px;
+      }
+
+
+      &__action {
+        inset-inline-end: auto;
+        inset-inline-start: 14px;
+      }
+
+
+      &__details-arrow {
+        transform: rotate(180deg);
+      }
+
+
+      &:hover {
+
+        .car-card__details-arrow {
+          transform:
+            rotate(180deg)
+            translateX(4px);
+        }
+      }
+    }
+
+
+    // ========================================================
+    // TABLET
+    // ========================================================
+
+    @media (max-width: $breakpoint-lg) {
+
+      border-radius: 15px;
+
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+
+      &__media {
+        aspect-ratio: 1.5 / 1;
+      }
+    }
+
+
+    // ========================================================
+    // MOBILE
+    // ========================================================
+
+    @media (max-width: $breakpoint-sm) {
+
+      border-radius: 11px;
+
+
+      &:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+          0 12px 26px
+          rgba(23, 32, 42, 0.075);
+      }
+
+
+      &__media {
+        aspect-ratio: 1.28 / 1;
+      }
+
+
+      &__category {
+        inset-block-start: 9px;
+        inset-inline-start: 9px;
+
+        min-height: 21px;
+
+        max-width: calc(100% - 18px);
+
+        padding-inline: 7px;
+
+        font-size: 6.5px;
+      }
+
+
+      &__rating {
+        inset-block-start: 9px;
+        inset-inline-end: 9px;
+
+        min-height: 22px;
+
+        padding-inline: 7px;
+
+        gap: 3px;
+
+        font-size: 7px;
+      }
+
+
+      &__star {
+        font-size: 8px;
+      }
+
+
+      &__action {
+        display: none;
+      }
+
+
+      &__body {
+        padding: 10px 10px 11px;
+      }
+
+
+      &__content {
+        margin-bottom: 9px;
+      }
+
+
+      &__label {
+        margin-bottom: 4px;
+
+        font-size: 6.5px;
+      }
+
+
+      &__name {
+        font-size: 10.5px;
+
+        line-height: 1.3;
+      }
+
+
+      &__footer {
+        gap: 5px;
+
+        padding-top: 8px;
+      }
+
+
+      &__price {
+        font-size: 9px;
+      }
+
+
+      &__period {
+        font-size: 7px;
+      }
+
+
+      &__details {
+        gap: 3px;
+
+        font-size: $font-size-xs;
+      }
+
+
+      &__details-arrow {
+        font-size: $font-size-xs;
+      }
+
+
+      :host-context([dir="rtl"]) & {
+
+        &__category {
+          inset-inline-start: auto;
+          inset-inline-end: 9px;
+        }
+
+
+        &__rating {
+          inset-inline-end: auto;
+          inset-inline-start: 9px;
+        }
+      }
+    }
+
+
+    // ========================================================
+    // VERY SMALL MOBILE
+    // ========================================================
+
+    @media (max-width: 380px) {
+
+      border-radius: 9px;
+
+
+      &__media {
+        aspect-ratio: 1.22 / 1;
+      }
+
+
+      &__body {
+        padding: 8px 8px 9px;
+      }
+
+
+      &__category {
+        inset-block-start: 7px;
+        inset-inline-start: 7px;
+
+        min-height: 19px;
+
+        padding-inline: 6px;
+
+        font-size: 6px;
+      }
+
+
+      &__rating {
+        inset-block-start: 7px;
+        inset-inline-end: 7px;
+
+        min-height: 20px;
+
+        padding-inline: 6px;
+
+        font-size: 6.5px;
+      }
+
+
+      &__star {
+        font-size: 7px;
+      }
+
+
+      &__content {
+        margin-bottom: 8px;
+      }
+
+
+      &__label {
+        margin-bottom: 3px;
+
+        font-size: 6px;
+      }
+
+
+      &__name {
+        font-size: 9.5px;
+      }
+
+
+      &__footer {
+        padding-top: 7px;
+      }
+
+
+      &__price {
+        font-size: 8px;
+      }
+
+
+      &__period {
+        font-size: 6.5px;
+      }
+
+
+      &__details {
+        font-size: 6px;
+      }
+
+
+      &__details-arrow {
+        font-size: $font-size-xs;
+      }
     }
   }
 
+
   // ==========================================================
-  // LARGE
+  // TABLET GRID
   // ==========================================================
 
   @media (max-width: $breakpoint-lg) {
-    padding-block: 72px 56px;
 
-    &__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: $space-4;
-    }
-  }
+    padding-block: 72px 60px;
 
-  // ==========================================================
-  // TABLET
-  // ==========================================================
 
-  @media (max-width: $breakpoint-md) {
     &__container {
       padding-inline: $space-6;
     }
 
+
     &__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: $space-3;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 18px;
     }
   }
 
+
   // ==========================================================
-  // MOBILE
+  // SMALL TABLET
+  // ==========================================================
+
+  @media (max-width: $breakpoint-md) {
+
+    padding-block: 64px 54px;
+
+
+    &__container {
+      padding-inline: $space-5;
+    }
+
+
+    &__header {
+      margin-bottom: 24px;
+    }
+
+
+    &__grid {
+      gap: 14px;
+    }
+
+
+    &__title {
+      font-size: 1.35rem;
+    }
+
+
+    &__view-all {
+      min-height: 36px;
+
+      padding-inline: 12px;
+
+      font-size: 9px;
+    }
+  }
+
+
+  // ==========================================================
+  // MOBILE SECTION
   // ==========================================================
 
   @media (max-width: $breakpoint-sm) {
-    padding-block: 64px 48px;
+
+    padding-block: 52px 44px;
+
 
     &__container {
-      padding-inline: $space-4;
+      padding-inline: 14px;
     }
+
 
     &__header {
-      margin-bottom: $space-4;
+      align-items: center;
+
+      gap: 12px;
+
+      margin-bottom: 18px;
     }
+
+
+    &__eyebrow {
+      margin-bottom: 6px;
+
+      font-size: 7px;
+    }
+
 
     &__title {
-      font-size: $font-size-md;
+      font-size: 1.05rem;
+
+      letter-spacing: 0;
     }
+
+
+    &__view-all {
+      min-height: 31px;
+
+      gap: 5px;
+
+      padding-inline: 9px;
+
+      font-size: 7.5px;
+    }
+
+
+    &__view-icon {
+      font-size: 9px;
+    }
+
 
     &__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 9px;
+    }
+  }
+
+
+  // ==========================================================
+  // VERY SMALL SCREEN
+  // ==========================================================
+
+  @media (max-width: 380px) {
+
+    padding-block: 46px 38px;
+
+
+    &__container {
+      padding-inline: 10px;
     }
 
-    .car-card {
-      border-radius: $radius-sm;
 
-      // ------------------------------------------------------
-      // MOBILE BODY
-      // ------------------------------------------------------
+    &__header {
+      gap: 8px;
 
-      &__body {
-        padding: 9px 9px 10px;
+      margin-bottom: 15px;
+    }
+
+
+    &__eyebrow {
+      font-size: 6.5px;
+    }
+
+
+    &__title {
+      font-size: 0.95rem;
+    }
+
+
+    &__view-all {
+      min-height: 29px;
+
+      padding-inline: 8px;
+
+      font-size: 7px;
+    }
+
+
+    &__grid {
+      gap: 7px;
+    }
+  }
+
+
+  // ==========================================================
+  // REDUCED MOTION
+  // ==========================================================
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .car-card,
+    .car-card__image,
+    .car-card__overlay,
+    .car-card__action,
+    .car-card__details-arrow,
+    &__view-all,
+    &__view-icon {
+      transition: none;
+    }
+
+
+    .car-card:hover {
+      transform: none;
+
+
+      .car-card__image {
+        transform: none;
       }
 
-      // ------------------------------------------------------
-      // MOBILE CATEGORY
-      // ------------------------------------------------------
 
-      &__category {
-        margin-bottom: 3px;
-
-        font-size: 8px;
-      }
-
-      // ------------------------------------------------------
-      // MOBILE NAME
-      // ------------------------------------------------------
-
-      &__name {
-        margin-bottom: 5px;
-
-        font-size: 11px;
-      }
-
-      // ------------------------------------------------------
-      // MOBILE PRICE + RATING
-      // ------------------------------------------------------
-
-      &__price,
-      &__rating {
-        font-size: 9px;
-      }
-
-      // ------------------------------------------------------
-      // MOBILE STAR
-      // ------------------------------------------------------
-
-      &__star {
-        font-size: 9px;
+      .car-card__action {
+        transform: none;
       }
     }
   }
 }
+

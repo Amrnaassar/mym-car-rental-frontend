@@ -13,7 +13,7 @@
       <span class="navbar__brand-divider" aria-hidden="true"></span>
 
       <span class="navbar__brand-wordmark">
-        <img src="assets/images/logo/mym-car-rental-logo.svg" alt="MYM Car Rental" />
+        <img src="assets/images/logo/mym-footer-logo.png" alt="MYM Car Rental" />
       </span>
     </a>
 
@@ -55,14 +55,16 @@
     ====================================================== -->
     <div class="navbar__actions">
 
-      <button type="button" class="language-switcher" (click)="toggleLanguage()">
-        {{ languageService.isArabic() ? 'English' : 'العربية' }}
-      </button>
       <!-- WhatsApp -->
       <a href="https://wa.me/971XXXXXXXXX" target="_blank" rel="noopener noreferrer" class="navbar__whatsapp"
         aria-label="Contact MYM on WhatsApp">
         <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
       </a>
+
+      <button type="button" class="btn btn-outline" (click)="toggleLanguage()">
+        {{ languageService.isArabic() ? 'En' : 'Ar' }}
+      </button>
+      
       <!-- Authentication -->
       @if (authService.isLoggedIn()) {
 
@@ -71,8 +73,6 @@
 
         <i class="fa-solid fa-right-from-bracket" aria-hidden="true">
         </i>
-
-        <span>Logout</span>
       </button>
 
       } @else {
@@ -81,13 +81,11 @@
 
         <i class="fa-solid fa-user" aria-hidden="true">
         </i>
-
-        <span>Login</span>
       </a>
 
       }
       <!-- Booking CTA -->
-      <a routerLink="/cars" class="navbar__cta" (click)="closeMobileMenu()">
+      <a routerLink="/cars" class="navbar__cta btn btn-primary" (click)="closeMobileMenu()">
         <span>Book a Car</span>
 
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>

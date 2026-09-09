@@ -1,49 +1,145 @@
+@use "../../../styles/abstracts/variables" as *;
+@use "../../../styles/abstracts/mixins" as *;
+
+
 .login-page {
   min-height: 100vh;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 
-  padding: 2rem;
+  padding: $space-4;
 
-  background: #f8f9fa;
+  background: $gradient-dark;
+  position: relative;
+  overflow: hidden;
+
+  // Subtle gold glow in background — لمسة فخامة بدل الخلفية الفاضية
+  &::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 600px;
+    height: 600px;
+
+    background: radial-gradient(
+      circle,
+      rgba(200, 169, 107, 0.12) 0%,
+      rgba(200, 169, 107, 0) 70%
+    );
+
+    pointer-events: none;
+  }
 
   &__container {
+    position: relative;
+    z-index: 1;
+
     width: 100%;
     max-width: 420px;
 
-    padding: 2.5rem;
+    padding: $space-10 $space-8;
 
-    background: #ffffff;
+    @include glass;
 
-    border-radius: 1rem;
-
-    box-shadow:
-      0 10px 30px rgba(0, 0, 0, 0.08);
+    border-radius: $radius-2xl;
+    box-shadow: $shadow-lg;
 
     text-align: center;
+
+    @include respond(xs) {
+      padding: $space-8 $space-5;
+      border-radius: $radius-xl;
+    }
+  }
+
+  &__brand {
+    margin-bottom: $space-8;
+  }
+
+  &__logo {
+    font-family: $font-family-display;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.08em;
+
+    @include gold-text;
   }
 
   &__header {
-    margin-bottom: 2rem;
+    margin-bottom: $space-8;
 
     h1 {
-      margin-bottom: 0.5rem;
+      margin-bottom: $space-2;
 
-      font-size: 2rem;
-      font-weight: 700;
+      font-family: $font-family-display;
+      font-size: $font-size-3xl;
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-heading;
+      color: $color-text-primary;
     }
 
     p {
       margin: 0;
 
-      color: #6c757d;
+      font-size: $font-size-sm;
+      color: $color-text-secondary;
+    }
+  }
+
+  &__divider {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    margin-bottom: $space-6;
+
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: $color-border;
+    }
+
+    span {
+      font-size: $font-size-xs;
+      color: $color-text-muted;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
   }
 
   &__google-button {
     display: flex;
     justify-content: center;
+
+    // Google's rendered button has its own border-radius; this wraps it
+    // so it sits consistently with the rest of the dark UI.
+    border-radius: $radius-md;
+    overflow: hidden;
+  }
+
+  &__footer-note {
+    margin: $space-8 0 0;
+
+    font-size: $font-size-xs;
+    line-height: $line-height-normal;
+    color: $color-text-muted;
+
+    a {
+      color: $color-accent-light;
+      text-decoration: none;
+
+      transition: color $transition-fast;
+
+      &:hover {
+        color: $color-accent;
+        text-decoration: underline;
+      }
+    }
   }
 }

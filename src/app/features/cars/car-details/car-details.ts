@@ -173,6 +173,24 @@ export class CarDetails {
 
 
   // ============================================================
+  // VALIDATION
+  // ============================================================
+
+  readonly showValidation = signal(false);
+
+  readonly pickupDateError = computed<boolean>(() => {
+    return this.showValidation() && !this.pickupDate();
+  });
+
+  readonly returnDateError = computed<boolean>(() => {
+    return this.showValidation() && !this.returnDate();
+  });
+
+  readonly pickupLocationError = computed<boolean>(() => {
+    return this.showValidation() && !this.pickupLocation();
+  });
+
+  // ============================================================
   // CALCULATED PLAN
   // ============================================================
 
@@ -505,19 +523,15 @@ export class CarDetails {
     }
   }
 
-
   // ============================================================
   // DATE CHANGES
   // ============================================================
 
   setPickupDate(value: string): void {
-
     this.pickupDate.set(value);
   }
 
-
   setReturnDate(value: string): void {
-
     this.returnDate.set(value);
   }
 
@@ -527,7 +541,6 @@ export class CarDetails {
   // ============================================================
 
   setPickupLocation(value: string): void {
-
     this.pickupLocation.set(value);
   }
 
@@ -557,6 +570,7 @@ export class CarDetails {
   // ============================================================
 
   bookNow(): void {
+    this.showValidation.set(true);
 
     const currentCar = this.car();
 
@@ -582,20 +596,11 @@ export class CarDetails {
       ['/booking'],
       {
         queryParams: {
-
           car: currentCar.id,
-
-          pickupDate:
-            this.pickupDate(),
-
-          returnDate:
-            this.returnDate(),
-
-          location:
-            this.pickupLocation(),
-
-          plan:
-            this.selectedPlan()
+          pickupDate: this.pickupDate(),
+          returnDate: this.returnDate(),
+          location: this.pickupLocation(),
+          plan: this.selectedPlan()
         }
       }
     );

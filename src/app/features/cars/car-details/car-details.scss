@@ -906,6 +906,46 @@
   opacity: 0;
 }
 
+.booking-field {
+  position: relative;
+
+  &--error {
+    .booking-field__input {
+      border-color: #dc3545;
+    }
+  }
+
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    margin: 0.5rem 0 0;
+
+    color: #dc3545;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.4;
+
+    animation: validationError 0.2s ease-out;
+
+    i {
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+  }
+}
+@keyframes validationError {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* ============================================================
    PRICE SUMMARY
