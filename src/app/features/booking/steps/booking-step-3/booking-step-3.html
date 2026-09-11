@@ -8,15 +8,15 @@
     <header class="booking-step__header">
 
       <span class="booking-step__eyebrow">
-        Step 3 of 4
+        {{ 'BOOKING_STEP_3.HEADER.EYEBROW' | translate }}
       </span>
 
       <h1 class="booking-step__title">
-        Review Your Booking
+        {{ 'BOOKING_STEP_3.HEADER.TITLE' | translate }}
       </h1>
 
       <p class="booking-step__description">
-        Review your information before confirming your reservation.
+        {{ 'BOOKING_STEP_3.HEADER.DESCRIPTION' | translate }}
       </p>
 
     </header>
@@ -48,7 +48,7 @@
       <div class="review-card__header">
 
         <h2>
-          Rental Details
+          {{ 'BOOKING_STEP_3.RENTAL_DETAILS.TITLE' | translate }}
         </h2>
 
         <i class="fa-solid fa-car"></i>
@@ -61,7 +61,7 @@
         <div class="review-item">
 
           <span>
-            Pickup Date
+            {{ 'BOOKING_STEP_3.RENTAL_DETAILS.PICKUP_DATE' | translate }}
           </span>
 
           <strong>
@@ -74,7 +74,7 @@
         <div class="review-item">
 
           <span>
-            Return Date
+            {{ 'BOOKING_STEP_3.RENTAL_DETAILS.RETURN_DATE' | translate }}
           </span>
 
           <strong>
@@ -87,7 +87,7 @@
         <div class="review-item">
 
           <span>
-            Pickup Location
+            {{ 'BOOKING_STEP_3.RENTAL_DETAILS.PICKUP_LOCATION' | translate }}
           </span>
 
           <strong>
@@ -100,12 +100,15 @@
         <div class="review-item">
 
           <span>
-            Rental Duration
+            {{ 'BOOKING_STEP_3.RENTAL_DETAILS.RENTAL_DURATION' | translate }}
           </span>
 
           <strong>
             {{ rentalDays }}
-            {{ rentalDays === 1 ? 'Day' : 'Days' }}
+            {{ rentalDays === 1
+              ? ('BOOKING_STEP_3.RENTAL_DETAILS.DAY' | translate)
+              : ('BOOKING_STEP_3.RENTAL_DETAILS.DAYS' | translate)
+            }}
           </strong>
 
         </div>
@@ -114,7 +117,7 @@
         <div class="review-item">
 
           <span>
-            Rental Plan
+            {{ 'BOOKING_STEP_3.RENTAL_DETAILS.RENTAL_PLAN' | translate }}
           </span>
 
           <strong>
@@ -136,7 +139,7 @@
       <div class="review-card__header">
 
         <h2>
-          Customer Information
+          {{ 'BOOKING_STEP_3.CUSTOMER_DETAILS.TITLE' | translate }}
         </h2>
 
         <i class="fa-regular fa-user"></i>
@@ -149,7 +152,7 @@
         <div class="review-item">
 
           <span>
-            Full Name
+            {{ 'BOOKING_STEP_3.CUSTOMER_DETAILS.FULL_NAME' | translate }}
           </span>
 
           <strong>
@@ -162,7 +165,7 @@
         <div class="review-item">
 
           <span>
-            Email
+            {{ 'BOOKING_STEP_3.CUSTOMER_DETAILS.EMAIL' | translate }}
           </span>
 
           <strong>
@@ -175,7 +178,7 @@
         <div class="review-item">
 
           <span>
-            Phone
+            {{ 'BOOKING_STEP_3.CUSTOMER_DETAILS.PHONE' | translate }}
           </span>
 
           <strong>
@@ -188,7 +191,7 @@
         <div class="review-item">
 
           <span>
-            Driving License
+            {{ 'BOOKING_STEP_3.CUSTOMER_DETAILS.DRIVING_LICENSE' | translate }}
           </span>
 
           <strong>
@@ -210,7 +213,7 @@
       <div class="price-row">
 
         <span>
-          Rental Cost
+          {{ 'BOOKING_STEP_3.PRICE_SUMMARY.RENTAL_COST' | translate }}
         </span>
 
         <strong>
@@ -225,7 +228,7 @@
         <div class="price-row">
 
           <span>
-            Insurance
+            {{ 'BOOKING_STEP_3.PRICE_SUMMARY.INSURANCE' | translate }}
           </span>
 
           <strong>
@@ -243,7 +246,7 @@
       <div class="price-row price-row--total">
 
         <span>
-          Estimated Total
+          {{ 'BOOKING_STEP_3.PRICE_SUMMARY.ESTIMATED_TOTAL' | translate }}
         </span>
 
         <strong>
@@ -252,8 +255,9 @@
 
       </div>
 
+
       <p class="price-note">
-        Final pricing is calculated and validated by the server.
+        {{ 'BOOKING_STEP_3.PRICE_SUMMARY.NOTE' | translate }}
       </p>
 
     </div>
@@ -273,7 +277,7 @@
 
         <i class="fa-solid fa-arrow-left"></i>
 
-        Back
+        {{ 'BOOKING_STEP_3.ACTIONS.BACK' | translate }}
 
       </button>
 
@@ -292,13 +296,13 @@
             aria-hidden="true"
           ></span>
 
-          Processing...
+          {{ 'BOOKING_STEP_3.ACTIONS.PROCESSING' | translate }}
 
         } @else {
 
           <i class="fa-solid fa-check"></i>
 
-          Confirm Booking
+          {{ 'BOOKING_STEP_3.ACTIONS.CONFIRM' | translate }}
 
         }
 

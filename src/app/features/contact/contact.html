@@ -1,4 +1,5 @@
 <section class="contact" id="contact">
+
   <div class="contact__container">
 
     <!-- =========================================
@@ -7,18 +8,18 @@
     <div class="contact__info">
 
       <span class="contact__eyebrow">
-        Get in Touch
+        {{ 'CONTACT.HEADER.EYEBROW' | translate }}
       </span>
 
       <h2 class="contact__title">
-        Let's Find Your
-        <span>Perfect Ride</span>
+        {{ 'CONTACT.HEADER.TITLE' | translate }}
+        <span>
+          {{ 'CONTACT.HEADER.TITLE_HIGHLIGHT' | translate }}
+        </span>
       </h2>
 
       <p class="contact__subtitle">
-        Have a question or need a custom rental?
-        Our team is available 24/7 to help you choose
-        the perfect luxury vehicle for your journey.
+        {{ 'CONTACT.HEADER.DESCRIPTION' | translate }}
       </p>
 
 
@@ -45,7 +46,7 @@
 
           <div class="contact__item-content">
             <span class="contact__item-label">
-              Phone
+              {{ 'CONTACT.DETAILS.PHONE.LABEL' | translate }}
             </span>
 
             <strong class="contact__item-value">
@@ -73,7 +74,7 @@
 
           <div class="contact__item-content">
             <span class="contact__item-label">
-              Email
+              {{ 'CONTACT.DETAILS.EMAIL.LABEL' | translate }}
             </span>
 
             <strong class="contact__item-value">
@@ -94,7 +95,6 @@
                 stroke-width="1.5"
                 stroke-linejoin="round"
               />
-
               <circle
                 cx="12"
                 cy="11"
@@ -106,13 +106,15 @@
           </div>
 
           <div class="contact__item-content">
+
             <span class="contact__item-label">
-              Location
+              {{ 'CONTACT.DETAILS.LOCATION.LABEL' | translate }}
             </span>
 
             <strong class="contact__item-value">
-             Residency 1072, Offices B Block, M floor, Deira, Dubai
+              {{ 'CONTACT.DETAILS.LOCATION.ADDRESS' | translate }}
             </strong>
+
           </div>
 
         </div>
@@ -129,7 +131,7 @@
 
           <iframe
             src="https://www.google.com/maps?q=Residence%201072%2C%20Abu%20Baker%20Al%20Siddique%20St%2C%20Al%20Muteena%2C%20Deira%2C%20Dubai&output=embed"
-            title="MYM Car Rental Location"
+            [title]="'CONTACT.LOCATION_MAP.TITLE' | translate"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             allowfullscreen>
@@ -141,7 +143,6 @@
         <div class="contact__location-content">
 
           <div class="contact__location-icon" aria-hidden="true">
-
             <svg viewBox="0 0 24 24" fill="none">
               <path
                 d="M12 21s6-5.5 6-10a6 6 0 1 0-12 0c0 4.5 6 10 6 10Z"
@@ -149,7 +150,6 @@
                 stroke-width="1.5"
                 stroke-linejoin="round"
               />
-
               <circle
                 cx="12"
                 cy="11"
@@ -158,22 +158,21 @@
                 stroke-width="1.5"
               />
             </svg>
-
           </div>
 
 
           <div class="contact__location-info">
 
             <span>
-              Our Location
+              {{ 'CONTACT.LOCATION_CARD.EYEBROW' | translate }}
             </span>
 
             <h3>
-              Residence 1072
+              {{ 'CONTACT.LOCATION_CARD.TITLE' | translate }}
             </h3>
 
             <p>
-             Residency 1072, Offices B Block, M floor, Deira, Dubai
+              {{ 'CONTACT.DETAILS.LOCATION.ADDRESS' | translate }}
             </p>
 
             <a
@@ -181,7 +180,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on Google Maps
+              {{ 'CONTACT.LOCATION_CARD.MAPS_LINK' | translate }}
 
               <svg
                 viewBox="0 0 24 24"
@@ -215,16 +214,15 @@
       <div class="contact__form-header">
 
         <span class="contact__form-eyebrow">
-          Contact Us
+          {{ 'CONTACT.FORM.EYEBROW' | translate }}
         </span>
 
         <h3 class="contact__form-title">
-          Send a Message
+          {{ 'CONTACT.FORM.TITLE' | translate }}
         </h3>
 
         <p class="contact__form-description">
-          Tell us what you're looking for and
-          we'll get back to you shortly.
+          {{ 'CONTACT.FORM.DESCRIPTION' | translate }}
         </p>
 
       </div>
@@ -238,14 +236,14 @@
           <div class="contact__field">
 
             <label for="full-name">
-              Full Name
+              {{ 'CONTACT.FORM.FULL_NAME.LABEL' | translate }}
             </label>
 
             <input
               id="full-name"
               type="text"
               class="form-control"
-              placeholder="John Smith"
+              [placeholder]="'CONTACT.FORM.FULL_NAME.PLACEHOLDER' | translate"
               autocomplete="name"
             />
 
@@ -255,7 +253,7 @@
           <div class="contact__field">
 
             <label for="phone">
-              Phone
+              {{ 'CONTACT.FORM.PHONE.LABEL' | translate }}
             </label>
 
             <input
@@ -275,14 +273,14 @@
         <div class="contact__field">
 
           <label for="email">
-            Email
+            {{ 'CONTACT.FORM.EMAIL.LABEL' | translate }}
           </label>
 
           <input
             id="email"
             type="email"
             class="form-control"
-            placeholder="john@email.com"
+            [placeholder]="'CONTACT.FORM.EMAIL.PLACEHOLDER' | translate"
             autocomplete="email"
           />
 
@@ -293,14 +291,14 @@
         <div class="contact__field">
 
           <label for="message">
-            Message
+            {{ 'CONTACT.FORM.MESSAGE.LABEL' | translate }}
           </label>
 
           <textarea
             id="message"
             class="form-control"
             rows="5"
-            placeholder="Tell us which car you're looking for..."
+            [placeholder]="'CONTACT.FORM.MESSAGE.PLACEHOLDER' | translate"
           ></textarea>
 
         </div>
@@ -311,8 +309,9 @@
           type="submit"
           class="btn btn-primary contact__btn"
         >
+
           <span>
-            Send Inquiry
+            {{ 'CONTACT.FORM.SUBMIT' | translate }}
           </span>
 
           <svg
@@ -336,4 +335,5 @@
     </div>
 
   </div>
+
 </section>

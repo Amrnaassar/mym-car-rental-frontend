@@ -1,0 +1,28 @@
+@use "../../../../../styles/abstracts/variables" as *;
+
+.empty-state {
+  text-align: center;
+
+  padding: $space-20;
+
+  border: 1px dashed $color-border;
+
+  border-radius: $radius-xl;
+
+  background: rgba(255,255,255,.02);
+}
+
+.empty-state__icon {
+  font-size: 2rem;
+  color: $color-accent;
+
+  margin-bottom: $space-4;
+}
+
+.empty-state h3 {
+  margin-bottom: $space-2;
+}
+
+.empty-state p {
+  color: $color-text-muted;
+}

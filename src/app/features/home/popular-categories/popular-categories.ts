@@ -9,10 +9,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { CarCategoryService } from '../../../core/services/car-category.service';
 import { LanguageService } from '../../../core/services/language.service';
 import { Category } from '../../../core/models/car-category.model';
+import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-popular-categories',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,TranslatePipe],
   templateUrl: './popular-categories.html',
   styleUrl: './popular-categories.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

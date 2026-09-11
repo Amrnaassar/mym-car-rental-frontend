@@ -1,0 +1,39 @@
+@if (visible) {
+
+<div class="overlay">
+
+  <div class="dialog">
+
+    <h3>
+      {{ title }}
+    </h3>
+
+    <p>
+      {{ message }}
+    </p>
+
+    <div class="dialog__actions">
+
+      <button
+        class="btn-outline"
+        (click)="cancelled.emit()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="delete-btn"
+        (click)="confirmed.emit()">
+
+        Delete
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+}

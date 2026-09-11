@@ -1,0 +1,481 @@
+<div class="booking-details-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span class="eyebrow">
+        Rental Operations
+      </span>
+
+      <h1>
+        Booking Details
+      </h1>
+
+      @if (booking(); as currentBooking) {
+
+        <p>
+          {{ currentBooking.bookingNumber }}
+        </p>
+
+      }
+
+    </div>
+
+    <button
+      type="button"
+      class="btn-outline"
+      (click)="back()">
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back to Bookings
+
+    </button>
+
+  </div>
+
+
+  @if (loading()) {
+
+    <div class="loading-card">
+
+      <i class="fa-solid fa-spinner fa-spin"></i>
+
+      Loading booking...
+
+    </div>
+
+  }
+
+  @else if (errorMessage()) {
+
+    <div class="error-card">
+
+      <i class="fa-solid fa-circle-exclamation"></i>
+
+      {{ errorMessage() }}
+
+    </div>
+
+  }
+
+  @else if (booking(); as currentBooking) {
+
+    <div class="booking-layout">
+
+      <main class="booking-main">
+
+
+        <!-- STATUS -->
+
+        <section class="detail-card">
+
+          <div class="detail-card__header">
+
+            <div>
+
+              <span class="section-eyebrow">
+                Booking
+              </span>
+
+              <h2>
+                {{ currentBooking.bookingNumber }}
+              </h2>
+
+            </div>
+
+            <span
+              class="status-badge"
+              [class.status-badge--pending]="
+                statusClass(currentBooking.status) === 'pending'
+              "
+              [class.status-badge--confirmed]="
+                statusClass(currentBooking.status) === 'confirmed'
+              "
+              [class.status-badge--cancelled]="
+                statusClass(currentBooking.status) === 'cancelled'
+              "
+              [class.status-badge--completed]="
+                statusClass(currentBooking.status) === 'completed'
+              ">
+
+              {{ statusLabel(currentBooking.status) }}
+
+            </span>
+
+          </div>
+
+
+          <div class="timeline">
+
+            <div class="timeline-item">
+
+              <span>
+                Pickup
+              </span>
+
+              <strong>
+                {{ currentBooking.pickupDate | date:'dd MMM yyyy, HH:mm' }}
+              </strong>
+
+              <small>
+                {{ currentBooking.pickupLocation }}
+              </small>
+
+            </div>
+
+
+            <div class="timeline-line"></div>
+
+
+            <div class="timeline-item">
+
+              <span>
+                Return
+              </span>
+
+              <strong>
+                {{ currentBooking.returnDate | date:'dd MMM yyyy, HH:mm' }}
+              </strong>
+
+              <small>
+                {{ currentBooking.rentalDays }} rental days
+              </small>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- CUSTOMER + VEHICLE -->
+
+        <section class="detail-grid">
+
+
+          <div class="detail-card">
+
+            <div class="detail-card__header">
+
+              <div>
+
+                <span class="section-eyebrow">
+                  Customer
+                </span>
+
+                <h3>
+                  Customer Information
+                </h3>
+
+              </div>
+
+              <i class="fa-solid fa-user"></i>
+
+            </div>
+
+
+            <div class="info-list">
+
+              <div>
+                <span>Name</span>
+                <strong>
+                  {{ currentBooking.customerFullName }}
+                </strong>
+              </div>
+
+              <div>
+                <span>Email</span>
+                <strong>
+                  {{ currentBooking.customerEmail }}
+                </strong>
+              </div>
+
+              <div>
+                <span>Phone</span>
+                <strong>
+                  {{ currentBooking.customerPhone }}
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="detail-card">
+
+            <div class="detail-card__header">
+
+              <div>
+
+                <span class="section-eyebrow">
+                  Vehicle
+                </span>
+
+                <h3>
+                  Vehicle Information
+                </h3>
+
+              </div>
+
+              <i class="fa-solid fa-car"></i>
+
+            </div>
+
+
+            <div class="info-list">
+
+              <div>
+                <span>Vehicle</span>
+                <strong>
+                  {{ currentBooking.carName }}
+                </strong>
+              </div>
+
+              <div>
+                <span>Car ID</span>
+                <strong>
+                  #{{ currentBooking.carId }}
+                </strong>
+              </div>
+
+              <div>
+                <span>Rental Plan</span>
+                <strong>
+                  {{ planLabel(currentBooking.rentalPlan) }}
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- PRICING -->
+
+        <section class="detail-card">
+
+          <div class="detail-card__header">
+
+            <div>
+
+              <span class="section-eyebrow">
+                Financial
+              </span>
+
+              <h3>
+                Booking Summary
+              </h3>
+
+            </div>
+
+          </div>
+
+
+          <div class="pricing-list">
+
+            <div>
+              <span>Daily Rate</span>
+              <strong>
+                AED {{ currentBooking.dailyRate | number:'1.0-2' }}
+              </strong>
+            </div>
+
+            <div>
+              <span>Weekly Rate</span>
+              <strong>
+                AED {{ currentBooking.weeklyRate | number:'1.0-2' }}
+              </strong>
+            </div>
+
+            <div>
+              <span>Monthly Rate</span>
+              <strong>
+                AED {{ currentBooking.monthlyRate | number:'1.0-2' }}
+              </strong>
+            </div>
+
+            <div>
+              <span>Rental Cost</span>
+              <strong>
+                AED {{ currentBooking.rentalCost | number:'1.0-2' }}
+              </strong>
+            </div>
+
+            <div>
+              <span>Insurance</span>
+              <strong>
+                AED {{ currentBooking.insuranceCost | number:'1.0-2' }}
+              </strong>
+            </div>
+
+            <div>
+              <span>Tax</span>
+              <strong>
+                AED {{ currentBooking.taxCost | number:'1.0-2' }}
+              </strong>
+            </div>
+
+            <div>
+              <span>Discount</span>
+              <strong class="discount">
+                - AED {{ currentBooking.discountAmount | number:'1.0-2' }}
+              </strong>
+            </div>
+
+            <div class="grand-total">
+              <span>
+                Grand Total
+              </span>
+
+              <strong>
+                AED {{ currentBooking.grandTotal | number:'1.0-2' }}
+              </strong>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        @if (currentBooking.notes) {
+
+          <section class="detail-card">
+
+            <div class="detail-card__header">
+
+              <div>
+
+                <span class="section-eyebrow">
+                  Notes
+                </span>
+
+                <h3>
+                  Customer Notes
+                </h3>
+
+              </div>
+
+            </div>
+
+            <p class="notes">
+              {{ currentBooking.notes }}
+            </p>
+
+          </section>
+
+        }
+
+      </main>
+
+
+      <!-- ACTION PANEL -->
+
+      <aside class="booking-sidebar">
+
+        <section class="action-card">
+
+          <span class="section-eyebrow">
+            Actions
+          </span>
+
+          <h3>
+            Manage Booking
+          </h3>
+
+
+          @if (
+            currentBooking.status !== BookingStatus.Completed &&
+            currentBooking.status !== BookingStatus.Cancelled
+          ) {
+
+            @if (
+              currentBooking.status === BookingStatus.Pending
+            ) {
+
+              <button
+                type="button"
+                class="btn-primary action-button"
+                [disabled]="actionLoading()"
+                (click)="updateStatus(BookingStatus.Confirmed)">
+
+                <i class="fa-solid fa-check"></i>
+
+                Confirm Booking
+
+              </button>
+
+            }
+
+
+            @if (
+              currentBooking.status === BookingStatus.Confirmed
+            ) {
+
+              <button
+                type="button"
+                class="btn-primary action-button"
+                [disabled]="actionLoading()"
+                (click)="updateStatus(BookingStatus.Completed)">
+
+                <i class="fa-solid fa-flag-checkered"></i>
+
+                Mark Completed
+
+              </button>
+
+            }
+
+
+            <button
+              type="button"
+              class="cancel-action"
+              [disabled]="actionLoading()"
+              (click)="cancelBooking()">
+
+              <i class="fa-solid fa-ban"></i>
+
+              Cancel Booking
+
+            </button>
+
+          } @else {
+
+            <div class="locked-state">
+
+              <i class="fa-solid fa-lock"></i>
+
+              <span>
+                This booking can no longer be modified.
+              </span>
+
+            </div>
+
+          }
+
+        </section>
+
+
+        <section class="meta-card">
+
+          <span>
+            Created
+          </span>
+
+          <strong>
+            {{ currentBooking.createdAt | date:'dd MMM yyyy, HH:mm' }}
+          </strong>
+
+        </section>
+
+      </aside>
+
+    </div>
+
+  }
+
+</div>

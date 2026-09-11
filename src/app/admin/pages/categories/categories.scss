@@ -1,0 +1,162 @@
+@use "../../../../styles/abstracts/variables" as *;
+@use "../../../../styles/abstracts/mixins" as *;
+
+.categories-page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+}
+
+.page-header {
+  @include flex-between;
+}
+
+.page-header p {
+  margin-top: $space-2;
+  color: $color-text-muted;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-input {
+  max-width: 340px;
+}
+
+.table-card {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns:
+    90px
+    1.2fr
+    1.2fr
+    1fr
+    180px;
+
+  padding: $space-5;
+  background: rgba(255,255,255,.02);
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+
+  color: $color-accent;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns:
+    90px
+    1.2fr
+    1.2fr
+    1fr
+    180px;
+
+  align-items: center;
+
+  padding: $space-5;
+
+  border-top: 1px solid $color-border;
+
+  transition: background $transition-normal;
+}
+
+.table-row:hover {
+  background: rgba(255,255,255,.02);
+}
+
+.image-cell img {
+  width: 60px;
+  height: 60px;
+
+  border-radius: $radius-md;
+
+  object-fit: cover;
+}
+
+.image-placeholder {
+  width: 60px;
+  height: 60px;
+
+  border-radius: $radius-md;
+
+  background: rgba(200,169,107,.15);
+
+  color: $color-accent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+.slug {
+  color: $color-accent;
+  font-size: $font-size-sm;
+}
+
+.actions {
+  display: flex;
+  gap: $space-3;
+}
+
+.delete-btn {
+  min-height: 40px;
+
+  padding-inline: $space-4;
+
+  border-radius: $radius-full;
+
+  color: $color-danger;
+
+  border: 1px solid rgba(217,92,92,.3);
+
+  transition: $transition-normal;
+}
+
+.delete-btn:hover {
+  background: rgba(217,92,92,.08);
+}
+
+.loading-state,
+.empty-state {
+  padding: $space-20;
+  text-align: center;
+
+  border-radius: $radius-xl;
+
+  border: 1px dashed $color-border;
+}
+
+.empty-state h3 {
+  margin-bottom: $space-3;
+}
+
+@media (max-width: 992px) {
+
+  .table-header {
+    display: none;
+  }
+
+  .table-row {
+
+    grid-template-columns: 1fr;
+
+    gap: $space-4;
+
+    padding: $space-6;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+
+}

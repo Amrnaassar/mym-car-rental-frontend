@@ -1,6 +1,7 @@
 <section class="not-found">
   <div class="not-found__container">
 
+    
     <div class="not-found__content">
 
       <span class="not-found__code">404</span>
@@ -10,30 +11,29 @@
       </div>
 
       <span class="not-found__eyebrow">
-        Page Not Found
+        {{ 'NOT_FOUND.EYEBROW' | translate }}
       </span>
 
       <h1 class="not-found__title">
-        We couldn't find this page
+        {{ 'NOT_FOUND.TITLE' | translate }}
       </h1>
 
       <p class="not-found__description">
-        The page you're looking for may have been moved,
-        deleted, or doesn't exist anymore.
+        {{ 'NOT_FOUND.DESCRIPTION' | translate }}
       </p>
 
-      <a
-        routerLink="/"
-        class="not-found__button"
-      >
+      <a routerLink="/" class="not-found__button">
         <i class="fa-solid fa-house"></i>
 
-        <span>Back to Home</span>
+        <span>
+          {{ 'NOT_FOUND.BACK_TO_HOME' | translate }}
+        </span>
 
         <i class="fa-solid fa-arrow-right"></i>
       </a>
 
     </div>
+    
 
   </div>
 </section>

@@ -10,25 +10,22 @@
       <div class="booking-success">
 
         <div class="booking-success__icon">
-
           <i class="fa-solid fa-check"></i>
-
         </div>
 
 
         <span class="booking-success__eyebrow">
-          Booking Submitted Successfully
+          {{ 'BOOKING_STEP_4.SUCCESS.EYEBROW' | translate }}
         </span>
 
 
         <h1 class="booking-success__title">
-          Your Booking Is Confirmed
+          {{ 'BOOKING_STEP_4.SUCCESS.TITLE' | translate }}
         </h1>
 
 
         <p class="booking-success__description">
-          Your booking has been successfully submitted.
-          Here are your booking details.
+          {{ 'BOOKING_STEP_4.SUCCESS.DESCRIPTION' | translate }}
         </p>
 
 
@@ -40,7 +37,7 @@
           <div class="booking-success__reference">
 
             <span>
-              Booking Reference
+              {{ 'BOOKING_STEP_4.REFERENCE.LABEL' | translate }}
             </span>
 
             <strong>
@@ -60,7 +57,7 @@
           <div class="booking-success__card-header">
 
             <h2>
-              Booking Details
+              {{ 'BOOKING_STEP_4.DETAILS.TITLE' | translate }}
             </h2>
 
             @if (booking.status) {
@@ -79,7 +76,7 @@
             <div class="detail-item">
 
               <span>
-                Pickup Date
+                {{ 'BOOKING_STEP_4.DETAILS.PICKUP_DATE' | translate }}
               </span>
 
               <strong>
@@ -92,7 +89,7 @@
             <div class="detail-item">
 
               <span>
-                Return Date
+                {{ 'BOOKING_STEP_4.DETAILS.RETURN_DATE' | translate }}
               </span>
 
               <strong>
@@ -105,7 +102,7 @@
             <div class="detail-item">
 
               <span>
-                Pickup Location
+                {{ 'BOOKING_STEP_4.DETAILS.PICKUP_LOCATION' | translate }}
               </span>
 
               <strong>
@@ -118,7 +115,7 @@
             <div class="detail-item">
 
               <span>
-                Rental Days
+                {{ 'BOOKING_STEP_4.DETAILS.RENTAL_DAYS' | translate }}
               </span>
 
               <strong>
@@ -138,7 +135,7 @@
             <div class="price-row">
 
               <span>
-                Rental Cost
+                {{ 'BOOKING_STEP_4.PRICE.RENTAL_COST' | translate }}
               </span>
 
               <strong>
@@ -153,7 +150,7 @@
               <div class="price-row">
 
                 <span>
-                  Insurance
+                  {{ 'BOOKING_STEP_4.PRICE.INSURANCE' | translate }}
                 </span>
 
                 <strong>
@@ -171,7 +168,7 @@
             <div class="price-row price-row--total">
 
               <span>
-                Total
+                {{ 'BOOKING_STEP_4.PRICE.TOTAL' | translate }}
               </span>
 
               <strong>
@@ -197,7 +194,7 @@
 
             <i class="fa-solid fa-car"></i>
 
-            Browse More Cars
+            {{ 'BOOKING_STEP_4.ACTIONS.BROWSE_CARS' | translate }}
 
           </a>
 
@@ -207,7 +204,7 @@
             class="btn btn-outline"
           >
 
-            Back to Home
+            {{ 'BOOKING_STEP_4.ACTIONS.BACK_HOME' | translate }}
 
           </a>
 

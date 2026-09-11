@@ -1,0 +1,33 @@
+<header class="topbar">
+
+  <div class="topbar__left">
+
+    <h1>
+      {{ pageTitle }}
+    </h1>
+
+  </div>
+
+  <div class="topbar__user">
+
+    <div class="topbar__info">
+
+      <strong>
+        {{ currentUser()?.fullName }}
+      </strong>
+
+      <span>
+        {{ roleLabel() }}
+      </span>
+
+    </div>
+
+    <div class="topbar__avatar">
+
+      {{ initials() }}
+
+    </div>
+
+  </div>
+
+</header>

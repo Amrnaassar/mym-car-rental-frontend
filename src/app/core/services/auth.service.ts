@@ -87,10 +87,13 @@ export class AuthService {
 
       tap(user => {
 
-        this.currentUserSignal.set(user);
 
+
+        this.currentUserSignal.set(user);
         this.isLoggedIn.set(true);
+
       })
+
     );
   }
 
@@ -100,19 +103,28 @@ export class AuthService {
 
   initialize(): Observable<User | null> {
 
+    
+
     return this.getCurrentUser().pipe(
 
-      catchError(() => {
+      catchError(error => {
+
+
 
         this.clearAuthentication();
 
         return of(null);
+
       }),
 
-      tap(() => {
+      tap(user => {
+
+
 
         this.initializedSignal.set(true);
+
       })
+
     );
   }
 

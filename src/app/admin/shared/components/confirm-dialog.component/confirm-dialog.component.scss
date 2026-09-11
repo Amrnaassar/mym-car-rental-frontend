@@ -1,0 +1,57 @@
+@use "../../../../../styles/abstracts/variables" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: $z-modal;
+}
+
+.dialog {
+  width: 100%;
+  max-width: 500px;
+
+  padding: $space-8;
+
+  border-radius: $radius-xl;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+}
+
+.dialog h3 {
+  margin-bottom: $space-3;
+}
+
+.dialog p {
+  margin-bottom: $space-6;
+}
+
+.dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-3;
+}
+
+.delete-btn {
+  min-height: 48px;
+
+  padding-inline: $space-6;
+
+  border-radius: $radius-full;
+
+  border: 1px solid rgba(217,92,92,.3);
+
+  color: $color-danger;
+}
+
+.delete-btn:hover {
+  background: rgba(217,92,92,.08);
+}

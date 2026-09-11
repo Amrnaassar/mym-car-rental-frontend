@@ -42,6 +42,7 @@ import { BookingStep3 } from './steps/booking-step-3/booking-step-3';
 import { BookingStep4 } from './steps/booking-step-4/booking-step-4';
 import { BookingService } from '../../core/services/booking.service';
 import { CarService } from '../../core/services/car.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-booking',
@@ -52,7 +53,8 @@ import { CarService } from '../../core/services/car.service';
     BookingStep1,
     BookingStep2,
     BookingStep3,
-    BookingStep4
+    BookingStep4,
+    TranslatePipe
   ],
   templateUrl: './booking.html',
   styleUrl: './booking.scss',

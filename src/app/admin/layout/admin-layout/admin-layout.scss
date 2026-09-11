@@ -1,0 +1,20 @@
+@use '../../../../styles/abstracts/variables' as *;
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: $color-primary-dark;
+}
+
+.admin-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.page-content {
+  flex: 1;
+  padding: $space-8;
+  overflow-x: hidden;
+}

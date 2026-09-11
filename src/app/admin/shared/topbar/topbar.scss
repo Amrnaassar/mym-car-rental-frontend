@@ -1,0 +1,59 @@
+@use '../../../../styles/abstracts/variables' as *;
+
+.topbar {
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-inline: $space-8;
+
+  border-bottom: 1px solid $color-border;
+
+  background: $color-primary-dark;
+}
+
+.topbar__left h1 {
+  font-size: $font-size-2xl;
+  color: $color-text-primary;
+}
+
+.topbar__user {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.topbar__info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+
+  strong {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  span {
+    color: $color-text-muted;
+    font-size: $font-size-xs;
+  }
+}
+
+.topbar__avatar {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  background: $gradient-gold;
+
+  color: $color-primary-dark;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: $font-weight-bold;
+}

@@ -16,10 +16,13 @@ import {
 
 import { AuthService } from '../../core/services/auth.service';
 import { GoogleAuthService } from '../../core/services/google-auth.service';
+import { UserRole } from '../../core/models/user.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
+  imports:[TranslatePipe],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -62,7 +65,7 @@ export class LoginComponent implements AfterViewInit {
       .googleLogin(idToken)
       .subscribe({
 
-        next: () => {
+        next: (res) => {
 
           const returnUrl =
             this.activatedRoute
@@ -70,7 +73,22 @@ export class LoginComponent implements AfterViewInit {
               .queryParamMap
               .get('returnUrl');
 
+          const user = res.user;
+
+          if (
+            user.role == UserRole.Employee ||
+            user.role == UserRole.Manager
+          ) {
+            this.router.navigate([
+              '/admin/dashboard'
+            ]);
+
+            return;
+          }
+
+          this.router.navigate(['/']);
           this.router.navigateByUrl(returnUrl || '/');
+
         },
 
         error: error => {

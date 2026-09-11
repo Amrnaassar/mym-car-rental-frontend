@@ -1,0 +1,474 @@
+<div class="dashboard-page">
+
+    <!-- ========================= -->
+    <!-- HEADER -->
+    <!-- ========================= -->
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-heading">
+
+            <span class="eyebrow">
+                MYM Fleet Management
+            </span>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            @if (currentUser(); as user) {
+
+            <p>
+                Welcome back, {{ user.fullName }}.
+                Here is today's business overview.
+            </p>
+
+            } @else {
+
+            <p>
+                Here's an overview of your rental operations.
+            </p>
+
+            }
+
+        </div>
+
+        <button type="button" class="refresh-button" [disabled]="loading()" (click)="reload()">
+
+            <i class="fa-solid fa-rotate-right" [class.fa-spin]="loading()">
+            </i>
+
+            Refresh
+
+        </button>
+
+    </header>
+
+
+    <!-- ========================= -->
+    <!-- ERROR -->
+    <!-- ========================= -->
+
+    @if (errorMessage()) {
+
+    <div class="error-banner">
+
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+        <span>
+            {{ errorMessage() }}
+        </span>
+
+        <button type="button" class="retry-button" (click)="reload()">
+
+            Try Again
+
+        </button>
+
+    </div>
+
+    }
+
+
+    @if (loading()) {
+
+    <!-- ========================= -->
+    <!-- LOADING -->
+    <!-- ========================= -->
+
+    <section class="stats-grid">
+
+        @for (
+        item of [1, 2, 3, 4, 5, 6];
+        track item
+        ) {
+
+        <div class="skeleton-card">
+
+            <div class="skeleton skeleton-icon"></div>
+
+            <div class="skeleton skeleton-line"></div>
+
+            <div class="skeleton skeleton-value"></div>
+
+        </div>
+
+        }
+
+    </section>
+
+
+    <div class="loading-panel">
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        Loading dashboard...
+
+    </div>
+
+
+    } @else {
+
+    <!-- ========================= -->
+    <!-- PRIMARY STATS -->
+    <!-- ========================= -->
+
+    <section class="stats-grid">
+
+        <app-stat-card label="Total Cars" [value]="totalCars()" icon="fa-car">
+        </app-stat-card>
+
+        <app-stat-card label="Active Cars" [value]="activeCars()" icon="fa-circle-check">
+        </app-stat-card>
+
+        <app-stat-card label="Total Bookings" [value]="totalBookings()" icon="fa-calendar-check">
+        </app-stat-card>
+
+        <app-stat-card label="Pending Bookings" [value]="pendingBookings()" icon="fa-clock">
+        </app-stat-card>
+
+        <app-stat-card label="Total Categories" [value]="totalCategories()" icon="fa-layer-group">
+        </app-stat-card>
+
+        <app-stat-card label="Revenue" [value]="(totalRevenue())" icon="fa-sack-dollar">
+        </app-stat-card>
+
+        @if (isManager()) {
+
+        <app-stat-card label="Total Users" [value]="totalUsers()" icon="fa-users">
+        </app-stat-card>
+
+        }
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- OPERATION OVERVIEW -->
+    <!-- ========================= -->
+
+    <section class="overview-grid">
+
+        <div class="overview-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="card-eyebrow">
+                        Bookings
+                    </span>
+
+                    <h2>
+                        Booking Overview
+                    </h2>
+
+                </div>
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+            </div>
+
+
+            <div class="booking-overview">
+
+                <div class="overview-item">
+
+                    <span class="overview-item__label">
+                        Pending
+                    </span>
+
+                    <strong>
+                        {{ pendingBookings() }}
+                    </strong>
+
+                    <div class="progress">
+                        <span [style.width.%]="
+                  totalBookings()
+                    ? (pendingBookings() / totalBookings()) * 100
+                    : 0
+                ">
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="overview-item">
+
+                    <span class="overview-item__label">
+                        Confirmed
+                    </span>
+
+                    <strong>
+                        {{ confirmedBookings() }}
+                    </strong>
+
+                    <div class="progress progress--info">
+                        <span [style.width.%]="
+                  totalBookings()
+                    ? (confirmedBookings() / totalBookings()) * 100
+                    : 0
+                ">
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="overview-item">
+
+                    <span class="overview-item__label">
+                        Completed
+                    </span>
+
+                    <strong>
+                        {{ completedBookings() }}
+                    </strong>
+
+                    <div class="progress progress--success">
+                        <span [style.width.%]="
+                  totalBookings()
+                    ? (completedBookings() / totalBookings()) * 100
+                    : 0
+                ">
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="overview-item">
+
+                    <span class="overview-item__label">
+                        Cancelled
+                    </span>
+
+                    <strong>
+                        {{ cancelledBookings() }}
+                    </strong>
+
+                    <div class="progress progress--danger">
+                        <span [style.width.%]="
+                  totalBookings()
+                    ? (cancelledBookings() / totalBookings()) * 100
+                    : 0
+                ">
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="overview-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="card-eyebrow">
+                        Fleet
+                    </span>
+
+                    <h2>
+                        Fleet Overview
+                    </h2>
+
+                </div>
+
+                <i class="fa-solid fa-car-side"></i>
+
+            </div>
+
+
+            <div class="fleet-overview">
+
+                <div class="fleet-main">
+
+                    <strong>
+                        {{ activeCars() }}
+                    </strong>
+
+                    <span>
+                        Active Vehicles
+                    </span>
+
+                </div>
+
+
+                <div class="fleet-details">
+
+                    <div>
+                        <span>Inactive</span>
+                        <strong>
+                            {{ inactiveCars() }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Featured</span>
+                        <strong>
+                            {{ featuredCars() }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Categories</span>
+                        <strong>
+                            {{ totalCategories() }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- RECENT BOOKINGS -->
+    <!-- ========================= -->
+
+    <section class="recent-card">
+
+        <div class="card-heading">
+
+            <div>
+
+                <span class="card-eyebrow">
+                    Latest Activity
+                </span>
+
+                <h2>
+                    Recent Bookings
+                </h2>
+
+            </div>
+
+            <a routerLink="/admin/bookings" class="view-all">
+
+                View All
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+        @if (!recentBookings().length) {
+
+        <div class="recent-empty">
+
+            <i class="fa-solid fa-calendar-xmark"></i>
+
+            <span>
+                No bookings yet.
+            </span>
+
+        </div>
+
+        } @else {
+
+        <div class="recent-bookings">
+
+            @for (
+            booking of recentBookings();
+            track booking.id
+            ) {
+
+            <a class="booking-row" [routerLink]="[
+                '/admin/bookings',
+                booking.id
+              ]">
+
+                <div class="booking-primary">
+
+                    <span class="booking-number">
+                        {{ booking.bookingNumber }}
+                    </span>
+
+                    <strong>
+                        {{ booking.customerFullName }}
+                    </strong>
+
+                </div>
+
+
+                <div class="booking-vehicle">
+
+                    <i class="fa-solid fa-car"></i>
+
+                    <span>
+                        {{ booking.carName }}
+                    </span>
+
+                </div>
+
+
+                <div class="booking-dates">
+
+                    <span>
+                        {{ booking.pickupDate | date:'dd MMM yyyy' }}
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                    <span>
+                        {{ booking.returnDate | date:'dd MMM yyyy' }}
+                    </span>
+
+                </div>
+
+
+                <div class="booking-total">
+
+                    AED
+                    {{ booking.grandTotal | number:'1.0-2' }}
+
+                </div>
+
+
+                <div>
+
+                    <span class="status-badge" [class.status-badge--pending]="
+                    statusClass(booking.status) === 'pending'
+                  " [class.status-badge--confirmed]="
+                    statusClass(booking.status) === 'confirmed'
+                  " [class.status-badge--cancelled]="
+                    statusClass(booking.status) === 'cancelled'
+                  " [class.status-badge--completed]="
+                    statusClass(booking.status) === 'completed'
+                  ">
+
+                        <span class="status-dot"></span>
+
+                        {{ statusLabel(booking.status) }}
+
+                    </span>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right row-arrow"></i>
+
+            </a>
+
+            }
+
+        </div>
+
+        }
+
+    </section>
+
+    }
+
+</div>

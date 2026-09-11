@@ -2,250 +2,274 @@
 
   <div class="booking-page__container">
 
-    <!-- ========================================================
-         PAGE HEADER
-    ========================================================= -->
 
-    <header class="booking-page__header">
+<!-- ========================================================
+     PAGE HEADER
+========================================================= -->
+<header class="booking-page__header">
 
-      <div>
+  <div>
+    <span class="booking-page__eyebrow">
+      {{ 'BOOKING.PAGE_HEADER.EYEBROW' | translate }}
+    </span>
 
-        <span class="booking-page__eyebrow">
-          RESERVE YOUR VEHICLE
+    <h1 class="booking-page__title">
+      {{ 'BOOKING.PAGE_HEADER.TITLE' | translate }}
+      <span>{{ 'BOOKING.PAGE_HEADER.TITLE_HIGHLIGHT' | translate }}</span>
+    </h1>
+
+    <p class="booking-page__intro">
+      {{ 'BOOKING.PAGE_HEADER.INTRO' | translate }}
+    </p>
+  </div>
+
+  <a routerLink="/cars" class="btn btn-outline">
+    <i class="fa-solid fa-arrow-left"></i>
+    {{ 'BOOKING.PAGE_HEADER.BACK_TO_CARS' | translate }}
+  </a>
+
+</header>
+
+<!-- ========================================================
+     PROGRESS STEPPER
+========================================================= -->
+<nav
+  class="booking-progress"
+  [attr.aria-label]="'BOOKING.PROGRESS.ARIA_LABEL' | translate"
+>
+
+  <!-- STEP 1 -->
+  <button
+    type="button"
+    class="booking-progress__step"
+    [class.booking-progress__step--active]="isActive(1)"
+    [class.booking-progress__step--completed]="isCompleted(1)"
+    (click)="goToStep(1)"
+  >
+    <span class="booking-progress__number">
+      @if (isCompleted(1)) {
+        ✓
+      } @else {
+        1
+      }
+    </span>
+
+    <span class="booking-progress__label">
+      {{ 'BOOKING.PROGRESS.SELECT_CAR' | translate }}
+    </span>
+  </button>
+
+  <span
+    class="booking-progress__line"
+    [class.booking-progress__line--completed]="isCompleted(2)"
+  ></span>
+
+  <!-- STEP 2 -->
+  <button
+    type="button"
+    class="booking-progress__step"
+    [class.booking-progress__step--active]="isActive(2)"
+    [class.booking-progress__step--completed]="isCompleted(2)"
+    (click)="goToStep(2)"
+  >
+    <span class="booking-progress__number">
+      @if (isCompleted(2)) {
+        ✓
+      } @else {
+        2
+      }
+    </span>
+
+    <span class="booking-progress__label">
+      {{ 'BOOKING.PROGRESS.DETAILS' | translate }}
+    </span>
+  </button>
+
+  <span
+    class="booking-progress__line"
+    [class.booking-progress__line--completed]="isCompleted(3)"
+  ></span>
+
+  <!-- STEP 3 -->
+  <button
+    type="button"
+    class="booking-progress__step"
+    [class.booking-progress__step--active]="isActive(3)"
+    [class.booking-progress__step--completed]="isCompleted(3)"
+    (click)="goToStep(3)"
+  >
+    <span class="booking-progress__number">
+      @if (isCompleted(3)) {
+        ✓
+      } @else {
+        3
+      }
+    </span>
+
+    <span class="booking-progress__label">
+      {{ 'BOOKING.PROGRESS.REVIEW' | translate }}
+    </span>
+  </button>
+
+  <span
+    class="booking-progress__line"
+    [class.booking-progress__line--completed]="isCompleted(4)"
+  ></span>
+
+  <!-- STEP 4 -->
+  <button
+    type="button"
+    class="booking-progress__step"
+    [class.booking-progress__step--active]="isActive(4)"
+    [class.booking-progress__step--completed]="isCompleted(4)"
+    (click)="goToStep(4)"
+  >
+    <span class="booking-progress__number">
+      @if (isCompleted(4)) {
+        ✓
+      } @else {
+        4
+      }
+    </span>
+
+    <span class="booking-progress__label">
+      {{ 'BOOKING.PROGRESS.CONFIRM' | translate }}
+    </span>
+  </button>
+
+</nav>
+
+<!-- ========================================================
+     CONTENT
+========================================================= -->
+<main class="booking-content">
+
+  <!-- ======================================================
+       VEHICLE ERROR
+  ======================================================= -->
+  @if (!car()) {
+
+    <section class="booking-error">
+
+      <div class="booking-step__header">
+
+        <span class="booking-step__eyebrow">
+          {{ 'BOOKING.VEHICLE_ERROR.EYEBROW' | translate }}
         </span>
 
-        <h1 class="booking-page__title">
-          Complete Your
-          <span>Booking</span>
-        </h1>
+        <h2>
+          {{ 'BOOKING.VEHICLE_ERROR.TITLE' | translate }}
+        </h2>
 
-        <p class="booking-page__intro">
-          Follow the steps below to reserve your vehicle
-          and complete your rental.
+        <p>
+          {{ 'BOOKING.VEHICLE_ERROR.DESCRIPTION' | translate }}
         </p>
 
       </div>
 
-      <a routerLink="/cars" class="btn btn-outline">
-        <i class="fa-solid fa-arrow-left"></i>
-        Back to Cars
-      </a>
+      <div class="booking-actions">
 
-    </header>
+        <a
+          routerLink="/cars"
+          class="booking-button booking-button--primary"
+        >
+          {{ 'BOOKING.VEHICLE_ERROR.BUTTON' | translate }}
 
-
-    <!-- ========================================================
-         PROGRESS STEPPER
-    ========================================================= -->
-
-    <nav class="booking-progress" aria-label="Booking progress">
-
-      <!-- STEP 1 -->
-
-      <button type="button" class="booking-progress__step" [class.booking-progress__step--active]="isActive(1)"
-        [class.booking-progress__step--completed]="isCompleted(1)" (click)="goToStep(1)">
-
-        <span class="booking-progress__number">
-
-          @if (isCompleted(1)) {
-          ✓
-          } @else {
-          1
-          }
-
-        </span>
-
-        <span class="booking-progress__label">
-          Select Car
-        </span>
-
-      </button>
-
-
-      <span class="booking-progress__line" [class.booking-progress__line--completed]="isCompleted(2)"></span>
-
-
-      <!-- STEP 2 -->
-
-      <button type="button" class="booking-progress__step" [class.booking-progress__step--active]="isActive(2)"
-        [class.booking-progress__step--completed]="isCompleted(2)" (click)="goToStep(2)">
-
-        <span class="booking-progress__number">
-
-          @if (isCompleted(2)) {
-          ✓
-          } @else {
-          2
-          }
-
-        </span>
-
-        <span class="booking-progress__label">
-          Details
-        </span>
-
-      </button>
-
-
-      <span class="booking-progress__line" [class.booking-progress__line--completed]="isCompleted(3)"></span>
-
-
-      <!-- STEP 3 -->
-
-      <button type="button" class="booking-progress__step" [class.booking-progress__step--active]="isActive(3)"
-        [class.booking-progress__step--completed]="isCompleted(3)" (click)="goToStep(3)">
-
-        <span class="booking-progress__number">
-
-          @if (isCompleted(3)) {
-          ✓
-          } @else {
-          3
-          }
-
-        </span>
-
-        <span class="booking-progress__label">
-          Review
-        </span>
-
-      </button>
-
-
-      <span class="booking-progress__line" [class.booking-progress__line--completed]="isCompleted(4)"></span>
-
-
-      <!-- STEP 4 -->
-
-      <button type="button" class="booking-progress__step" [class.booking-progress__step--active]="isActive(4)"
-        [class.booking-progress__step--completed]="isCompleted(4)" (click)="goToStep(4)">
-
-        <span class="booking-progress__number">
-
-          @if (isCompleted(4)) {
-          ✓
-          } @else {
-          4
-          }
-
-        </span>
-
-        <span class="booking-progress__label">
-          Confirm
-        </span>
-
-      </button>
-
-    </nav>
-
-
-    <!-- ========================================================
-         CONTENT
-    ========================================================= -->
-
-    <main class="booking-content">
-
-      <!-- ======================================================
-           VEHICLE ERROR
-      ======================================================= -->
-
-      @if (!car()) {
-
-      <section class="booking-error">
-
-        <div class="booking-step__header">
-
-          <span class="booking-step__eyebrow">
-            BOOKING ERROR
+          <span>
+            <i class="fa-solid fa-arrow-right"></i>
           </span>
-
-          <h2>
-            Vehicle Not Found
-          </h2>
-
-          <p>
-            We couldn't find the vehicle you're trying to book.
-            Please return to the cars page and select a vehicle.
-          </p>
-
-        </div>
-
-        <div class="booking-actions">
-
-          <a routerLink="/cars" class="booking-button booking-button--primary">
-            Browse Cars
-
-            <span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </span>
-          </a>
-
-        </div>
-
-      </section>
-
-      } @else {
-
-
-      <!-- ====================================================
-             BOOKING API ERROR
-        ===================================================== -->
-
-      @if (bookingError()) {
-
-      <div class="alert alert-danger" role="alert">
-
-        {{ bookingError() }}
+        </a>
 
       </div>
 
-      }
+    </section>
 
+  } @else {
 
-      <!-- ====================================================
-             STEP 1
-        ===================================================== -->
+    <!-- ====================================================
+         BOOKING API ERROR
+    ===================================================== -->
+    @if (bookingError()) {
 
-      @if (currentStep() === 1) {
-      <app-booking-step-1 [booking]="booking()" [car]="car()" [rentalDays]="rentalDays()"
-        [currentPrice]="currentPrice()" [currentPlanLabel]="currentPlanLabel()" [grandTotal]="grandTotal()"
-        (bookingChange)="updateBooking($event)" (next)="nextStep()" />
-      }
+      <div
+        class="alert alert-danger"
+        role="alert"
+      >
+        {{ bookingError() }}
+      </div>
 
-      <!-- ====================================================
-             STEP 2
-        ===================================================== -->
+    }
 
-      @if (currentStep() === 2) {
-      <app-booking-step-2 [booking]="booking()" [rentalDays]="rentalDays()" [grandTotal]="grandTotal()"
-        [insurancePrice]="insurancePrice()" (bookingChange)="updateBooking($event)" (next)="nextStep()"
-        (back)="previousStep()" />
-      }
+    <!-- ====================================================
+         STEP 1
+    ===================================================== -->
+    @if (currentStep() === 1) {
 
+      <app-booking-step-1
+        [booking]="booking()"
+        [car]="car()"
+        [rentalDays]="rentalDays()"
+        [currentPrice]="currentPrice()"
+        [currentPlanLabel]="currentPlanLabel()"
+        [grandTotal]="grandTotal()"
+        (bookingChange)="updateBooking($event)"
+        (next)="nextStep()"
+      />
 
-      <!-- ====================================================
-             STEP 3
-        ===================================================== -->
+    }
 
-      @if (currentStep() === 3) {
-      <app-booking-step-3 [booking]="booking()" [rentalDays]="rentalDays()" [rentalPrice]="totalPrice()"
-        [insurancePrice]="insurancePrice()" [grandTotal]="grandTotal()" [currentPlanLabel]="currentPlanLabel()"
-        [isSubmitting]="isSubmitting()" [bookingError]="bookingError()" (confirm)="confirmBooking()"
-        (back)="previousStep()" />
-      }
+    <!-- ====================================================
+         STEP 2
+    ===================================================== -->
+    @if (currentStep() === 2) {
 
+      <app-booking-step-2
+        [booking]="booking()"
+        [rentalDays]="rentalDays()"
+        [grandTotal]="grandTotal()"
+        [insurancePrice]="insurancePrice()"
+        (bookingChange)="updateBooking($event)"
+        (next)="nextStep()"
+        (back)="previousStep()"
+      />
 
-      <!-- ====================================================
-             STEP 4
-        ===================================================== -->
+    }
 
-      @if (currentStep() === 4) {
-      <app-booking-step-4 [booking]="createdBooking()" />
-      }
+    <!-- ====================================================
+         STEP 3
+    ===================================================== -->
+    @if (currentStep() === 3) {
 
-      }
+      <app-booking-step-3
+        [booking]="booking()"
+        [rentalDays]="rentalDays()"
+        [rentalPrice]="totalPrice()"
+        [insurancePrice]="insurancePrice()"
+        [grandTotal]="grandTotal()"
+        [currentPlanLabel]="currentPlanLabel()"
+        [isSubmitting]="isSubmitting()"
+        [bookingError]="bookingError()"
+        (confirm)="confirmBooking()"
+        (back)="previousStep()"
+      />
 
-    </main>
+    }
+
+    <!-- ====================================================
+         STEP 4
+    ===================================================== -->
+    @if (currentStep() === 4) {
+
+      <app-booking-step-4
+        [booking]="createdBooking()"
+      />
+
+    }
+
+  }
+
+</main>
+
 
   </div>
 

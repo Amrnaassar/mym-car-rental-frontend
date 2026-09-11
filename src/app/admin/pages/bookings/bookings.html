@@ -1,0 +1,347 @@
+<div class="bookings-page">
+
+  <div class="page-header">
+
+    <div class="page-header__content">
+
+      <span class="eyebrow">
+        Rental Operations
+      </span>
+
+      <h1>
+        Bookings
+      </h1>
+
+      <p>
+        Monitor reservations and manage their status.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  @if (errorMessage()) {
+
+    <div class="error-banner">
+
+      <i class="fa-solid fa-circle-exclamation"></i>
+
+      {{ errorMessage() }}
+
+    </div>
+
+  }
+
+
+  <div class="booking-stats">
+
+    <div class="booking-stat">
+      <span>Pending</span>
+      <strong>{{ pendingCount() }}</strong>
+    </div>
+
+    <div class="booking-stat">
+      <span>Confirmed</span>
+      <strong>{{ confirmedCount() }}</strong>
+    </div>
+
+    <div class="booking-stat">
+      <span>Completed</span>
+      <strong>{{ completedCount() }}</strong>
+    </div>
+
+    <div class="booking-stat">
+      <span>Total</span>
+      <strong>{{ bookings().length }}</strong>
+    </div>
+
+  </div>
+
+
+  <div class="toolbar">
+
+    <div class="search-wrapper">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        class="form-control"
+        type="search"
+        placeholder="Search booking, customer or car..."
+        [ngModel]="search()"
+        (ngModelChange)="search.set($event)">
+
+    </div>
+
+
+    <div class="filters">
+
+      <select
+        class="form-control"
+        [ngModel]="statusFilter()"
+        (ngModelChange)="statusFilter.set($event)">
+
+        <option value="all">
+          All Status
+        </option>
+
+        <option [value]="BookingStatus.Pending">
+          Pending
+        </option>
+
+        <option [value]="BookingStatus.Confirmed">
+          Confirmed
+        </option>
+
+        <option [value]="BookingStatus.Cancelled">
+          Cancelled
+        </option>
+
+        <option [value]="BookingStatus.Completed">
+          Completed
+        </option>
+
+      </select>
+
+
+      <select
+        class="form-control"
+        [ngModel]="planFilter()"
+        (ngModelChange)="planFilter.set($event)">
+
+        <option value="all">
+          All Plans
+        </option>
+
+        <option value="0">
+          Daily
+        </option>
+
+        <option value="1">
+          Weekly
+        </option>
+
+        <option value="2">
+          Monthly
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  @if (loading()) {
+
+    <div class="loading-state">
+
+      <i class="fa-solid fa-spinner fa-spin"></i>
+
+      Loading bookings...
+
+    </div>
+
+  }
+
+  @else if (!filteredBookings().length) {
+
+    <div class="empty-state">
+
+      <div class="empty-state__icon">
+        <i class="fa-solid fa-calendar-xmark"></i>
+      </div>
+
+      <h3>
+        No Bookings Found
+      </h3>
+
+      <p>
+        No bookings match the current filters.
+      </p>
+
+    </div>
+
+  }
+
+  @else {
+
+    <div class="bookings-table-card">
+
+      <div class="bookings-table">
+
+        <div class="bookings-table__header">
+
+          <span>Booking</span>
+          <span>Customer</span>
+          <span>Vehicle</span>
+          <span>Rental</span>
+          <span>Total</span>
+          <span>Status</span>
+          <span>Actions</span>
+
+        </div>
+
+
+        @for (
+          booking of filteredBookings();
+          track booking.id
+        ) {
+
+          <div class="bookings-table__row">
+
+            <div class="booking-number">
+
+              <strong>
+                {{ booking.bookingNumber }}
+              </strong>
+
+              <small>
+                {{ booking.createdAt | date:'dd MMM yyyy' }}
+              </small>
+
+            </div>
+
+
+            <div class="customer-cell">
+
+              <strong>
+                {{ booking.customerFullName }}
+              </strong>
+
+              <span>
+                {{ booking.customerEmail }}
+              </span>
+
+            </div>
+
+
+            <div class="vehicle-cell">
+
+              <strong>
+                {{ booking.carName }}
+              </strong>
+
+              <span>
+                {{ booking.pickupLocation }}
+              </span>
+
+            </div>
+
+
+            <div class="rental-cell">
+
+              <strong>
+                {{ booking.pickupDate | date:'dd MMM' }}
+                -
+                {{ booking.returnDate | date:'dd MMM' }}
+              </strong>
+
+              <span>
+                {{ booking.rentalDays }}
+                days ·
+                {{ planLabel(booking.rentalPlan) }}
+              </span>
+
+            </div>
+
+
+            <div class="total-cell">
+
+              <strong>
+                AED {{ booking.grandTotal | number:'1.0-2' }}
+              </strong>
+
+            </div>
+
+
+            <div class="status-cell">
+
+              <span
+                class="status-badge"
+                [class.status-badge--pending]="
+                  statusClass(booking.status) === 'pending'
+                "
+                [class.status-badge--confirmed]="
+                  statusClass(booking.status) === 'confirmed'
+                "
+                [class.status-badge--cancelled]="
+                  statusClass(booking.status) === 'cancelled'
+                "
+                [class.status-badge--completed]="
+                  statusClass(booking.status) === 'completed'
+                ">
+
+                <span class="status-dot"></span>
+
+                {{ statusLabel(booking.status) }}
+
+              </span>
+
+            </div>
+
+
+            <div class="actions-cell">
+
+              <button
+                type="button"
+                class="icon-button"
+                title="View booking"
+                (click)="viewBooking(booking.id)">
+
+                <i class="fa-solid fa-eye"></i>
+
+              </button>
+
+
+              @if (
+                booking.status === BookingStatus.Pending
+              ) {
+
+                <button
+                  type="button"
+                  class="icon-button icon-button--success"
+                  title="Confirm booking"
+                  (click)="changeStatus(
+                    booking,
+                    BookingStatus.Confirmed
+                  )">
+
+                  <i class="fa-solid fa-check"></i>
+
+                </button>
+
+              }
+
+
+              @if (
+                booking.status === BookingStatus.Pending ||
+                booking.status === BookingStatus.Confirmed
+              ) {
+
+                <button
+                  type="button"
+                  class="icon-button icon-button--danger"
+                  title="Cancel booking"
+                  (click)="cancelBooking(booking)">
+
+                  <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

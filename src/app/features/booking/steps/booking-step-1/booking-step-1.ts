@@ -17,13 +17,15 @@ import { Car, FuelType, Transmission } from '../../../../core/models/car.model';
 
 import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker';
 import { LanguageService } from '../../../../core/services/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-booking-step-1',
   standalone: true,
   imports: [
     CommonModule,
-    DatePickerComponent
+    DatePickerComponent,
+    TranslatePipe
   ],
   templateUrl: './booking-step-1.html',
   styleUrl: './booking-step-1.scss',

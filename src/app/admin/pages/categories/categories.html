@@ -1,0 +1,152 @@
+<div class="categories-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>Categories</h1>
+
+      <p>
+        Manage vehicle categories
+      </p>
+
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="createCategory()">
+
+      + New Category
+
+    </button>
+
+  </div>
+
+  <div class="toolbar">
+
+    <input
+      class="form-control search-input"
+      placeholder="Search category..."
+      [ngModel]="search()"
+      (ngModelChange)="search.set($event)">
+
+  </div>
+
+  @if (loading()) {
+
+    <div class="loading-state">
+
+      Loading categories...
+
+    </div>
+
+  }
+
+  @else if (!filteredCategories().length) {
+
+    <div class="empty-state">
+
+      <h3>No Categories Found</h3>
+
+      <p>
+        Create your first category.
+      </p>
+
+    </div>
+
+  }
+
+  @else {
+
+    <div class="table-card">
+
+      <div class="table-header">
+
+        <div>Image</div>
+        <div>Arabic Name</div>
+        <div>English Name</div>
+        <div>Slug</div>
+        <div>Actions</div>
+
+      </div>
+
+      @for (
+        category of filteredCategories();
+        track category.id
+      ) {
+
+        <div class="table-row">
+
+          <div class="image-cell">
+
+            @if (category.imageUrl) {
+
+              <img
+                [src]="category.imageUrl"
+                [alt]="category.nameEn">
+
+            }
+
+            @else {
+
+              <div class="image-placeholder">
+
+                {{ category.nameEn[0] }}
+
+              </div>
+
+            }
+
+          </div>
+
+          <div>
+
+            {{ category.nameAr }}
+
+          </div>
+
+          <div>
+
+            {{ category.nameEn }}
+
+          </div>
+
+          <div>
+
+            <span class="slug">
+
+              {{ category.slug }}
+
+            </span>
+
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="btn-outline btn-sm"
+              (click)="editCategory(category.id)">
+
+              Edit
+
+            </button>
+
+            <button
+              class="btn-sm delete-btn"
+              (click)="deleteCategory(category.id)">
+
+              Delete
+
+            </button>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

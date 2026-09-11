@@ -7,7 +7,6 @@
     class="hero__bg"
     aria-hidden="true"
   >
-
     <img
       class="hero__bg-img"
       src="assets/images/hero/hero.png"
@@ -19,7 +18,6 @@
     />
 
     <div class="hero__overlay"></div>
-
   </div>
 
 
@@ -35,20 +33,22 @@
 
       <!-- Eyebrow -->
       <span class="hero__eyebrow">
-        Premium Car Rental
+        {{ 'HERO.EYEBROW' | translate }}
       </span>
 
 
       <!-- Title -->
       <h1 class="hero__title">
-        Luxury
-        <span>on your terms</span>
+        {{ 'HERO.TITLE' | translate }}
+        <span>
+          {{ 'HERO.TITLE_HIGHLIGHT' | translate }}
+        </span>
       </h1>
 
 
       <!-- Subtitle -->
       <p class="hero__subtitle">
-        Premium Cars. Flexible Rentals. Exceptional Experience.
+        {{ 'HERO.SUBTITLE' | translate }}
       </p>
 
 
@@ -58,7 +58,7 @@
       <fieldset class="hero__plans">
 
         <legend class="visually-hidden">
-          Rental plan
+          {{ 'HERO.RENTAL_PLAN' | translate }}
         </legend>
 
 
@@ -67,7 +67,6 @@
           class="hero__plan"
           [class.hero__plan--active]="selectedPlan() === 'daily'"
         >
-
           <input
             type="radio"
             name="rentalPlan"
@@ -86,11 +85,10 @@
           <span class="hero__plan-content">
 
             <span class="hero__plan-label">
-              Daily
+              {{ 'HERO.PLANS.DAILY' | translate }}
             </span>
 
           </span>
-
         </label>
 
 
@@ -99,7 +97,6 @@
           class="hero__plan"
           [class.hero__plan--active]="selectedPlan() === 'weekly'"
         >
-
           <input
             type="radio"
             name="rentalPlan"
@@ -118,11 +115,10 @@
           <span class="hero__plan-content">
 
             <span class="hero__plan-label">
-              Weekly
+              {{ 'HERO.PLANS.WEEKLY' | translate }}
             </span>
 
           </span>
-
         </label>
 
 
@@ -131,7 +127,6 @@
           class="hero__plan"
           [class.hero__plan--active]="selectedPlan() === 'monthly'"
         >
-
           <input
             type="radio"
             name="rentalPlan"
@@ -150,11 +145,10 @@
           <span class="hero__plan-content">
 
             <span class="hero__plan-label">
-              Monthly
+              {{ 'HERO.PLANS.MONTHLY' | translate }}
             </span>
 
           </span>
-
         </label>
 
       </fieldset>
@@ -168,16 +162,14 @@
         class="btn btn-primary hero__cta"
         (click)="onExploreCars()"
       >
-
         <span>
-          Explore Cars
+          {{ 'HERO.CTA' | translate }}
         </span>
 
         <i
           class="fa-solid fa-arrow-right"
           aria-hidden="true"
         ></i>
-
       </button>
 
     </div>
@@ -197,14 +189,12 @@
       <div class="hero__search-field">
 
         <label for="carType">
-
           <i
             class="fa-solid fa-car"
             aria-hidden="true"
           ></i>
 
-          Car Type
-
+          {{ 'HERO.SEARCH.CAR_TYPE.LABEL' | translate }}
         </label>
 
         <select
@@ -214,7 +204,7 @@
         >
 
           <option value="all">
-            All Types
+            {{ 'HERO.SEARCH.CAR_TYPE.ALL_TYPES' | translate }}
           </option>
 
           @for (category of categories(); track category.id) {
@@ -236,14 +226,12 @@
       <div class="hero__search-field">
 
         <label for="priceRange">
-
           <i
             class="fa-solid fa-tag"
             aria-hidden="true"
           ></i>
 
-          Price Range
-
+          {{ 'HERO.SEARCH.PRICE_RANGE.LABEL' | translate }}
         </label>
 
         <select
@@ -253,23 +241,23 @@
         >
 
           <option value="all">
-            Any Price
+            {{ 'HERO.SEARCH.PRICE_RANGE.ANY_PRICE' | translate }}
           </option>
 
           <option value="500">
-            Up to AED 500
+            {{ 'HERO.SEARCH.PRICE_RANGE.UP_TO' | translate }} AED 500
           </option>
 
           <option value="750">
-            Up to AED 750
+            {{ 'HERO.SEARCH.PRICE_RANGE.UP_TO' | translate }} AED 750
           </option>
 
           <option value="1000">
-            Up to AED 1,000
+            {{ 'HERO.SEARCH.PRICE_RANGE.UP_TO' | translate }} AED 1,000
           </option>
 
           <option value="1200">
-            Up to AED 1,200
+            {{ 'HERO.SEARCH.PRICE_RANGE.UP_TO' | translate }} AED 1,200
           </option>
 
         </select>
@@ -283,14 +271,12 @@
       <div class="hero__search-field">
 
         <label for="transmission">
-
           <i
             class="fa-solid fa-gears"
             aria-hidden="true"
           ></i>
 
-          Transmission
-
+          {{ 'HERO.SEARCH.TRANSMISSION.LABEL' | translate }}
         </label>
 
         <select
@@ -300,15 +286,15 @@
         >
 
           <option value="All">
-            All Transmissions
+            {{ 'HERO.SEARCH.TRANSMISSION.ALL' | translate }}
           </option>
 
           <option value="Automatic">
-            Automatic
+            {{ 'HERO.SEARCH.TRANSMISSION.AUTOMATIC' | translate }}
           </option>
 
           <option value="Manual">
-            Manual
+            {{ 'HERO.SEARCH.TRANSMISSION.MANUAL' | translate }}
           </option>
 
         </select>
@@ -322,14 +308,12 @@
       <div class="hero__search-field">
 
         <label for="fuelType">
-
           <i
             class="fa-solid fa-gas-pump"
             aria-hidden="true"
           ></i>
 
-          Fuel Type
-
+          {{ 'HERO.SEARCH.FUEL_TYPE.LABEL' | translate }}
         </label>
 
         <select
@@ -341,7 +325,10 @@
           @for (fuelType of fuelTypes; track fuelType) {
 
             <option [value]="fuelType">
-              {{ fuelType }}
+              {{
+                ('HERO.SEARCH.FUEL_TYPE.OPTIONS.' + fuelType.toUpperCase())
+                  | translate
+              }}
             </option>
 
           }
@@ -365,7 +352,7 @@
         ></i>
 
         <span>
-          Search Cars
+          {{ 'HERO.SEARCH.BUTTON' | translate }}
         </span>
 
       </button>

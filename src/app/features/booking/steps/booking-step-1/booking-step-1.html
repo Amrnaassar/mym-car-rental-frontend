@@ -2,35 +2,35 @@
 
   <div class="booking-step__container">
 
+    
     <!-- =========================
-         HEADER
-    ========================== -->
+     HEADER
+========================== -->
     <header class="booking-step__header">
+
       <span class="booking-step__eyebrow">
-        Step 1 of 4
+        {{ 'BOOKING_STEP_1.HEADER.EYEBROW' | translate }}
       </span>
 
       <h1 class="booking-step__title">
-        Choose Your Rental Details
+        {{ 'BOOKING_STEP_1.HEADER.TITLE' | translate }}
       </h1>
 
       <p class="booking-step__description">
-        Select your rental dates and pickup location.
+        {{ 'BOOKING_STEP_1.HEADER.DESCRIPTION' | translate }}
       </p>
+
     </header>
 
-
     <!-- =========================
-         CAR
-    ========================== -->
+     CAR
+========================== -->
     @if (car) {
 
     <div class="booking-step__car-card">
 
       <div class="booking-step__car-image">
-
         <img [src]="car.primaryImageUrl" [alt]="car.nameAr" loading="eager" />
-
       </div>
 
       <div class="booking-step__car-content">
@@ -47,17 +47,18 @@
 
           <span>
             <i class="fa-solid fa-gas-pump"></i>
-           {{ getFuelTypeLabel(car.fuelType) }}
+            {{ getFuelTypeLabel(car.fuelType) }}
           </span>
 
           <span>
             <i class="fa-solid fa-gears"></i>
-           {{ getTransmissionLabel(car.transmission) }}
+            {{ getTransmissionLabel(car.transmission) }}
           </span>
 
           <span>
             <i class="fa-solid fa-users"></i>
-            {{ car.seats }} Seats
+            {{ car.seats }}
+            {{ 'BOOKING_STEP_1.CAR.SEATS' | translate }}
           </span>
 
         </div>
@@ -68,45 +69,50 @@
 
     }
 
-
     <!-- =========================
-         RENTAL FORM
-    ========================== -->
+     RENTAL FORM
+========================== -->
     <div class="booking-step__form">
 
       <!-- Pickup Date -->
       <div class="form-group" [class.form-group--error]="pickupDateError">
-        <app-date-picker label="Pickup Date" [value]="booking.pickupDate"
+
+        <app-date-picker [label]="'BOOKING_STEP_1.FORM.PICKUP_DATE' | translate" [value]="booking.pickupDate"
           (valueChange)="onPickupDateChange($event)"></app-date-picker>
 
         @if (pickupDateError) {
+
         <p class="form-error">
           <i class="fa-solid fa-circle-exclamation"></i>
           {{ pickupDateError }}
         </p>
-        }
-      </div>
 
+        }
+
+      </div>
 
       <!-- Return Date -->
       <div class="form-group" [class.form-group--error]="returnDateError">
-        <app-date-picker label="Return Date" [minDate]="booking.pickupDate" [value]="booking.returnDate"
-          (valueChange)="onReturnDateChange($event)"></app-date-picker>
+
+        <app-date-picker [label]="'BOOKING_STEP_1.FORM.RETURN_DATE' | translate" [minDate]="booking.pickupDate"
+          [value]="booking.returnDate" (valueChange)="onReturnDateChange($event)"></app-date-picker>
 
         @if (returnDateError) {
+
         <p class="form-error">
           <i class="fa-solid fa-circle-exclamation"></i>
           {{ returnDateError }}
         </p>
-        }
-      </div>
 
+        }
+
+      </div>
 
       <!-- Pickup Location -->
       <div class="form-group form-group--full">
 
         <label for="pickupLocation">
-          Pickup Location
+          {{ 'BOOKING_STEP_1.FORM.PICKUP_LOCATION' | translate }}
         </label>
 
         <div class="input-wrapper">
@@ -116,23 +122,23 @@
           <select id="pickupLocation" [value]="booking.pickupLocation" (change)="onLocationChange($event)">
 
             <option value="">
-              Select pickup location
+              {{ 'BOOKING_STEP_1.FORM.SELECT_PICKUP_LOCATION' | translate }}
             </option>
 
             <option value="Dubai">
-              Dubai
+              {{ 'BOOKING_STEP_1.LOCATIONS.DUBAI' | translate }}
             </option>
 
             <option value="Abu Dhabi">
-              Abu Dhabi
+              {{ 'BOOKING_STEP_1.LOCATIONS.ABU_DHABI' | translate }}
             </option>
 
             <option value="Sharjah">
-              Sharjah
+              {{ 'BOOKING_STEP_1.LOCATIONS.SHARJAH' | translate }}
             </option>
 
             <option value="Ajman">
-              Ajman
+              {{ 'BOOKING_STEP_1.LOCATIONS.AJMAN' | translate }}
             </option>
 
           </select>
@@ -140,38 +146,43 @@
         </div>
 
       </div>
+
       @if (pickupLocationError) {
+
       <p class="form-error">
         <i class="fa-solid fa-circle-exclamation"></i>
         {{ pickupLocationError }}
       </p>
+
       }
+
     </div>
 
-
     <!-- =========================
-         RENTAL SUMMARY
-    ========================== -->
+     RENTAL SUMMARY
+========================== -->
     <div class="booking-step__summary">
 
       <div class="summary-item">
 
         <span>
-          Rental Duration
+          {{ 'BOOKING_STEP_1.SUMMARY.RENTAL_DURATION' | translate }}
         </span>
 
         <strong>
           {{ rentalDays }}
-          {{ rentalDays === 1 ? 'Day' : 'Days' }}
+          {{ rentalDays === 1
+          ? ('BOOKING_STEP_1.SUMMARY.DAY' | translate)
+          : ('BOOKING_STEP_1.SUMMARY.DAYS' | translate)
+          }}
         </strong>
 
       </div>
 
-
       <div class="summary-item">
 
         <span>
-          Rental Plan
+          {{ 'BOOKING_STEP_1.SUMMARY.RENTAL_PLAN' | translate }}
         </span>
 
         <strong>
@@ -180,52 +191,47 @@
 
       </div>
 
-
       <div class="summary-item">
 
         <span>
-          Current Rate
+          {{ 'BOOKING_STEP_1.SUMMARY.CURRENT_RATE' | translate }}
         </span>
 
         <strong>
           AED {{ currentPrice | number:'1.0-2' }}
-          / {{ currentPlanLabel.toLowerCase() }}
+          /
+          {{ currentPlanLabel.toLowerCase() }}
         </strong>
 
       </div>
 
     </div>
 
-
     <!-- =========================
-         NOTE
-    ========================== -->
+     NOTE
+========================== -->
     <div class="booking-step__notice">
 
       <i class="fa-solid fa-circle-info"></i>
 
       <p>
-        The final rental price will be calculated and
-        validated by the server when you confirm your booking.
+        {{ 'BOOKING_STEP_1.NOTICE' | translate }}
       </p>
 
     </div>
 
-
     <!-- =========================
-         ACTIONS
-    ========================== -->
+     ACTIONS
+========================== -->
     <div class="booking-step__actions">
 
       <button type="button" class="btn btn-primary" [disabled]="!car" (click)="continue()">
-
-        Continue
-
+        {{ 'BOOKING_STEP_1.ACTIONS.CONTINUE' | translate }}
         <i class="fa-solid fa-arrow-right"></i>
-
       </button>
 
     </div>
+
 
   </div>
 

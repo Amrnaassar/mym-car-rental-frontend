@@ -2,10 +2,12 @@
 
   <div class="navbar__container">
 
+    
     <!-- =====================================================
      LOGO / BRAND
 ====================================================== -->
-    <a routerLink="/" class="navbar__brand" aria-label="MYM Car Rental Home" (click)="closeMobileMenu()">
+    <a routerLink="/" class="navbar__brand" [attr.aria-label]="'NAVBAR.BRAND.HOME_ARIA_LABEL' | translate"
+      (click)="closeMobileMenu()">
       <span class="navbar__brand-mark">
         <img src="assets/images/logo/mym-logo.png" alt="" aria-hidden="true" />
       </span>
@@ -13,106 +15,119 @@
       <span class="navbar__brand-divider" aria-hidden="true"></span>
 
       <span class="navbar__brand-wordmark">
-        <img src="assets/images/logo/mym-footer-logo.png" alt="MYM Car Rental" />
+        <img src="assets/images/logo/mym-footer-logo.png" [alt]="'NAVBAR.BRAND.LOGO_ALT' | translate" />
       </span>
     </a>
 
     <!-- =====================================================
-         DESKTOP NAVIGATION
-    ====================================================== -->
-    <nav class="navbar__nav" aria-label="Main navigation">
+     DESKTOP NAVIGATION
+====================================================== -->
+    <nav class="navbar__nav" [attr.aria-label]="'NAVBAR.MAIN_NAVIGATION' | translate">
 
       <a routerLink="/" routerLinkActive="navbar__link--active" [routerLinkActiveOptions]="{ exact: true }"
         class="navbar__link">
-        <span> {{ 'NAVBAR.HOME' | translate }}</span>
+        <span>
+          {{ 'NAVBAR.HOME' | translate }}
+        </span>
       </a>
 
       <a routerLink="/cars" routerLinkActive="navbar__link--active" class="navbar__link">
-        <span>Cars</span>
+        <span>
+          {{ 'NAVBAR.CARS' | translate }}
+        </span>
       </a>
 
       <a routerLink="/services" routerLinkActive="navbar__link--active" class="navbar__link">
-        <span>Services</span>
+        <span>
+          {{ 'NAVBAR.SERVICES' | translate }}
+        </span>
       </a>
 
       <a routerLink="/about-us" routerLinkActive="navbar__link--active" class="navbar__link">
-        <span>About</span>
+        <span>
+          {{ 'NAVBAR.ABOUT' | translate }}
+        </span>
       </a>
 
       <a routerLink="/faq" routerLinkActive="navbar__link--active" class="navbar__link">
-        <span>FAQ</span>
+        <span>
+          {{ 'NAVBAR.FAQ' | translate }}
+        </span>
       </a>
 
       <a routerLink="/contact" routerLinkActive="navbar__link--active" class="navbar__link">
-        <span>Contact</span>
+        <span>
+          {{ 'NAVBAR.CONTACT' | translate }}
+        </span>
       </a>
 
     </nav>
 
-
     <!-- =====================================================
-         ACTIONS
-    ====================================================== -->
+     ACTIONS
+====================================================== -->
     <div class="navbar__actions">
 
       <!-- WhatsApp -->
       <a href="https://wa.me/971XXXXXXXXX" target="_blank" rel="noopener noreferrer" class="navbar__whatsapp"
-        aria-label="Contact MYM on WhatsApp">
+        [attr.aria-label]="'NAVBAR.ACTIONS.WHATSAPP_ARIA_LABEL' | translate">
         <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
       </a>
 
-      <button type="button" class="btn btn-outline" (click)="toggleLanguage()">
+      <button type="button" class="btn btn-outline" (click)="toggleLanguage()"
+        [attr.aria-label]="'NAVBAR.ACTIONS.LANGUAGE_ARIA_LABEL' | translate">
         {{ languageService.isArabic() ? 'En' : 'Ar' }}
       </button>
-      
+
       <!-- Authentication -->
       @if (authService.isLoggedIn()) {
 
       <button type="button" class="navbar__login btn btn-outline" (click)="logout()"
-        aria-label="Logout from MYM Car Rental">
-
-        <i class="fa-solid fa-right-from-bracket" aria-hidden="true">
-        </i>
+        [attr.aria-label]="'NAVBAR.ACTIONS.LOGOUT_ARIA_LABEL' | translate">
+        <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
       </button>
 
       } @else {
 
-      <a routerLink="/login" class="navbar__login btn btn-outline" aria-label="Login to MYM Car Rental">
-
-        <i class="fa-solid fa-user" aria-hidden="true">
-        </i>
+      <a routerLink="/login" class="navbar__login btn btn-outline"
+        [attr.aria-label]="'NAVBAR.ACTIONS.LOGIN_ARIA_LABEL' | translate">
+        <i class="fa-solid fa-user" aria-hidden="true"></i>
       </a>
 
       }
+
       <!-- Booking CTA -->
       <a routerLink="/cars" class="navbar__cta btn btn-primary" (click)="closeMobileMenu()">
-        <span>Book a Car</span>
+        <span>
+          {{ 'NAVBAR.ACTIONS.BOOK_CAR' | translate }}
+        </span>
 
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </a>
 
-
       <!-- Mobile Menu Toggle -->
       <button type="button" class="navbar__menu-toggle" [class.navbar__menu-toggle--active]="isMobileMenuOpen"
-        [attr.aria-expanded]="isMobileMenuOpen" aria-controls="mobile-navigation" aria-label="Toggle navigation menu"
-        (click)="toggleMobileMenu()">
+        [attr.aria-expanded]="isMobileMenuOpen" aria-controls="mobile-navigation"
+        [attr.aria-label]="'NAVBAR.ACTIONS.TOGGLE_MENU_ARIA_LABEL' | translate" (click)="toggleMobileMenu()">
         <i class="fa-solid" [class.fa-bars]="!isMobileMenuOpen" [class.fa-xmark]="isMobileMenuOpen"
           aria-hidden="true"></i>
       </button>
 
     </div>
+    
 
   </div>
-
 
   <!-- =====================================================
        MOBILE NAVIGATION
   ====================================================== -->
+
   <div id="mobile-navigation" class="navbar__mobile" [class.navbar__mobile--open]="isMobileMenuOpen">
 
+    
     <div class="navbar__mobile-inner">
 
-      <nav class="navbar__mobile-nav" aria-label="Mobile navigation">
+      <nav class="navbar__mobile-nav" [attr.aria-label]="'NAVBAR.MOBILE_NAVIGATION' | translate">
 
         <!-- Home -->
         <a routerLink="/" routerLinkActive="navbar__mobile-link--active" [routerLinkActiveOptions]="{ exact: true }"
@@ -122,12 +137,11 @@
           </span>
 
           <span class="navbar__mobile-label">
-            Home
+            {{ 'NAVBAR.HOME' | translate }}
           </span>
 
           <i class="fa-solid fa-arrow-right navbar__mobile-arrow" aria-hidden="true"></i>
         </a>
-
 
         <!-- Cars -->
         <a routerLink="/cars" routerLinkActive="navbar__mobile-link--active" class="navbar__mobile-link"
@@ -137,12 +151,11 @@
           </span>
 
           <span class="navbar__mobile-label">
-            Cars
+            {{ 'NAVBAR.CARS' | translate }}
           </span>
 
           <i class="fa-solid fa-arrow-right navbar__mobile-arrow" aria-hidden="true"></i>
         </a>
-
 
         <!-- Services -->
         <a routerLink="/services" routerLinkActive="navbar__mobile-link--active" class="navbar__mobile-link"
@@ -152,12 +165,11 @@
           </span>
 
           <span class="navbar__mobile-label">
-            Services
+            {{ 'NAVBAR.SERVICES' | translate }}
           </span>
 
           <i class="fa-solid fa-arrow-right navbar__mobile-arrow" aria-hidden="true"></i>
         </a>
-
 
         <!-- About -->
         <a routerLink="/about-us" routerLinkActive="navbar__mobile-link--active" class="navbar__mobile-link"
@@ -167,12 +179,11 @@
           </span>
 
           <span class="navbar__mobile-label">
-            About
+            {{ 'NAVBAR.ABOUT' | translate }}
           </span>
 
           <i class="fa-solid fa-arrow-right navbar__mobile-arrow" aria-hidden="true"></i>
         </a>
-
 
         <!-- FAQ -->
         <a routerLink="/faq" routerLinkActive="navbar__mobile-link--active" class="navbar__mobile-link"
@@ -182,12 +193,11 @@
           </span>
 
           <span class="navbar__mobile-label">
-            FAQ
+            {{ 'NAVBAR.FAQ' | translate }}
           </span>
 
           <i class="fa-solid fa-arrow-right navbar__mobile-arrow" aria-hidden="true"></i>
         </a>
-
 
         <!-- Contact -->
         <a routerLink="/contact" routerLinkActive="navbar__mobile-link--active" class="navbar__mobile-link"
@@ -197,7 +207,7 @@
           </span>
 
           <span class="navbar__mobile-label">
-            Contact
+            {{ 'NAVBAR.CONTACT' | translate }}
           </span>
 
           <i class="fa-solid fa-arrow-right navbar__mobile-arrow" aria-hidden="true"></i>
@@ -205,51 +215,46 @@
 
       </nav>
 
-
       <!-- =====================================================
-           MOBILE ACTIONS
-      ====================================================== -->
+       MOBILE ACTIONS
+  ====================================================== -->
       <div class="navbar__mobile-actions">
 
         <a routerLink="/cars" class="btn btn-primary" (click)="closeMobileMenu()">
+          <span>
+            {{ 'NAVBAR.ACTIONS.BOOK_CAR' | translate }}
+          </span>
 
-          <span>Book a Car</span>
-
-          <i class="fa-solid fa-arrow-right" aria-hidden="true">
-          </i>
-
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
 
         <a href="https://wa.me/971XXXXXXXXX" target="_blank" rel="noopener noreferrer" class="navbar__mobile-whatsapp">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 
-          <i class="fa-brands fa-whatsapp" aria-hidden="true">
-          </i>
-
-          <span>WhatsApp</span>
-
+          <span>
+            {{ 'NAVBAR.ACTIONS.WHATSAPP' | translate }}
+          </span>
         </a>
 
         <!-- Authentication -->
         @if (authService.isLoggedIn()) {
 
         <button type="button" class="navbar__mobile-auth btn btn-outline" (click)="logout()">
+          <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
 
-          <i class="fa-solid fa-right-from-bracket" aria-hidden="true">
-          </i>
-
-          <span>Logout</span>
-
+          <span>
+            {{ 'NAVBAR.ACTIONS.LOGOUT' | translate }}
+          </span>
         </button>
 
         } @else {
 
         <a routerLink="/login" class="navbar__mobile-auth btn btn-outline" (click)="closeMobileMenu()">
+          <i class="fa-solid fa-user" aria-hidden="true"></i>
 
-          <i class="fa-solid fa-user" aria-hidden="true">
-          </i>
-
-          <span>Login</span>
-
+          <span>
+            {{ 'NAVBAR.ACTIONS.LOGIN' | translate }}
+          </span>
         </a>
 
         }
@@ -257,6 +262,7 @@
       </div>
 
     </div>
+    
 
   </div>
 

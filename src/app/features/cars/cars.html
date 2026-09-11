@@ -5,41 +5,23 @@
     <!-- ==========================================================
          PAGE HEADER
     =========================================================== -->
-
     <header class="cars-page__header">
 
       <div class="cars-page__heading">
 
         <span class="cars-page__eyebrow">
-          {{ languageService.isArabic()
-            ? 'مجموعتنا'
-            : 'OUR COLLECTION'
-          }}
+          {{ 'CARS_PAGE.HEADER.EYEBROW' | translate }}
         </span>
 
         <h1 class="cars-page__title">
-
-          {{ languageService.isArabic()
-            ? 'اعثر على'
-            : 'Find Your'
-          }}
-
+          {{ 'CARS_PAGE.HEADER.TITLE' | translate }}
           <span>
-            {{ languageService.isArabic()
-              ? 'سيارتك المثالية'
-              : 'Perfect Car'
-            }}
+            {{ 'CARS_PAGE.HEADER.TITLE_HIGHLIGHT' | translate }}
           </span>
-
         </h1>
 
         <p class="cars-page__description">
-
-          {{ languageService.isArabic()
-            ? 'اكتشف مجموعتنا المميزة من السيارات الفاخرة المختارة بعناية لتمنحك تجربة قيادة استثنائية.'
-            : 'Discover our premium collection of luxury vehicles, carefully selected to deliver an exceptional driving experience.'
-          }}
-
+          {{ 'CARS_PAGE.HEADER.DESCRIPTION' | translate }}
         </p>
 
       </div>
@@ -48,7 +30,7 @@
 
         <img
           src="assets/images/logo/mym-footer-logo.png"
-          alt="MYM Car Rental"
+          [alt]="'CARS_PAGE.HEADER.LOGO_ALT' | translate"
           loading="lazy"
         />
 
@@ -60,11 +42,9 @@
     <!-- ==========================================================
          SEARCH + RENTAL PLAN + MOBILE FILTER
     =========================================================== -->
-
     <div class="cars-toolbar">
 
       <!-- Search -->
-
       <div class="cars-toolbar__search">
 
         <span
@@ -77,11 +57,7 @@
         <input
           class="cars-toolbar__search-input"
           type="search"
-          [placeholder]="
-            languageService.isArabic()
-              ? 'ابحث باسم السيارة...'
-              : 'Search by car name...'
-          "
+          [placeholder]="'CARS_PAGE.TOOLBAR.SEARCH_PLACEHOLDER' | translate"
           [value]="searchQuery()"
           (input)="setSearch($event)"
         />
@@ -90,16 +66,10 @@
 
 
       <!-- Rental Plan -->
-
       <div class="rental-plan">
 
         <span class="rental-plan__label">
-
-          {{ languageService.isArabic()
-            ? 'فترة الإيجار'
-            : 'Rental Period'
-          }}
-
+          {{ 'CARS_PAGE.RENTAL_PLAN.LABEL' | translate }}
         </span>
 
         <div class="rental-plan__options">
@@ -114,17 +84,11 @@
           >
 
             <span class="rental-plan__option-title">
-              {{ languageService.isArabic()
-                ? 'يومي'
-                : 'Daily'
-              }}
+              {{ 'CARS_PAGE.RENTAL_PLAN.DAILY.TITLE' | translate }}
             </span>
 
             <span class="rental-plan__option-subtitle">
-              {{ languageService.isArabic()
-                ? 'لكل يوم'
-                : 'Per Day'
-              }}
+              {{ 'CARS_PAGE.RENTAL_PLAN.DAILY.SUBTITLE' | translate }}
             </span>
 
           </button>
@@ -140,17 +104,11 @@
           >
 
             <span class="rental-plan__option-title">
-              {{ languageService.isArabic()
-                ? 'أسبوعي'
-                : 'Weekly'
-              }}
+              {{ 'CARS_PAGE.RENTAL_PLAN.WEEKLY.TITLE' | translate }}
             </span>
 
             <span class="rental-plan__option-subtitle">
-              {{ languageService.isArabic()
-                ? 'لكل أسبوع'
-                : 'Per Week'
-              }}
+              {{ 'CARS_PAGE.RENTAL_PLAN.WEEKLY.SUBTITLE' | translate }}
             </span>
 
           </button>
@@ -166,17 +124,11 @@
           >
 
             <span class="rental-plan__option-title">
-              {{ languageService.isArabic()
-                ? 'شهري'
-                : 'Monthly'
-              }}
+              {{ 'CARS_PAGE.RENTAL_PLAN.MONTHLY.TITLE' | translate }}
             </span>
 
             <span class="rental-plan__option-subtitle">
-              {{ languageService.isArabic()
-                ? 'لكل شهر'
-                : 'Per Month'
-              }}
+              {{ 'CARS_PAGE.RENTAL_PLAN.MONTHLY.SUBTITLE' | translate }}
             </span>
 
           </button>
@@ -187,7 +139,6 @@
 
 
       <!-- Mobile Filters -->
-
       <button
         type="button"
         class="cars-toolbar__filter-button"
@@ -198,10 +149,7 @@
           ☷
         </span>
 
-        {{ languageService.isArabic()
-          ? 'الفلاتر'
-          : 'Filters'
-        }}
+        {{ 'CARS_PAGE.FILTERS.FILTERS' | translate }}
 
       </button>
 
@@ -211,14 +159,12 @@
     <!-- ==========================================================
          MAIN CONTENT
     =========================================================== -->
-
     <div class="cars-layout">
 
 
       <!-- ======================================================
            SIDEBAR
       ======================================================= -->
-
       <aside
         class="cars-filters"
         [class.cars-filters--open]="filtersOpen()"
@@ -229,21 +175,11 @@
           <div>
 
             <span class="cars-filters__eyebrow">
-
-              {{ languageService.isArabic()
-                ? 'تصفية'
-                : 'REFINE'
-              }}
-
+              {{ 'CARS_PAGE.FILTERS.REFINE' | translate }}
             </span>
 
             <h2 class="cars-filters__title">
-
-              {{ languageService.isArabic()
-                ? 'الفلاتر'
-                : 'Filters'
-              }}
-
+              {{ 'CARS_PAGE.FILTERS.FILTERS' | translate }}
             </h2>
 
           </div>
@@ -253,27 +189,17 @@
             class="cars-filters__clear"
             (click)="clearFilters()"
           >
-
-            {{ languageService.isArabic()
-              ? 'مسح الكل'
-              : 'Clear All'
-            }}
-
+            {{ 'CARS_PAGE.FILTERS.CLEAR_ALL' | translate }}
           </button>
 
         </div>
 
 
         <!-- Close Mobile -->
-
         <button
           type="button"
           class="cars-filters__close"
-          [attr.aria-label]="
-            languageService.isArabic()
-              ? 'إغلاق الفلاتر'
-              : 'Close filters'
-          "
+          [attr.aria-label]="'CARS_PAGE.FILTERS.CLOSE_FILTERS' | translate"
           (click)="toggleFilters()"
         >
           ×
@@ -283,16 +209,12 @@
         <!-- ====================================================
              CAR TYPE
         ===================================================== -->
-
         <div class="filter-group">
 
           <div class="filter-group__heading">
 
             <span>
-              {{ languageService.isArabic()
-                ? 'نوع السيارة'
-                : 'Car Type'
-              }}
+              {{ 'CARS_PAGE.FILTERS.CAR_TYPE' | translate }}
             </span>
 
             <span class="filter-group__icon">
@@ -305,7 +227,6 @@
           <div class="filter-options">
 
             <!-- All -->
-
             <button
               type="button"
               class="filter-option"
@@ -320,17 +241,13 @@
               </span>
 
               <span>
-                {{ languageService.isArabic()
-                  ? 'كل السيارات'
-                  : 'All Cars'
-                }}
+                {{ 'CARS_PAGE.FILTERS.ALL_CARS' | translate }}
               </span>
 
             </button>
 
 
             <!-- Categories -->
-
             @for (
               category of categories();
               track category.id
@@ -369,16 +286,12 @@
         <!-- ====================================================
              PRICE
         ===================================================== -->
-
         <div class="filter-group">
 
           <div class="filter-group__heading">
 
             <span>
-              {{ languageService.isArabic()
-                ? 'نطاق السعر'
-                : 'Price Range'
-              }}
+              {{ 'CARS_PAGE.FILTERS.PRICE_RANGE' | translate }}
             </span>
 
             <span class="filter-group__icon">
@@ -434,16 +347,12 @@
         <!-- ====================================================
              TRANSMISSION
         ===================================================== -->
-
         <div class="filter-group">
 
           <div class="filter-group__heading">
 
             <span>
-              {{ languageService.isArabic()
-                ? 'ناقل الحركة'
-                : 'Transmission'
-              }}
+              {{ 'CARS_PAGE.FILTERS.TRANSMISSION' | translate }}
             </span>
 
             <span class="filter-group__icon">
@@ -466,17 +375,17 @@
                 [class.filter-option--active]="
                   (
                     transmission === 'All'
-                      && selectedTransmission() === 'All'
+                    && selectedTransmission() === 'All'
                   )
                   ||
                   (
                     transmission === 'Automatic'
-                      && selectedTransmission() === 0
+                    && selectedTransmission() === 0
                   )
                   ||
                   (
                     transmission === 'Manual'
-                      && selectedTransmission() === 1
+                    && selectedTransmission() === 1
                   )
                 "
                 (click)="setTransmission(transmission)"
@@ -489,20 +398,17 @@
                 {{
                   transmission === 'Automatic'
                     ? (
-                        languageService.isArabic()
-                          ? 'أوتوماتيك'
-                          : 'Automatic'
+                        'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.AUTOMATIC'
+                        | translate
                       )
                     : transmission === 'Manual'
                       ? (
-                          languageService.isArabic()
-                            ? 'مانيوال'
-                            : 'Manual'
+                          'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.MANUAL'
+                          | translate
                         )
                       : (
-                          languageService.isArabic()
-                            ? 'الكل'
-                            : 'All'
+                          'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.ALL'
+                          | translate
                         )
                 }}
 
@@ -518,16 +424,12 @@
         <!-- ====================================================
              FUEL
         ===================================================== -->
-
         <div class="filter-group">
 
           <div class="filter-group__heading">
 
             <span>
-              {{ languageService.isArabic()
-                ? 'نوع الوقود'
-                : 'Fuel Type'
-              }}
+              {{ 'CARS_PAGE.FILTERS.FUEL_TYPE' | translate }}
             </span>
 
             <span class="filter-group__icon">
@@ -550,22 +452,22 @@
                 [class.filter-option--active]="
                   (
                     fuelType === 'All'
-                      && selectedFuelType() === 'All'
+                    && selectedFuelType() === 'All'
                   )
                   ||
                   (
                     fuelType === 'Petrol'
-                      && selectedFuelType() === 0
+                    && selectedFuelType() === 0
                   )
                   ||
                   (
                     fuelType === 'Diesel'
-                      && selectedFuelType() === 1
+                    && selectedFuelType() === 1
                   )
                   ||
                   (
                     fuelType === 'Hybrid'
-                      && selectedFuelType() === 2
+                    && selectedFuelType() === 2
                   )
                 "
                 (click)="setFuelType(fuelType)"
@@ -578,26 +480,22 @@
                 {{
                   fuelType === 'Petrol'
                     ? (
-                        languageService.isArabic()
-                          ? 'بنزين'
-                          : 'Petrol'
+                        'CARS_PAGE.FILTERS.FUEL_OPTIONS.PETROL'
+                        | translate
                       )
                     : fuelType === 'Diesel'
                       ? (
-                          languageService.isArabic()
-                            ? 'ديزل'
-                            : 'Diesel'
+                          'CARS_PAGE.FILTERS.FUEL_OPTIONS.DIESEL'
+                          | translate
                         )
                       : fuelType === 'Hybrid'
                         ? (
-                            languageService.isArabic()
-                              ? 'هجين'
-                              : 'Hybrid'
+                            'CARS_PAGE.FILTERS.FUEL_OPTIONS.HYBRID'
+                            | translate
                           )
                         : (
-                            languageService.isArabic()
-                              ? 'الكل'
-                              : 'All'
+                            'CARS_PAGE.FILTERS.FUEL_OPTIONS.ALL'
+                            | translate
                           )
                 }}
 
@@ -615,12 +513,7 @@
           class="btn-primary cars-filters__apply"
           (click)="toggleFilters()"
         >
-
-          {{ languageService.isArabic()
-            ? 'تطبيق الفلاتر'
-            : 'Apply Filters'
-          }}
-
+          {{ 'CARS_PAGE.FILTERS.APPLY' | translate }}
         </button>
 
       </aside>
@@ -629,44 +522,29 @@
       <!-- ======================================================
            CARS CONTENT
       ======================================================= -->
-
       <main class="cars-content">
 
 
         <!-- ====================================================
              CONTENT HEADER
         ===================================================== -->
-
         <div class="cars-content__header">
 
           <div>
 
             <span class="cars-content__eyebrow">
-
-              {{ languageService.isArabic()
-                ? 'المجموعة المميزة'
-                : 'PREMIUM COLLECTION'
-              }}
-
+              {{ 'CARS_PAGE.CONTENT.PREMIUM_COLLECTION' | translate }}
             </span>
 
             <h2 class="cars-content__title">
-
-              {{ languageService.isArabic()
-                ? 'كل السيارات'
-                : 'All Cars'
-              }}
-
+              {{ 'CARS_PAGE.CONTENT.ALL_CARS' | translate }}
             </h2>
 
             <p class="cars-content__count">
 
               {{ filteredCars().length }}
 
-              {{ languageService.isArabic()
-                ? 'سيارة متاحة للإيجار'
-                : 'vehicles available for rent'
-              }}
+              {{ 'CARS_PAGE.CONTENT.VEHICLES_AVAILABLE' | translate }}
 
             </p>
 
@@ -674,16 +552,10 @@
 
 
           <!-- Sort -->
-
           <div class="cars-sort">
 
             <label for="cars-sort">
-
-              {{ languageService.isArabic()
-                ? 'ترتيب حسب'
-                : 'Sort by'
-              }}
-
+              {{ 'CARS_PAGE.SORT.LABEL' | translate }}
             </label>
 
             <select
@@ -694,38 +566,23 @@
             >
 
               <option value="popular">
-                {{ languageService.isArabic()
-                  ? 'الأكثر شعبية'
-                  : 'Popular'
-                }}
+                {{ 'CARS_PAGE.SORT.POPULAR' | translate }}
               </option>
 
               <option value="price-low">
-                {{ languageService.isArabic()
-                  ? 'السعر: من الأقل للأعلى'
-                  : 'Price: Low to High'
-                }}
+                {{ 'CARS_PAGE.SORT.PRICE_LOW' | translate }}
               </option>
 
               <option value="price-high">
-                {{ languageService.isArabic()
-                  ? 'السعر: من الأعلى للأقل'
-                  : 'Price: High to Low'
-                }}
+                {{ 'CARS_PAGE.SORT.PRICE_HIGH' | translate }}
               </option>
 
               <option value="rating">
-                {{ languageService.isArabic()
-                  ? 'الأعلى تقييمًا'
-                  : 'Highest Rated'
-                }}
+                {{ 'CARS_PAGE.SORT.HIGHEST_RATED' | translate }}
               </option>
 
               <option value="name">
-                {{ languageService.isArabic()
-                  ? 'الاسم'
-                  : 'Name'
-                }}
+                {{ 'CARS_PAGE.SORT.NAME' | translate }}
               </option>
 
             </select>
@@ -738,7 +595,6 @@
         <!-- ====================================================
              ACTIVE FILTERS
         ===================================================== -->
-
         @if (
           selectedCategory() !== null ||
           selectedTransmission() !== 'All' ||
@@ -750,12 +606,7 @@
           <div class="active-filters">
 
             <span class="active-filters__label">
-
-              {{ languageService.isArabic()
-                ? 'النشط:'
-                : 'Active:'
-              }}
-
+              {{ 'CARS_PAGE.ACTIVE_FILTERS.LABEL' | translate }}
             </span>
 
 
@@ -764,13 +615,11 @@
             ) {
 
               <span class="active-filter">
-
                 {{
                   getCategoryName(
                     selectedCategory()
                   )
                 }}
-
               </span>
 
             }
@@ -781,9 +630,7 @@
             ) {
 
               <span class="active-filter">
-
                 <!-- {{getTransmissionLabel(selectedTransmission() as Transmission)}} -->
-
               </span>
 
             }
@@ -794,9 +641,7 @@
             ) {
 
               <span class="active-filter">
-
                 <!-- {{ getFuelTypeLabel(selectedFuelType() as FuelType) }} -->
-
               </span>
 
             }
@@ -808,10 +653,7 @@
 
               <span class="active-filter">
 
-                {{ languageService.isArabic()
-                  ? 'حتى'
-                  : 'Up to'
-                }}
+                {{ 'CARS_PAGE.ACTIVE_FILTERS.UP_TO' | translate }}
 
                 AED {{ maxPrice() | number }}
 
@@ -834,12 +676,7 @@
               class="active-filters__clear"
               (click)="clearFilters()"
             >
-
-              {{ languageService.isArabic()
-                ? 'مسح'
-                : 'Clear'
-              }}
-
+              {{ 'CARS_PAGE.ACTIVE_FILTERS.CLEAR' | translate }}
             </button>
 
           </div>
@@ -850,16 +687,12 @@
         <!-- ====================================================
              LOADING
         ===================================================== -->
-
         @if (loading()) {
 
           <div class="cars-empty">
 
             <h3>
-              {{ languageService.isArabic()
-                ? 'جاري تحميل السيارات...'
-                : 'Loading cars...'
-              }}
+              {{ 'CARS_PAGE.STATES.LOADING' | translate }}
             </h3>
 
           </div>
@@ -870,7 +703,6 @@
         <!-- ====================================================
              ERROR
         ===================================================== -->
-
         @else if (error()) {
 
           <div class="cars-empty">
@@ -880,17 +712,11 @@
             </div>
 
             <h3>
-              {{ languageService.isArabic()
-                ? 'حدث خطأ'
-                : 'Something went wrong'
-              }}
+              {{ 'CARS_PAGE.STATES.ERROR_TITLE' | translate }}
             </h3>
 
             <p>
-              {{ languageService.isArabic()
-                ? 'تعذر تحميل السيارات. حاول مرة أخرى.'
-                : 'We could not load the cars. Please try again.'
-              }}
+              {{ 'CARS_PAGE.STATES.ERROR_DESCRIPTION' | translate }}
             </p>
 
             <button
@@ -898,10 +724,7 @@
               class="btn-primary"
               (click)="retry()"
             >
-              {{ languageService.isArabic()
-                ? 'إعادة المحاولة'
-                : 'Try Again'
-              }}
+              {{ 'CARS_PAGE.STATES.RETRY' | translate }}
             </button>
 
           </div>
@@ -912,7 +735,6 @@
         <!-- ====================================================
              CARS GRID
         ===================================================== -->
-
         @else if (filteredCars().length > 0) {
 
           <div class="cars-grid">
@@ -929,7 +751,6 @@
 
 
                 <!-- Image -->
-
                 <a class="car-card__image">
 
                   <img
@@ -944,15 +765,12 @@
 
 
                   <!-- Category -->
-
                   <span class="car-card__category">
-
                     {{
                       getCategoryName(
                         car.categoryId
                       )
                     }}
-
                   </span>
 
 
@@ -969,22 +787,18 @@
                 <!-- ==================================================
                      CARD BODY
                 =================================================== -->
-
                 <div class="car-card__body">
 
 
                   <!-- Name + Rating -->
-
                   <div class="car-card__top">
 
                     <div>
 
                       <h3 class="car-card__name">
-
                         {{
                           getCarName(car)
                         }}
-
                       </h3>
 
 
@@ -1010,7 +824,6 @@
 
 
                   <!-- Specifications -->
-
                   <div class="car-card__specs">
 
 
@@ -1023,13 +836,11 @@
                       </span>
 
                       <span>
-
                         {{
                           getTransmissionLabel(
                             car.transmission
                           )
                         }}
-
                       </span>
 
                     </div>
@@ -1048,9 +859,8 @@
                         {{ car.seats }}
 
                         {{
-                          languageService.isArabic()
-                            ? 'مقاعد'
-                            : 'Seats'
+                          'CARS_PAGE.CARD.SEATS'
+                          | translate
                         }}
 
                       </span>
@@ -1071,9 +881,8 @@
                         {{ car.luggage }}
 
                         {{
-                          languageService.isArabic()
-                            ? 'حقائب'
-                            : 'Bags'
+                          'CARS_PAGE.CARD.BAGS'
+                          | translate
                         }}
 
                       </span>
@@ -1090,13 +899,11 @@
                       </span>
 
                       <span>
-
                         {{
                           getFuelTypeLabel(
                             car.fuelType
                           )
                         }}
-
                       </span>
 
                     </div>
@@ -1107,7 +914,6 @@
                   <!-- ==================================================
                        PRICE + BOOKING
                   =================================================== -->
-
                   <div class="car-card__footer">
 
                     <div class="car-card__price">
@@ -1130,10 +936,7 @@
                       (click)="bookNow(car.id)"
                     >
 
-                      {{ languageService.isArabic()
-                        ? 'احجز الآن'
-                        : 'Book Now'
-                      }}
+                      {{ 'CARS_PAGE.CARD.BOOK_NOW' | translate }}
 
                       <span aria-hidden="true">
                         →
@@ -1157,7 +960,6 @@
         <!-- ====================================================
              EMPTY STATE
         ===================================================== -->
-
         @else {
 
           <div class="cars-empty">
@@ -1167,21 +969,11 @@
             </div>
 
             <h3>
-
-              {{ languageService.isArabic()
-                ? 'لم يتم العثور على سيارات'
-                : 'No cars found'
-              }}
-
+              {{ 'CARS_PAGE.STATES.NO_CARS_TITLE' | translate }}
             </h3>
 
             <p>
-
-              {{ languageService.isArabic()
-                ? 'لم نتمكن من العثور على سيارات تطابق الفلاتر الخاصة بك.'
-                : 'We couldn’t find any vehicles matching your filters.'
-              }}
-
+              {{ 'CARS_PAGE.STATES.NO_CARS_DESCRIPTION' | translate }}
             </p>
 
             <button
@@ -1189,12 +981,7 @@
               class="btn-primary"
               (click)="clearFilters()"
             >
-
-              {{ languageService.isArabic()
-                ? 'إعادة ضبط الفلاتر'
-                : 'Reset Filters'
-              }}
-
+              {{ 'CARS_PAGE.STATES.RESET_FILTERS' | translate }}
             </button>
 
           </div>

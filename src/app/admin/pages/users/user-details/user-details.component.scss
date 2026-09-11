@@ -1,0 +1,198 @@
+@use '../../../../../styles/abstracts/variables' as *;
+
+.user-details-page {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: $space-8;
+}
+
+.page-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: $space-6;
+}
+
+.eyebrow {
+  color: $color-accent;
+
+  font-size: $font-size-xs;
+
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.loading-card,
+.error-card {
+  min-height: 260px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: $space-3;
+
+  padding: $space-8;
+
+  border-radius: $radius-xl;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+}
+
+.loading-card {
+  color: $color-text-muted;
+
+  i {
+    color: $color-accent;
+  }
+}
+
+.error-card {
+  color: $color-danger;
+
+  border-color: rgba(217, 92, 92, 0.2);
+
+  background: rgba(217, 92, 92, 0.05);
+}
+
+.profile-card {
+  padding: $space-8;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-xl;
+}
+
+.profile-card__header {
+  display: flex;
+
+  align-items: center;
+
+  gap: $space-5;
+
+  padding-bottom: $space-8;
+
+  margin-bottom: $space-8;
+
+  border-bottom: 1px solid $color-border;
+
+  h2 {
+    font-size: $font-size-2xl;
+
+    margin-bottom: $space-1;
+  }
+
+  span {
+    color: $color-accent;
+
+    font-size: $font-size-sm;
+  }
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: $color-accent;
+
+  background: rgba(200, 169, 107, 0.12);
+
+  border: 1px solid rgba(200, 169, 107, 0.2);
+
+  font-weight: $font-weight-bold;
+}
+
+.avatar--large {
+  width: 72px;
+  height: 72px;
+
+  font-size: $font-size-xl;
+}
+
+.details-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 1px;
+
+  overflow: hidden;
+
+  background: $color-border;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-lg;
+}
+
+.detail-item {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: $space-2;
+
+  padding: $space-5;
+
+  background: $color-surface-light;
+
+  span {
+    color: $color-text-muted;
+
+    font-size: $font-size-xs;
+  }
+
+  strong {
+    color: $color-text-primary;
+
+    font-size: $font-size-sm;
+  }
+}
+
+.user-id {
+  word-break: break-all;
+
+  font-family: monospace;
+
+  color: $color-text-secondary !important;
+}
+
+@media (max-width: 768px) {
+
+  .page-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card {
+    padding: $space-5;
+  }
+
+}

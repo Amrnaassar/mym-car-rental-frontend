@@ -16,6 +16,7 @@ import {
 
 import {
   Car,
+  CarFeature,
   FuelType,
   RentalPlan,
   Transmission
@@ -24,6 +25,8 @@ import {
 import { CarService } from '../../../core/services/car.service';
 
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-car-details',
@@ -31,7 +34,8 @@ import { DatePickerComponent } from '../../../shared/components/date-picker/date
   imports: [
     CommonModule,
     RouterLink,
-    DatePickerComponent
+    DatePickerComponent,
+    TranslatePipe
   ],
   templateUrl: './car-details.html',
   styleUrl: './car-details.scss',
@@ -46,6 +50,9 @@ export class CarDetails {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly carService = inject(CarService);
+ readonly languageService = inject(LanguageService);
+
+
 
 
   // ============================================================
@@ -62,6 +69,8 @@ export class CarDetails {
   // ============================================================
 
   readonly car = signal<Car | null>(null);
+
+  readonly features = signal<CarFeature[] | null>(null);
 
   readonly isLoading = signal(true);
 
@@ -346,19 +355,7 @@ export class CarDetails {
   });
 
 
-  // ============================================================
-  // FEATURES
-  // ============================================================
-
-  readonly features = [
-    'Premium leather seats',
-    'Advanced safety features',
-    'Parking sensors',
-    'Sunroof',
-    'Bluetooth connectivity',
-    '360° camera'
-  ];
-
+ 
 
   // ============================================================
   // CONSTRUCTOR
@@ -410,7 +407,7 @@ export class CarDetails {
           this.selectedImage.set(
             primaryImage
           );
-
+          
           this.isLoading.set(false);
         },
 
@@ -458,12 +455,10 @@ export class CarDetails {
   // CAR NAME
   // ============================================================
 
-  getCarName(car: Car): string {
+  getCarName(car: Car): string | null {
 
-    // هنربطها بالـ LanguageService بعدين
-    // حالياً English هو الـ default
+       return this.languageService.isArabic()?car.nameAr:car.nameEn;
 
-    return car.nameEn;
   }
 
 
@@ -471,11 +466,20 @@ export class CarDetails {
   // CAR DESCRIPTION
   // ============================================================
 
-  getCarDescription(car: Car): string {
+  getCarDescription(car: Car): string | null {
 
-    return car.descriptionEn ?? '';
+    return this.languageService.isArabic()?car.descriptionAr:car.descriptionEn;
   }
 
+  // ============================================================
+  // CAR Feature
+  // ============================================================
+
+  getCarFeature(feature:CarFeature):string{
+
+    return this.languageService.isArabic()?feature.featureAr:feature.featureEn
+    
+  }
 
   // ============================================================
   // TRANSMISSION LABEL

@@ -12,3 +12,7 @@ export interface User {
   role: UserRole;
   createdAt: string;
 }
+
+export interface UserUpdateRoleRequest {
+  role: UserRole;
+}

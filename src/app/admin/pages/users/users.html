@@ -1,0 +1,229 @@
+<div class="users-page">
+
+  <div class="page-header">
+
+    <div class="page-header__content">
+
+      <span class="eyebrow">
+        Administration
+      </span>
+
+      <h1>
+        Users
+      </h1>
+
+      <p>
+        Manage system users and their access roles.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="toolbar">
+
+    <div class="search-wrapper">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input class="form-control" type="search" placeholder="Search users..." [ngModel]="search()"
+        (ngModelChange)="search.set($event)">
+
+    </div>
+
+
+    <div class="filters">
+
+      <select class="form-control" [ngModel]="roleFilter()" (ngModelChange)="roleFilter.set($event)">
+
+        <option value="all">
+          All Roles
+        </option>
+
+        <option [value]="userRole.Customer">
+          Customer
+        </option>
+
+        <option [value]="userRole.Employee">
+          Employee
+        </option>
+
+        <option [value]="userRole.Manager">
+          Manager
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  @if (loading()) {
+
+  <div class="loading-state">
+
+    <i class="fa-solid fa-spinner fa-spin"></i>
+
+    Loading users...
+
+  </div>
+
+  }
+
+  @else if (!filteredUsers().length) {
+
+  <div class="empty-state">
+
+    <div class="empty-state__icon">
+      <i class="fa-solid fa-users"></i>
+    </div>
+
+    <h3>
+      No Users Found
+    </h3>
+
+    <p>
+      No users match your current search or filter.
+    </p>
+
+  </div>
+
+  }
+
+  @else {
+
+  <div class="users-table-card">
+
+    <div class="users-table">
+
+      <div class="users-table__header">
+
+        <span>
+          User
+        </span>
+
+        <span>
+          Contact
+        </span>
+
+        <span>
+          Role
+        </span>
+
+        <span>
+          Joined
+        </span>
+
+        <span>
+          Actions
+        </span>
+
+      </div>
+
+
+      @for (
+      user of filteredUsers();
+      track user.id
+      ) {
+
+      <div class="users-table__row">
+
+        <div class="user-cell">
+
+          <div class="avatar">
+            {{ user.fullName.charAt(0).toUpperCase() }}
+          </div>
+
+          <div class="user-info">
+
+            <strong>
+              {{ user.fullName }}
+            </strong>
+
+            <span>
+              {{ user.email }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="contact-cell">
+
+          <span>
+            {{ user.email }}
+          </span>
+
+          <small>
+            {{ user.phone || 'No phone number' }}
+          </small>
+
+        </div>
+
+
+        <div class="role-cell">
+
+          <div class="role-select-wrapper">
+
+            <select class="role-select" [ngClass]="'role-select--' + roleClass(user.role)" [ngModel]="user.role"
+              (ngModelChange)="changeUserRole(user.id, $event)" aria-label="Change user role">
+
+              <option [ngValue]="userRole.Customer">
+                Customer
+              </option>
+
+              <option [ngValue]="userRole.Employee">
+                Employee
+              </option>
+
+              <option [ngValue]="userRole.Manager">
+                Manager
+              </option>
+
+            </select>
+
+            <i class="fa-solid fa-chevron-down role-select-arrow"></i>
+
+          </div>
+
+        </div>
+
+
+        <div class="date-cell">
+
+          {{ user.createdAt | date:'dd MMM yyyy' }}
+
+        </div>
+
+
+        <div class="actions-cell">
+
+          <button type="button" class="icon-button" title="View user" (click)="viewUser(user.id)">
+
+            <i class="fa-solid fa-eye"></i>
+
+          </button>
+
+
+          <button type="button" class="icon-button icon-button--danger" title="Delete user" (click)="deleteUser(user)">
+
+            <i class="fa-solid fa-trash"></i>
+
+          </button>
+
+        </div>
+
+      </div>
+
+      }
+
+    </div>
+
+  </div>
+
+  }
+
+</div>

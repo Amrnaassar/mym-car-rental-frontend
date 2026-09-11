@@ -1,0 +1,334 @@
+<div class="cars-page">
+
+  <div class="page-header">
+
+    <div class="page-header__content">
+
+      <span class="eyebrow">
+        Fleet Management
+      </span>
+
+      <h1>
+        Cars
+      </h1>
+
+      <p>
+        Manage the MYM rental fleet and vehicle availability.
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="btn-primary"
+      (click)="createCar()">
+
+      <i class="fa-solid fa-plus"></i>
+
+      Add Car
+
+    </button>
+
+  </div>
+
+
+  <div class="toolbar">
+
+    <div class="search-wrapper">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        class="form-control"
+        type="search"
+        placeholder="Search cars..."
+        [ngModel]="search()"
+        (ngModelChange)="search.set($event)">
+
+    </div>
+
+
+    <div class="filters">
+
+      <select
+        class="form-control"
+        [ngModel]="filterStatus()"
+        (ngModelChange)="filterStatus.set($event)">
+
+        <option value="all">
+          All Status
+        </option>
+
+        <option value="active">
+          Active
+        </option>
+
+        <option value="inactive">
+          Inactive
+        </option>
+
+      </select>
+
+
+      <select
+        class="form-control"
+        [ngModel]="filterFeatured()"
+        (ngModelChange)="filterFeatured.set($event)">
+
+        <option value="all">
+          All Cars
+        </option>
+
+        <option value="featured">
+          Featured
+        </option>
+
+        <option value="regular">
+          Regular
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  @if (loading()) {
+
+    <div class="loading-state">
+
+      <i class="fa-solid fa-spinner fa-spin"></i>
+
+      Loading cars...
+
+    </div>
+
+  } @else if (!filteredCars().length) {
+
+    <div class="empty-state">
+
+      <div class="empty-state__icon">
+        <i class="fa-solid fa-car"></i>
+      </div>
+
+      <h3>
+        No Cars Found
+      </h3>
+
+      <p>
+        There are no vehicles matching your current filters.
+      </p>
+
+      @if (!search() &&
+           filterStatus() === 'all' &&
+           filterFeatured() === 'all') {
+
+        <button
+          type="button"
+          class="btn-primary"
+          (click)="createCar()">
+
+          Add Your First Car
+
+        </button>
+
+      }
+
+    </div>
+
+  } @else {
+
+    <div class="cars-table-card">
+
+      <div class="cars-table">
+
+        <div class="cars-table__header">
+
+          <span>
+            Vehicle
+          </span>
+
+          <span>
+            Category
+          </span>
+
+          <span>
+            Pricing
+          </span>
+
+          <span>
+            Specs
+          </span>
+
+          <span>
+            Status
+          </span>
+
+          <span>
+            Actions
+          </span>
+
+        </div>
+
+
+        @for (
+          car of filteredCars();
+          track car.id
+        ) {
+
+          <div class="cars-table__row">
+
+            <div class="vehicle-cell">
+
+              <div class="vehicle-image">
+
+                @if (car.primaryImageUrl) {
+
+                  <img
+                    [src]="car.primaryImageUrl"
+                    [alt]="car.nameEn">
+
+                } @else {
+
+                  <div class="image-placeholder">
+
+                    <i class="fa-solid fa-car"></i>
+
+                  </div>
+
+                }
+
+              </div>
+
+
+              <div class="vehicle-info">
+
+                <strong>
+                  {{ car.nameEn }}
+                </strong>
+
+                <span dir="rtl">
+                  {{ car.nameAr }}
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="category-cell">
+
+              <span>
+                {{ car.categoryNameEn }}
+              </span>
+
+              <small>
+                {{ car.categoryNameAr }}
+              </small>
+
+            </div>
+
+
+            <div class="pricing-cell">
+
+              <strong>
+                AED {{ car.pricePerDay | number:'1.0-2' }}
+              </strong>
+
+              <span>
+                / day
+              </span>
+
+              <small>
+                AED {{ car.pricePerWeek | number:'1.0-2' }} / week
+              </small>
+
+            </div>
+
+
+            <div class="specs-cell">
+
+              <span>
+                <i class="fa-solid fa-gears"></i>
+                {{ transmissionLabel(car.transmission) }}
+              </span>
+
+              <span>
+                <i class="fa-solid fa-gas-pump"></i>
+                {{ fuelLabel(car.fuelType) }}
+              </span>
+
+              <span>
+                <i class="fa-solid fa-users"></i>
+                {{ car.seats }} seats
+              </span>
+
+            </div>
+
+
+            <div class="status-cell">
+
+              <span
+                class="status-badge"
+                [class.status-badge--active]="car.isActive"
+                [class.status-badge--inactive]="!car.isActive">
+
+                <span class="status-dot"></span>
+
+                {{ car.isActive ? 'Active' : 'Inactive' }}
+
+              </span>
+
+
+              @if (car.isFeatured) {
+
+                <span class="featured-badge">
+
+                  <i class="fa-solid fa-star"></i>
+
+                  Featured
+
+                </span>
+
+              }
+
+            </div>
+
+
+            <div class="actions-cell">
+
+              <button
+                type="button"
+                class="icon-button"
+                title="Edit"
+                (click)="editCar(car.id)">
+
+                <i class="fa-solid fa-pen"></i>
+
+              </button>
+
+
+              <button
+                type="button"
+                class="icon-button icon-button--danger"
+                title="Delete"
+                (click)="deleteCar(car)">
+
+                <i class="fa-solid fa-trash"></i>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

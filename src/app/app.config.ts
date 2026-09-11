@@ -33,6 +33,7 @@ import { credentialsInterceptor } from './core/interceptors/credentials-intercep
 
 import { initializeAuth } from './core/initializers/auth.initializer';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ssrAuthCookieInterceptor } from './core/interceptors/ssr-auth-cookie-interceptor-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -57,6 +58,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
       withInterceptors([
+        ssrAuthCookieInterceptor,
         credentialsInterceptor,
         refreshTokenInterceptor
       ])

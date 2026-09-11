@@ -9,13 +9,15 @@ import { RouterLink } from '@angular/router';
 import {
   BookingResponse
 } from '../../../../core/models/booking.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-booking-step-4',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    TranslatePipe
   ],
   templateUrl: './booking-step-4.html',
   styleUrl: './booking-step-4.scss',

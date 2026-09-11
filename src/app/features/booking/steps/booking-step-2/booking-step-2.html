@@ -2,199 +2,142 @@
 
   <div class="booking-step__container">
 
+    
     <!-- =========================
-         HEADER
-    ========================== -->
+     HEADER
+========================== -->
     <header class="booking-step__header">
 
       <span class="booking-step__eyebrow">
-        Step 2 of 4
+        {{ 'BOOKING_STEP_2.HEADER.EYEBROW' | translate }}
       </span>
 
       <h1 class="booking-step__title">
-        Your Information
+        {{ 'BOOKING_STEP_2.HEADER.TITLE' | translate }}
       </h1>
 
       <p class="booking-step__description">
-        Enter your information to continue with your booking.
+        {{ 'BOOKING_STEP_2.HEADER.DESCRIPTION' | translate }}
       </p>
 
     </header>
 
-
     <!-- =========================
-         CUSTOMER FORM
-    ========================== -->
+     CUSTOMER FORM
+========================== -->
     <div class="booking-step__form">
 
       <!-- Full Name -->
-      <div
-        class="form-group form-group--full"
-        [class.form-group--error]="fullNameError"
-      >
-
+      <div class="form-group form-group--full" [class.form-group--error]="fullNameError">
         <label for="customerFullName">
-          Full Name
+          {{ 'BOOKING_STEP_2.FORM.FULL_NAME.LABEL' | translate }}
         </label>
 
         <div class="input-wrapper">
-
           <i class="fa-regular fa-user"></i>
 
-          <input
-            id="customerFullName"
-            type="text"
-            placeholder="Enter your full name"
-            autocomplete="name"
-            [value]="booking.customerFullName"
-            (input)="onTextChange('customerFullName', $event)"
-            [attr.aria-invalid]="fullNameError ? 'true' : null"
-          />
-
+          <input id="customerFullName" type="text"
+            [placeholder]="'BOOKING_STEP_2.FORM.FULL_NAME.PLACEHOLDER' | translate" autocomplete="name"
+            [value]="booking.customerFullName" (input)="onTextChange('customerFullName', $event)"
+            [attr.aria-invalid]="fullNameError ? 'true' : null" />
         </div>
 
         @if (fullNameError) {
-          <p class="form-error">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            {{ fullNameError }}
-          </p>
+        <p class="form-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          {{ fullNameError }}
+        </p>
         }
-
       </div>
 
-
       <!-- Email -->
-      <div
-        class="form-group"
-        [class.form-group--error]="emailError"
-      >
-
+      <div class="form-group" [class.form-group--error]="emailError">
         <label for="customerEmail">
-          Email Address
+          {{ 'BOOKING_STEP_2.FORM.EMAIL.LABEL' | translate }}
         </label>
 
         <div class="input-wrapper">
-
           <i class="fa-regular fa-envelope"></i>
 
-          <input
-            id="customerEmail"
-            type="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-            [value]="booking.customerEmail"
-            (input)="onTextChange('customerEmail', $event)"
-            [attr.aria-invalid]="emailError ? 'true' : null"
-          />
-
+          <input id="customerEmail" type="email" [placeholder]="'BOOKING_STEP_2.FORM.EMAIL.PLACEHOLDER' | translate"
+            autocomplete="email" [value]="booking.customerEmail" (input)="onTextChange('customerEmail', $event)"
+            [attr.aria-invalid]="emailError ? 'true' : null" />
         </div>
 
         @if (emailError) {
-          <p class="form-error">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            {{ emailError }}
-          </p>
+        <p class="form-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          {{ emailError }}
+        </p>
         }
-
       </div>
 
-
       <!-- Phone -->
-      <div
-        class="form-group"
-        [class.form-group--error]="phoneError"
-      >
-
+      <div class="form-group" [class.form-group--error]="phoneError">
         <label for="customerPhone">
-          Phone Number
+          {{ 'BOOKING_STEP_2.FORM.PHONE.LABEL' | translate }}
         </label>
 
         <div class="input-wrapper">
-
           <i class="fa-solid fa-phone"></i>
 
-          <input
-            id="customerPhone"
-            type="tel"
-            inputmode="tel"
-            placeholder="+971 50 123 4567"
-            autocomplete="tel"
-            [value]="booking.customerPhone"
-            (input)="onTextChange('customerPhone', $event)"
-            [attr.aria-invalid]="phoneError ? 'true' : null"
-          />
-
+          <input id="customerPhone" type="tel" inputmode="tel"
+            [placeholder]="'BOOKING_STEP_2.FORM.PHONE.PLACEHOLDER' | translate" autocomplete="tel"
+            [value]="booking.customerPhone" (input)="onTextChange('customerPhone', $event)"
+            [attr.aria-invalid]="phoneError ? 'true' : null" />
         </div>
 
         @if (phoneError) {
-          <p class="form-error">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            {{ phoneError }}
-          </p>
+        <p class="form-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          {{ phoneError }}
+        </p>
         }
-
       </div>
 
-
       <!-- Driving License -->
-      <div
-        class="form-group form-group--full"
-        [class.form-group--error]="drivingLicenseError"
-      >
-
+      <div class="form-group form-group--full" [class.form-group--error]="drivingLicenseError">
         <label for="drivingLicense">
-          Driving License Number
+          {{ 'BOOKING_STEP_2.FORM.DRIVING_LICENSE.LABEL' | translate }}
         </label>
 
         <div class="input-wrapper">
-
           <i class="fa-regular fa-id-card"></i>
 
-          <input
-            id="drivingLicense"
-            type="text"
-            placeholder="Enter your driving license number"
-            [value]="booking.drivingLicense"
-            (input)="onTextChange('drivingLicense', $event)"
-            [attr.aria-invalid]="drivingLicenseError ? 'true' : null"
-          />
-
+          <input id="drivingLicense" type="text"
+            [placeholder]="'BOOKING_STEP_2.FORM.DRIVING_LICENSE.PLACEHOLDER' | translate"
+            [value]="booking.drivingLicense" (input)="onTextChange('drivingLicense', $event)"
+            [attr.aria-invalid]="drivingLicenseError ? 'true' : null" />
         </div>
 
         @if (drivingLicenseError) {
-          <p class="form-error">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            {{ drivingLicenseError }}
-          </p>
+        <p class="form-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          {{ drivingLicenseError }}
+        </p>
         }
-
       </div>
-
 
       <!-- Notes -->
       <div class="form-group form-group--full">
 
         <label for="notes">
-          Additional Notes
-          <span>(Optional)</span>
+          {{ 'BOOKING_STEP_2.FORM.NOTES.LABEL' | translate }}
+          <span>
+            {{ 'BOOKING_STEP_2.FORM.NOTES.OPTIONAL' | translate }}
+          </span>
         </label>
 
-        <textarea
-          id="notes"
-          rows="4"
-          placeholder="Any additional information..."
-          [value]="booking.notes"
-          (input)="onTextChange('notes', $event)"
-        ></textarea>
+        <textarea id="notes" rows="4" [placeholder]="'BOOKING_STEP_2.FORM.NOTES.PLACEHOLDER' | translate"
+          [value]="booking.notes" (input)="onTextChange('notes', $event)"></textarea>
 
       </div>
 
     </div>
 
-
     <!-- =========================
-         INSURANCE
-    ========================== -->
+     INSURANCE
+========================== -->
     <div class="booking-step__insurance">
 
       <div class="insurance-info">
@@ -206,25 +149,20 @@
         <div>
 
           <h3>
-            Rental Insurance
+            {{ 'BOOKING_STEP_2.INSURANCE.TITLE' | translate }}
           </h3>
 
           <p>
-            Add extra protection to your rental.
+            {{ 'BOOKING_STEP_2.INSURANCE.DESCRIPTION' | translate }}
           </p>
 
         </div>
 
       </div>
 
-
       <label class="insurance-toggle">
 
-        <input
-          type="checkbox"
-          [checked]="booking.includeInsurance"
-          (change)="onInsuranceChange($event)"
-        />
+        <input type="checkbox" [checked]="booking.includeInsurance" (change)="onInsuranceChange($event)" />
 
         <span class="insurance-toggle__slider"></span>
 
@@ -232,52 +170,42 @@
 
     </div>
 
-
     <!-- =========================
-         INSURANCE PRICE
-    ========================== -->
+     INSURANCE PRICE
+========================== -->
     @if (booking.includeInsurance) {
 
-      <div class="booking-step__insurance-price">
+    <div class="booking-step__insurance-price">
 
-        <span>
-          Insurance
-        </span>
+      <span>
+        {{ 'BOOKING_STEP_2.INSURANCE_PRICE.LABEL' | translate }}
+      </span>
 
-        <strong>
-          AED {{ insurancePrice | number:'1.0-2' }}
-        </strong>
+      <strong>
+        AED {{ insurancePrice | number:'1.0-2' }}
+      </strong>
 
-      </div>
+    </div>
 
     }
 
-
     <!-- =========================
-         ACTIONS
-    ========================== -->
+     ACTIONS
+========================== -->
     <div class="booking-step__actions">
 
-      <button
-        type="button"
-        class="btn btn-outline"
-        (click)="previous()"
-      >
+      <button type="button" class="btn btn-outline" (click)="previous()">
         <i class="fa-solid fa-arrow-left"></i>
-        Back
+        {{ 'BOOKING_STEP_2.ACTIONS.BACK' | translate }}
       </button>
 
-
-      <button
-        type="button"
-        class="btn btn-primary"
-        (click)="continue()"
-      >
-        Continue
+      <button type="button" class="btn btn-primary" (click)="continue()">
+        {{ 'BOOKING_STEP_2.ACTIONS.CONTINUE' | translate }}
         <i class="fa-solid fa-arrow-right"></i>
       </button>
 
     </div>
+
 
   </div>
 

@@ -2,35 +2,24 @@
 
   <div class="popular-categories__container">
 
+    
     <!-- HEADER -->
     <div class="popular-categories__header">
 
       <div class="popular-categories__heading">
 
         <span class="popular-categories__eyebrow">
-          {{ currentLanguage === 'ar'
-            ? 'استكشف أسطولنا'
-            : 'Explore Our Fleet'
-          }}
+          {{ 'POPULAR_CATEGORIES.HEADER.EYEBROW' | translate }}
         </span>
 
         <h2 class="popular-categories__title">
-          {{ currentLanguage === 'ar'
-            ? 'الفئات الشائعة'
-            : 'Popular Categories'
-          }}
+          {{ 'POPULAR_CATEGORIES.HEADER.TITLE' | translate }}
         </h2>
 
       </div>
 
-      <a
-        routerLink="/cars"
-        class="popular-categories__view-all"
-      >
-        {{ currentLanguage === 'ar'
-          ? 'عرض الكل'
-          : 'View All'
-        }}
+      <a routerLink="/cars" class="popular-categories__view-all">
+        {{ 'POPULAR_CATEGORIES.HEADER.VIEW_ALL' | translate }}
       </a>
 
     </div>
@@ -40,41 +29,33 @@
 
       @for (cat of categories(); track cat.id) {
 
-        <a
-          class="popular-categories__card"
-          (click)="goToCategory(cat.id)"
-        >
+      <a class="popular-categories__card" (click)="goToCategory(cat.id)">
 
-          <div class="popular-categories__image">
+        <div class="popular-categories__image">
 
-            <img
-              [src]="cat.imageUrl || 'assets/images/placeholder-car.jpg'"
-              [alt]="getCategoryName(cat)"
-              width="600"
-              height="400"
-              loading="lazy"
-              decoding="async"
-            />
+          <img [src]="cat.imageUrl || 'assets/images/placeholder-car.jpg'" [alt]="getCategoryName(cat)" width="600"
+            height="400" loading="lazy" decoding="async" />
 
-          </div>
+        </div>
 
-          <div class="popular-categories__content">
+        <div class="popular-categories__content">
 
-            <h3>
-              {{ getCategoryName(cat) }}
-            </h3>
+          <h3>
+            {{ getCategoryName(cat) }}
+          </h3>
 
-            <span>
-              {{ getCategoryDescription(cat) }}
-            </span>
+          <span>
+            {{ getCategoryDescription(cat) }}
+          </span>
 
-          </div>
+        </div>
 
-        </a>
+      </a>
 
       }
 
     </div>
+    
 
   </div>
 

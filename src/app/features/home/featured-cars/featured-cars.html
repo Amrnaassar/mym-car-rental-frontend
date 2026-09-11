@@ -1,35 +1,29 @@
-
 <section class="featured-cars">
+
   <div class="featured-cars__container">
 
     <!-- HEADER -->
     <div class="featured-cars__header">
 
       <div class="featured-cars__heading">
+
         <span class="featured-cars__eyebrow">
-          {{ currentLanguage === 'ar'
-            ? 'اختياراتنا'
-            : 'Our Selection'
-          }}
+          {{ 'FEATURED_CARS.HEADER.EYEBROW' | translate }}
         </span>
 
         <h2 class="featured-cars__title">
-          {{ currentLanguage === 'ar'
-            ? 'السيارات المميزة'
-            : 'Featured Cars'
-          }}
+          {{ 'FEATURED_CARS.HEADER.TITLE' | translate }}
         </h2>
+
       </div>
+
 
       <a
         routerLink="/cars"
         class="featured-cars__view-all"
       >
         <span>
-          {{ currentLanguage === 'ar'
-            ? 'عرض الكل'
-            : 'View All'
-          }}
+          {{ 'FEATURED_CARS.HEADER.VIEW_ALL' | translate }}
         </span>
 
         <span
@@ -91,11 +85,10 @@
             <div
               class="car-card__rating"
               [attr.aria-label]="
-                (currentLanguage === 'ar'
-                  ? 'التقييم '
-                  : 'Rating ') + car.rating
+                ('FEATURED_CARS.CARD.RATING' | translate) + ' ' + car.rating
               "
             >
+
               <span
                 class="car-card__star"
                 aria-hidden="true"
@@ -106,6 +99,7 @@
               <span>
                 {{ car.rating }}
               </span>
+
             </div>
 
 
@@ -129,10 +123,7 @@
             <div class="car-card__content">
 
               <span class="car-card__label">
-                {{ currentLanguage === 'ar'
-                  ? 'للتأجير اليومي'
-                  : 'Daily Rental'
-                }}
+                {{ 'FEATURED_CARS.CARD.DAILY_RENTAL' | translate }}
               </span>
 
               <h3 class="car-card__name">
@@ -156,10 +147,7 @@
 
                 <span class="car-card__period">
                   /
-                  {{ currentLanguage === 'ar'
-                    ? 'اليوم'
-                    : 'day'
-                  }}
+                  {{ 'FEATURED_CARS.CARD.PER_DAY' | translate }}
                 </span>
 
               </div>
@@ -169,16 +157,15 @@
                 class="car-card__details"
                 aria-hidden="true"
               >
+
                 <span>
-                  {{ currentLanguage === 'ar'
-                    ? 'التفاصيل'
-                    : 'Details'
-                  }}
+                  {{ 'FEATURED_CARS.CARD.DETAILS' | translate }}
                 </span>
 
                 <span class="car-card__details-arrow">
                   →
                 </span>
+
               </span>
 
             </div>
@@ -192,4 +179,5 @@
     </div>
 
   </div>
+
 </section>

@@ -5,7 +5,6 @@
     <!-- ========================================================
          LOADING
     ========================================================= -->
-
     @if (isLoading()) {
 
     <div class="car-details__empty">
@@ -13,21 +12,21 @@
       <i class="fa-solid fa-spinner fa-spin"></i>
 
       <h1>
-        Loading Car
+        {{ 'CAR_DETAILS.STATES.LOADING_TITLE' | translate }}
       </h1>
 
       <p>
-        Please wait while we load the car details.
+        {{ 'CAR_DETAILS.STATES.LOADING_DESCRIPTION' | translate }}
       </p>
 
     </div>
+
     }
 
 
     <!-- ========================================================
          INVALID CAR
     ========================================================= -->
-
     @else if (hasError() || !car()) {
 
     <div class="car-details__empty">
@@ -35,43 +34,50 @@
       <i class="fa-solid fa-car-burst"></i>
 
       <h1>
-        Car Not Found
+        {{ 'CAR_DETAILS.STATES.NOT_FOUND_TITLE' | translate }}
       </h1>
 
       <p>
-        Sorry, we couldn't find the car you're looking for.
+        {{ 'CAR_DETAILS.STATES.NOT_FOUND_DESCRIPTION' | translate }}
       </p>
 
-      <a routerLink="/cars" class="car-details__back">
+      <a
+        routerLink="/cars"
+        class="car-details__back"
+      >
+
         <i class="fa-solid fa-arrow-left"></i>
 
-        Back to Cars
+        {{ 'CAR_DETAILS.ACTIONS.BACK_TO_CARS' | translate }}
+
       </a>
 
     </div>
+
     }
 
 
     <!-- ========================================================
          CAR DETAILS
     ========================================================= -->
-
     @else if (car(); as currentCar) {
 
     <!-- ======================================================
-           BREADCRUMB
-      ======================================================= -->
-
-    <nav class="car-details__breadcrumb" aria-label="Breadcrumb">
+         BREADCRUMB
+    ======================================================= -->
+    <nav
+      class="car-details__breadcrumb"
+      [attr.aria-label]="'CAR_DETAILS.BREADCRUMB.ARIA_LABEL' | translate"
+    >
 
       <a routerLink="/">
-        Home
+        {{ 'CAR_DETAILS.BREADCRUMB.HOME' | translate }}
       </a>
 
       <i class="fa-solid fa-chevron-right"></i>
 
       <a routerLink="/cars">
-        Cars
+        {{ 'CAR_DETAILS.BREADCRUMB.CARS' | translate }}
       </a>
 
       <i class="fa-solid fa-chevron-right"></i>
@@ -84,24 +90,32 @@
 
 
     <!-- ======================================================
-           GALLERY
-      ======================================================= -->
-
+         GALLERY
+    ======================================================= -->
     <section class="car-gallery">
 
       <div class="car-gallery__main">
 
-        <img [src]="
-              selectedImage() ||
-              currentCar.primaryImageUrl ||
-              'assets/images/placeholder-car.jpg'
-            " [alt]="getCarName(currentCar)" width="1200" height="700" fetchpriority="high" decoding="async" />
+        <img
+          [src]="
+            selectedImage() ||
+            currentCar.primaryImageUrl ||
+            'assets/images/placeholder-car.jpg'
+          "
+          [alt]="getCarName(currentCar)"
+          width="1200"
+          height="700"
+          fetchpriority="high"
+          decoding="async"
+        />
 
-        <div class="car-gallery__overlay" aria-hidden="true"></div>
+        <div
+          class="car-gallery__overlay"
+          aria-hidden="true"
+        ></div>
 
 
         <!-- CATEGORY -->
-
         <span class="car-gallery__category">
 
           <i class="fa-solid fa-car-side"></i>
@@ -112,7 +126,6 @@
 
 
         <!-- COUNTER -->
-
         @if (galleryImages().length > 0) {
 
         <span class="car-gallery__counter">
@@ -120,7 +133,7 @@
           <i class="fa-regular fa-images"></i>
 
           {{
-          galleryImages().indexOf(selectedImage()) + 1
+            galleryImages().indexOf(selectedImage()) + 1
           }}
 
           /
@@ -128,91 +141,118 @@
           {{ galleryImages().length }}
 
         </span>
+
         }
 
       </div>
 
 
       <!-- ====================================================
-             THUMBNAILS
-        ===================================================== -->
-
+           THUMBNAILS
+      ===================================================== -->
       @if (galleryImages().length > 1) {
 
-      <div class="car-gallery__thumbnails" role="list" aria-label="Car gallery">
+      <div
+        class="car-gallery__thumbnails"
+        role="list"
+        [attr.aria-label]="'CAR_DETAILS.GALLERY.ARIA_LABEL' | translate"
+      >
 
         @for (
-        image of galleryImages();
-        track image;
-        let index = $index
+          image of galleryImages();
+          track image;
+          let index = $index
         ) {
 
-        <button type="button" class="car-gallery__thumbnail" [class.car-gallery__thumbnail--active]="
-                  selectedImage() === image
-                " [attr.aria-label]="
-                  'View image ' +
-                  (index + 1) +
-                  ' of ' +
-                  galleryImages().length
-                " [attr.aria-current]="
-                  selectedImage() === image
-                    ? 'true'
-                    : null
-                " (click)="selectImage(image)">
+        <button
+          type="button"
+          class="car-gallery__thumbnail"
+          [class.car-gallery__thumbnail--active]="
+            selectedImage() === image
+          "
+          [attr.aria-label]="
+            (
+              'CAR_DETAILS.GALLERY.VIEW_IMAGE'
+              | translate:{
+                  current: index + 1,
+                  total: galleryImages().length
+                }
+            )
+          "
+          [attr.aria-current]="
+            selectedImage() === image
+              ? 'true'
+              : null
+          "
+          (click)="selectImage(image)"
+        >
 
-          <img [src]="image" [alt]="
-                    getCarName(currentCar) +
-                    ' view ' +
-                    (index + 1)
-                  " width="240" height="140" loading="lazy" decoding="async" />
+          <img
+            [src]="image"
+            [alt]="
+              getCarName(currentCar) +
+              ' ' +
+              (
+                'CAR_DETAILS.GALLERY.VIEW'
+                | translate
+              ) +
+              ' ' +
+              (index + 1)
+            "
+            width="240"
+            height="140"
+            loading="lazy"
+            decoding="async"
+          />
 
         </button>
+
         }
 
       </div>
+
       }
 
     </section>
 
 
     <!-- ======================================================
-           CONTENT LAYOUT
-      ======================================================= -->
-
+         CONTENT LAYOUT
+    ======================================================= -->
     <div class="car-details__layout">
 
 
       <!-- ====================================================
-             LEFT CONTENT
-        ===================================================== -->
-
+           LEFT CONTENT
+      ===================================================== -->
       <main class="car-details__content">
 
 
         <!-- ==================================================
-               HEADER
-          =================================================== -->
-
+             HEADER
+        =================================================== -->
         <header class="car-details__header">
 
           <div>
 
             <span class="car-details__eyebrow">
-
               {{ currentCar.categoryNameEn }}
-
             </span>
 
             <h1 class="car-details__title">
-
               {{ getCarName(currentCar) }}
-
             </h1>
 
 
-            <div class="car-details__rating" aria-label="Car rating">
+            <div
+              class="car-details__rating"
+              [attr.aria-label]="'CAR_DETAILS.RATING.ARIA_LABEL' | translate"
+            >
 
-              <span class="car-details__stars" aria-hidden="true">
+              <span
+                class="car-details__stars"
+                aria-hidden="true"
+              >
                 ★★★★★
               </span>
 
@@ -221,7 +261,10 @@
               </strong>
 
               <span>
-                ({{ currentCar.reviewsCount }} reviews)
+                (
+                {{ currentCar.reviewsCount }}
+                {{ 'CAR_DETAILS.RATING.REVIEWS' | translate }}
+                )
               </span>
 
             </div>
@@ -230,16 +273,19 @@
 
 
           <!-- PRICE -->
-
           <div class="car-details__price">
 
             <strong>
+
               AED
+
               {{ currentPrice() | number:'1.0-0' }}
+
             </strong>
 
             <span>
-              / {{ currentPlanLabel() }}
+              /
+              {{ currentPlanLabel() }}
             </span>
 
           </div>
@@ -248,31 +294,38 @@
 
 
         <!-- ==================================================
-               SPECIFICATIONS
-          =================================================== -->
+             SPECIFICATIONS
+        =================================================== -->
+        <section
+          class="car-specifications"
+          [attr.aria-label]="'CAR_DETAILS.SPECIFICATIONS.ARIA_LABEL' | translate"
+        >
 
-        <section class="car-specifications" aria-label="Car specifications">
 
           <!-- TRANSMISSION -->
-
           <div class="car-specification">
 
-            <span class="car-specification__icon" aria-hidden="true">
+            <span
+              class="car-specification__icon"
+              aria-hidden="true"
+            >
               <i class="fa-solid fa-gears"></i>
             </span>
 
             <div>
 
               <span>
-                Transmission
+                {{ 'CAR_DETAILS.SPECIFICATIONS.TRANSMISSION' | translate }}
               </span>
 
               <strong>
+
                 {{
-                getTransmissionLabel(
-                currentCar.transmission
-                )
+                  getTransmissionLabel(
+                    currentCar.transmission
+                  )
                 }}
+
               </strong>
 
             </div>
@@ -281,25 +334,29 @@
 
 
           <!-- FUEL -->
-
           <div class="car-specification">
 
-            <span class="car-specification__icon" aria-hidden="true">
+            <span
+              class="car-specification__icon"
+              aria-hidden="true"
+            >
               <i class="fa-solid fa-gas-pump"></i>
             </span>
 
             <div>
 
               <span>
-                Fuel Type
+                {{ 'CAR_DETAILS.SPECIFICATIONS.FUEL_TYPE' | translate }}
               </span>
 
               <strong>
+
                 {{
-                getFuelTypeLabel(
-                currentCar.fuelType
-                )
+                  getFuelTypeLabel(
+                    currentCar.fuelType
+                  )
                 }}
+
               </strong>
 
             </div>
@@ -308,17 +365,19 @@
 
 
           <!-- SEATS -->
-
           <div class="car-specification">
 
-            <span class="car-specification__icon" aria-hidden="true">
+            <span
+              class="car-specification__icon"
+              aria-hidden="true"
+            >
               <i class="fa-solid fa-users"></i>
             </span>
 
             <div>
 
               <span>
-                Seats
+                {{ 'CAR_DETAILS.SPECIFICATIONS.SEATS' | translate }}
               </span>
 
               <strong>
@@ -331,17 +390,19 @@
 
 
           <!-- DOORS -->
-
           <div class="car-specification">
 
-            <span class="car-specification__icon" aria-hidden="true">
+            <span
+              class="car-specification__icon"
+              aria-hidden="true"
+            >
               <i class="fa-solid fa-door-open"></i>
             </span>
 
             <div>
 
               <span>
-                Doors
+                {{ 'CAR_DETAILS.SPECIFICATIONS.DOORS' | translate }}
               </span>
 
               <strong>
@@ -354,17 +415,19 @@
 
 
           <!-- LUGGAGE -->
-
           <div class="car-specification">
 
-            <span class="car-specification__icon" aria-hidden="true">
+            <span
+              class="car-specification__icon"
+              aria-hidden="true"
+            >
               <i class="fa-solid fa-suitcase"></i>
             </span>
 
             <div>
 
               <span>
-                Luggage
+                {{ 'CAR_DETAILS.SPECIFICATIONS.LUGGAGE' | translate }}
               </span>
 
               <strong>
@@ -379,17 +442,16 @@
 
 
         <!-- ==================================================
-               ABOUT
-          =================================================== -->
-
+             ABOUT
+        =================================================== -->
         <section class="car-about">
 
           <span class="car-details__eyebrow">
-            ABOUT THIS CAR
+            {{ 'CAR_DETAILS.ABOUT.EYEBROW' | translate }}
           </span>
 
           <h2>
-            Luxury meets performance
+            {{ 'CAR_DETAILS.ABOUT.TITLE' | translate }}
           </h2>
 
           @if (getCarDescription(currentCar)) {
@@ -401,48 +463,46 @@
           } @else {
 
           <p>
-            Designed for drivers who expect more from every
-            journey, this vehicle combines sophisticated styling,
-            premium comfort and advanced technology to create an
-            exceptional driving experience.
+            {{ 'CAR_DETAILS.ABOUT.DEFAULT_DESCRIPTION' | translate }}
           </p>
+
           }
 
         </section>
 
 
         <!-- ==================================================
-               FEATURES
-          =================================================== -->
-
+             FEATURES
+        =================================================== -->
         <section class="car-features">
 
           <span class="car-details__eyebrow">
-            FEATURES
+            {{ 'CAR_DETAILS.FEATURES.EYEBROW' | translate }}
           </span>
 
           <h2>
-            Everything you need
+            {{ 'CAR_DETAILS.FEATURES.TITLE' | translate }}
           </h2>
 
           <div class="car-features__grid">
 
-            @for (
-            feature of features;
-            track feature
-            ) {
+            @for (feature of car()?.features;track feature.id) {
 
             <div class="car-feature">
 
-              <span class="car-feature__check" aria-hidden="true">
+              <span
+                class="car-feature__check"
+                aria-hidden="true"
+              >
                 <i class="fa-solid fa-check"></i>
               </span>
 
               <span>
-                {{ feature }}
+                {{ getCarFeature(feature) }}
               </span>
 
             </div>
+
             }
 
           </div>
@@ -453,88 +513,116 @@
 
 
       <!-- ====================================================
-             BOOKING CARD
-        ===================================================== -->
-
+           BOOKING CARD
+      ===================================================== -->
       <aside class="booking-card">
 
 
         <div class="booking-card__header">
 
           <span>
-            RESERVE YOUR CAR
+            {{ 'CAR_DETAILS.BOOKING.RESERVE_EYEBROW' | translate }}
           </span>
 
           <h2>
-            Book This Car
+            {{ 'CAR_DETAILS.BOOKING.TITLE' | translate }}
           </h2>
 
           <p>
-            Select your dates and pickup location.
+            {{ 'CAR_DETAILS.BOOKING.DESCRIPTION' | translate }}
           </p>
 
 
           <!-- ==================================================
-                 RENTAL PLAN
-            =================================================== -->
-
+               RENTAL PLAN
+          =================================================== -->
           <div class="rental-plan rental-plan--details">
 
             <div class="rental-plan__options">
 
 
               <!-- DAILY -->
-
-              <button type="button" class="rental-plan__option" [class.rental-plan__option--active]="
-                    selectedPlan() === 'daily'
-                  " (click)="setPlan('daily')">
+              <button
+                type="button"
+                class="rental-plan__option"
+                [class.rental-plan__option--active]="
+                  selectedPlan() === 'daily'
+                "
+                (click)="setPlan('daily')"
+              >
 
                 <span class="rental-plan__option-title">
-                  Daily
+                  {{ 'CAR_DETAILS.RENTAL_PLAN.DAILY' | translate }}
                 </span>
 
                 <span class="rental-plan__option-subtitle">
+
                   AED
+
                   {{ currentCar.pricePerDay | number:'1.0-0' }}
-                  / Day
+
+                  /
+
+                  {{ 'CAR_DETAILS.RENTAL_PLAN.DAY' | translate }}
+
                 </span>
 
               </button>
 
 
               <!-- WEEKLY -->
-
-              <button type="button" class="rental-plan__option" [class.rental-plan__option--active]="
-                    selectedPlan() === 'weekly'
-                  " (click)="setPlan('weekly')">
+              <button
+                type="button"
+                class="rental-plan__option"
+                [class.rental-plan__option--active]="
+                  selectedPlan() === 'weekly'
+                "
+                (click)="setPlan('weekly')"
+              >
 
                 <span class="rental-plan__option-title">
-                  Weekly
+                  {{ 'CAR_DETAILS.RENTAL_PLAN.WEEKLY' | translate }}
                 </span>
 
                 <span class="rental-plan__option-subtitle">
+
                   AED
+
                   {{ currentCar.pricePerWeek | number:'1.0-0' }}
-                  / Week
+
+                  /
+
+                  {{ 'CAR_DETAILS.RENTAL_PLAN.WEEK' | translate }}
+
                 </span>
 
               </button>
 
 
               <!-- MONTHLY -->
-
-              <button type="button" class="rental-plan__option" [class.rental-plan__option--active]="
-                    selectedPlan() === 'monthly'
-                  " (click)="setPlan('monthly')">
+              <button
+                type="button"
+                class="rental-plan__option"
+                [class.rental-plan__option--active]="
+                  selectedPlan() === 'monthly'
+                "
+                (click)="setPlan('monthly')"
+              >
 
                 <span class="rental-plan__option-title">
-                  Monthly
+                  {{ 'CAR_DETAILS.RENTAL_PLAN.MONTHLY' | translate }}
                 </span>
 
                 <span class="rental-plan__option-subtitle">
+
                   AED
+
                   {{ currentCar.pricePerMonth | number:'1.0-0' }}
-                  / Month
+
+                  /
+
+                  {{ 'CAR_DETAILS.RENTAL_PLAN.MONTH' | translate }}
+
                 </span>
 
               </button>
@@ -547,102 +635,149 @@
 
 
         <!-- ==================================================
-               PICK-UP DATE
-          =================================================== -->
+             PICK-UP DATE
+        =================================================== -->
+        <div
+          class="booking-field"
+          [class.booking-field--error]="pickupDateError()"
+        >
 
-        <div class="booking-field" [class.booking-field--error]="pickupDateError()">
-          <app-date-picker label="Pick-up Date" [value]="pickupDate()"
-            (valueChange)="setPickupDate($event)"></app-date-picker>
+          <app-date-picker
+            [label]="'CAR_DETAILS.BOOKING.PICKUP_DATE' | translate"
+            [value]="pickupDate()"
+            (valueChange)="setPickupDate($event)"
+          ></app-date-picker>
 
           @if (pickupDateError()) {
+
           <p class="booking-field__error">
+
             <i class="fa-solid fa-circle-exclamation"></i>
-            Please select a pick-up date.
+
+            {{ 'CAR_DETAILS.BOOKING.PICKUP_DATE_ERROR' | translate }}
+
           </p>
+
           }
+
         </div>
 
 
         <!-- ==================================================
-               RETURN DATE
-          =================================================== -->
+             RETURN DATE
+        =================================================== -->
+        <div
+          class="booking-field"
+          [class.booking-field--error]="returnDateError()"
+        >
 
-        <div class="booking-field" [class.booking-field--error]="returnDateError()">
-          <app-date-picker label="Return Date" [minDate]="pickupDate()" [value]="returnDate()"
-            (valueChange)="setReturnDate($event)"></app-date-picker>
+          <app-date-picker
+            [label]="'CAR_DETAILS.BOOKING.RETURN_DATE' | translate"
+            [minDate]="pickupDate()"
+            [value]="returnDate()"
+            (valueChange)="setReturnDate($event)"
+          ></app-date-picker>
 
           @if (returnDateError()) {
+
           <p class="booking-field__error">
+
             <i class="fa-solid fa-circle-exclamation"></i>
-            Please select a return date.
+
+            {{ 'CAR_DETAILS.BOOKING.RETURN_DATE_ERROR' | translate }}
+
           </p>
+
           }
+
         </div>
 
 
         <!-- ==================================================
-               LOCATION
-          =================================================== -->
+             LOCATION
+        =================================================== -->
+        <div
+          class="booking-field"
+          [class.booking-field--error]="pickupLocationError()"
+        >
 
-        <div class="booking-field" [class.booking-field--error]="pickupLocationError()">
           <label for="pickup-location">
-            Pick-up Location
+            {{ 'CAR_DETAILS.BOOKING.PICKUP_LOCATION' | translate }}
           </label>
 
           <div class="booking-field__input">
-            <select id="pickup-location" [value]="pickupLocation()" (change)="
-        setPickupLocation(
-          $any($event.target).value
-        )
-      " [attr.aria-invalid]="pickupLocationError()" [attr.aria-describedby]="
-        pickupLocationError()
-          ? 'pickup-location-error'
-          : null
-      ">
+
+            <select
+              id="pickup-location"
+              [value]="pickupLocation()"
+              (change)="
+                setPickupLocation(
+                  $any($event.target).value
+                )
+              "
+              [attr.aria-invalid]="pickupLocationError()"
+              [attr.aria-describedby]="
+                pickupLocationError()
+                  ? 'pickup-location-error'
+                  : null
+              "
+            >
+
               <option value="">
-                Select location
+                {{ 'CAR_DETAILS.BOOKING.SELECT_LOCATION' | translate }}
               </option>
 
               <option value="Dubai">
-                Dubai
+                {{ 'CAR_DETAILS.LOCATIONS.DUBAI' | translate }}
               </option>
 
               <option value="Abu Dhabi">
-                Abu Dhabi
+                {{ 'CAR_DETAILS.LOCATIONS.ABU_DHABI' | translate }}
               </option>
 
               <option value="Sharjah">
-                Sharjah
+                {{ 'CAR_DETAILS.LOCATIONS.SHARJAH' | translate }}
               </option>
 
               <option value="Ajman">
-                Ajman
+                {{ 'CAR_DETAILS.LOCATIONS.AJMAN' | translate }}
               </option>
+
             </select>
 
             <span aria-hidden="true">
               <i class="fa-solid fa-chevron-down"></i>
             </span>
+
           </div>
 
           @if (pickupLocationError()) {
-          <p id="pickup-location-error" class="booking-field__error">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            Please select a pick-up location.
-          </p>
-          }
-        </div>
-        <!-- ==================================================
-               PRICE SUMMARY
-          =================================================== -->
 
+          <p
+            id="pickup-location-error"
+            class="booking-field__error"
+          >
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            {{ 'CAR_DETAILS.BOOKING.PICKUP_LOCATION_ERROR' | translate }}
+
+          </p>
+
+          }
+
+        </div>
+
+
+        <!-- ==================================================
+             PRICE SUMMARY
+        =================================================== -->
         @if (rentalDays() > 0) {
 
         <div class="booking-card__price">
 
 
           <!-- RATE -->
-
           <div class="booking-card__price-row">
 
             <span>
@@ -650,28 +785,31 @@
             </span>
 
             <strong>
+
               AED
+
               {{ activeRate() | number:'1.0-0' }}
+
             </strong>
 
           </div>
 
 
           <!-- RENTAL PERIOD -->
-
           <div class="booking-card__price-row">
 
             <span>
-              Rental Period
+              {{ 'CAR_DETAILS.PRICE.RENTAL_PERIOD' | translate }}
             </span>
 
             <strong>
 
               {{ rentalDays() }}
 
-              {{ rentalDays() === 1
-              ? 'Day'
-              : 'Days'
+              {{
+                rentalDays() === 1
+                  ? ('CAR_DETAILS.PRICE.DAY' | translate)
+                  : ('CAR_DETAILS.PRICE.DAYS' | translate)
               }}
 
             </strong>
@@ -680,66 +818,78 @@
 
 
           <!-- RENTAL TOTAL -->
-
           <div class="booking-card__price-row">
 
             <span>
-              Rental Cost
+              {{ 'CAR_DETAILS.PRICE.RENTAL_COST' | translate }}
             </span>
 
             <strong>
+
               AED
+
               {{ totalPrice() | number:'1.0-0' }}
+
             </strong>
 
           </div>
 
 
           <!-- INSURANCE -->
-
           <div class="booking-card__price-row">
 
             <span>
-              Insurance
+              {{ 'CAR_DETAILS.PRICE.INSURANCE' | translate }}
             </span>
 
             <strong>
+
               AED
+
               {{ insurancePrice | number:'1.0-0' }}
+
             </strong>
 
           </div>
 
 
           <!-- GRAND TOTAL -->
-
           <div class="booking-card__price-total">
 
             <span>
-              Total
+              {{ 'CAR_DETAILS.PRICE.TOTAL' | translate }}
             </span>
 
             <strong>
+
               AED
+
               {{ grandTotal() | number:'1.0-0' }}
+
             </strong>
 
           </div>
 
         </div>
+
         }
 
 
         <!-- ==================================================
-               CTA
-          =================================================== -->
+             CTA
+        =================================================== -->
+        <button
+          type="button"
+          class="booking-card__button"
+          (click)="bookNow()"
+        >
 
-        <button type="button" class="booking-card__button" (click)="bookNow()">
           <span>
-            Book Now
+            {{ 'CAR_DETAILS.BOOKING.BOOK_NOW' | translate }}
           </span>
 
           <i class="fa-solid fa-arrow-right"></i>
+
         </button>
 
 
@@ -747,13 +897,14 @@
 
           <i class="fa-solid fa-shield-halved"></i>
 
-          No payment required to reserve.
+          {{ 'CAR_DETAILS.BOOKING.NO_PAYMENT_REQUIRED' | translate }}
 
         </p>
 
       </aside>
 
     </div>
+
     }
 
   </div>

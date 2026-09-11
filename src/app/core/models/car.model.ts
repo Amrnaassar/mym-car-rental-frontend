@@ -21,9 +21,19 @@ export interface CarImage {
   sortOrder: number;
 }
 
+export interface CarFeature {
+  id: number;
+  featureAr: string;
+  featureEn: string;
+}
+
 export interface Car {
   id: number;
   categoryId: number;
+
+  // =========================
+  // Multilingual Content
+  // =========================
 
   nameAr: string;
   nameEn: string;
@@ -31,28 +41,61 @@ export interface Car {
   descriptionAr: string | null;
   descriptionEn: string | null;
 
+  // =========================
+  // Category
+  // =========================
+
   categoryNameAr: string;
   categoryNameEn: string;
+
+  // =========================
+  // Pricing
+  // =========================
 
   pricePerDay: number;
   pricePerWeek: number;
   pricePerMonth: number;
 
+  // =========================
+  // Specifications
+  // =========================
+
   transmission: Transmission;
   fuelType: FuelType;
-
   seats: number;
   doors: number;
   luggage: number;
 
+  // =========================
+  // Reviews
+  // =========================
+
   rating: number;
   reviewsCount: number;
+
+  // =========================
+  // Status
+  // =========================
 
   isActive: boolean;
   isFeatured: boolean;
 
+  // =========================
+  // Features
+  // =========================
+
+  features: CarFeature[];
+
+  // =========================
+  // Images
+  // =========================
+
   primaryImageUrl: string | null;
   images: CarImage[];
+
+  // =========================
+  // Audit
+  // =========================
 
   createdAt: string;
   updatedAt: string;

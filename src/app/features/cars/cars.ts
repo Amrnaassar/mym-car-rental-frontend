@@ -30,12 +30,14 @@ import {
 import { CarService } from '../../core/services/car.service';
 import { CarCategoryService } from '../../core/services/car-category.service';
 import { Category } from '../../core/models/car-category.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cars',
   standalone: true,
   imports: [
-    DecimalPipe
+    DecimalPipe,
+    TranslatePipe
   ],
   templateUrl: './cars.html',
   styleUrl: './cars.scss',

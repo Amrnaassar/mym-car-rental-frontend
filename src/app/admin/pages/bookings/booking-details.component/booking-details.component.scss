@@ -1,0 +1,449 @@
+@use '../../../../../styles/abstracts/variables' as *;
+
+.booking-details-page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+}
+
+.page-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: $space-6;
+}
+
+.page-header > div {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.page-header p {
+  color: $color-text-muted;
+}
+
+.eyebrow,
+.section-eyebrow {
+  color: $color-accent;
+
+  font-size: $font-size-xs;
+
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.loading-card,
+.error-card {
+  min-height: 260px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: $space-3;
+
+  padding: $space-8;
+
+  border-radius: $radius-xl;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+}
+
+.loading-card {
+  color: $color-text-muted;
+
+  i {
+    color: $color-accent;
+  }
+}
+
+.error-card {
+  color: $color-danger;
+
+  border-color: rgba(217, 92, 92, 0.2);
+
+  background: rgba(217, 92, 92, 0.05);
+}
+
+.booking-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    300px;
+
+  align-items: start;
+
+  gap: $space-6;
+}
+
+.booking-main {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.detail-card,
+.action-card,
+.meta-card {
+  padding: $space-6;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-xl;
+}
+
+.detail-card__header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: $space-4;
+
+  margin-bottom: $space-6;
+
+  h2,
+  h3 {
+    margin-top: $space-2;
+  }
+
+  > i {
+    color: $color-accent;
+
+    font-size: 1.15rem;
+  }
+}
+
+.status-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 7px 12px;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-xs;
+
+  font-weight: $font-weight-semibold;
+}
+
+.status-badge--pending {
+  color: $color-warning;
+  background: rgba(217, 164, 65, 0.08);
+}
+
+.status-badge--confirmed {
+  color: $color-info;
+  background: rgba(93, 155, 211, 0.08);
+}
+
+.status-badge--cancelled {
+  color: $color-danger;
+  background: rgba(217, 92, 92, 0.08);
+}
+
+.status-badge--completed {
+  color: $color-success;
+  background: rgba(76, 175, 120, 0.08);
+}
+
+.timeline {
+  display: grid;
+
+  grid-template-columns:
+    1fr 40px 1fr;
+
+  align-items: center;
+
+  gap: $space-3;
+}
+
+.timeline-item {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  span {
+    color: $color-text-muted;
+
+    font-size: $font-size-xs;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+  }
+
+  strong {
+    color: $color-text-primary;
+  }
+
+  small {
+    color: $color-text-secondary;
+  }
+}
+
+.timeline-line {
+  height: 1px;
+
+  background: $color-accent;
+
+  opacity: 0.35;
+}
+
+.detail-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: $space-6;
+}
+
+.info-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: $space-4;
+}
+
+.info-list > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  padding-bottom: $space-3;
+
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  span {
+    color: $color-text-muted;
+
+    font-size: $font-size-xs;
+  }
+
+  strong {
+    color: $color-text-primary;
+
+    font-size: $font-size-sm;
+  }
+}
+
+.pricing-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.pricing-list > div {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: $space-4;
+
+  padding-bottom: $space-3;
+
+  border-bottom: 1px solid $color-border;
+
+  span {
+    color: $color-text-secondary;
+  }
+
+  strong {
+    color: $color-text-primary;
+  }
+}
+
+.pricing-list .discount {
+  color: $color-success;
+}
+
+.pricing-list .grand-total {
+  margin-top: $space-3;
+
+  padding-top: $space-5;
+
+  border-top: 1px solid rgba(200, 169, 107, 0.2);
+
+  border-bottom: 0;
+
+  span {
+    color: $color-text-primary;
+
+    font-weight: $font-weight-semibold;
+  }
+
+  strong {
+    color: $color-accent;
+
+    font-size: $font-size-xl;
+  }
+}
+
+.notes {
+  margin: 0;
+
+  padding: $space-5;
+
+  border-radius: $radius-lg;
+
+  background: rgba(255, 255, 255, 0.02);
+
+  color: $color-text-secondary;
+}
+
+.booking-sidebar {
+  position: sticky;
+
+  top: $space-6;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: $space-4;
+}
+
+.action-card {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: $space-3;
+}
+
+.action-card h3 {
+  margin-bottom: $space-3;
+}
+
+.action-button {
+  width: 100%;
+}
+
+.cancel-action {
+  min-height: 48px;
+
+  padding-inline: $space-5;
+
+  border-radius: $radius-full;
+
+  color: $color-danger;
+
+  border: 1px solid rgba(217, 92, 92, 0.25);
+
+  transition: $transition-normal;
+
+  &:hover:not(:disabled) {
+    background: rgba(217, 92, 92, 0.07);
+
+    border-color: rgba(217, 92, 92, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.locked-state {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: $space-3;
+
+  padding: $space-4;
+
+  border-radius: $radius-lg;
+
+  background: rgba(255, 255, 255, 0.03);
+
+  color: $color-text-muted;
+
+  font-size: $font-size-sm;
+
+  i {
+    color: $color-accent;
+  }
+}
+
+.meta-card {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: $space-2;
+
+  span {
+    color: $color-text-muted;
+
+    font-size: $font-size-xs;
+  }
+
+  strong {
+    color: $color-text-primary;
+
+    font-size: $font-size-sm;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-sidebar {
+    position: static;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .page-header {
+    flex-direction: column;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+
+    gap: $space-4;
+  }
+
+  .timeline-line {
+    width: 100%;
+  }
+
+}

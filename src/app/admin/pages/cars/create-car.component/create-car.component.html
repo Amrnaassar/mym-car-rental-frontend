@@ -1,0 +1,55 @@
+<div class="car-page">
+
+  <div class="page-header">
+
+    <div>
+      <span class="eyebrow">
+        Fleet Management
+      </span>
+
+      <h1>
+        Add New Car
+      </h1>
+
+      <p>
+        Add a vehicle to the MYM rental fleet.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="btn-outline"
+      (click)="cancel()">
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back to Cars
+
+    </button>
+
+  </div>
+
+
+  @if (categoriesLoading()) {
+
+    <div class="loading-card">
+
+      <i class="fa-solid fa-spinner fa-spin"></i>
+
+      Loading categories...
+
+    </div>
+
+  } @else {
+
+    <app-car-form
+      [categories]="categories()"
+      submitLabel="Create Car"
+      [loading]="loading()"
+      (submitted)="createCar($event)"
+      (cancelled)="cancel()">
+    </app-car-form>
+
+  }
+
+</div>

@@ -14,13 +14,15 @@ import { CarService } from '../../../core/services/car.service';
 
 import { LanguageService } from '../../../core/services/language.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-featured-cars',
   standalone: true,
   imports: [
     CurrencyPipe,
-    RouterLink
+    RouterLink,
+    TranslatePipe
   ],
   templateUrl: './featured-cars.html',
   styleUrl: './featured-cars.scss',

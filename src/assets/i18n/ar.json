@@ -1,16 +1,636 @@
 {
   "NAVBAR": {
+    "BRAND": {
+      "HOME_ARIA_LABEL": "الصفحة الرئيسية لتأجير سيارات MYM",
+      "LOGO_ALT": "تأجير سيارات MYM"
+    },
+    "MAIN_NAVIGATION": "التنقل الرئيسي",
+    "MOBILE_NAVIGATION": "التنقل عبر الهاتف",
     "HOME": "الرئيسية",
     "CARS": "السيارات",
+    "SERVICES": "الخدمات",
     "ABOUT": "من نحن",
-    "CONTACT": "اتصل بنا",
-    "LOGIN": "تسجيل الدخول",
-    "LOGOUT": "تسجيل الخروج"
+    "FAQ": "الأسئلة الشائعة",
+    "CONTACT": "تواصل معنا",
+    "ACTIONS": {
+      "WHATSAPP_ARIA_LABEL": "تواصل مع MYM عبر واتساب",
+      "WHATSAPP": "واتساب",
+      "LANGUAGE_ARIA_LABEL": "تغيير اللغة",
+      "LOGIN_ARIA_LABEL": "تسجيل الدخول إلى MYM Car Rental",
+      "LOGIN": "تسجيل الدخول",
+      "LOGOUT_ARIA_LABEL": "تسجيل الخروج من MYM Car Rental",
+      "LOGOUT": "تسجيل الخروج",
+      "BOOK_CAR": "احجز سيارة",
+      "TOGGLE_MENU_ARIA_LABEL": "تبديل قائمة التنقل"
+    }
   },
 
-  "COMMON": {
-    "ENGLISH": "English",
-    "ARABIC": "العربية",
-    "BOOK_NOW": "احجز الآن"
+  "ABOUT": {
+    "PAGE_HEADER": {
+      "EYEBROW": "عن شركتنا",
+      "TITLE": "عن",
+      "BRAND": "MYM لتأجير السيارات",
+      "INTRO": "سيارات فاخرة. خدمة استثنائية. طريقة أفضل للاستمتاع بالتنقل الفاخر في دبي."
+    },
+    "HERO": {
+      "LABEL": "من نحن",
+      "TITLE": "الفخامة بأسلوبك الخاص.",
+      "PARAGRAPH_1": "في MYM لتأجير السيارات، نؤمن بأن استئجار السيارة يجب أن يكون أكثر من مجرد وسيلة للانتقال من مكان إلى آخر.",
+      "PARAGRAPH_2": "نوفر سيارات فاخرة، وخيارات تأجير مرنة، وتجربة شخصية مصممة وفقًا لاحتياجاتك.",
+      "BUTTON": "استكشف سياراتنا"
+    },
+    "WHY_CHOOSE_US": {
+      "LABEL": "لماذا تختارنا",
+      "TITLE": "تجربة مصممة",
+      "TITLE_HIGHLIGHT": "من أجلك.",
+      "DESCRIPTION": "من لحظة اختيار سيارتك وحتى لحظة إعادتها، نركز على جعل كل جزء من تجربة التأجير الخاصة بك بسيطًا واستثنائيًا."
+    },
+    "FEATURES": {
+      "HIGH_QUALITY_CARS": {
+        "TITLE": "سيارات عالية الجودة",
+        "DESCRIPTION": "أسطول مختار بعناية من السيارات الفاخرة، تتم صيانته وفق أعلى المعايير."
+      },
+      "CUSTOMER_SERVICE": {
+        "TITLE": "أفضل خدمة للعملاء",
+        "DESCRIPTION": "دعم احترافي عندما تحتاج إليه، قبل وأثناء وبعد فترة التأجير."
+      },
+      "FLEXIBLE_RENTALS": {
+        "TITLE": "تأجير مرن",
+        "DESCRIPTION": "خيارات تأجير يومية وأسبوعية وشهرية مصممة لتناسب جدولك."
+      },
+      "TRUSTED_SERVICE": {
+        "TITLE": "خدمة موثوقة",
+        "DESCRIPTION": "أسعار واضحة، سيارات موثوقة، وعملية تأجير سلسة."
+      }
+    },
+    "MISSION": {
+      "LABEL": "مهمتنا",
+      "TITLE": "نجعل كل رحلة",
+      "TITLE_HIGHLIGHT": "استثنائية.",
+      "PARAGRAPH_1": "مهمتنا بسيطة: تقديم تجربة تأجير سيارات فاخرة تجمع بين السيارات عالية الجودة، والحلول المرنة، وخدمة العملاء الاستثنائية.",
+      "PARAGRAPH_2": "سواء كنت تزور دبي، أو تسافر للعمل، أو ترغب ببساطة في الاستمتاع بسيارة فاخرة، فنحن هنا لنجعل رحلتك سهلة ومريحة.",
+      "STATS": {
+        "PREMIUM": {
+          "VALUE": "فاخر",
+          "LABEL": "أسطول"
+        },
+        "SUPPORT": {
+          "VALUE": "24/7",
+          "LABEL": "دعم"
+        },
+        "RENTALS": {
+          "VALUE": "مرنة",
+          "LABEL": "خيارات التأجير"
+        }
+      }
+    },
+    "CTA": {
+      "LABEL": "هل أنت مستعد للقيادة؟",
+      "TITLE": "رحلتك القادمة",
+      "TITLE_HIGHLIGHT": "تبدأ من هنا.",
+      "DESCRIPTION": "استكشف أسطولنا الفاخر واعثر على السيارة المثالية لرحلتك القادمة في دبي.",
+      "BUTTON": "استكشف السيارات"
+    }
+  },
+  "BOOKING": {
+    "PAGE_HEADER": {
+      "EYEBROW": "احجز سيارتك",
+      "TITLE": "أكمل",
+      "TITLE_HIGHLIGHT": "حجزك",
+      "INTRO": "اتبع الخطوات التالية لحجز سيارتك وإكمال عملية التأجير.",
+      "BACK_TO_CARS": "العودة إلى السيارات"
+    },
+    "PROGRESS": {
+      "ARIA_LABEL": "مراحل الحجز",
+      "SELECT_CAR": "اختيار السيارة",
+      "DETAILS": "التفاصيل",
+      "REVIEW": "المراجعة",
+      "CONFIRM": "التأكيد"
+    },
+    "VEHICLE_ERROR": {
+      "EYEBROW": "خطأ في الحجز",
+      "TITLE": "لم يتم العثور على السيارة",
+      "DESCRIPTION": "لم نتمكن من العثور على السيارة التي تحاول حجزها. يرجى العودة إلى صفحة السيارات واختيار سيارة.",
+      "BUTTON": "تصفح السيارات"
+    }
+  },
+  "BOOKING_STEP_1": {
+    "HEADER": {
+      "EYEBROW": "الخطوة 1 من 4",
+      "TITLE": "اختر تفاصيل التأجير",
+      "DESCRIPTION": "حدد تواريخ التأجير وموقع استلام السيارة."
+    },
+    "CAR": {
+      "SEATS": "مقاعد"
+    },
+    "FORM": {
+      "PICKUP_DATE": "تاريخ الاستلام",
+      "RETURN_DATE": "تاريخ الإعادة",
+      "PICKUP_LOCATION": "موقع الاستلام",
+      "SELECT_PICKUP_LOCATION": "اختر موقع الاستلام"
+    },
+    "LOCATIONS": {
+      "DUBAI": "دبي",
+      "ABU_DHABI": "أبوظبي",
+      "SHARJAH": "الشارقة",
+      "AJMAN": "عجمان"
+    },
+    "SUMMARY": {
+      "RENTAL_DURATION": "مدة التأجير",
+      "DAY": "يوم",
+      "DAYS": "أيام",
+      "RENTAL_PLAN": "خطة التأجير",
+      "CURRENT_RATE": "السعر الحالي"
+    },
+    "NOTICE": "سيتم احتساب السعر النهائي للتأجير والتحقق منه بواسطة الخادم عند تأكيد الحجز.",
+    "ACTIONS": {
+      "CONTINUE": "متابعة"
+    }
+  },
+  "BOOKING_STEP_2": {
+    "HEADER": {
+      "EYEBROW": "الخطوة 2 من 4",
+      "TITLE": "معلوماتك",
+      "DESCRIPTION": "أدخل معلوماتك للمتابعة في عملية الحجز."
+    },
+    "FORM": {
+      "FULL_NAME": {
+        "LABEL": "الاسم الكامل",
+        "PLACEHOLDER": "أدخل اسمك الكامل"
+      },
+      "EMAIL": {
+        "LABEL": "البريد الإلكتروني",
+        "PLACEHOLDER": "[you@example.com](mailto:you@example.com)"
+      },
+      "PHONE": {
+        "LABEL": "رقم الهاتف",
+        "PLACEHOLDER": "+971 50 123 4567"
+      },
+      "DRIVING_LICENSE": {
+        "LABEL": "رقم رخصة القيادة",
+        "PLACEHOLDER": "أدخل رقم رخصة القيادة"
+      },
+      "NOTES": {
+        "LABEL": "ملاحظات إضافية",
+        "OPTIONAL": "(اختياري)",
+        "PLACEHOLDER": "أي معلومات إضافية..."
+      }
+    },
+    "INSURANCE": {
+      "TITLE": "تأمين التأجير",
+      "DESCRIPTION": "أضف حماية إضافية إلى عملية التأجير الخاصة بك."
+    },
+    "INSURANCE_PRICE": {
+      "LABEL": "التأمين"
+    },
+    "ACTIONS": {
+      "BACK": "رجوع",
+      "CONTINUE": "متابعة"
+    }
+  },
+  "BOOKING_STEP_3": {
+    "HEADER": {
+      "EYEBROW": "الخطوة 3 من 4",
+      "TITLE": "مراجعة حجزك",
+      "DESCRIPTION": "راجع معلوماتك قبل تأكيد الحجز."
+    },
+    "RENTAL_DETAILS": {
+      "TITLE": "تفاصيل التأجير",
+      "PICKUP_DATE": "تاريخ الاستلام",
+      "RETURN_DATE": "تاريخ الإعادة",
+      "PICKUP_LOCATION": "موقع الاستلام",
+      "RENTAL_DURATION": "مدة التأجير",
+      "DAY": "يوم",
+      "DAYS": "أيام",
+      "RENTAL_PLAN": "خطة التأجير"
+    },
+    "CUSTOMER_DETAILS": {
+      "TITLE": "معلومات العميل",
+      "FULL_NAME": "الاسم الكامل",
+      "EMAIL": "البريد الإلكتروني",
+      "PHONE": "رقم الهاتف",
+      "DRIVING_LICENSE": "رخصة القيادة"
+    },
+    "PRICE_SUMMARY": {
+      "RENTAL_COST": "تكلفة التأجير",
+      "INSURANCE": "التأمين",
+      "ESTIMATED_TOTAL": "الإجمالي التقديري",
+      "NOTE": "يتم احتساب السعر النهائي والتحقق منه بواسطة الخادم."
+    },
+    "ACTIONS": {
+      "BACK": "رجوع",
+      "PROCESSING": "جارٍ المعالجة...",
+      "CONFIRM": "تأكيد الحجز"
+    }
+  },
+  "BOOKING_STEP_4": {
+    "SUCCESS": {
+      "EYEBROW": "تم إرسال الحجز بنجاح",
+      "TITLE": "تم تأكيد حجزك",
+      "DESCRIPTION": "تم إرسال حجزك بنجاح. إليك تفاصيل الحجز الخاصة بك."
+    },
+    "REFERENCE": {
+      "LABEL": "مرجع الحجز"
+    },
+    "DETAILS": {
+      "TITLE": "تفاصيل الحجز",
+      "PICKUP_DATE": "تاريخ الاستلام",
+      "RETURN_DATE": "تاريخ الإعادة",
+      "PICKUP_LOCATION": "موقع الاستلام",
+      "RENTAL_DAYS": "أيام التأجير"
+    },
+    "PRICE": {
+      "RENTAL_COST": "تكلفة التأجير",
+      "INSURANCE": "التأمين",
+      "TOTAL": "الإجمالي"
+    },
+    "ACTIONS": {
+      "BROWSE_CARS": "تصفح المزيد من السيارات",
+      "BACK_HOME": "العودة إلى الرئيسية"
+    }
+  },
+  "CARS_PAGE": {
+    "HEADER": {
+      "EYEBROW": "مجموعتنا",
+      "TITLE": "اعثر على",
+      "TITLE_HIGHLIGHT": "سيارتك المثالية",
+      "DESCRIPTION": "اكتشف مجموعتنا المميزة من السيارات الفاخرة المختارة بعناية لتمنحك تجربة قيادة استثنائية.",
+      "LOGO_ALT": "تأجير سيارات MYM"
+    },
+    "TOOLBAR": {
+      "SEARCH_PLACEHOLDER": "ابحث باسم السيارة..."
+    },
+    "RENTAL_PLAN": {
+      "LABEL": "فترة الإيجار",
+      "DAILY": {
+        "TITLE": "يومي",
+        "SUBTITLE": "لكل يوم"
+      },
+      "WEEKLY": {
+        "TITLE": "أسبوعي",
+        "SUBTITLE": "لكل أسبوع"
+      },
+      "MONTHLY": {
+        "TITLE": "شهري",
+        "SUBTITLE": "لكل شهر"
+      }
+    },
+    "FILTERS": {
+      "FILTERS": "الفلاتر",
+      "REFINE": "تصفية",
+      "CLEAR_ALL": "مسح الكل",
+      "CLOSE_FILTERS": "إغلاق الفلاتر",
+      "CAR_TYPE": "نوع السيارة",
+      "ALL_CARS": "كل السيارات",
+      "PRICE_RANGE": "نطاق السعر",
+      "TRANSMISSION": "ناقل الحركة",
+      "TRANSMISSION_OPTIONS": {
+        "ALL": "الكل",
+        "AUTOMATIC": "أوتوماتيك",
+        "MANUAL": "مانيوال"
+      },
+      "FUEL_TYPE": "نوع الوقود",
+      "FUEL_OPTIONS": {
+        "ALL": "الكل",
+        "PETROL": "بنزين",
+        "DIESEL": "ديزل",
+        "HYBRID": "هجين"
+      },
+      "APPLY": "تطبيق الفلاتر"
+    },
+    "CONTENT": {
+      "PREMIUM_COLLECTION": "المجموعة المميزة",
+      "ALL_CARS": "كل السيارات",
+      "VEHICLES_AVAILABLE": "سيارة متاحة للإيجار"
+    },
+    "SORT": {
+      "LABEL": "ترتيب حسب",
+      "POPULAR": "الأكثر شعبية",
+      "PRICE_LOW": "السعر: من الأقل للأعلى",
+      "PRICE_HIGH": "السعر: من الأعلى للأقل",
+      "HIGHEST_RATED": "الأعلى تقييمًا",
+      "NAME": "الاسم"
+    },
+    "ACTIVE_FILTERS": {
+      "LABEL": "النشط:",
+      "UP_TO": "حتى",
+      "CLEAR": "مسح"
+    },
+    "STATES": {
+      "LOADING": "جاري تحميل السيارات...",
+      "ERROR_TITLE": "حدث خطأ",
+      "ERROR_DESCRIPTION": "تعذر تحميل السيارات. حاول مرة أخرى.",
+      "RETRY": "إعادة المحاولة",
+      "NO_CARS_TITLE": "لم يتم العثور على سيارات",
+      "NO_CARS_DESCRIPTION": "لم نتمكن من العثور على سيارات تطابق الفلاتر الخاصة بك.",
+      "RESET_FILTERS": "إعادة ضبط الفلاتر"
+    },
+    "CARD": {
+      "SEATS": "مقاعد",
+      "BAGS": "حقائب",
+      "BOOK_NOW": "احجز الآن"
+    }
+  },
+  "CAR_DETAILS": {
+    "STATES": {
+      "LOADING_TITLE": "جاري تحميل السيارة",
+      "LOADING_DESCRIPTION": "يرجى الانتظار بينما نقوم بتحميل تفاصيل السيارة.",
+      "NOT_FOUND_TITLE": "لم يتم العثور على السيارة",
+      "NOT_FOUND_DESCRIPTION": "عذرًا، لم نتمكن من العثور على السيارة التي تبحث عنها."
+    },
+    "ACTIONS": {
+      "BACK_TO_CARS": "العودة إلى السيارات"
+    },
+    "BREADCRUMB": {
+      "ARIA_LABEL": "مسار التنقل",
+      "HOME": "الرئيسية",
+      "CARS": "السيارات"
+    },
+    "GALLERY": {
+      "ARIA_LABEL": "معرض صور السيارة",
+      "VIEW_IMAGE": "عرض الصورة {{current}} من {{total}}",
+      "VIEW": "عرض"
+    },
+    "RATING": {
+      "ARIA_LABEL": "تقييم السيارة",
+      "REVIEWS": "تقييمات"
+    },
+    "SPECIFICATIONS": {
+      "ARIA_LABEL": "مواصفات السيارة",
+      "TRANSMISSION": "ناقل الحركة",
+      "FUEL_TYPE": "نوع الوقود",
+      "SEATS": "المقاعد",
+      "DOORS": "الأبواب",
+      "LUGGAGE": "الأمتعة"
+    },
+    "ABOUT": {
+      "EYEBROW": "عن هذه السيارة",
+      "TITLE": "الفخامة تلتقي مع الأداء",
+      "DEFAULT_DESCRIPTION": "صُممت هذه السيارة للسائقين الذين يتوقعون المزيد من كل رحلة، حيث تجمع بين التصميم الراقي والراحة الفاخرة والتقنيات المتقدمة لتقديم تجربة قيادة استثنائية."
+    },
+    "FEATURES": {
+      "EYEBROW": "المميزات",
+      "TITLE": "كل ما تحتاجه"
+    },
+    "BOOKING": {
+      "RESERVE_EYEBROW": "احجز سيارتك",
+      "TITLE": "احجز هذه السيارة",
+      "DESCRIPTION": "حدد تواريخ التأجير وموقع الاستلام.",
+      "PICKUP_DATE": "تاريخ الاستلام",
+      "RETURN_DATE": "تاريخ الإعادة",
+      "PICKUP_DATE_ERROR": "يرجى تحديد تاريخ الاستلام.",
+      "RETURN_DATE_ERROR": "يرجى تحديد تاريخ الإعادة.",
+      "PICKUP_LOCATION": "موقع الاستلام",
+      "SELECT_LOCATION": "اختر الموقع",
+      "PICKUP_LOCATION_ERROR": "يرجى تحديد موقع الاستلام.",
+      "BOOK_NOW": "احجز الآن",
+      "NO_PAYMENT_REQUIRED": "لا يلزم الدفع لحجز السيارة."
+    },
+    "RENTAL_PLAN": {
+      "DAILY": "يومي",
+      "WEEKLY": "أسبوعي",
+      "MONTHLY": "شهري",
+      "DAY": "يوم",
+      "WEEK": "أسبوع",
+      "MONTH": "شهر"
+    },
+    "LOCATIONS": {
+      "DUBAI": "دبي",
+      "ABU_DHABI": "أبوظبي",
+      "SHARJAH": "الشارقة",
+      "AJMAN": "عجمان"
+    },
+    "PRICE": {
+      "RENTAL_PERIOD": "فترة التأجير",
+      "DAY": "يوم",
+      "DAYS": "أيام",
+      "RENTAL_COST": "تكلفة التأجير",
+      "INSURANCE": "التأمين",
+      "TOTAL": "الإجمالي"
+    }
+  },
+  "SERVICES": {
+    "HEADER": {
+      "EYEBROW": "خدماتنا",
+      "TITLE": "أكثر من مجرد",
+      "TITLE_HIGHLIGHT": "تأجير سيارات",
+      "DESCRIPTION": "من السيارات الفاخرة إلى حلول النقل المخصصة، نقدم تجربة تأجير سلسة مصممة خصيصًا لتناسب رحلتك."
+    },
+    "ACTIONS": {
+      "EXPLORE": "استكشف الخدمة"
+    },
+    "CARDS": {
+      "LUXURY_RENTAL": {
+        "TITLE": "تأجير السيارات الفاخرة",
+        "DESCRIPTION": "اختر من أسطول مختار بعناية من السيارات الفاخرة والمميزة لتناسب جميع المناسبات.",
+        "ARIA_LABEL": "استكشف خدمة تأجير السيارات الفاخرة"
+      },
+      "LONG_TERM_RENTAL": {
+        "TITLE": "التأجير طويل الأمد",
+        "DESCRIPTION": "حلول تأجير شهرية وطويلة الأمد مرنة بأسعار تنافسية وراحة متكاملة.",
+        "ARIA_LABEL": "استكشف خدمة التأجير طويل الأمد"
+      },
+      "AIRPORT_TRANSFERS": {
+        "TITLE": "خدمات النقل من وإلى المطار",
+        "DESCRIPTION": "خدمات موثوقة لاستقبال وتوصيل المسافرين من وإلى المطار، مصممة لجعل كل رحلة أكثر سهولة.",
+        "ARIA_LABEL": "استكشف خدمة النقل من وإلى المطار"
+      },
+      "CHAUFFEUR": {
+        "TITLE": "خدمة السائق الخاص",
+        "DESCRIPTION": "استمتع بالسفر براحة مع سائق محترف يكرس وقته لخدمتك وخصوصيتك وراحتك.",
+        "ARIA_LABEL": "استكشف خدمة السائق الخاص"
+      },
+      "CORPORATE_RENTAL": {
+        "TITLE": "تأجير الشركات",
+        "DESCRIPTION": "حلول تنقل احترافية للشركات والمديرين التنفيذيين واحتياجات السفر الخاصة بالعمل.",
+        "ARIA_LABEL": "استكشف خدمة تأجير الشركات"
+      },
+      "CUSTOM_RENTAL": {
+        "TITLE": "تأجير مخصص",
+        "DESCRIPTION": "تحتاج إلى شيء محدد؟ سنوفر لك حل تأجير مرنًا مصممًا خصيصًا ليتناسب مع متطلباتك بدقة.",
+        "ARIA_LABEL": "استكشف خدمة التأجير المخصص"
+      }
+    }
+  },
+  "CONTACT": {
+    "HEADER": {
+      "EYEBROW": "تواصل معنا",
+      "TITLE": "لنجد لك",
+      "TITLE_HIGHLIGHT": "سيارتك المثالية",
+      "DESCRIPTION": "هل لديك سؤال أو تحتاج إلى تأجير مخصص؟ فريقنا متاح على مدار الساعة لمساعدتك في اختيار السيارة الفاخرة المثالية لرحلتك."
+    },
+    "DETAILS": {
+      "PHONE": {
+        "LABEL": "الهاتف"
+      },
+      "EMAIL": {
+        "LABEL": "البريد الإلكتروني"
+      },
+      "LOCATION": {
+        "LABEL": "الموقع",
+        "ADDRESS": "Residence 1072، Offices B Block، M floor، ديرة، دبي"
+      }
+    },
+    "LOCATION_MAP": {
+      "TITLE": "موقع تأجير سيارات MYM"
+    },
+    "LOCATION_CARD": {
+      "EYEBROW": "موقعنا",
+      "TITLE": "Residence 1072",
+      "MAPS_LINK": "عرض الموقع على خرائط Google"
+    },
+    "FORM": {
+      "EYEBROW": "تواصل معنا",
+      "TITLE": "أرسل رسالة",
+      "DESCRIPTION": "أخبرنا بما تبحث عنه وسنعاود التواصل معك في أقرب وقت.",
+      "FULL_NAME": {
+        "LABEL": "الاسم الكامل",
+        "PLACEHOLDER": "John Smith"
+      },
+      "PHONE": {
+        "LABEL": "الهاتف"
+      },
+      "EMAIL": {
+        "LABEL": "البريد الإلكتروني",
+        "PLACEHOLDER": "john@email.com"
+      },
+      "MESSAGE": {
+        "LABEL": "الرسالة",
+        "PLACEHOLDER": "أخبرنا عن السيارة التي تبحث عنها..."
+      },
+      "SUBMIT": "إرسال الاستفسار"
+    }
+  },
+  "FEATURED_CARS": {
+    "HEADER": {
+      "EYEBROW": "اختياراتنا",
+      "TITLE": "السيارات المميزة",
+      "VIEW_ALL": "عرض الكل"
+    },
+    "CARD": {
+      "RATING": "التقييم",
+      "DAILY_RENTAL": "للتأجير اليومي",
+      "PER_DAY": "اليوم",
+      "DETAILS": "التفاصيل"
+    }
+  },
+  "HERO": {
+    "EYEBROW": "تأجير سيارات فاخر",
+    "TITLE": "الفخامة",
+    "TITLE_HIGHLIGHT": "بشروطك",
+    "SUBTITLE": "سيارات فاخرة. تأجير مرن. تجربة استثنائية.",
+    "RENTAL_PLAN": "خطة التأجير",
+    "PLANS": {
+      "DAILY": "يومي",
+      "WEEKLY": "أسبوعي",
+      "MONTHLY": "شهري"
+    },
+    "CTA": "استكشف السيارات",
+    "SEARCH": {
+      "CAR_TYPE": {
+        "LABEL": "نوع السيارة",
+        "ALL_TYPES": "جميع الأنواع"
+      },
+      "PRICE_RANGE": {
+        "LABEL": "نطاق السعر",
+        "ANY_PRICE": "أي سعر",
+        "UP_TO": "حتى"
+      },
+      "TRANSMISSION": {
+        "LABEL": "ناقل الحركة",
+        "ALL": "جميع أنواع ناقل الحركة",
+        "AUTOMATIC": "أوتوماتيك",
+        "MANUAL": "مانيوال"
+      },
+      "FUEL_TYPE": {
+        "LABEL": "نوع الوقود",
+        "OPTIONS": {
+          "ALL":"جميع انواع الوقود",
+          "PETROL": "بنزين",
+          "DIESEL": "ديزل",
+          "HYBRID": "هجين"
+        }
+      },
+      "BUTTON": "البحث عن السيارات"
+    }
+  },
+  "POPULAR_CATEGORIES": {
+    "HEADER": {
+      "EYEBROW": "استكشف أسطولنا",
+      "TITLE": "الفئات الشائعة",
+      "VIEW_ALL": "عرض الكل"
+    }
+  },
+  "WHY_CHOOSE_US": {
+    "PREMIUM_FLEET": {
+      "TITLE": "أسطول فاخر",
+      "DESCRIPTION": "سيارات فاخرة من الطراز الأول"
+    },
+    "BEST_PRICES": {
+      "TITLE": "أفضل الأسعار",
+      "DESCRIPTION": "أسعار تنافسية"
+    },
+    "FLEXIBLE_RENTALS": {
+      "TITLE": "تأجير مرن",
+      "DESCRIPTION": "يومي، أسبوعي، شهري"
+    },
+    "SUPPORT": {
+      "TITLE": "دعم على مدار الساعة",
+      "DESCRIPTION": "نحن هنا من أجلك"
+    }
+  },
+  "LOGIN": {
+    "HEADER": {
+      "TITLE": "مرحبًا بعودتك",
+      "DESCRIPTION": "سجّل الدخول للمتابعة إلى حسابك"
+    },
+    "DIVIDER": "تسجيل الدخول باستخدام",
+    "FOOTER": {
+      "BY_CONTINUING": "بالمتابعة، فإنك توافق على",
+      "TERMS": "الشروط والأحكام",
+      "PRIVACY_POLICY": "سياسة الخصوصية"
+    }
+  },
+  "NOT_FOUND": {
+    "EYEBROW": "الصفحة غير موجودة",
+    "TITLE": "تعذر العثور على هذه الصفحة",
+    "DESCRIPTION": "قد تكون الصفحة التي تبحث عنها قد تم نقلها أو حذفها أو لم تعد موجودة.",
+    "BACK_TO_HOME": "العودة إلى الرئيسية"
+  },
+  "FOOTER": {
+    "BRAND": {
+      "HOME_ARIA_LABEL": "الصفحة الرئيسية لتأجير سيارات MYM",
+      "LOGO_ALT": "تأجير سيارات MYM",
+      "TAGLINE": "الفخامة بشروطك.",
+      "DESCRIPTION": "سيارات فاخرة. تأجير مرن. تجربة استثنائية."
+    },
+    "SOCIAL": {
+      "ARIA_LABEL": "وسائل التواصل الاجتماعي"
+    },
+    "COMPANY": {
+      "TITLE": "الشركة",
+      "ABOUT": "من نحن",
+      "CARS": "سياراتنا",
+      "SERVICES": "الخدمات",
+      "BLOG": "المدونة",
+      "CONTACT": "تواصل معنا"
+    },
+    "CUSTOMER_CARE": {
+      "TITLE": "خدمة العملاء",
+      "TERMS": "الشروط والأحكام",
+      "PRIVACY": "سياسة الخصوصية",
+      "CANCELLATION": "سياسة الإلغاء",
+      "FAQ": "الأسئلة الشائعة"
+    },
+    "CONTACT": {
+      "TITLE": "تواصل معنا",
+      "LOCATION": "دبي، الإمارات العربية المتحدة"
+    },
+    "BOTTOM": {
+      "ALL_RIGHTS_RESERVED": "جميع الحقوق محفوظة."
+    },
+    "PAYMENTS": {
+      "WE_ACCEPT": "نقبل"
+    }
   }
 }

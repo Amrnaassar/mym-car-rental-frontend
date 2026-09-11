@@ -1,0 +1,90 @@
+@use '../../../../../styles/abstracts/variables' as *;
+
+.car-page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+}
+
+.page-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: $space-6;
+}
+
+.page-header > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: $space-2;
+}
+
+.eyebrow {
+  color: $color-accent;
+
+  font-size: $font-size-xs;
+
+  font-weight: $font-weight-semibold;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.page-header p {
+  color: $color-text-muted;
+}
+
+.loading-card {
+  min-height: 300px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: $space-3;
+
+  color: $color-text-muted;
+
+  background: $color-surface;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-xl;
+}
+
+.loading-card i {
+  color: $color-accent;
+}
+
+.error-banner {
+  display: flex;
+
+  align-items: center;
+
+  gap: $space-3;
+
+  padding: $space-4 $space-5;
+
+  border-radius: $radius-lg;
+
+  color: $color-danger;
+
+  background: rgba(217, 92, 92, 0.06);
+
+  border: 1px solid rgba(217, 92, 92, 0.2);
+}
+
+@media (max-width: 768px) {
+
+  .page-header {
+    flex-direction: column;
+  }
+
+}

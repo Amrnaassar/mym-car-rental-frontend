@@ -1,0 +1,791 @@
+<form
+  class="car-form"
+  [formGroup]="form"
+  (ngSubmit)="submit()">
+
+  <!-- ========================= -->
+  <!-- BASIC INFORMATION -->
+  <!-- ========================= -->
+
+  <section class="form-section">
+
+    <div class="section-heading">
+      <span class="section-heading__eyebrow">
+        Vehicle
+      </span>
+
+      <h2>
+        Basic Information
+      </h2>
+
+      <p>
+        Enter the main information for this vehicle.
+      </p>
+    </div>
+
+    <div class="form-grid form-grid--3">
+
+      <div class="form-group">
+
+        <label
+          class="form-label"
+          for="categoryId">
+          Category
+        </label>
+
+        <select
+          id="categoryId"
+          class="form-control"
+          formControlName="categoryId">
+
+          <option [value]="0">
+            Select category
+          </option>
+
+          @for (
+            category of categories;
+            track category.id
+          ) {
+
+            <option
+              [value]="category.id">
+
+              {{ category.nameEn }}
+
+            </option>
+
+          }
+
+        </select>
+
+        @if (
+          form.controls.categoryId.touched &&
+          form.controls.categoryId.invalid
+        ) {
+
+          <span class="form-error">
+            Please select a category.
+          </span>
+
+        }
+
+      </div>
+
+      <div class="form-group">
+
+        <label
+          class="form-label"
+          for="nameEn">
+          English Name
+        </label>
+
+        <input
+          id="nameEn"
+          class="form-control"
+          formControlName="nameEn"
+          placeholder="Toyota Land Cruiser">
+
+      </div>
+
+      <div
+        class="form-group"
+        dir="rtl">
+
+        <label
+          class="form-label"
+          for="nameAr">
+          Arabic Name
+        </label>
+
+        <input
+          id="nameAr"
+          class="form-control"
+          formControlName="nameAr"
+          placeholder="تويوتا لاند كروزر">
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================= -->
+  <!-- DESCRIPTION -->
+  <!-- ========================= -->
+
+  <section class="form-section">
+
+    <div class="form-grid form-grid--2">
+
+      <div class="form-group">
+
+        <label
+          class="form-label"
+          for="descriptionEn">
+          English Description
+        </label>
+
+        <textarea
+          id="descriptionEn"
+          class="form-control"
+          formControlName="descriptionEn"
+          placeholder="Describe the vehicle...">
+        </textarea>
+
+      </div>
+
+      <div
+        class="form-group"
+        dir="rtl">
+
+        <label
+          class="form-label"
+          for="descriptionAr">
+          Arabic Description
+        </label>
+
+        <textarea
+          id="descriptionAr"
+          class="form-control"
+          formControlName="descriptionAr"
+          placeholder="اكتب وصف السيارة...">
+        </textarea>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================= -->
+  <!-- PRICING -->
+  <!-- ========================= -->
+
+  <section class="form-section">
+
+    <div class="section-heading">
+
+      <span class="section-heading__eyebrow">
+        Pricing
+      </span>
+
+      <h2>
+        Rental Rates
+      </h2>
+
+      <p>
+        Set the daily, weekly and monthly rental prices.
+      </p>
+
+    </div>
+
+    <div class="form-grid form-grid--3">
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Daily Price
+        </label>
+
+        <div class="price-input">
+
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            formControlName="pricePerDay">
+
+          <span>
+            AED / day
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Weekly Price
+        </label>
+
+        <div class="price-input">
+
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            formControlName="pricePerWeek">
+
+          <span>
+            AED / week
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Monthly Price
+        </label>
+
+        <div class="price-input">
+
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            formControlName="pricePerMonth">
+
+          <span>
+            AED / month
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================= -->
+  <!-- SPECIFICATIONS -->
+  <!-- ========================= -->
+
+  <section class="form-section">
+
+    <div class="section-heading">
+
+      <span class="section-heading__eyebrow">
+        Specifications
+      </span>
+
+      <h2>
+        Vehicle Details
+      </h2>
+
+    </div>
+
+    <div class="form-grid form-grid--3">
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Transmission
+        </label>
+
+        <select
+          class="form-control"
+          formControlName="transmission">
+
+          @for (
+            option of transmissionOptions;
+            track option.value
+          ) {
+
+            <option
+              [value]="option.value">
+
+              {{ option.label }}
+
+            </option>
+
+          }
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Fuel Type
+        </label>
+
+        <select
+          class="form-control"
+          formControlName="fuelType">
+
+          @for (
+            option of fuelOptions;
+            track option.value
+          ) {
+
+            <option
+              [value]="option.value">
+
+              {{ option.label }}
+
+            </option>
+
+          }
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Seats
+        </label>
+
+        <input
+          type="number"
+          min="1"
+          max="20"
+          class="form-control"
+          formControlName="seats">
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Doors
+        </label>
+
+        <input
+          type="number"
+          min="1"
+          max="10"
+          class="form-control"
+          formControlName="doors">
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Luggage
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          max="20"
+          class="form-control"
+          formControlName="luggage">
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================= -->
+  <!-- FEATURES -->
+  <!-- ========================= -->
+
+  <section class="form-section">
+
+    <div class="section-heading">
+
+      <div class="section-heading__top">
+
+        <div>
+          <span class="section-heading__eyebrow">
+            Features
+          </span>
+
+          <h2>
+            Vehicle Features
+          </h2>
+
+          <p>
+            Add the features and equipment available in this vehicle.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="btn-outline btn-sm feature-add-button"
+          (click)="addFeature()">
+
+          <i class="fa-solid fa-plus"></i>
+
+          Add Feature
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    @if (features().length) {
+
+      <div class="features-list">
+
+        @for (
+          feature of features();
+          track $index
+        ) {
+
+          <div class="feature-row">
+
+            <div class="feature-number">
+              {{ $index + 1 }}
+            </div>
+
+
+            <div class="feature-fields">
+
+              <div class="form-group">
+
+                <label class="form-label">
+                  English Feature
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="feature.featureEn"
+                  placeholder="Leather seats"
+                  maxlength="500"
+                  (input)="updateFeature(
+                    $index,
+                    'en',
+                    $any($event.target).value
+                  )">
+
+              </div>
+
+
+              <div
+                class="form-group"
+                dir="rtl">
+
+                <label class="form-label">
+                  Arabic Feature
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="feature.featureAr"
+                  placeholder="مقاعد جلدية"
+                  maxlength="500"
+                  (input)="updateFeature(
+                    $index,
+                    'ar',
+                    $any($event.target).value
+                  )">
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="feature-delete"
+              title="Remove feature"
+              (click)="removeFeature($index)">
+
+              <i class="fa-solid fa-trash"></i>
+
+            </button>
+
+          </div>
+
+        }
+
+      </div>
+
+    } @else {
+
+      <div class="features-empty">
+
+        <div class="features-empty__icon">
+          <i class="fa-solid fa-list-check"></i>
+        </div>
+
+        <strong>
+          No features added
+        </strong>
+
+        <span>
+          Add vehicle features such as leather seats,
+          Bluetooth, sunroof, parking sensors, and more.
+        </span>
+
+        <button
+          type="button"
+          class="btn-outline btn-sm"
+          (click)="addFeature()">
+
+          <i class="fa-solid fa-plus"></i>
+          Add First Feature
+
+        </button>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- ========================= -->
+  <!-- IMAGES -->
+  <!-- ========================= -->
+
+  <section class="form-section">
+
+    <div class="section-heading">
+
+      <span class="section-heading__eyebrow">
+        Gallery
+      </span>
+
+      <h2>
+        Vehicle Images
+      </h2>
+
+      <p>
+        Add multiple images. The first image becomes the primary image
+        when creating a new vehicle.
+      </p>
+
+    </div>
+
+
+    @if (existingImages().length) {
+
+      <div class="existing-gallery">
+
+        @for (
+          image of existingImages();
+          track image.id
+        ) {
+
+          <div class="gallery-card">
+
+            <div class="gallery-card__image">
+
+              <img
+                [src]="image.imageUrl"
+                [alt]="form.controls.nameEn.value">
+
+              @if (image.isPrimary) {
+
+                <span class="primary-badge">
+                  Primary
+                </span>
+
+              }
+
+            </div>
+
+            <div class="gallery-card__actions">
+
+              @if (!image.isPrimary) {
+
+                <button
+                  type="button"
+                  class="btn-outline btn-sm"
+                  (click)="setPrimaryImage.emit(image)">
+
+                  Set Primary
+
+                </button>
+
+              }
+
+              <button
+                type="button"
+                class="image-delete"
+                (click)="deleteImage.emit(image)">
+
+                <i class="fa-solid fa-trash"></i>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+
+    <label
+      class="upload-zone"
+      for="car-images">
+
+      <div class="upload-zone__icon">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+      </div>
+
+      <strong>
+        Add vehicle images
+      </strong>
+
+      <span>
+        Select one or multiple images
+      </span>
+
+      <small>
+        JPG, PNG, WEBP
+      </small>
+
+    </label>
+
+    <input
+      id="car-images"
+      type="file"
+      accept="image/*"
+      multiple
+      hidden
+      (change)="onImagesSelected($event)">
+
+
+    @if (imagePreviews().length) {
+
+      <div class="new-gallery">
+
+        @for (
+          preview of imagePreviews();
+          track $index
+        ) {
+
+          <div class="new-image">
+
+            <img
+              [src]="preview"
+              alt="New vehicle image">
+
+            <button
+              type="button"
+              class="new-image__remove"
+              (click)="removeNewImage($index)">
+
+              <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- ========================= -->
+  <!-- STATUS -->
+  <!-- ========================= -->
+
+  <section
+    class="form-section"
+    [class.form-section--status]="!!car">
+
+    <div class="status-options">
+
+      @if (car) {
+
+        <label class="switch-row">
+
+          <input
+            type="checkbox"
+            formControlName="isActive">
+
+          <span class="switch"></span>
+
+          <span class="switch-copy">
+
+            <strong>
+              Active
+            </strong>
+
+            <small>
+              Make this vehicle available on the website.
+            </small>
+
+          </span>
+
+        </label>
+
+      }
+
+      <label class="switch-row">
+
+        <input
+          type="checkbox"
+          formControlName="isFeatured">
+
+        <span class="switch"></span>
+
+        <span class="switch-copy">
+
+          <strong>
+            Featured
+          </strong>
+
+          <small>
+            Show this vehicle in featured sections.
+          </small>
+
+        </span>
+
+      </label>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================= -->
+  <!-- ACTIONS -->
+  <!-- ========================= -->
+
+  <div class="form-actions">
+
+    <button
+      type="button"
+      class="btn-outline"
+      [disabled]="loading"
+      (click)="cancel()">
+
+      Cancel
+
+    </button>
+
+    <button
+      type="submit"
+      class="btn-primary"
+      [disabled]="loading">
+
+      @if (loading) {
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        Saving...
+
+      } @else {
+
+        <i class="fa-solid fa-check"></i>
+
+        {{ submitLabel }}
+
+      }
+
+    </button>
+
+  </div>
+
+</form>

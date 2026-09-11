@@ -1,16 +1,636 @@
 {
   "NAVBAR": {
+    "BRAND": {
+      "HOME_ARIA_LABEL": "MYM Car Rental Home",
+      "LOGO_ALT": "MYM Car Rental"
+    },
+    "MAIN_NAVIGATION": "Main navigation",
+    "MOBILE_NAVIGATION": "Mobile navigation",
     "HOME": "Home",
     "CARS": "Cars",
-    "ABOUT": "About Us",
+    "SERVICES": "Services",
+    "ABOUT": "About",
+    "FAQ": "FAQ",
     "CONTACT": "Contact",
-    "LOGIN": "Login",
-    "LOGOUT": "Logout"
+    "ACTIONS": {
+      "WHATSAPP_ARIA_LABEL": "Contact MYM on WhatsApp",
+      "WHATSAPP": "WhatsApp",
+      "LANGUAGE_ARIA_LABEL": "Change language",
+      "LOGIN_ARIA_LABEL": "Login to MYM Car Rental",
+      "LOGIN": "Login",
+      "LOGOUT_ARIA_LABEL": "Logout from MYM Car Rental",
+      "LOGOUT": "Logout",
+      "BOOK_CAR": "Book a Car",
+      "TOGGLE_MENU_ARIA_LABEL": "Toggle navigation menu"
+    }
   },
-
-  "COMMON": {
-    "ENGLISH": "English",
-    "ARABIC": "Arabic",
-    "BOOK_NOW": "Book Now"
+  
+    "ABOUT": {
+      "PAGE_HEADER": {
+        "EYEBROW": "About Our Company",
+        "TITLE": "About",
+        "BRAND": "MYM Car Rental",
+        "INTRO": "Premium cars. Exceptional service. A better way to experience luxury mobility in Dubai."
+      },
+      "HERO": {
+        "LABEL": "About Us",
+        "TITLE": "Luxury on your terms.",
+        "PARAGRAPH_1": "At MYM Car Rental, we believe that renting a car should be more than simply getting from one place to another.",
+        "PARAGRAPH_2": "We provide premium vehicles, flexible rental options, and a personalized experience designed around your needs.",
+        "BUTTON": "Explore Our Cars"
+      },
+      "WHY_CHOOSE_US": {
+        "LABEL": "Why Choose Us",
+        "TITLE": "Built around your",
+        "TITLE_HIGHLIGHT": "experience.",
+        "DESCRIPTION": "From the moment you choose your vehicle to the moment you return it, we focus on making every part of your rental experience simple and exceptional."
+      },
+      "FEATURES": {
+        "HIGH_QUALITY_CARS": {
+          "TITLE": "High-Quality Cars",
+          "DESCRIPTION": "A carefully selected fleet of premium vehicles maintained to the highest standards."
+        },
+        "CUSTOMER_SERVICE": {
+          "TITLE": "Best Customer Service",
+          "DESCRIPTION": "Professional support whenever you need it, before, during, and after your rental."
+        },
+        "FLEXIBLE_RENTALS": {
+          "TITLE": "Flexible Rentals",
+          "DESCRIPTION": "Daily, weekly, and monthly rental options designed to fit your schedule."
+        },
+        "TRUSTED_SERVICE": {
+          "TITLE": "Trusted Service",
+          "DESCRIPTION": "Transparent pricing, reliable vehicles, and a smooth rental process."
+        }
+      },
+      "MISSION": {
+        "LABEL": "Our Mission",
+        "TITLE": "Making every journey",
+        "TITLE_HIGHLIGHT": "exceptional.",
+        "PARAGRAPH_1": "Our mission is simple: to provide a premium car rental experience that combines quality vehicles, flexible solutions, and exceptional customer care.",
+        "PARAGRAPH_2": "Whether you're visiting Dubai, travelling for business, or simply want to enjoy a premium vehicle, we're here to make your journey effortless.",
+        "STATS": {
+          "PREMIUM": {
+            "VALUE": "Premium",
+            "LABEL": "Fleet"
+          },
+          "SUPPORT": {
+            "VALUE": "24/7",
+            "LABEL": "Support"
+          },
+          "RENTALS": {
+            "VALUE": "Flexible",
+            "LABEL": "Rentals"
+          }
+        }
+      },
+      "CTA": {
+        "LABEL": "Ready to Drive?",
+        "TITLE": "Your next journey",
+        "TITLE_HIGHLIGHT": "starts here.",
+        "DESCRIPTION": "Explore our premium fleet and find the perfect car for your next journey in Dubai.",
+        "BUTTON": "Explore Cars"
+      }
+    },
+    "BOOKING": {
+      "PAGE_HEADER": {
+        "EYEBROW": "RESERVE YOUR VEHICLE",
+        "TITLE": "Complete Your",
+        "TITLE_HIGHLIGHT": "Booking",
+        "INTRO": "Follow the steps below to reserve your vehicle and complete your rental.",
+        "BACK_TO_CARS": "Back to Cars"
+      },
+      "PROGRESS": {
+        "ARIA_LABEL": "Booking progress",
+        "SELECT_CAR": "Select Car",
+        "DETAILS": "Details",
+        "REVIEW": "Review",
+        "CONFIRM": "Confirm"
+      },
+      "VEHICLE_ERROR": {
+        "EYEBROW": "BOOKING ERROR",
+        "TITLE": "Vehicle Not Found",
+        "DESCRIPTION": "We couldn't find the vehicle you're trying to book. Please return to the cars page and select a vehicle.",
+        "BUTTON": "Browse Cars"
+      }
+    },
+    "BOOKING_STEP_1": {
+      "HEADER": {
+        "EYEBROW": "Step 1 of 4",
+        "TITLE": "Choose Your Rental Details",
+        "DESCRIPTION": "Select your rental dates and pickup location."
+      },
+      "CAR": {
+        "SEATS": "Seats"
+      },
+      "FORM": {
+        "PICKUP_DATE": "Pickup Date",
+        "RETURN_DATE": "Return Date",
+        "PICKUP_LOCATION": "Pickup Location",
+        "SELECT_PICKUP_LOCATION": "Select pickup location"
+      },
+      "LOCATIONS": {
+        "DUBAI": "Dubai",
+        "ABU_DHABI": "Abu Dhabi",
+        "SHARJAH": "Sharjah",
+        "AJMAN": "Ajman"
+      },
+      "SUMMARY": {
+        "RENTAL_DURATION": "Rental Duration",
+        "DAY": "Day",
+        "DAYS": "Days",
+        "RENTAL_PLAN": "Rental Plan",
+        "CURRENT_RATE": "Current Rate"
+      },
+      "NOTICE": "The final rental price will be calculated and validated by the server when you confirm your booking.",
+      "ACTIONS": {
+        "CONTINUE": "Continue"
+      }
+    },
+    "BOOKING_STEP_2": {
+      "HEADER": {
+        "EYEBROW": "Step 2 of 4",
+        "TITLE": "Your Information",
+        "DESCRIPTION": "Enter your information to continue with your booking."
+      },
+      "FORM": {
+        "FULL_NAME": {
+          "LABEL": "Full Name",
+          "PLACEHOLDER": "Enter your full name"
+        },
+        "EMAIL": {
+          "LABEL": "Email Address",
+          "PLACEHOLDER": "[you@example.com](mailto:you@example.com)"
+        },
+        "PHONE": {
+          "LABEL": "Phone Number",
+          "PLACEHOLDER": "+971 50 123 4567"
+        },
+        "DRIVING_LICENSE": {
+          "LABEL": "Driving License Number",
+          "PLACEHOLDER": "Enter your driving license number"
+        },
+        "NOTES": {
+          "LABEL": "Additional Notes",
+          "OPTIONAL": "(Optional)",
+          "PLACEHOLDER": "Any additional information..."
+        }
+      },
+      "INSURANCE": {
+        "TITLE": "Rental Insurance",
+        "DESCRIPTION": "Add extra protection to your rental."
+      },
+      "INSURANCE_PRICE": {
+        "LABEL": "Insurance"
+      },
+      "ACTIONS": {
+        "BACK": "Back",
+        "CONTINUE": "Continue"
+      }
+    },
+    "BOOKING_STEP_3": {
+      "HEADER": {
+        "EYEBROW": "Step 3 of 4",
+        "TITLE": "Review Your Booking",
+        "DESCRIPTION": "Review your information before confirming your reservation."
+      },
+      "RENTAL_DETAILS": {
+        "TITLE": "Rental Details",
+        "PICKUP_DATE": "Pickup Date",
+        "RETURN_DATE": "Return Date",
+        "PICKUP_LOCATION": "Pickup Location",
+        "RENTAL_DURATION": "Rental Duration",
+        "DAY": "Day",
+        "DAYS": "Days",
+        "RENTAL_PLAN": "Rental Plan"
+      },
+      "CUSTOMER_DETAILS": {
+        "TITLE": "Customer Information",
+        "FULL_NAME": "Full Name",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "DRIVING_LICENSE": "Driving License"
+      },
+      "PRICE_SUMMARY": {
+        "RENTAL_COST": "Rental Cost",
+        "INSURANCE": "Insurance",
+        "ESTIMATED_TOTAL": "Estimated Total",
+        "NOTE": "Final pricing is calculated and validated by the server."
+      },
+      "ACTIONS": {
+        "BACK": "Back",
+        "PROCESSING": "Processing...",
+        "CONFIRM": "Confirm Booking"
+      }
+    },
+    "BOOKING_STEP_4": {
+      "SUCCESS": {
+        "EYEBROW": "Booking Submitted Successfully",
+        "TITLE": "Your Booking Is Confirmed",
+        "DESCRIPTION": "Your booking has been successfully submitted. Here are your booking details."
+      },
+      "REFERENCE": {
+        "LABEL": "Booking Reference"
+      },
+      "DETAILS": {
+        "TITLE": "Booking Details",
+        "PICKUP_DATE": "Pickup Date",
+        "RETURN_DATE": "Return Date",
+        "PICKUP_LOCATION": "Pickup Location",
+        "RENTAL_DAYS": "Rental Days"
+      },
+      "PRICE": {
+        "RENTAL_COST": "Rental Cost",
+        "INSURANCE": "Insurance",
+        "TOTAL": "Total"
+      },
+      "ACTIONS": {
+        "BROWSE_CARS": "Browse More Cars",
+        "BACK_HOME": "Back to Home"
+      }
+    },
+    "CARS_PAGE": {
+      "HEADER": {
+        "EYEBROW": "OUR COLLECTION",
+        "TITLE": "Find Your",
+        "TITLE_HIGHLIGHT": "Perfect Car",
+        "DESCRIPTION": "Discover our premium collection of luxury vehicles, carefully selected to deliver an exceptional driving experience.",
+        "LOGO_ALT": "MYM Car Rental"
+      },
+      "TOOLBAR": {
+        "SEARCH_PLACEHOLDER": "Search by car name..."
+      },
+      "RENTAL_PLAN": {
+        "LABEL": "Rental Period",
+        "DAILY": {
+          "TITLE": "Daily",
+          "SUBTITLE": "Per Day"
+        },
+        "WEEKLY": {
+          "TITLE": "Weekly",
+          "SUBTITLE": "Per Week"
+        },
+        "MONTHLY": {
+          "TITLE": "Monthly",
+          "SUBTITLE": "Per Month"
+        }
+      },
+      "FILTERS": {
+        "FILTERS": "Filters",
+        "REFINE": "REFINE",
+        "CLEAR_ALL": "Clear All",
+        "CLOSE_FILTERS": "Close filters",
+        "CAR_TYPE": "Car Type",
+        "ALL_CARS": "All Cars",
+        "PRICE_RANGE": "Price Range",
+        "TRANSMISSION": "Transmission",
+        "TRANSMISSION_OPTIONS": {
+          "ALL": "All",
+          "AUTOMATIC": "Automatic",
+          "MANUAL": "Manual"
+        },
+        "FUEL_TYPE": "Fuel Type",
+        "FUEL_OPTIONS": {
+          "ALL": "All",
+          "PETROL": "Petrol",
+          "DIESEL": "Diesel",
+          "HYBRID": "Hybrid"
+        },
+        "APPLY": "Apply Filters"
+      },
+      "CONTENT": {
+        "PREMIUM_COLLECTION": "PREMIUM COLLECTION",
+        "ALL_CARS": "All Cars",
+        "VEHICLES_AVAILABLE": "vehicles available for rent"
+      },
+      "SORT": {
+        "LABEL": "Sort by",
+        "POPULAR": "Popular",
+        "PRICE_LOW": "Price: Low to High",
+        "PRICE_HIGH": "Price: High to Low",
+        "HIGHEST_RATED": "Highest Rated",
+        "NAME": "Name"
+      },
+      "ACTIVE_FILTERS": {
+        "LABEL": "Active:",
+        "UP_TO": "Up to",
+        "CLEAR": "Clear"
+      },
+      "STATES": {
+        "LOADING": "Loading cars...",
+        "ERROR_TITLE": "Something went wrong",
+        "ERROR_DESCRIPTION": "We could not load the cars. Please try again.",
+        "RETRY": "Try Again",
+        "NO_CARS_TITLE": "No cars found",
+        "NO_CARS_DESCRIPTION": "We couldn’t find any vehicles matching your filters.",
+        "RESET_FILTERS": "Reset Filters"
+      },
+      "CARD": {
+        "SEATS": "Seats",
+        "BAGS": "Bags",
+        "BOOK_NOW": "Book Now"
+      }
+    },
+    "CAR_DETAILS": {
+      "STATES": {
+        "LOADING_TITLE": "Loading Car",
+        "LOADING_DESCRIPTION": "Please wait while we load the car details.",
+        "NOT_FOUND_TITLE": "Car Not Found",
+        "NOT_FOUND_DESCRIPTION": "Sorry, we couldn't find the car you're looking for."
+      },
+      "ACTIONS": {
+        "BACK_TO_CARS": "Back to Cars"
+      },
+      "BREADCRUMB": {
+        "ARIA_LABEL": "Breadcrumb",
+        "HOME": "Home",
+        "CARS": "Cars"
+      },
+      "GALLERY": {
+        "ARIA_LABEL": "Car gallery",
+        "VIEW_IMAGE": "View image {{current}} of {{total}}",
+        "VIEW": "view"
+      },
+      "RATING": {
+        "ARIA_LABEL": "Car rating",
+        "REVIEWS": "reviews"
+      },
+      "SPECIFICATIONS": {
+        "ARIA_LABEL": "Car specifications",
+        "TRANSMISSION": "Transmission",
+        "FUEL_TYPE": "Fuel Type",
+        "SEATS": "Seats",
+        "DOORS": "Doors",
+        "LUGGAGE": "Luggage"
+      },
+      "ABOUT": {
+        "EYEBROW": "ABOUT THIS CAR",
+        "TITLE": "Luxury meets performance",
+        "DEFAULT_DESCRIPTION": "Designed for drivers who expect more from every journey, this vehicle combines sophisticated styling, premium comfort and advanced technology to create an exceptional driving experience."
+      },
+      "FEATURES": {
+        "EYEBROW": "FEATURES",
+        "TITLE": "Everything you need"
+      },
+      "BOOKING": {
+        "RESERVE_EYEBROW": "RESERVE YOUR CAR",
+        "TITLE": "Book This Car",
+        "DESCRIPTION": "Select your dates and pickup location.",
+        "PICKUP_DATE": "Pick-up Date",
+        "RETURN_DATE": "Return Date",
+        "PICKUP_DATE_ERROR": "Please select a pick-up date.",
+        "RETURN_DATE_ERROR": "Please select a return date.",
+        "PICKUP_LOCATION": "Pick-up Location",
+        "SELECT_LOCATION": "Select location",
+        "PICKUP_LOCATION_ERROR": "Please select a pick-up location.",
+        "BOOK_NOW": "Book Now",
+        "NO_PAYMENT_REQUIRED": "No payment required to reserve."
+      },
+      "RENTAL_PLAN": {
+        "DAILY": "Daily",
+        "WEEKLY": "Weekly",
+        "MONTHLY": "Monthly",
+        "DAY": "Day",
+        "WEEK": "Week",
+        "MONTH": "Month"
+      },
+      "LOCATIONS": {
+        "DUBAI": "Dubai",
+        "ABU_DHABI": "Abu Dhabi",
+        "SHARJAH": "Sharjah",
+        "AJMAN": "Ajman"
+      },
+      "PRICE": {
+        "RENTAL_PERIOD": "Rental Period",
+        "DAY": "Day",
+        "DAYS": "Days",
+        "RENTAL_COST": "Rental Cost",
+        "INSURANCE": "Insurance",
+        "TOTAL": "Total"
+      }
+    },
+    "SERVICES": {
+      "HEADER": {
+        "EYEBROW": "Our Services",
+        "TITLE": "More Than Just",
+        "TITLE_HIGHLIGHT": "Car Rental",
+        "DESCRIPTION": "From premium vehicles to personalized transportation solutions, we deliver a seamless rental experience designed around your journey."
+      },
+      "ACTIONS": {
+        "EXPLORE": "Explore Service"
+      },
+      "CARDS": {
+        "LUXURY_RENTAL": {
+          "TITLE": "Luxury Car Rental",
+          "DESCRIPTION": "Choose from a carefully selected fleet of premium and luxury vehicles for every occasion.",
+          "ARIA_LABEL": "Explore Luxury Car Rental"
+        },
+        "LONG_TERM_RENTAL": {
+          "TITLE": "Long-Term Rental",
+          "DESCRIPTION": "Flexible monthly and long-term rental solutions with competitive rates and complete convenience.",
+          "ARIA_LABEL": "Explore Long-Term Rental"
+        },
+        "AIRPORT_TRANSFERS": {
+          "TITLE": "Airport Transfers",
+          "DESCRIPTION": "Reliable airport pickup and drop-off services designed to make every journey effortless.",
+          "ARIA_LABEL": "Explore Airport Transfers"
+        },
+        "CHAUFFEUR": {
+          "TITLE": "Chauffeur Service",
+          "DESCRIPTION": "Travel in comfort with a professional chauffeur dedicated to your time, privacy and convenience.",
+          "ARIA_LABEL": "Explore Chauffeur Service"
+        },
+        "CORPORATE_RENTAL": {
+          "TITLE": "Corporate Rental",
+          "DESCRIPTION": "Professional mobility solutions for businesses, executives and corporate travel requirements.",
+          "ARIA_LABEL": "Explore Corporate Rental"
+        },
+        "CUSTOM_RENTAL": {
+          "TITLE": "Custom Rental",
+          "DESCRIPTION": "Need something specific? We'll create a flexible rental solution tailored to your exact requirements.",
+          "ARIA_LABEL": "Explore Custom Rental"
+        }
+      }
+    },
+    "CONTACT": {
+      "HEADER": {
+        "EYEBROW": "Get in Touch",
+        "TITLE": "Let's Find Your",
+        "TITLE_HIGHLIGHT": "Perfect Ride",
+        "DESCRIPTION": "Have a question or need a custom rental? Our team is available 24/7 to help you choose the perfect luxury vehicle for your journey."
+      },
+      "DETAILS": {
+        "PHONE": {
+          "LABEL": "Phone"
+        },
+        "EMAIL": {
+          "LABEL": "Email"
+        },
+        "LOCATION": {
+          "LABEL": "Location",
+          "ADDRESS": "Residency 1072, Offices B Block, M floor, Deira, Dubai"
+        }
+      },
+      "LOCATION_MAP": {
+        "TITLE": "MYM Car Rental Location"
+      },
+      "LOCATION_CARD": {
+        "EYEBROW": "Our Location",
+        "TITLE": "Residence 1072",
+        "MAPS_LINK": "View on Google Maps"
+      },
+      "FORM": {
+        "EYEBROW": "Contact Us",
+        "TITLE": "Send a Message",
+        "DESCRIPTION": "Tell us what you're looking for and we'll get back to you shortly.",
+        "FULL_NAME": {
+          "LABEL": "Full Name",
+          "PLACEHOLDER": "John Smith"
+        },
+        "PHONE": {
+          "LABEL": "Phone"
+        },
+        "EMAIL": {
+          "LABEL": "Email",
+          "PLACEHOLDER": "john@email.com"
+        },
+        "MESSAGE": {
+          "LABEL": "Message",
+          "PLACEHOLDER": "Tell us which car you're looking for..."
+        },
+        "SUBMIT": "Send Inquiry"
+      }
+    },
+    "FEATURED_CARS": {
+      "HEADER": {
+        "EYEBROW": "Our Selection",
+        "TITLE": "Featured Cars",
+        "VIEW_ALL": "View All"
+      },
+      "CARD": {
+        "RATING": "Rating",
+        "DAILY_RENTAL": "Daily Rental",
+        "PER_DAY": "day",
+        "DETAILS": "Details"
+      }
+    },
+    "HERO": {
+      "EYEBROW": "Premium Car Rental",
+      "TITLE": "Luxury",
+      "TITLE_HIGHLIGHT": "on your terms",
+      "SUBTITLE": "Premium Cars. Flexible Rentals. Exceptional Experience.",
+      "RENTAL_PLAN": "Rental plan",
+      "PLANS": {
+        "DAILY": "Daily",
+        "WEEKLY": "Weekly",
+        "MONTHLY": "Monthly"
+      },
+      "CTA": "Explore Cars",
+      "SEARCH": {
+        "CAR_TYPE": {
+          "LABEL": "Car Type",
+          "ALL_TYPES": "All Types"
+        },
+        "PRICE_RANGE": {
+          "LABEL": "Price Range",
+          "ANY_PRICE": "Any Price",
+          "UP_TO": "Up to"
+        },
+        "TRANSMISSION": {
+          "LABEL": "Transmission",
+          "ALL": "All Transmissions",
+          "AUTOMATIC": "Automatic",
+          "MANUAL": "Manual"
+        },
+        "FUEL_TYPE": {
+          "LABEL": "Fuel Type",
+          "OPTIONS": {
+            "ALL":"All Fuel Type",
+            "PETROL": "Petrol",
+            "DIESEL": "Diesel",
+            "HYBRID": "Hybrid"
+          }
+        },
+        "BUTTON": "Search Cars"
+      }
+    },
+    "POPULAR_CATEGORIES": {
+      "HEADER": {
+        "EYEBROW": "Explore Our Fleet",
+        "TITLE": "Popular Categories",
+        "VIEW_ALL": "View All"
+      }
+    },
+    "WHY_CHOOSE_US": {
+      "PREMIUM_FLEET": {
+        "TITLE": "Premium Fleet",
+        "DESCRIPTION": "Top luxury cars"
+      },
+      "BEST_PRICES": {
+        "TITLE": "Best Prices",
+        "DESCRIPTION": "Competitive rates"
+      },
+      "FLEXIBLE_RENTALS": {
+        "TITLE": "Flexible Rentals",
+        "DESCRIPTION": "Daily, weekly, monthly"
+      },
+      "SUPPORT": {
+        "TITLE": "24/7 Support",
+        "DESCRIPTION": "We're here for you"
+      }
+    },
+    "LOGIN": {
+      "HEADER": {
+        "TITLE": "Welcome Back",
+        "DESCRIPTION": "Login to continue to your account"
+      },
+      "DIVIDER": "Sign in with",
+      "FOOTER": {
+        "BY_CONTINUING": "By continuing, you agree to our",
+        "TERMS": "Terms",
+        "PRIVACY_POLICY": "Privacy Policy"
+      }
+    },
+    "NOT_FOUND": {
+      "EYEBROW": "Page Not Found",
+      "TITLE": "We couldn't find this page",
+      "DESCRIPTION": "The page you're looking for may have been moved, deleted, or doesn't exist anymore.",
+      "BACK_TO_HOME": "Back to Home"
+    },
+    "FOOTER": {
+      "BRAND": {
+        "HOME_ARIA_LABEL": "MYM Car Rental Home",
+        "LOGO_ALT": "MYM Car Rental",
+        "TAGLINE": "Luxury on your terms.",
+        "DESCRIPTION": "Premium cars. Flexible rentals. Exceptional experience."
+      },
+      "SOCIAL": {
+        "ARIA_LABEL": "Social media"
+      },
+      "COMPANY": {
+        "TITLE": "Company",
+        "ABOUT": "About Us",
+        "CARS": "Our Cars",
+        "SERVICES": "Services",
+        "BLOG": "Blog",
+        "CONTACT": "Contact Us"
+      },
+      "CUSTOMER_CARE": {
+        "TITLE": "Customer Care",
+        "TERMS": "Terms & Conditions",
+        "PRIVACY": "Privacy Policy",
+        "CANCELLATION": "Cancellation Policy",
+        "FAQ": "FAQ"
+      },
+      "CONTACT": {
+        "TITLE": "Contact Us",
+        "LOCATION": "Dubai, UAE"
+      },
+      "BOTTOM": {
+        "ALL_RIGHTS_RESERVED": "All Rights Reserved."
+      },
+      "PAYMENTS": {
+        "WE_ACCEPT": "We Accept"
+      }
+    }
   }
-}

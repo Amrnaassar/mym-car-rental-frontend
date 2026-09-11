@@ -1,0 +1,169 @@
+<div class="user-details-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <span class="eyebrow">
+        User Management
+      </span>
+
+      <h1>
+        User Details
+      </h1>
+
+    </div>
+
+    <button
+      type="button"
+      class="btn-outline"
+      (click)="back()">
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back to Users
+
+    </button>
+
+  </div>
+
+
+  @if (loading()) {
+
+    <div class="loading-card">
+
+      <i class="fa-solid fa-spinner fa-spin"></i>
+
+      Loading user...
+
+    </div>
+
+  }
+
+  @else if (errorMessage()) {
+
+    <div class="error-card">
+
+      <i class="fa-solid fa-circle-exclamation"></i>
+
+      <span>
+        {{ errorMessage() }}
+      </span>
+
+    </div>
+
+  }
+
+  @else if (user(); as currentUser) {
+
+    <div class="profile-card">
+
+      <div class="profile-card__header">
+
+        <div class="avatar avatar--large">
+
+          {{ currentUser.fullName.charAt(0).toUpperCase() }}
+
+        </div>
+
+        <div>
+
+          <h2>
+            {{ currentUser.fullName }}
+          </h2>
+
+          <span>
+            {{ roleLabel(currentUser.role) }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="details-grid">
+
+        <div class="detail-item">
+
+          <span>
+            Full Name
+          </span>
+
+          <strong>
+            {{ currentUser.fullName }}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <span>
+            Email
+          </span>
+
+          <strong>
+            {{ currentUser.email }}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <span>
+            Phone
+          </span>
+
+          <strong>
+            {{ currentUser.phone || 'Not provided' }}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <span>
+            Role
+          </span>
+
+          <strong>
+            {{ roleLabel(currentUser.role) }}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <span>
+            Joined
+          </span>
+
+          <strong>
+            {{ currentUser.createdAt | date:'dd MMMM yyyy' }}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <span>
+            User ID
+          </span>
+
+          <strong class="user-id">
+            {{ currentUser.id }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

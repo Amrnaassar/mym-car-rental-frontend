@@ -1,0 +1,78 @@
+<div class="car-page">
+
+  <div class="page-header">
+
+    <div>
+      <span class="eyebrow">
+        Fleet Management
+      </span>
+
+      <h1>
+        Edit Car
+      </h1>
+
+      @if (car(); as currentCar) {
+
+        <p>
+          Manage {{ currentCar.nameEn }}
+        </p>
+
+      }
+
+    </div>
+
+    <button
+      type="button"
+      class="btn-outline"
+      (click)="cancel()">
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back to Cars
+
+    </button>
+
+  </div>
+
+
+  @if (errorMessage()) {
+
+    <div class="error-banner">
+
+      <i class="fa-solid fa-circle-exclamation"></i>
+
+      <span>
+        {{ errorMessage() }}
+      </span>
+
+    </div>
+
+  }
+
+
+  @if (pageLoading()) {
+
+    <div class="loading-card">
+
+      <i class="fa-solid fa-spinner fa-spin"></i>
+
+      Loading vehicle...
+
+    </div>
+
+  } @else if (car(); as currentCar) {
+
+    <app-car-form
+      [car]="currentCar"
+      [categories]="categories()"
+      submitLabel="Update Car"
+      [loading]="loading()"
+      (submitted)="updateCar($event)"
+      (cancelled)="cancel()"
+      (deleteImage)="removeImage($event)"
+      (setPrimaryImage)="makePrimary($event)">
+    </app-car-form>
+
+  }
+
+</div>

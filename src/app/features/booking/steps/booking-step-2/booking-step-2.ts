@@ -10,13 +10,15 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { BookingModel } from '../../../../core/models/booking.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-booking-step-2',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    TranslatePipe
   ],
   templateUrl: './booking-step-2.html',
   styleUrl: './booking-step-2.scss',

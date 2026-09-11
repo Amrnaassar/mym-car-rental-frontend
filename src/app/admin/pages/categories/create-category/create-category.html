@@ -1,0 +1,138 @@
+<div class="category-form-page">
+
+  <div class="page-header">
+
+    <h1>Create Category</h1>
+
+    <button
+      class="btn-outline"
+      type="button"
+      (click)="cancel()">
+
+      Back
+
+    </button>
+
+  </div>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    class="category-form">
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Arabic Name
+        </label>
+
+        <input
+          class="form-control"
+          formControlName="nameAr">
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          English Name
+        </label>
+
+        <input
+          class="form-control"
+          formControlName="nameEn">
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Slug
+        </label>
+
+        <input
+          class="form-control"
+          formControlName="slug">
+
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <label class="form-label">
+        Arabic Description
+      </label>
+
+      <textarea
+        class="form-control"
+        formControlName="descriptionAr">
+      </textarea>
+
+    </div>
+
+    <div class="form-group">
+
+      <label class="form-label">
+        English Description
+      </label>
+
+      <textarea
+        class="form-control"
+        formControlName="descriptionEn">
+      </textarea>
+
+    </div>
+
+    <div class="form-group">
+
+      <label class="form-label">
+        Category Image
+      </label>
+
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onImageSelected($event)">
+
+    </div>
+
+    @if (imagePreview()) {
+
+      <div class="preview-card">
+
+        <img
+          [src]="imagePreview()!"
+          alt="Preview">
+
+      </div>
+
+    }
+
+    <div class="actions">
+
+      <button
+        class="btn-outline"
+        type="button"
+        (click)="cancel()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="btn-primary"
+        type="submit"
+        [disabled]="loading()">
+
+        Save Category
+
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

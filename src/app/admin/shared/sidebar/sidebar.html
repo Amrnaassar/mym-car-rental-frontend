@@ -1,0 +1,76 @@
+<aside class="sidebar">
+
+  <div class="sidebar__brand">
+    <h2>MYM</h2>
+    <span>Admin Dashboard</span>
+  </div>
+
+  <nav class="sidebar__nav">
+
+    <a
+      routerLink="/admin/dashboard"
+      routerLinkActive="active"
+      class="sidebar__link">
+
+      <i class="fa-solid fa-chart-line"></i>
+      <span>Dashboard</span>
+
+    </a>
+
+    <a
+      routerLink="/admin/bookings"
+      routerLinkActive="active"
+      class="sidebar__link">
+
+      <i class="fa-solid fa-calendar-check"></i>
+      <span>Bookings</span>
+
+    </a>
+
+    <a
+      routerLink="/admin/cars"
+      routerLinkActive="active"
+      class="sidebar__link">
+
+      <i class="fa-solid fa-car"></i>
+      <span>Cars</span>
+
+    </a>
+
+    <a
+      routerLink="/admin/categories"
+      routerLinkActive="active"
+      class="sidebar__link">
+
+      <i class="fa-solid fa-layer-group"></i>
+      <span>Categories</span>
+
+    </a>
+
+    @if (isManager()) {
+
+      <a
+        routerLink="/admin/users"
+        routerLinkActive="active"
+        class="sidebar__link">
+
+        <i class="fa-solid fa-users"></i>
+        <span>Users</span>
+
+      </a>
+
+    }
+
+  </nav>
+
+  <button
+    class="sidebar__logout"
+    (click)="logout()">
+
+    <i class="fa-solid fa-right-from-bracket"></i>
+
+    <span>Logout</span>
+
+  </button>
+
+</aside>
