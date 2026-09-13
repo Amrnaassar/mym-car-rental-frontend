@@ -88,12 +88,12 @@ export class Bookings implements OnInit {
             .includes(query);
 
         const matchesStatus =
-          status === 'all' ||
-          booking.status === status;
+          status == 'all' ||
+          booking.status == status;
 
         const matchesPlan =
-          plan === 'all' ||
-          booking.rentalPlan === plan;
+          plan == 'all' ||
+          booking.rentalPlan == plan;
 
         return (
           matchesSearch &&
@@ -107,7 +107,7 @@ export class Bookings implements OnInit {
     () =>
       this.bookings().filter(
         booking =>
-          booking.status ===
+          booking.status ==
           BookingStatus.Pending
       ).length
   );
@@ -116,7 +116,7 @@ export class Bookings implements OnInit {
     () =>
       this.bookings().filter(
         booking =>
-          booking.status ===
+          booking.status ==
           BookingStatus.Confirmed
       ).length
   );
@@ -125,7 +125,7 @@ export class Bookings implements OnInit {
     () =>
       this.bookings().filter(
         booking =>
-          booking.status ===
+          booking.status ==
           BookingStatus.Completed
       ).length
   );
@@ -168,7 +168,7 @@ export class Bookings implements OnInit {
     booking: BookingResponse,
     status: BookingStatus
   ): void {
-    if (booking.status === status) {
+    if (booking.status == status) {
       return;
     }
 
@@ -184,7 +184,7 @@ export class Bookings implements OnInit {
           this.bookings.update(
             bookings =>
               bookings.map(item =>
-                item.id === booking.id
+                item.id == booking.id
                   ? {
                       ...item,
                       status
@@ -207,7 +207,7 @@ export class Bookings implements OnInit {
     booking: BookingResponse
   ): void {
     if (
-      booking.status ===
+      booking.status ==
       BookingStatus.Completed
     ) {
       return;
@@ -231,7 +231,7 @@ export class Bookings implements OnInit {
           this.bookings.update(
             bookings =>
               bookings.map(item =>
-                item.id === booking.id
+                item.id == booking.id
                   ? {
                       ...item,
                       status:

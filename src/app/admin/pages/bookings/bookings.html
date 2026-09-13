@@ -261,16 +261,16 @@
               <span
                 class="status-badge"
                 [class.status-badge--pending]="
-                  statusClass(booking.status) === 'pending'
+                  statusClass(booking.status) == 'pending'
                 "
                 [class.status-badge--confirmed]="
-                  statusClass(booking.status) === 'confirmed'
+                  statusClass(booking.status) == 'confirmed'
                 "
                 [class.status-badge--cancelled]="
-                  statusClass(booking.status) === 'cancelled'
+                  statusClass(booking.status) == 'cancelled'
                 "
                 [class.status-badge--completed]="
-                  statusClass(booking.status) === 'completed'
+                  statusClass(booking.status) == 'completed'
                 ">
 
                 <span class="status-dot"></span>
@@ -296,7 +296,7 @@
 
 
               @if (
-                booking.status === BookingStatus.Pending
+                booking.status == BookingStatus.Pending
               ) {
 
                 <button
@@ -316,8 +316,8 @@
 
 
               @if (
-                booking.status === BookingStatus.Pending ||
-                booking.status === BookingStatus.Confirmed
+                booking.status == BookingStatus.Pending ||
+                booking.status == BookingStatus.Confirmed
               ) {
 
                 <button
