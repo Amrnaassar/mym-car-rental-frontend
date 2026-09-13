@@ -1,0 +1,432 @@
+<section class="bookings-page">
+
+  <!-- ============================================================
+       PAGE HEADER
+  ============================================================ -->
+  <div class="page-header">
+
+    <div>
+      <span class="eyebrow">MY BOOKINGS</span>
+
+      <h1>My Bookings</h1>
+
+      <p>
+        View and manage all your car rental bookings.
+      </p>
+    </div>
+
+    @if (!isLoading && bookings.length > 0) {
+      <div class="booking-count">
+        {{ bookings.length }}
+        {{ bookings.length === 1 ? 'Booking' : 'Bookings' }}
+      </div>
+    }
+
+  </div>
+
+
+  <!-- ============================================================
+       LOADING
+  ============================================================ -->
+  @if (isLoading) {
+
+    <div class="loading-state">
+
+      <div class="spinner"></div>
+
+      <p>Loading your bookings...</p>
+
+    </div>
+
+  }
+
+
+  <!-- ============================================================
+       ERROR
+  ============================================================ -->
+  @if (!isLoading && errorMessage) {
+
+    <div class="error-state">
+
+      <div class="error-icon">
+        !
+      </div>
+
+      <h3>Something went wrong</h3>
+
+      <p>
+        {{ errorMessage }}
+      </p>
+
+      <button
+        type="button"
+        class="retry-btn"
+        (click)="loadBookings()"
+      >
+        Try Again
+      </button>
+
+    </div>
+
+  }
+
+
+  <!-- ============================================================
+       EMPTY STATE
+  ============================================================ -->
+  @if (!isLoading && !errorMessage && bookings.length === 0) {
+
+    <div class="empty-state">
+
+      <div class="empty-icon">
+        <i class="fa fa-calendar-times"></i>
+      </div>
+
+      <h2>No Bookings Yet</h2>
+
+      <p>
+        You haven't made any car rental bookings yet.
+      </p>
+
+      <a
+        routerLink="/cars"
+        class="browse-btn"
+      >
+        Browse Cars
+      </a>
+
+    </div>
+
+  }
+
+
+  <!-- ============================================================
+       BOOKINGS
+  ============================================================ -->
+  @if (!isLoading && !errorMessage && bookings.length > 0) {
+
+    <div class="bookings-list">
+
+      @for (
+        booking of bookings;
+        track booking.id
+      ) {
+
+        <article class="booking-card">
+
+
+          <!-- ====================================================
+               CARD HEADER
+          ==================================================== -->
+
+          <div class="booking-header">
+
+            <div class="booking-number">
+
+              <span>Booking Number</span>
+
+              <strong>
+                {{ booking.bookingNumber }}
+              </strong>
+
+            </div>
+
+            <span
+              class="status-badge"
+              [class]="getStatusClass(booking.status)"
+            >
+              {{ getStatusLabel(booking.status) }}
+            </span>
+
+          </div>
+
+
+          <!-- ====================================================
+               CAR
+          ==================================================== -->
+
+          <div class="car-section">
+
+            <div class="car-icon">
+              <i class="fa fa-car"></i>
+            </div>
+
+            <div class="car-info">
+
+              <span class="label">
+                Vehicle
+              </span>
+
+              <h2>
+                {{ booking.carName }}
+              </h2>
+
+              <span class="car-id">
+                Car ID: {{ booking.carId }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- ====================================================
+               RENTAL DETAILS
+          ==================================================== -->
+
+          <div class="booking-details">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+
+                <i class="fa fa-calendar"></i>
+
+                Pickup
+
+              </span>
+
+              <strong>
+                {{ formatDate(booking.pickupDate) }}
+              </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+
+                <i class="fa fa-calendar-check-o"></i>
+
+                Return
+
+              </span>
+
+              <strong>
+                {{ formatDate(booking.returnDate) }}
+              </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+
+                <i class="fa fa-clock-o"></i>
+
+                Duration
+
+              </span>
+
+              <strong>
+
+                {{ booking.rentalDays }}
+
+                {{ booking.rentalDays === 1 ? 'Day' : 'Days' }}
+
+              </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+
+                <i class="fa fa-tags"></i>
+
+                Plan
+
+              </span>
+
+              <strong>
+                {{ getRentalPlanLabel(booking.rentalPlan) }}
+              </strong>
+
+            </div>
+
+
+            <div class="detail-item detail-location">
+
+              <span class="detail-label">
+
+                <i class="fa fa-map-marker"></i>
+
+                Pickup Location
+
+              </span>
+
+              <strong>
+                {{ booking.pickupLocation }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- ====================================================
+               PRICE SUMMARY
+          ==================================================== -->
+
+          <div class="price-section">
+
+            <div class="price-header">
+
+              <h3>Price Summary</h3>
+
+            </div>
+
+
+            <div class="price-row">
+
+              <span>Rental Cost</span>
+
+              <strong>
+                AED {{ booking.rentalCost | number:'1.2-2' }}
+              </strong>
+
+            </div>
+
+
+            @if (booking.insuranceCost > 0) {
+
+              <div class="price-row">
+
+                <span>Insurance</span>
+
+                <strong>
+                  AED {{ booking.insuranceCost | number:'1.2-2' }}
+                </strong>
+
+              </div>
+
+            }
+
+
+            @if (booking.taxCost > 0) {
+
+              <div class="price-row">
+
+                <span>Tax</span>
+
+                <strong>
+                  AED {{ booking.taxCost | number:'1.2-2' }}
+                </strong>
+
+              </div>
+
+            }
+
+
+            @if (booking.discountAmount > 0) {
+
+              <div class="price-row discount">
+
+                <span>Discount</span>
+
+                <strong>
+
+                  - AED
+
+                  {{ booking.discountAmount | number:'1.2-2' }}
+
+                </strong>
+
+              </div>
+
+            }
+
+
+            <div class="price-total">
+
+              <span>Total</span>
+
+              <strong>
+                AED {{ booking.grandTotal | number:'1.2-2' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- ====================================================
+               FOOTER
+          ==================================================== -->
+
+          <div class="booking-footer">
+
+            <div class="created-date">
+
+              <span>
+                Booking created
+              </span>
+
+              <strong>
+                {{ formatDateTime(booking.createdAt) }}
+              </strong>
+
+            </div>
+
+
+            @if (canCancel(booking)) {
+
+              <button
+                type="button"
+                class="cancel-btn"
+                [disabled]="cancellingId === booking.id"
+                (click)="cancelBooking(booking)"
+              >
+
+                @if (cancellingId === booking.id) {
+
+                  <span class="button-spinner"></span>
+
+                  Cancelling...
+
+                } @else {
+
+                  <i class="fa fa-times-circle"></i>
+
+                  Cancel Booking
+
+                }
+
+              </button>
+
+            } @else if (booking.status === BookingStatus.Cancelled) {
+
+              <span class="cancelled-message">
+
+                <i class="fa fa-check-circle"></i>
+
+                Booking cancelled
+
+              </span>
+
+            } @else {
+
+              <span class="completed-message">
+
+                <i class="fa fa-check-circle"></i>
+
+                Booking completed
+
+              </span>
+
+            }
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+
+  }
+
+</section>

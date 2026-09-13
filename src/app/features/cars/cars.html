@@ -28,11 +28,8 @@
 
       <div class="cars-page__header-decoration">
 
-        <img
-          src="assets/images/logo/mym-footer-logo.png"
-          [alt]="'CARS_PAGE.HEADER.LOGO_ALT' | translate"
-          loading="lazy"
-        />
+        <img src="assets/images/logo/mym-footer-logo.png" [alt]="'CARS_PAGE.HEADER.LOGO_ALT' | translate"
+          loading="lazy" />
 
       </div>
 
@@ -47,20 +44,13 @@
       <!-- Search -->
       <div class="cars-toolbar__search">
 
-        <span
-          class="cars-toolbar__search-icon"
-          aria-hidden="true"
-        >
+        <span class="cars-toolbar__search-icon" aria-hidden="true">
           ⌕
         </span>
 
-        <input
-          class="cars-toolbar__search-input"
-          type="search"
-          [placeholder]="'CARS_PAGE.TOOLBAR.SEARCH_PLACEHOLDER' | translate"
-          [value]="searchQuery()"
-          (input)="setSearch($event)"
-        />
+        <input class="cars-toolbar__search-input" type="search"
+          [placeholder]="'CARS_PAGE.TOOLBAR.SEARCH_PLACEHOLDER' | translate" [value]="searchQuery()"
+          (input)="setSearch($event)" />
 
       </div>
 
@@ -74,14 +64,9 @@
 
         <div class="rental-plan__options">
 
-          <button
-            type="button"
-            class="rental-plan__option"
-            [class.rental-plan__option--active]="
+          <button type="button" class="rental-plan__option" [class.rental-plan__option--active]="
               selectedPlan() === 'daily'
-            "
-            (click)="setPlan('daily')"
-          >
+            " (click)="setPlan('daily')">
 
             <span class="rental-plan__option-title">
               {{ 'CARS_PAGE.RENTAL_PLAN.DAILY.TITLE' | translate }}
@@ -94,14 +79,9 @@
           </button>
 
 
-          <button
-            type="button"
-            class="rental-plan__option"
-            [class.rental-plan__option--active]="
+          <button type="button" class="rental-plan__option" [class.rental-plan__option--active]="
               selectedPlan() === 'weekly'
-            "
-            (click)="setPlan('weekly')"
-          >
+            " (click)="setPlan('weekly')">
 
             <span class="rental-plan__option-title">
               {{ 'CARS_PAGE.RENTAL_PLAN.WEEKLY.TITLE' | translate }}
@@ -114,14 +94,9 @@
           </button>
 
 
-          <button
-            type="button"
-            class="rental-plan__option"
-            [class.rental-plan__option--active]="
+          <button type="button" class="rental-plan__option" [class.rental-plan__option--active]="
               selectedPlan() === 'monthly'
-            "
-            (click)="setPlan('monthly')"
-          >
+            " (click)="setPlan('monthly')">
 
             <span class="rental-plan__option-title">
               {{ 'CARS_PAGE.RENTAL_PLAN.MONTHLY.TITLE' | translate }}
@@ -139,11 +114,7 @@
 
 
       <!-- Mobile Filters -->
-      <button
-        type="button"
-        class="cars-toolbar__filter-button"
-        (click)="toggleFilters()"
-      >
+      <button type="button" class="cars-toolbar__filter-button" (click)="toggleFilters()">
 
         <span aria-hidden="true">
           ☷
@@ -165,10 +136,7 @@
       <!-- ======================================================
            SIDEBAR
       ======================================================= -->
-      <aside
-        class="cars-filters"
-        [class.cars-filters--open]="filtersOpen()"
-      >
+      <aside class="cars-filters" [class.cars-filters--open]="filtersOpen()">
 
         <div class="cars-filters__header">
 
@@ -184,11 +152,7 @@
 
           </div>
 
-          <button
-            type="button"
-            class="cars-filters__clear"
-            (click)="clearFilters()"
-          >
+          <button type="button" class="cars-filters__clear" (click)="clearFilters()">
             {{ 'CARS_PAGE.FILTERS.CLEAR_ALL' | translate }}
           </button>
 
@@ -196,12 +160,8 @@
 
 
         <!-- Close Mobile -->
-        <button
-          type="button"
-          class="cars-filters__close"
-          [attr.aria-label]="'CARS_PAGE.FILTERS.CLOSE_FILTERS' | translate"
-          (click)="toggleFilters()"
-        >
+        <button type="button" class="cars-filters__close"
+          [attr.aria-label]="'CARS_PAGE.FILTERS.CLOSE_FILTERS' | translate" (click)="toggleFilters()">
           ×
         </button>
 
@@ -227,14 +187,9 @@
           <div class="filter-options">
 
             <!-- All -->
-            <button
-              type="button"
-              class="filter-option"
-              [class.filter-option--active]="
+            <button type="button" class="filter-option" [class.filter-option--active]="
                 selectedCategory() === null
-              "
-              (click)="setCategory(null)"
-            >
+              " (click)="setCategory(null)">
 
               <span class="filter-option__radio">
                 <span></span>
@@ -249,32 +204,27 @@
 
             <!-- Categories -->
             @for (
-              category of categories();
-              track category.id
+            category of categories();
+            track category.id
             ) {
 
-              <button
-                type="button"
-                class="filter-option"
-                [class.filter-option--active]="
+            <button type="button" class="filter-option" [class.filter-option--active]="
                   selectedCategory() === category.id
-                "
-                (click)="setCategory(category.id)"
-              >
+                " (click)="setCategory(category.id)">
 
-                <span class="filter-option__radio">
-                  <span></span>
-                </span>
+              <span class="filter-option__radio">
+                <span></span>
+              </span>
 
-                <span>
-                  {{
-                    languageService.isArabic()
-                      ? category.nameAr
-                      : category.nameEn
-                  }}
-                </span>
+              <span>
+                {{
+                languageService.isArabic()
+                ? category.nameAr
+                : category.nameEn
+                }}
+              </span>
 
-              </button>
+            </button>
 
             }
 
@@ -316,15 +266,8 @@
             </div>
 
 
-            <input
-              class="price-filter__range"
-              type="range"
-              min="0"
-              [max]="currentPlanMaxPrice()"
-              step="50"
-              [value]="maxPrice()"
-              (input)="setPrice($event)"
-            />
+            <input class="price-filter__range" type="range" min="0" [max]="currentPlanMaxPrice()" step="50"
+              [value]="maxPrice()" (input)="setPrice($event)" />
 
 
             <div class="price-filter__limits">
@@ -365,14 +308,11 @@
           <div class="filter-options">
 
             @for (
-              transmission of transmissions;
-              track transmission
+            transmission of transmissions;
+            track transmission
             ) {
 
-              <button
-                type="button"
-                class="filter-option"
-                [class.filter-option--active]="
+            <button type="button" class="filter-option" [class.filter-option--active]="
                   (
                     transmission === 'All'
                     && selectedTransmission() === 'All'
@@ -387,32 +327,30 @@
                     transmission === 'Manual'
                     && selectedTransmission() === 1
                   )
-                "
-                (click)="setTransmission(transmission)"
-              >
+                " (click)="setTransmission(transmission)">
 
-                <span class="filter-option__radio">
-                  <span></span>
-                </span>
+              <span class="filter-option__radio">
+                <span></span>
+              </span>
 
-                {{
-                  transmission === 'Automatic'
-                    ? (
-                        'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.AUTOMATIC'
-                        | translate
-                      )
-                    : transmission === 'Manual'
-                      ? (
-                          'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.MANUAL'
-                          | translate
-                        )
-                      : (
-                          'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.ALL'
-                          | translate
-                        )
-                }}
+              {{
+              transmission === 'Automatic'
+              ? (
+              'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.AUTOMATIC'
+              | translate
+              )
+              : transmission === 'Manual'
+              ? (
+              'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.MANUAL'
+              | translate
+              )
+              : (
+              'CARS_PAGE.FILTERS.TRANSMISSION_OPTIONS.ALL'
+              | translate
+              )
+              }}
 
-              </button>
+            </button>
 
             }
 
@@ -442,14 +380,11 @@
           <div class="filter-options">
 
             @for (
-              fuelType of fuelTypes;
-              track fuelType
+            fuelType of fuelTypes;
+            track fuelType
             ) {
 
-              <button
-                type="button"
-                class="filter-option"
-                [class.filter-option--active]="
+            <button type="button" class="filter-option" [class.filter-option--active]="
                   (
                     fuelType === 'All'
                     && selectedFuelType() === 'All'
@@ -469,37 +404,35 @@
                     fuelType === 'Hybrid'
                     && selectedFuelType() === 2
                   )
-                "
-                (click)="setFuelType(fuelType)"
-              >
+                " (click)="setFuelType(fuelType)">
 
-                <span class="filter-option__radio">
-                  <span></span>
-                </span>
+              <span class="filter-option__radio">
+                <span></span>
+              </span>
 
-                {{
-                  fuelType === 'Petrol'
-                    ? (
-                        'CARS_PAGE.FILTERS.FUEL_OPTIONS.PETROL'
-                        | translate
-                      )
-                    : fuelType === 'Diesel'
-                      ? (
-                          'CARS_PAGE.FILTERS.FUEL_OPTIONS.DIESEL'
-                          | translate
-                        )
-                      : fuelType === 'Hybrid'
-                        ? (
-                            'CARS_PAGE.FILTERS.FUEL_OPTIONS.HYBRID'
-                            | translate
-                          )
-                        : (
-                            'CARS_PAGE.FILTERS.FUEL_OPTIONS.ALL'
-                            | translate
-                          )
-                }}
+              {{
+              fuelType === 'Petrol'
+              ? (
+              'CARS_PAGE.FILTERS.FUEL_OPTIONS.PETROL'
+              | translate
+              )
+              : fuelType === 'Diesel'
+              ? (
+              'CARS_PAGE.FILTERS.FUEL_OPTIONS.DIESEL'
+              | translate
+              )
+              : fuelType === 'Hybrid'
+              ? (
+              'CARS_PAGE.FILTERS.FUEL_OPTIONS.HYBRID'
+              | translate
+              )
+              : (
+              'CARS_PAGE.FILTERS.FUEL_OPTIONS.ALL'
+              | translate
+              )
+              }}
 
-              </button>
+            </button>
 
             }
 
@@ -508,11 +441,7 @@
         </div>
 
 
-        <button
-          type="button"
-          class="btn-primary cars-filters__apply"
-          (click)="toggleFilters()"
-        >
+        <button type="button" class="btn-primary cars-filters__apply" (click)="toggleFilters()">
           {{ 'CARS_PAGE.FILTERS.APPLY' | translate }}
         </button>
 
@@ -558,12 +487,7 @@
               {{ 'CARS_PAGE.SORT.LABEL' | translate }}
             </label>
 
-            <select
-              id="cars-sort"
-              class="cars-sort__select"
-              [value]="sortBy()"
-              (change)="setSort($event)"
-            >
+            <select id="cars-sort" class="cars-sort__select" [value]="sortBy()" (change)="setSort($event)">
 
               <option value="popular">
                 {{ 'CARS_PAGE.SORT.POPULAR' | translate }}
@@ -596,401 +520,359 @@
              ACTIVE FILTERS
         ===================================================== -->
         @if (
-          selectedCategory() !== null ||
-          selectedTransmission() !== 'All' ||
-          selectedFuelType() !== 'All' ||
-          maxPrice() < currentPlanMaxPrice() ||
-          searchQuery()
-        ) {
+        selectedCategory() !== null ||
+        selectedTransmission() !== 'All' ||
+        selectedFuelType() !== 'All' ||
+        maxPrice() < currentPlanMaxPrice() || searchQuery() ) { <div class="active-filters">
 
-          <div class="active-filters">
+          <span class="active-filters__label">
+            {{ 'CARS_PAGE.ACTIVE_FILTERS.LABEL' | translate }}
+          </span>
 
-            <span class="active-filters__label">
-              {{ 'CARS_PAGE.ACTIVE_FILTERS.LABEL' | translate }}
+
+          @if (
+          selectedCategory() !== null
+          ) {
+
+          <span class="active-filter">
+            {{
+            getCategoryName(
+            selectedCategory()
+            )
+            }}
+          </span>
+
+          }
+
+
+          @if (
+          selectedTransmission() != 'All'
+          ) {
+
+          <span class="active-filter">
+            {{getTransmissionLabel(selectedTransmission())}}
+          </span>
+
+          }
+
+
+          @if (
+          selectedFuelType() != 'All'
+          ) {
+
+          <span class="active-filter">
+            {{ getFuelTypeLabel(selectedFuelType()) }}
+          </span>
+
+          }
+
+
+          @if (
+          maxPrice() < currentPlanMaxPrice() ) { <span class="active-filter">
+
+            {{ 'CARS_PAGE.ACTIVE_FILTERS.UP_TO' | translate }}
+
+            AED {{ maxPrice() | number }}
+
             </span>
-
-
-            @if (
-              selectedCategory() !== null
-            ) {
-
-              <span class="active-filter">
-                {{
-                  getCategoryName(
-                    selectedCategory()
-                  )
-                }}
-              </span>
-
-            }
-
-
-            @if (
-              selectedTransmission() !== 'All'
-            ) {
-
-              <span class="active-filter">
-                <!-- {{getTransmissionLabel(selectedTransmission() as Transmission)}} -->
-              </span>
-
-            }
-
-
-            @if (
-              selectedFuelType() !== 'All'
-            ) {
-
-              <span class="active-filter">
-                <!-- {{ getFuelTypeLabel(selectedFuelType() as FuelType) }} -->
-              </span>
-
-            }
-
-
-            @if (
-              maxPrice() < currentPlanMaxPrice()
-            ) {
-
-              <span class="active-filter">
-
-                {{ 'CARS_PAGE.ACTIVE_FILTERS.UP_TO' | translate }}
-
-                AED {{ maxPrice() | number }}
-
-              </span>
 
             }
 
 
             @if (searchQuery()) {
 
-              <span class="active-filter">
-                "{{ searchQuery() }}"
-              </span>
+            <span class="active-filter">
+              "{{ searchQuery() }}"
+            </span>
 
             }
 
 
-            <button
-              type="button"
-              class="active-filters__clear"
-              (click)="clearFilters()"
-            >
+            <button type="button" class="active-filters__clear" (click)="clearFilters()">
               {{ 'CARS_PAGE.ACTIVE_FILTERS.CLEAR' | translate }}
             </button>
 
-          </div>
+    </div>
 
-        }
+    }
 
 
-        <!-- ====================================================
+    <!-- ====================================================
              LOADING
         ===================================================== -->
-        @if (loading()) {
+    @if (loading()) {
 
-          <div class="cars-empty">
+    <div class="cars-empty">
 
-            <h3>
-              {{ 'CARS_PAGE.STATES.LOADING' | translate }}
-            </h3>
-
-          </div>
-
-        }
-
-
-        <!-- ====================================================
-             ERROR
-        ===================================================== -->
-        @else if (error()) {
-
-          <div class="cars-empty">
-
-            <div class="cars-empty__icon">
-              !
-            </div>
-
-            <h3>
-              {{ 'CARS_PAGE.STATES.ERROR_TITLE' | translate }}
-            </h3>
-
-            <p>
-              {{ 'CARS_PAGE.STATES.ERROR_DESCRIPTION' | translate }}
-            </p>
-
-            <button
-              type="button"
-              class="btn-primary"
-              (click)="retry()"
-            >
-              {{ 'CARS_PAGE.STATES.RETRY' | translate }}
-            </button>
-
-          </div>
-
-        }
-
-
-        <!-- ====================================================
-             CARS GRID
-        ===================================================== -->
-        @else if (filteredCars().length > 0) {
-
-          <div class="cars-grid">
-
-            @for (
-              car of filteredCars();
-              track car.id
-            ) {
-
-              <article
-                class="car-card"
-                (click)="getCarDetails(car.id)"
-              >
-
-
-                <!-- Image -->
-                <a class="car-card__image">
-
-                  <img
-                    [src]="car.primaryImageUrl || 'assets/images/placeholder-car.jpg'"
-                    [alt]="getCarName(car)"
-                    width="800"
-                    height="520"
-                    loading="lazy"
-                  />
-
-                  <div class="car-card__image-overlay"></div>
-
-
-                  <!-- Category -->
-                  <span class="car-card__category">
-                    {{
-                      getCategoryName(
-                        car.categoryId
-                      )
-                    }}
-                  </span>
-
-
-                  <span
-                    class="car-card__favorite"
-                    aria-hidden="true"
-                  >
-                    ♡
-                  </span>
-
-                </a>
-
-
-                <!-- ==================================================
-                     CARD BODY
-                =================================================== -->
-                <div class="car-card__body">
-
-
-                  <!-- Name + Rating -->
-                  <div class="car-card__top">
-
-                    <div>
-
-                      <h3 class="car-card__name">
-                        {{
-                          getCarName(car)
-                        }}
-                      </h3>
-
-
-                      <div class="car-card__rating">
-
-                        <span class="car-card__stars">
-                          ★★★★★
-                        </span>
-
-                        <span>
-                          {{ car.rating }}
-                        </span>
-
-                        <small>
-                          ({{ car.reviewsCount }})
-                        </small>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-
-                  <!-- Specifications -->
-                  <div class="car-card__specs">
-
-
-                    <div class="car-card__spec">
-
-                      <span
-                        class="car-card__spec-icon"
-                      >
-                        ⚙
-                      </span>
-
-                      <span>
-                        {{
-                          getTransmissionLabel(
-                            car.transmission
-                          )
-                        }}
-                      </span>
-
-                    </div>
-
-
-                    <div class="car-card__spec">
-
-                      <span
-                        class="car-card__spec-icon"
-                      >
-                        ♙
-                      </span>
-
-                      <span>
-
-                        {{ car.seats }}
-
-                        {{
-                          'CARS_PAGE.CARD.SEATS'
-                          | translate
-                        }}
-
-                      </span>
-
-                    </div>
-
-
-                    <div class="car-card__spec">
-
-                      <span
-                        class="car-card__spec-icon"
-                      >
-                        ◫
-                      </span>
-
-                      <span>
-
-                        {{ car.luggage }}
-
-                        {{
-                          'CARS_PAGE.CARD.BAGS'
-                          | translate
-                        }}
-
-                      </span>
-
-                    </div>
-
-
-                    <div class="car-card__spec">
-
-                      <span
-                        class="car-card__spec-icon"
-                      >
-                        ⛽
-                      </span>
-
-                      <span>
-                        {{
-                          getFuelTypeLabel(
-                            car.fuelType
-                          )
-                        }}
-                      </span>
-
-                    </div>
-
-                  </div>
-
-
-                  <!-- ==================================================
-                       PRICE + BOOKING
-                  =================================================== -->
-                  <div class="car-card__footer">
-
-                    <div class="car-card__price">
-
-                      <strong>
-                        AED
-                        {{ getCarPrice(car) | number }}
-                      </strong>
-
-                      <span>
-                        /
-                        {{ getPlanLabel() }}
-                      </span>
-
-                    </div>
-
-
-                    <a
-                      class="car-card__button"
-                      (click)="bookNow(car.id)"
-                    >
-
-                      {{ 'CARS_PAGE.CARD.BOOK_NOW' | translate }}
-
-                      <span aria-hidden="true">
-                        →
-                      </span>
-
-                    </a>
-
-                  </div>
-
-                </div>
-
-              </article>
-
-            }
-
-          </div>
-
-        }
-
-
-        <!-- ====================================================
-             EMPTY STATE
-        ===================================================== -->
-        @else {
-
-          <div class="cars-empty">
-
-            <div class="cars-empty__icon">
-              ⌕
-            </div>
-
-            <h3>
-              {{ 'CARS_PAGE.STATES.NO_CARS_TITLE' | translate }}
-            </h3>
-
-            <p>
-              {{ 'CARS_PAGE.STATES.NO_CARS_DESCRIPTION' | translate }}
-            </p>
-
-            <button
-              type="button"
-              class="btn-primary"
-              (click)="clearFilters()"
-            >
-              {{ 'CARS_PAGE.STATES.RESET_FILTERS' | translate }}
-            </button>
-
-          </div>
-
-        }
-
-      </main>
+      <h3>
+        {{ 'CARS_PAGE.STATES.LOADING' | translate }}
+      </h3>
 
     </div>
+
+    }
+
+
+    <!-- ====================================================
+             ERROR
+        ===================================================== -->
+    @else if (error()) {
+
+    <div class="cars-empty">
+
+      <div class="cars-empty__icon">
+        !
+      </div>
+
+      <h3>
+        {{ 'CARS_PAGE.STATES.ERROR_TITLE' | translate }}
+      </h3>
+
+      <p>
+        {{ 'CARS_PAGE.STATES.ERROR_DESCRIPTION' | translate }}
+      </p>
+
+      <button type="button" class="btn-primary" (click)="retry()">
+        {{ 'CARS_PAGE.STATES.RETRY' | translate }}
+      </button>
+
+    </div>
+
+    }
+
+
+    <!-- ====================================================
+             CARS GRID
+        ===================================================== -->
+    @else if (filteredCars().length > 0) {
+
+    <div class="cars-grid">
+
+      @for (
+      car of filteredCars();
+      track car.id
+      ) {
+
+      <article class="car-card" (click)="getCarDetails(car.id)">
+
+
+        <!-- Image -->
+        <a class="car-card__image">
+
+          <img [src]="car.primaryImageUrl || 'assets/images/placeholder-car.jpg'" [alt]="getCarName(car)" width="800"
+            height="520" loading="lazy" />
+
+          <div class="car-card__image-overlay"></div>
+
+
+          <!-- Category -->
+          <span class="car-card__category">
+            {{
+            getCategoryName(
+            car.categoryId
+            )
+            }}
+          </span>
+
+
+          <span class="car-card__favorite" aria-hidden="true">
+            ♡
+          </span>
+
+        </a>
+
+
+        <!-- ==================================================
+                     CARD BODY
+                =================================================== -->
+        <div class="car-card__body">
+
+
+          <!-- Name + Rating -->
+          <div class="car-card__top">
+
+            <div>
+
+              <h3 class="car-card__name">
+                {{
+                getCarName(car)
+                }}
+              </h3>
+
+
+              <div class="car-card__rating">
+
+                <span class="car-card__stars">
+                  ★★★★★
+                </span>
+
+                <span>
+                  {{ car.rating }}
+                </span>
+
+                <small>
+                  ({{ car.reviewsCount }})
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Specifications -->
+          <div class="car-card__specs">
+
+
+            <div class="car-card__spec">
+
+              <span class="car-card__spec-icon">
+                ⚙
+              </span>
+
+              <span>
+                {{
+                getTransmissionLabel(
+                car.transmission
+                )
+                }}
+              </span>
+
+            </div>
+
+
+            <div class="car-card__spec">
+
+              <span class="car-card__spec-icon">
+                ♙
+              </span>
+
+              <span>
+
+                {{ car.seats }}
+
+                {{
+                'CARS_PAGE.CARD.SEATS'
+                | translate
+                }}
+
+              </span>
+
+            </div>
+
+
+            <div class="car-card__spec">
+
+              <span class="car-card__spec-icon">
+                ◫
+              </span>
+
+              <span>
+
+                {{ car.luggage }}
+
+                {{
+                'CARS_PAGE.CARD.BAGS'
+                | translate
+                }}
+
+              </span>
+
+            </div>
+
+
+            <div class="car-card__spec">
+
+              <span class="car-card__spec-icon">
+                ⛽
+              </span>
+
+              <span>
+                {{
+                getFuelTypeLabel(
+                car.fuelType
+                )
+                }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+                       PRICE + BOOKING
+                  =================================================== -->
+          <div class="car-card__footer">
+
+            <div class="car-card__price">
+
+              <strong>
+                AED
+                {{ getCarPrice(car) | number }}
+              </strong>
+
+              <span>
+                /
+                {{ getPlanLabel() }}
+              </span>
+
+            </div>
+
+            <!-- WhatsApp -->
+            <a [href]="getWhatsAppLink(car)" target="_blank" rel="noopener noreferrer" class="car__whatsapp"
+              [attr.aria-label]="'NAVBAR.ACTIONS.WHATSAPP_ARIA_LABEL' | translate" (click)="$event.stopPropagation()">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            </a>
+            <a class="car-card__button" (click)="bookNow(car.id)">
+              {{ 'CARS_PAGE.CARD.BOOK_NOW' | translate }}
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      }
+
+    </div>
+
+    }
+
+
+    <!-- ====================================================
+             EMPTY STATE
+        ===================================================== -->
+    @else {
+
+    <div class="cars-empty">
+
+      <div class="cars-empty__icon">
+        ⌕
+      </div>
+
+      <h3>
+        {{ 'CARS_PAGE.STATES.NO_CARS_TITLE' | translate }}
+      </h3>
+
+      <p>
+        {{ 'CARS_PAGE.STATES.NO_CARS_DESCRIPTION' | translate }}
+      </p>
+
+      <button type="button" class="btn-primary" (click)="clearFilters()">
+        {{ 'CARS_PAGE.STATES.RESET_FILTERS' | translate }}
+      </button>
+
+    </div>
+
+    }
+
+    </main>
+
+  </div>
 
   </div>
 

@@ -1,24 +1,8 @@
-import {
-  Injectable,
-  inject
-} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; import { Observable } from 'rxjs';
+import { Car, RentalPlan } from '../models/car.model';
 
-import {
-  HttpClient
-} from '@angular/common/http';
-
-import {
-  Observable
-} from 'rxjs';
-
-import {
-  Car,
-  RentalPlan
-} from '../models/car.model';
-
-import {
-  environment
-} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

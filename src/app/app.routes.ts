@@ -66,7 +66,14 @@ export const routes: Routes = [
       {
         path: 'services',
         component: Services,
-        canActivate: [authGuard]
+       
+      },
+      {
+        path: 'my-bookings',
+         canActivate: [authGuard],
+        loadComponent: () =>
+          import('./features/booking/my-bookings/my-bookings')
+            .then(m => m.MyBookings)
       }
 
     ]

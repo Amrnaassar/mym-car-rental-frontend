@@ -927,6 +927,60 @@
 }
 
 
+// ============================================================
+// WHATSAPP
+// ============================================================
+
+.car__whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 11px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  text-decoration: none;
+
+  transition:
+    color $transition-normal,
+    background $transition-normal,
+    border-color $transition-normal,
+    transform $transition-normal,
+    box-shadow $transition-normal;
+
+  i {
+    font-size: 17px;
+    line-height: 1;
+  }
+
+  &:hover {
+    color: #fff;
+
+    border-color: rgba(200, 169, 107, 0.42);
+
+    background: rgba(200, 169, 107, 0.075);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+      0 8px 22px rgba(0, 0, 0, 0.18);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(200, 169, 107, 0.6);
+    outline-offset: 2px;
+  }
+}
+
+
+
 .car-card__price {
   display: flex;
   flex-direction: column;
@@ -1354,6 +1408,15 @@
 
   .car-card__button {
     padding-inline: 12px;
+  }
+   .car__whatsapp {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .car__whatsapp i {
+    font-size: 18px;
   }
 
 }

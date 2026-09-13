@@ -31,6 +31,7 @@ import { CarService } from '../../core/services/car.service';
 import { CarCategoryService } from '../../core/services/car-category.service';
 import { Category } from '../../core/models/car-category.model';
 import { TranslatePipe } from '@ngx-translate/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cars',
@@ -63,6 +64,9 @@ export class Cars implements OnInit {
 
   readonly languageService =
     inject(LanguageService);
+
+  readonly Transmission = Transmission;
+  readonly FuelType = FuelType;
 
 
   // ============================================================
@@ -554,16 +558,12 @@ export class Cars implements OnInit {
   // TRANSMISSION LABEL
   // ============================================================
 
-  getTransmissionLabel(
-    transmission: Transmission
-  ): string {
+  getTransmissionLabel(transmission: Transmission | 'All'): string {
 
     const isArabic =
       this.languageService.isArabic();
 
-    if (
-      transmission === Transmission.Automatic
-    ) {
+    if (transmission == Transmission.Automatic) {
       return isArabic
         ? 'أوتوماتيك'
         : 'Automatic';
@@ -580,7 +580,7 @@ export class Cars implements OnInit {
   // ============================================================
 
   getFuelTypeLabel(
-    fuelType: FuelType
+    fuelType: FuelType | 'All'
   ): string {
 
     const isArabic =
@@ -913,4 +913,21 @@ export class Cars implements OnInit {
       }
     );
   }
+
+  getWhatsAppLink(car: Car): string {
+    const phoneNumber = '971569799070'; 
+
+    const carName = this.languageService.isArabic()
+      ? car.nameAr
+      : car.nameEn;
+
+    const carUrl = `${environment.apiUrl}/cars/${car.id}`;
+
+    const message = this.languageService.isArabic()
+      ? `مرحباً، أريد الاستفسار عن السيارة ${carName}.\n\nرابط السيارة:\n${carUrl}`
+      : `Hello, I would like to inquire about the ${carName}.\n\nCar link:\n${carUrl}`;
+
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  }
+
 }

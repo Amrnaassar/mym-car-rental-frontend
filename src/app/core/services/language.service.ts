@@ -19,10 +19,14 @@ export type Language = 'ar' | 'en';
   providedIn: 'root'
 })
 export class LanguageService {
+
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly translate = inject(TranslateService);
-  readonly currentLanguage = () => this.languageSignal();
+
+  readonly currentLanguage = () =>
+    this.languageSignal();
+
   private readonly languageSignal =
     signal<Language>(this.getInitialLanguage());
 
@@ -34,15 +38,16 @@ export class LanguageService {
   );
 
   constructor() {
+
     const language = this.languageSignal();
 
-   // this.translate.setDefaultLang('en');
     this.translate.use(language);
 
     this.applyLanguage(language);
   }
 
   setLanguage(language: Language): void {
+
     if (this.languageSignal() === language) {
       return;
     }
@@ -62,6 +67,7 @@ export class LanguageService {
   }
 
   toggleLanguage(): void {
+
     this.setLanguage(
       this.languageSignal() === 'ar'
         ? 'en'
@@ -70,6 +76,7 @@ export class LanguageService {
   }
 
   private getInitialLanguage(): Language {
+
     if (!isPlatformBrowser(this.platformId)) {
       return 'en';
     }
@@ -82,9 +89,8 @@ export class LanguageService {
       : 'en';
   }
 
-  private applyLanguage(
-    language: Language
-  ): void {
+  private applyLanguage(language: Language): void {
+
     const html =
       this.document.documentElement;
 

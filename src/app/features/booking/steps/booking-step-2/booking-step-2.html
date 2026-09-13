@@ -59,7 +59,7 @@
         <div class="input-wrapper">
           <i class="fa-regular fa-envelope"></i>
 
-          <input id="customerEmail" type="email" [placeholder]="'BOOKING_STEP_2.FORM.EMAIL.PLACEHOLDER' | translate"
+          <input id="customerEmail" type="email" [placeholder]="'you@example.com'"
             autocomplete="email" [value]="booking.customerEmail" (input)="onTextChange('customerEmail', $event)"
             [attr.aria-invalid]="emailError ? 'true' : null" />
         </div>

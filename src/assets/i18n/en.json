@@ -20,7 +20,7 @@
       "LOGIN": "Login",
       "LOGOUT_ARIA_LABEL": "Logout from MYM Car Rental",
       "LOGOUT": "Logout",
-      "BOOK_CAR": "Book a Car",
+      "MY_BOOK": "My booking",
       "TOGGLE_MENU_ARIA_LABEL": "Toggle navigation menu"
     }
   },
@@ -327,7 +327,7 @@
       },
       "CARD": {
         "SEATS": "Seats",
-        "BAGS": "Bags",
+        "BAGS": "Luggage",
         "BOOK_NOW": "Book Now"
       }
     },
@@ -591,12 +591,7 @@
         "PRIVACY_POLICY": "Privacy Policy"
       }
     },
-    "NOT_FOUND": {
-      "EYEBROW": "Page Not Found",
-      "TITLE": "We couldn't find this page",
-      "DESCRIPTION": "The page you're looking for may have been moved, deleted, or doesn't exist anymore.",
-      "BACK_TO_HOME": "Back to Home"
-    },
+    
     "FOOTER": {
       "BRAND": {
         "HOME_ARIA_LABEL": "MYM Car Rental Home",
@@ -632,5 +627,11 @@
       "PAYMENTS": {
         "WE_ACCEPT": "We Accept"
       }
+    },
+    "NOT_FOUND": {
+      "EYEBROW": "Page Not Found",
+      "TITLE": "We couldn't find this page",
+      "DESCRIPTION": "The page you're looking for may have been moved, deleted, or doesn't exist anymore.",
+      "BACK_TO_HOME": "Back to Home"
     }
   }

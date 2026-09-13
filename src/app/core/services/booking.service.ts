@@ -34,20 +34,6 @@ export class BookingService {
     );
   }
 
-  // ============================================================
-  // GET BOOKING BY ID
-  // GET: /api/bookings/{id}
-  // Employee + Manager
-  // ============================================================
-
-  getBookingById(
-    id: string
-  ): Observable<BookingResponse> {
-
-    return this.http.get<BookingResponse>(
-      `${this.apiUrl}/${id}`
-    );
-  }
 
   // ============================================================
   // GET MY BOOKINGS
@@ -62,39 +48,6 @@ export class BookingService {
     );
   }
 
-  // ============================================================
-  // GET ALL BOOKINGS
-  // GET: /api/bookings
-  // Employee + Manager
-  // ============================================================
-
-  getAllBookings(): Observable<BookingResponse[]> {
-
-    return this.http.get<BookingResponse[]>(
-      this.apiUrl
-    );
-  }
-
-  // ============================================================
-  // UPDATE STATUS
-  // PUT: /api/bookings/{id}/status
-  // Employee + Manager
-  // ============================================================
-
-  updateStatus(
-    id: string,
-    status: BookingStatus
-  ): Observable<void> {
-
-    const dto: UpdateBookingStatusDto = {
-      status
-    };
-
-    return this.http.put<void>(
-      `${this.apiUrl}/${id}/status`,
-      dto
-    );
-  }
 
   // ============================================================
   // CANCEL BOOKING

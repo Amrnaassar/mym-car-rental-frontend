@@ -18,11 +18,12 @@ import { AuthService } from '../../core/services/auth.service';
 import { GoogleAuthService } from '../../core/services/google-auth.service';
 import { UserRole } from '../../core/models/user.model';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports:[TranslatePipe],
+  imports: [TranslatePipe],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,6 +33,7 @@ export class LoginComponent implements AfterViewInit {
   @ViewChild('googleButton', { static: true })
   googleButton!: ElementRef<HTMLDivElement>;
 
+  private readonly languageService = inject(LanguageService);
   private readonly googleAuthService = inject(GoogleAuthService);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);

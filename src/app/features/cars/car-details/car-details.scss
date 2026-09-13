@@ -160,51 +160,32 @@
 
 
 .car-gallery__main {
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  overflow: hidden;
+    border-radius: $radius-md;
 
-  height: clamp(400px, 48vw, 650px);
+    height: clamp(400px, 48vw, 650px);
 
-  background: $color-surface;
-
-  border: 1px solid $color-border;
-  border-radius: $radius-xl;
-
-  box-shadow: $shadow-lg;
+    background: #0b1118;
+    overflow: hidden;
 }
 
 
 .car-gallery__main img {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 
-  display: block;
-
-  object-fit: cover;
-
-  transition: transform 0.6s ease;
+    object-fit: contain;
 }
-
 
 .car-gallery__main:hover img {
   transform: scale(1.015);
+  filter: brightness(1.1) contrast(1.05) saturate(1.06);
 }
 
 
-.car-gallery__overlay {
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.04) 25%,
-      rgba(0, 0, 0, 0.65) 100%
-    );
-
-  pointer-events: none;
-}
 
 
 .car-gallery__category {

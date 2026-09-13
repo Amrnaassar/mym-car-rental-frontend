@@ -11,6 +11,10 @@ body {
   overflow-x: hidden;
 }
 
+[dir="rtl"] .fa-arrow-right {
+  transform: scaleX(-1);
+}
+
 ::selection {
   background: $color-accent;
   color: $color-primary-dark;
