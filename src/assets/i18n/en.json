@@ -453,10 +453,10 @@
   },
   "CONTACT": {
     "HEADER": {
-      "EYEBROW": "Get in Touch",
-      "TITLE": "Let's Find Your",
-      "TITLE_HIGHLIGHT": "Perfect Ride",
-      "DESCRIPTION": "Have a question or need a custom rental? Our team is available 24/7 to help you choose the perfect luxury vehicle for your journey."
+      "EYEBROW": "GET IN TOUCH",
+      "TITLE": "Let's Start Your",
+      "TITLE_HIGHLIGHT": "Journey",
+      "DESCRIPTION": "Have a question or need assistance? Our team is here to help you with all your car rental needs."
     },
     "DETAILS": {
       "PHONE": {
@@ -471,33 +471,48 @@
       }
     },
     "LOCATION_MAP": {
-      "TITLE": "MYM Car Rental Location"
+      "TITLE": "MYM Car Rental location on Google Maps"
     },
     "LOCATION_CARD": {
-      "EYEBROW": "Our Location",
-      "TITLE": "Residence 1072",
-      "MAPS_LINK": "View on Google Maps"
+      "EYEBROW": "OUR LOCATION",
+      "TITLE": "Visit Us",
+      "MAPS_LINK": "Open in Google Maps"
     },
     "FORM": {
-      "EYEBROW": "Contact Us",
-      "TITLE": "Send a Message",
-      "DESCRIPTION": "Tell us what you're looking for and we'll get back to you shortly.",
+      "EYEBROW": "SEND A MESSAGE",
+      "TITLE": "Get in Touch",
+      "DESCRIPTION": "Fill out the form and our team will get back to you as soon as possible.",
       "FULL_NAME": {
         "LABEL": "Full Name",
-        "PLACEHOLDER": "John Smith"
+        "PLACEHOLDER": "Enter your full name"
       },
       "PHONE": {
-        "LABEL": "Phone"
+        "LABEL": "Phone Number"
       },
       "EMAIL": {
-        "LABEL": "Email",
-        "PLACEHOLDER": "john@email.com"
+        "LABEL": "Email Address",
+        "PLACEHOLDER": "Enter your email address"
       },
       "MESSAGE": {
         "LABEL": "Message",
-        "PLACEHOLDER": "Tell us which car you're looking for..."
+        "PLACEHOLDER": "How can we help you?"
       },
-      "SUBMIT": "Send Inquiry"
+      "SUBMIT": "Send Message",
+      "SUCCESS": "Your message has been sent successfully. We'll get back to you soon.",
+      "ERROR": "Something went wrong. Please try again later.",
+      "VALIDATION": {
+        "FULL_NAME_REQUIRED": "Full name is required.",
+        "FULL_NAME_MIN": "Full name must be at least 2 characters.",
+        "FULL_NAME_MAX": "Full name cannot exceed 100 characters.",
+        "PHONE_REQUIRED": "Phone number is required.",
+        "PHONE_INVALID": "Please enter a valid phone number.",
+        "EMAIL_REQUIRED": "Email address is required.",
+        "EMAIL_INVALID": "Please enter a valid email address.",
+        "EMAIL_MAX": "Email address cannot exceed 150 characters.",
+        "MESSAGE_REQUIRED": "Message is required.",
+        "MESSAGE_MIN": "Message must be at least 10 characters.",
+        "MESSAGE_MAX": "Message cannot exceed 2000 characters."
+      }
     }
   },
   "FEATURED_CARS": {

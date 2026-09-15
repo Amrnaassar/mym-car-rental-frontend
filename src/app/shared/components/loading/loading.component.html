@@ -1,0 +1,45 @@
+@if (loadingService.isLoading()) {
+
+<div class="loader" role="status" aria-live="polite" aria-label="Loading">
+
+    <div class="loader__content">
+
+        <!-- =====================================================
+         CAR ANIMATION
+    ====================================================== -->
+
+        <div class="loader__road">
+
+            <div class="loader__lights">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="loader__car" aria-hidden="true">
+                <img src="assets/images/logo/car.svg" alt="" />
+            </div>
+
+            <div class="loader__road-line"></div>
+
+        </div>
+
+
+        <!-- =====================================================
+         LOADING TEXT
+    ====================================================== -->
+
+        <div class="loader__text">
+            <span>Loading</span>
+
+            <span class="loader__dots" aria-hidden="true">
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+            </span>
+        </div>
+
+    </div>
+
+</div>
+}

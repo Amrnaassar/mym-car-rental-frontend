@@ -1,15 +1,13 @@
 @use '../../../styles/abstracts/variables' as *;
 
-/* =========================================
-   CONTACT
-========================================= */
+// ==========================================================
+// CONTACT
+// ==========================================================
 
 .contact {
   position: relative;
-
   width: 100%;
   padding: 7rem 0;
-
   overflow: hidden;
 
   background:
@@ -25,173 +23,147 @@
     );
 }
 
-
-/* =========================================
-   CONTAINER
-========================================= */
+// ==========================================================
+// CONTAINER
+// ==========================================================
 
 .contact__container {
   width: min(1200px, calc(100% - 3rem));
-
   margin-inline: auto;
 
   display: grid;
-
   grid-template-columns:
     minmax(0, 1fr)
     minmax(420px, 0.82fr);
 
   gap: 5rem;
-
   align-items: start;
 }
 
-
-/* =========================================
-   LEFT SIDE
-========================================= */
+// ==========================================================
+// LEFT SIDE
+// ==========================================================
 
 .contact__info {
   min-width: 0;
 }
 
-
-/* =========================================
-   EYEBROW
-========================================= */
+// ==========================================================
+// EYEBROW
+// ==========================================================
 
 .contact__eyebrow {
   display: inline-flex;
-
   align-items: center;
   gap: 0.75rem;
 
   margin-bottom: 1.25rem;
 
-  color: var(--color-primary, #c9a86a);
+  color: $color-accent;
 
   font-size: 0.75rem;
   font-weight: 600;
-
   letter-spacing: 0.18em;
   text-transform: uppercase;
+
+  &::before {
+    content: '';
+
+    width: 2rem;
+    height: 1px;
+
+    background: currentColor;
+    opacity: 0.8;
+  }
 }
 
-
-.contact__eyebrow::before {
-  content: '';
-
-  width: 2rem;
-  height: 1px;
-
-  background: currentColor;
-
-  opacity: 0.8;
-}
-
-
-/* =========================================
-   TITLE
-========================================= */
+// ==========================================================
+// TITLE
+// ==========================================================
 
 .contact__title {
   max-width: 620px;
-
   margin: 0;
 
-  color: var(--color-text-primary, #ffffff);
+  color: $color-text-primary;
 
   font-size: clamp(2.5rem, 4vw, 4.25rem);
-
   font-weight: 500;
-
   line-height: 1.05;
-
   letter-spacing: -0.035em;
+
+  span {
+    display: block;
+    color: $color-accent;
+  }
 }
 
-
-.contact__title span {
-  display: block;
-
-  color: var(--color-primary, #c9a86a);
-}
-
-
-/* =========================================
-   SUBTITLE
-========================================= */
+// ==========================================================
+// SUBTITLE
+// ==========================================================
 
 .contact__subtitle {
   max-width: 580px;
 
   margin: 1.75rem 0 2.75rem;
 
-  color: var(--color-text-secondary, rgba(255, 255, 255, 0.62));
+  color: rgba(255, 255, 255, 0.62);
 
   font-size: 0.98rem;
-
   line-height: 1.8;
 }
 
-
-/* =========================================
-   CONTACT DETAILS
-========================================= */
+// ==========================================================
+// CONTACT DETAILS
+// ==========================================================
 
 .contact__details {
   display: flex;
-
   flex-direction: column;
-
   gap: 0.75rem;
 
   margin-bottom: 2rem;
 }
 
-
-/* =========================================
-   CONTACT ITEM
-========================================= */
+// ==========================================================
+// CONTACT ITEM
+// ==========================================================
 
 .contact__item {
   display: flex;
-
   align-items: center;
-
   gap: 1rem;
 
   width: 100%;
-
   padding: 0.9rem;
 
   color: inherit;
-
   text-decoration: none;
 
   border: 1px solid transparent;
-
   border-radius: 0.9rem;
 
   transition:
     background-color 0.3s ease,
     border-color 0.3s ease,
     transform 0.3s ease;
+
+  &--location {
+    cursor: default;
+  }
 }
 
-
-a.contact__item:hover {
-  background: rgba(255, 255, 255, 0.025);
-
-  border-color: rgba(255, 255, 255, 0.07);
-
-  transform: translateX(4px);
+a.contact__item {
+  &:hover {
+    background: rgba(255, 255, 255, 0.025);
+    border-color: rgba(255, 255, 255, 0.07);
+    transform: translateX(4px);
+  }
 }
 
-
-/* =========================================
-   ICON
-========================================= */
+// ==========================================================
+// ICON
+// ==========================================================
 
 .contact__icon {
   flex: 0 0 3rem;
@@ -200,10 +172,9 @@ a.contact__item:hover {
   height: 3rem;
 
   display: grid;
-
   place-items: center;
 
-  color: var(--color-primary, #c9a86a);
+  color: $color-accent;
 
   background:
     linear-gradient(
@@ -213,138 +184,134 @@ a.contact__item:hover {
     );
 
   border: 1px solid rgba(255, 255, 255, 0.08);
-
   border-radius: 0.75rem;
+
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+
+  i {
+    font-size: 1.05rem;
+    line-height: 1;
+  }
 }
 
+a.contact__item:hover {
+  .contact__icon {
+    color: #ffffff;
 
-.contact__icon svg {
-  width: 1.25rem;
-  height: 1.25rem;
+    background: rgba($color-accent, 0.08);
+    border-color: rgba($color-accent, 0.2);
+  }
 }
 
-
-/* =========================================
-   ITEM CONTENT
-========================================= */
+// ==========================================================
+// ITEM CONTENT
+// ==========================================================
 
 .contact__item-content {
   display: flex;
-
   flex-direction: column;
-
   gap: 0.3rem;
 
   min-width: 0;
 }
 
-
 .contact__item-label {
   color: rgba(255, 255, 255, 0.4);
 
   font-size: 0.7rem;
-
   font-weight: 500;
-
   letter-spacing: 0.1em;
-
   text-transform: uppercase;
 }
-
 
 .contact__item-value {
   color: rgba(255, 255, 255, 0.88);
 
   font-size: 0.9rem;
-
   font-weight: 500;
-
   line-height: 1.4;
 
   overflow-wrap: anywhere;
 }
 
-
-/* =========================================
-   LOCATION CARD
-========================================= */
+// ==========================================================
+// LOCATION CARD
+// ==========================================================
 
 .contact__location-card {
   overflow: hidden;
 
   border: 1px solid rgba(255, 255, 255, 0.08);
-
   border-radius: 1.25rem;
 
-  background:
-    rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.025);
 
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.18);
 }
 
-
-/* =========================================
-   MAP
-========================================= */
+// ==========================================================
+// MAP
+// ==========================================================
 
 .contact__map {
   position: relative;
 
   width: 100%;
-
   height: 250px;
 
   overflow: hidden;
 
   background: #151515;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.02),
+        rgba(0, 0, 0, 0.25)
+      );
+  }
+
+  iframe {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+
+    filter:
+      grayscale(0.15)
+      contrast(0.95);
+  }
 }
 
-
-.contact__map::after {
-  content: '';
-
-  position: absolute;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.02),
-      rgba(0, 0, 0, 0.25)
-    );
-}
-
-
-.contact__map iframe {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  border: 0;
-
-  filter: grayscale(0.15) contrast(0.95);
-}
-
-
-/* =========================================
-   LOCATION CONTENT
-========================================= */
+// ==========================================================
+// LOCATION CONTENT
+// ==========================================================
 
 .contact__location-content {
   display: flex;
-
   align-items: flex-start;
-
   gap: 1rem;
 
   padding: 1.25rem;
 }
 
+// ==========================================================
+// LOCATION ICON
+// ==========================================================
 
 .contact__location-icon {
   flex: 0 0 2.75rem;
@@ -353,112 +320,98 @@ a.contact__item:hover {
   height: 2.75rem;
 
   display: grid;
-
   place-items: center;
 
-  color: var(--color-primary, #c9a86a);
+  color: $color-accent;
 
-  background: rgba(201, 168, 106, 0.08);
+  background: rgba($color-accent, 0.08);
 
-  border: 1px solid rgba(201, 168, 106, 0.18);
-
+  border: 1px solid rgba($color-accent, 0.18);
   border-radius: 0.7rem;
+
+  i {
+    font-size: 1rem;
+    line-height: 1;
+  }
 }
 
-
-.contact__location-icon svg {
-  width: 1.15rem;
-  height: 1.15rem;
-}
-
-
-/* =========================================
-   LOCATION INFO
-========================================= */
+// ==========================================================
+// LOCATION INFO
+// ==========================================================
 
 .contact__location-info {
   min-width: 0;
+
+  > span {
+    display: block;
+
+    margin-bottom: 0.35rem;
+
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0.3rem 0 0;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    margin-top: 0.75rem;
+
+    color: $color-accent;
+
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+      color 0.25s ease,
+      gap 0.25s ease;
+
+    i {
+      font-size: 0.75rem;
+
+      transition:
+        transform 0.25s ease;
+    }
+
+    &:hover {
+      gap: 0.65rem;
+      color: #ffffff;
+
+      i {
+        transform: translateX(3px);
+      }
+    }
+  }
 }
 
-
-.contact__location-info > span {
-  display: block;
-
-  margin-bottom: 0.35rem;
-
-  color: rgba(255, 255, 255, 0.4);
-
-  font-size: 0.68rem;
-
-  font-weight: 500;
-
-  letter-spacing: 0.1em;
-
-  text-transform: uppercase;
-}
-
-
-.contact__location-info h3 {
-  margin: 0;
-
-  color: rgba(255, 255, 255, 0.92);
-
-  font-size: 0.95rem;
-
-  font-weight: 600;
-}
-
-
-.contact__location-info p {
-  margin: 0.3rem 0 0;
-
-  color: rgba(255, 255, 255, 0.55);
-
-  font-size: 0.8rem;
-
-  line-height: 1.6;
-}
-
-
-.contact__location-info a {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 0.4rem;
-
-  margin-top: 0.75rem;
-
-  color: var(--color-primary, #c9a86a);
-
-  font-size: 0.78rem;
-
-  font-weight: 600;
-
-  text-decoration: none;
-
-  transition:
-    color 0.25s ease,
-    gap 0.25s ease;
-}
-
-
-.contact__location-info a:hover {
-  gap: 0.65rem;
-
-  color: #ffffff;
-}
-
-
-.contact__location-info a svg {
-  width: 0.95rem;
-  height: 0.95rem;
-}
-
-
-/* =========================================
-   FORM CARD
-========================================= */
+// ==========================================================
+// FORM CARD
+// ==========================================================
 
 .contact__form {
   position: relative;
@@ -468,7 +421,6 @@ a.contact__item:hover {
   padding: 2.5rem;
 
   border: 1px solid rgba(255, 255, 255, 0.09);
-
   border-radius: 1.5rem;
 
   background:
@@ -483,57 +435,50 @@ a.contact__item:hover {
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+
+  &::before {
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+
+    width: 80%;
+    height: 1px;
+
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        rgba($color-accent, 0.7),
+        transparent
+      );
+
+    opacity: 0.7;
+  }
 }
 
-
-.contact__form::before {
-  content: '';
-
-  position: absolute;
-
-  top: 0;
-  left: 10%;
-
-  width: 80%;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201, 168, 106, 0.7),
-      transparent
-    );
-
-  opacity: 0.7;
-}
-
-
-/* =========================================
-   FORM HEADER
-========================================= */
+// ==========================================================
+// FORM HEADER
+// ==========================================================
 
 .contact__form-header {
   margin-bottom: 2rem;
 }
-
 
 .contact__form-eyebrow {
   display: block;
 
   margin-bottom: 0.6rem;
 
-  color: var(--color-primary, #c9a86a);
+  color: $color-accent;
 
   font-size: 0.7rem;
-
   font-weight: 600;
-
   letter-spacing: 0.14em;
-
   text-transform: uppercase;
 }
-
 
 .contact__form-title {
   margin: 0;
@@ -541,12 +486,9 @@ a.contact__item:hover {
   color: #ffffff;
 
   font-size: 1.7rem;
-
   font-weight: 500;
-
   letter-spacing: -0.02em;
 }
-
 
 .contact__form-description {
   margin: 0.7rem 0 0;
@@ -554,66 +496,55 @@ a.contact__item:hover {
   color: rgba(255, 255, 255, 0.5);
 
   font-size: 0.82rem;
-
   line-height: 1.7;
 }
 
-
-/* =========================================
-   FORM BODY
-========================================= */
+// ==========================================================
+// FORM BODY
+// ==========================================================
 
 .contact__form-body {
   display: flex;
-
   flex-direction: column;
-
   gap: 1.25rem;
 }
 
-
-/* =========================================
-   GRID
-========================================= */
+// ==========================================================
+// GRID
+// ==========================================================
 
 .contact__grid {
   display: grid;
 
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
 
   gap: 1rem;
 }
 
-
-/* =========================================
-   FIELD
-========================================= */
+// ==========================================================
+// FIELD
+// ==========================================================
 
 .contact__field {
   display: flex;
-
   flex-direction: column;
-
   gap: 0.55rem;
+
+  label {
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
 }
 
-
-.contact__field label {
-  color: rgba(255, 255, 255, 0.72);
-
-  font-size: 0.75rem;
-
-  font-weight: 500;
-}
-
-
-/* =========================================
-   INPUT
-========================================= */
+// ==========================================================
+// INPUT
+// ==========================================================
 
 .form-control {
   width: 100%;
-
   min-height: 3.2rem;
 
   padding: 0.85rem 1rem;
@@ -621,14 +552,11 @@ a.contact__item:hover {
   color: #ffffff;
 
   font-family: inherit;
-
   font-size: 0.82rem;
 
-  background:
-    rgba(255, 255, 255, 0.035);
+  background: rgba(255, 255, 255, 0.035);
 
   border: 1px solid rgba(255, 255, 255, 0.09);
-
   border-radius: 0.7rem;
 
   outline: none;
@@ -637,34 +565,48 @@ a.contact__item:hover {
     border-color 0.25s ease,
     background-color 0.25s ease,
     box-shadow 0.25s ease;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.27);
+  }
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  &:focus {
+    background: rgba(255, 255, 255, 0.045);
+
+    border-color: rgba($color-accent, 0.6);
+
+    box-shadow:
+      0 0 0 3px rgba($color-accent, 0.08);
+  }
+
+  &[aria-invalid='true'] {
+    border-color: rgba(220, 53, 69, 0.65);
+
+    &:focus {
+      box-shadow:
+        0 0 0 3px rgba(220, 53, 69, 0.08);
+    }
+  }
 }
 
+// ==========================================================
+// VALIDATION ERROR
+// ==========================================================
 
-.form-control::placeholder {
-  color: rgba(255, 255, 255, 0.27);
+.contact__field-error {
+  color: #e87986;
+
+  font-size: 0.7rem;
+  line-height: 1.4;
 }
 
-
-.form-control:hover {
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-
-.form-control:focus {
-  background:
-    rgba(255, 255, 255, 0.045);
-
-  border-color:
-    rgba(201, 168, 106, 0.6);
-
-  box-shadow:
-    0 0 0 3px rgba(201, 168, 106, 0.08);
-}
-
-
-/* =========================================
-   TEXTAREA
-========================================= */
+// ==========================================================
+// TEXTAREA
+// ==========================================================
 
 textarea.form-control {
   min-height: 130px;
@@ -674,39 +616,30 @@ textarea.form-control {
   line-height: 1.6;
 }
 
-
-/* =========================================
-   BUTTON
-========================================= */
+// ==========================================================
+// BUTTON
+// ==========================================================
 
 .contact__btn {
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   gap: 0.7rem;
 
   width: 100%;
-
   min-height: 3.4rem;
 
   margin-top: 0.25rem;
-
   padding: 0.85rem 1.25rem;
 
   color: #111111;
 
   font-family: inherit;
-
   font-size: 0.8rem;
-
   font-weight: 700;
-
   letter-spacing: 0.02em;
 
   border: 0;
-
   border-radius: 0.7rem;
 
   cursor: pointer;
@@ -719,122 +652,135 @@ textarea.form-control {
     );
 
   box-shadow:
-    0 10px 30px rgba(201, 168, 106, 0.16);
+    0 10px 30px rgba($color-accent, 0.16);
 
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
     filter 0.25s ease;
+
+  i {
+    font-size: 0.8rem;
+
+    transition:
+      transform 0.25s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+      0 14px 35px rgba($color-accent, 0.25);
+
+    i {
+      transform: translateX(3px);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none;
+    filter: none;
+    box-shadow:
+      0 6px 18px rgba($color-accent, 0.08);
+  }
 }
 
+// ==========================================================
+// FORM MESSAGES
+// ==========================================================
 
-.contact__btn:hover {
-  transform: translateY(-2px);
+.contact__form-message {
+  margin-top: 1rem;
 
-  filter: brightness(1.05);
+  padding: 0.85rem 1rem;
 
-  box-shadow:
-    0 14px 35px rgba(201, 168, 106, 0.25);
+  border-radius: 0.7rem;
+
+  font-size: 0.78rem;
+  line-height: 1.5;
+
+  &--success {
+    color: #8fe3ae;
+
+    background: rgba(40, 167, 69, 0.08);
+
+    border: 1px solid rgba(40, 167, 69, 0.18);
+  }
+
+  &--error {
+    color: #e87986;
+
+    background: rgba(220, 53, 69, 0.08);
+
+    border: 1px solid rgba(220, 53, 69, 0.18);
+  }
 }
 
-
-.contact__btn:active {
-  transform: translateY(0);
-}
-
-
-.contact__btn svg {
-  width: 1rem;
-  height: 1rem;
-
-  transition:
-    transform 0.25s ease;
-}
-
-
-.contact__btn:hover svg {
-  transform: translateX(3px);
-}
-
-
-/* =========================================
-   TABLET
-========================================= */
+// ==========================================================
+// TABLET
+// ==========================================================
 
 @media (max-width: 1024px) {
-
   .contact {
     padding: 5.5rem 0;
   }
 
-
   .contact__container {
     grid-template-columns: 1fr;
-
     gap: 3.5rem;
   }
-
 
   .contact__info {
     max-width: 800px;
   }
 
-
   .contact__form {
     width: 100%;
   }
-
 }
 
-
-/* =========================================
-   MOBILE
-========================================= */
+// ==========================================================
+// MOBILE
+// ==========================================================
 
 @media (max-width: 640px) {
-
   .contact {
     padding: 4rem 0;
   }
 
-
   .contact__container {
-    width: min(
-      100% - 2rem,
-      1200px
-    );
-
+    width: min(100% - 2rem, 1200px);
     gap: 2.5rem;
   }
 
-
   .contact__title {
-    font-size: clamp(
-      2.25rem,
-      11vw,
-      3rem
-    );
+    font-size: clamp(2.25rem, 11vw, 3rem);
   }
-
 
   .contact__subtitle {
     margin-top: 1.25rem;
-
     margin-bottom: 2rem;
 
     font-size: 0.9rem;
   }
 
-
   .contact__details {
     gap: 0.4rem;
   }
 
-
   .contact__item {
     padding: 0.7rem;
   }
-
 
   .contact__icon {
     flex-basis: 2.75rem;
@@ -843,56 +789,44 @@ textarea.form-control {
     height: 2.75rem;
   }
 
-
   .contact__map {
     height: 220px;
   }
-
 
   .contact__location-content {
     padding: 1rem;
   }
 
-
   .contact__form {
     padding: 1.5rem;
-
     border-radius: 1.15rem;
   }
-
 
   .contact__grid {
     grid-template-columns: 1fr;
   }
 
-
   .contact__form-title {
     font-size: 1.5rem;
   }
-
 }
 
-
-/* =========================================
-   SMALL MOBILE
-========================================= */
+// ==========================================================
+// SMALL MOBILE
+// ==========================================================
 
 @media (max-width: 400px) {
-
   .contact__container {
     width: calc(100% - 1.5rem);
   }
-
 
   .contact__form {
     padding: 1.25rem;
   }
 
-
   .contact__location-content {
     gap: 0.75rem;
   }
-
 
   .contact__location-icon {
     flex-basis: 2.5rem;
@@ -900,26 +834,55 @@ textarea.form-control {
     width: 2.5rem;
     height: 2.5rem;
   }
-
 }
 
+// ==========================================================
+// RTL
+// ==========================================================
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
+[dir='rtl'] {
+  .contact__eyebrow::before {
+    order: 2;
+  }
+
+  a.contact__item:hover {
+    transform: translateX(-4px);
+  }
+
+  .contact__location-info {
+    a {
+      i {
+        transform: scaleX(-1);
+      }
+
+      &:hover i {
+        transform: scaleX(-1) translateX(3px);
+      }
+    }
+  }
+
+  .contact__btn {
+    i {
+      transform: scaleX(-1);
+    }
+
+    &:hover i {
+      transform: scaleX(-1) translateX(3px);
+    }
+  }
+}
+
+// ==========================================================
+// REDUCED MOTION
+// ==========================================================
 
 @media (prefers-reduced-motion: reduce) {
-
   .contact *,
   .contact *::before,
   .contact *::after {
     scroll-behavior: auto !important;
-
     transition-duration: 0.01ms !important;
-
     animation-duration: 0.01ms !important;
-
     animation-iteration-count: 1 !important;
   }
-
 }

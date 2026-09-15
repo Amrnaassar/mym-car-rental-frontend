@@ -10,20 +10,23 @@ import {
   Validators
 } from '@angular/forms';
 
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { ContactService } from '../../core/services/contact.service';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule,TranslatePipe],
+  imports: [
+    ReactiveFormsModule,
+    TranslatePipe
+  ],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Contact {
-  private readonly fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);  
   private readonly contactService = inject(ContactService);
 
   readonly contactForm = this.fb.nonNullable.group({
@@ -31,6 +34,7 @@ export class Contact {
       '',
       [
         Validators.required,
+        Validators.minLength(2),
         Validators.maxLength(100)
       ]
     ],
@@ -39,7 +43,7 @@ export class Contact {
       '',
       [
         Validators.required,
-        Validators.maxLength(30)
+        Validators.pattern(/^[+]?[\d\s()-]{7,30}$/)
       ]
     ],
 
@@ -56,45 +60,46 @@ export class Contact {
       '',
       [
         Validators.required,
+        Validators.minLength(10),
         Validators.maxLength(2000)
       ]
     ]
   });
 
-  isSubmitting = false;
   isSuccess = false;
   errorMessage = '';
 
   submit(): void {
+    this.isSuccess = false;
+    this.errorMessage = '';
+
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
       return;
     }
 
-    if (this.isSubmitting) {
-      return;
-    }
-
-    this.isSubmitting = true;
-    this.isSuccess = false;
-    this.errorMessage = '';
-
     this.contactService
       .sendMessage(this.contactForm.getRawValue())
       .subscribe({
         next: () => {
-          this.isSubmitting = false;
           this.isSuccess = true;
-
           this.contactForm.reset();
         },
 
         error: () => {
-          this.isSubmitting = false;
-
-          this.errorMessage =
-            'CONTACT.FORM.ERROR';
+          this.errorMessage = 'CONTACT.FORM.ERROR';
         }
       });
+  }
+
+  hasError(
+    controlName: keyof typeof this.contactForm.controls,
+    error: string
+  ): boolean {
+    const control = this.contactForm.controls[controlName];
+
+    return control.invalid &&
+      (control.dirty || control.touched) &&
+      control.hasError(error);
   }
 }

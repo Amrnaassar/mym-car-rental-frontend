@@ -1,12 +1,11 @@
 <section class="contact" id="contact">
-
   <div class="contact__container">
 
     <!-- =========================================
          CONTACT INFO
     ========================================== -->
-    <div class="contact__info">
 
+    <div class="contact__info">
       <span class="contact__eyebrow">
         {{ 'CONTACT.HEADER.EYEBROW' | translate }}
       </span>
@@ -22,20 +21,16 @@
         {{ 'CONTACT.HEADER.DESCRIPTION' | translate }}
       </p>
 
-
       <!-- =========================================
            CONTACT DETAILS
       ========================================== -->
+
       <div class="contact__details">
 
         <!-- PHONE -->
         <a class="contact__item" href="tel:+971501234567">
           <div class="contact__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path
-                d="M4 5.5C4 4.67 4.67 4 5.5 4h2.18c.4 0 .76.25.9.62l1 2.7a1 1 0 0 1-.23 1.05l-1.3 1.3a15 15 0 0 0 6.28 6.28l1.3-1.3a.96.96 0 0 1 1.05-.23l2.7 1a.96.96 0 0 1 .62.9v2.18c0 .83-.67 1.5-1.5 1.5H19C10.72 21 4 14.28 4 6V5.5Z"
-                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-            </svg>
+              <i class="fa-solid fa-phone"></i>
           </div>
 
           <div class="contact__item-content">
@@ -49,15 +44,11 @@
           </div>
         </a>
 
-
         <!-- EMAIL -->
         <a class="contact__item" href="mailto:info@mymrental.ae">
           <div class="contact__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path
-                d="M4 6.5L12 12l8-5.5M5.5 4h13A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5v-13A1.5 1.5 0 0 1 5.5 4Z"
-                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-            </svg>
+              <i class="fa-solid fa-envelope"></i>
+
           </div>
 
           <div class="contact__item-content">
@@ -71,20 +62,14 @@
           </div>
         </a>
 
-
         <!-- LOCATION -->
         <div class="contact__item contact__item--location">
-
           <div class="contact__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 21s6-5.5 6-10a6 6 0 1 0-12 0c0 4.5 6 10 6 10Z" stroke="currentColor" stroke-width="1.5"
-                stroke-linejoin="round" />
-              <circle cx="12" cy="11" r="2.5" stroke="currentColor" stroke-width="1.5" />
-            </svg>
+             <i class="fa-solid fa-location-dot"></i>
+
           </div>
 
           <div class="contact__item-content">
-
             <span class="contact__item-label">
               {{ 'CONTACT.DETAILS.LOCATION.LABEL' | translate }}
             </span>
@@ -92,43 +77,34 @@
             <strong class="contact__item-value">
               {{ 'CONTACT.DETAILS.LOCATION.ADDRESS' | translate }}
             </strong>
-
           </div>
-
         </div>
 
       </div>
 
-
       <!-- =========================================
            LOCATION CARD
       ========================================== -->
+
       <div class="contact__location-card">
 
         <div class="contact__map">
-
           <iframe
             src="https://www.google.com/maps?q=Residence%201072%2C%20Abu%20Baker%20Al%20Siddique%20St%2C%20Al%20Muteena%2C%20Deira%2C%20Dubai&output=embed"
-            [title]="'CONTACT.LOCATION_MAP.TITLE' | translate" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+            [title]="'CONTACT.LOCATION_MAP.TITLE' | translate"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
           </iframe>
-
         </div>
-
 
         <div class="contact__location-content">
 
           <div class="contact__location-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 21s6-5.5 6-10a6 6 0 1 0-12 0c0 4.5 6 10 6 10Z" stroke="currentColor" stroke-width="1.5"
-                stroke-linejoin="round" />
-              <circle cx="12" cy="11" r="2.5" stroke="currentColor" stroke-width="1.5" />
-            </svg>
+             <i class="fa-solid fa-location-dot"></i>
           </div>
 
-
           <div class="contact__location-info">
-
             <span>
               {{ 'CONTACT.LOCATION_CARD.EYEBROW' | translate }}
             </span>
@@ -141,31 +117,28 @@
               {{ 'CONTACT.DETAILS.LOCATION.ADDRESS' | translate }}
             </p>
 
-            <a href="https://maps.app.goo.gl/xrF4n3s133iXtj6C8" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://maps.app.goo.gl/xrF4n3s133iXtj6C8"
+              target="_blank"
+              rel="noopener noreferrer">
               {{ 'CONTACT.LOCATION_CARD.MAPS_LINK' | translate }}
 
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
-
           </div>
 
         </div>
-
       </div>
 
     </div>
 
-
     <!-- =========================================
          CONTACT FORM
     ========================================== -->
+
     <div class="contact__form glass-card">
 
       <div class="contact__form-header">
-
         <span class="contact__form-eyebrow">
           {{ 'CONTACT.FORM.EYEBROW' | translate }}
         </span>
@@ -177,95 +150,191 @@
         <p class="contact__form-description">
           {{ 'CONTACT.FORM.DESCRIPTION' | translate }}
         </p>
-
       </div>
 
-
-      <form class="contact__form-body" [formGroup]="contactForm" (ngSubmit)="submit()">
+      <form
+        class="contact__form-body"
+        [formGroup]="contactForm"
+        (ngSubmit)="submit()"
+        novalidate>
 
         <!-- NAME + PHONE -->
         <div class="contact__grid">
 
+          <!-- FULL NAME -->
           <div class="contact__field">
-
             <label for="full-name">
               {{ 'CONTACT.FORM.FULL_NAME.LABEL' | translate }}
             </label>
 
-            <input id="full-name" type="text" class="form-control" formControlName="fullName"
-              [placeholder]="'CONTACT.FORM.FULL_NAME.PLACEHOLDER' | translate" autocomplete="name" />
+            <input
+              id="full-name"
+              type="text"
+              class="form-control"
+              formControlName="fullName"
+              [placeholder]="'CONTACT.FORM.FULL_NAME.PLACEHOLDER' | translate"
+              autocomplete="name"
+              maxlength="100"
+              [attr.aria-invalid]="
+                hasError('fullName', 'required') ||
+                hasError('fullName', 'minlength') ||
+                hasError('fullName', 'maxlength')
+              "
+              [attr.aria-describedby]="'full-name-error'" />
 
+            @if (hasError('fullName', 'required')) {
+              <small id="full-name-error" class="contact__field-error">
+                {{ 'CONTACT.FORM.VALIDATION.FULL_NAME_REQUIRED' | translate }}
+              </small>
+            } @else if (hasError('fullName', 'minlength')) {
+              <small id="full-name-error" class="contact__field-error">
+                {{ 'CONTACT.FORM.VALIDATION.FULL_NAME_MIN' | translate }}
+              </small>
+            } @else if (hasError('fullName', 'maxlength')) {
+              <small id="full-name-error" class="contact__field-error">
+                {{ 'CONTACT.FORM.VALIDATION.FULL_NAME_MAX' | translate }}
+              </small>
+            }
           </div>
 
-
+          <!-- PHONE -->
           <div class="contact__field">
-
             <label for="phone">
               {{ 'CONTACT.FORM.PHONE.LABEL' | translate }}
             </label>
 
-            <input id="phone" type="tel" class="form-control" formControlName="phone" placeholder="+971 50 123 4567"
-              autocomplete="tel" />
+            <input
+              id="phone"
+              type="tel"
+              class="form-control"
+              formControlName="phone"
+              placeholder="+971 50 123 4567"
+              autocomplete="tel"
+              maxlength="30"
+              [attr.aria-invalid]="
+                hasError('phone', 'required') ||
+                hasError('phone', 'pattern')
+              "
+              [attr.aria-describedby]="'phone-error'" />
+
+            @if (hasError('phone', 'required')) {
+              <small id="phone-error" class="contact__field-error">
+                {{ 'CONTACT.FORM.VALIDATION.PHONE_REQUIRED' | translate }}
+              </small>
+            } @else if (hasError('phone', 'pattern')) {
+              <small id="phone-error" class="contact__field-error">
+                {{ 'CONTACT.FORM.VALIDATION.PHONE_INVALID' | translate }}
+              </small>
+            }
           </div>
 
         </div>
 
-
         <!-- EMAIL -->
         <div class="contact__field">
-
           <label for="email">
             {{ 'CONTACT.FORM.EMAIL.LABEL' | translate }}
           </label>
 
-          <input id="email" type="email" class="form-control" formControlName="email"
-            [placeholder]="'CONTACT.FORM.EMAIL.PLACEHOLDER' | translate" autocomplete="email" />
-        </div>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            formControlName="email"
+            [placeholder]="'CONTACT.FORM.EMAIL.PLACEHOLDER' | translate"
+            autocomplete="email"
+            maxlength="150"
+            [attr.aria-invalid]="
+              hasError('email', 'required') ||
+              hasError('email', 'email') ||
+              hasError('email', 'maxlength')
+            "
+            [attr.aria-describedby]="'email-error'" />
 
+          @if (hasError('email', 'required')) {
+            <small id="email-error" class="contact__field-error">
+              {{ 'CONTACT.FORM.VALIDATION.EMAIL_REQUIRED' | translate }}
+            </small>
+          } @else if (hasError('email', 'email')) {
+            <small id="email-error" class="contact__field-error">
+              {{ 'CONTACT.FORM.VALIDATION.EMAIL_INVALID' | translate }}
+            </small>
+          } @else if (hasError('email', 'maxlength')) {
+            <small id="email-error" class="contact__field-error">
+              {{ 'CONTACT.FORM.VALIDATION.EMAIL_MAX' | translate }}
+            </small>
+          }
+        </div>
 
         <!-- MESSAGE -->
         <div class="contact__field">
-
           <label for="message">
             {{ 'CONTACT.FORM.MESSAGE.LABEL' | translate }}
           </label>
 
-          <textarea id="message" class="form-control" formControlName="message" rows="5"
-            [placeholder]="'CONTACT.FORM.MESSAGE.PLACEHOLDER' | translate"></textarea>
+          <textarea
+            id="message"
+            class="form-control"
+            formControlName="message"
+            rows="5"
+            maxlength="2000"
+            [placeholder]="'CONTACT.FORM.MESSAGE.PLACEHOLDER' | translate"
+            [attr.aria-invalid]="
+              hasError('message', 'required') ||
+              hasError('message', 'minlength') ||
+              hasError('message', 'maxlength')
+            "
+            [attr.aria-describedby]="'message-error'"></textarea>
+
+          @if (hasError('message', 'required')) {
+            <small id="message-error" class="contact__field-error">
+              {{ 'CONTACT.FORM.VALIDATION.MESSAGE_REQUIRED' | translate }}
+            </small>
+          } @else if (hasError('message', 'minlength')) {
+            <small id="message-error" class="contact__field-error">
+              {{ 'CONTACT.FORM.VALIDATION.MESSAGE_MIN' | translate }}
+            </small>
+          } @else if (hasError('message', 'maxlength')) {
+            <small id="message-error" class="contact__field-error">
+              {{ 'CONTACT.FORM.VALIDATION.MESSAGE_MAX' | translate }}
+            </small>
+          }
         </div>
 
-
         <!-- SUBMIT -->
-        <button type="submit" class="btn btn-primary contact__btn" [disabled]="isSubmitting">
-          @if (isSubmitting) {
-          <span>
-            {{ 'CONTACT.FORM.SENDING' | translate }}
-          </span>
+        <button
+          type="submit"
+          class="btn btn-primary contact__btn">
 
-          <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-          } @else {
           <span>
             {{ 'CONTACT.FORM.SUBMIT' | translate }}
           </span>
 
-          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-          }
+          <i
+            class="fa-solid fa-arrow-right"
+            aria-hidden="true">
+          </i>
         </button>
 
       </form>
+
       @if (isSuccess) {
-      <div class="contact__form-message contact__form-message--success">
-        {{ 'CONTACT.FORM.SUCCESS' | translate }}
-      </div>
+        <div
+          class="contact__form-message contact__form-message--success"
+          role="status">
+          {{ 'CONTACT.FORM.SUCCESS' | translate }}
+        </div>
       }
 
       @if (errorMessage) {
-      <div class="contact__form-message contact__form-message--error">
-        {{ errorMessage | translate }}
-      </div>
+        <div
+          class="contact__form-message contact__form-message--error"
+          role="alert">
+          {{ errorMessage | translate }}
+        </div>
       }
+
     </div>
 
   </div>
-
 </section>
