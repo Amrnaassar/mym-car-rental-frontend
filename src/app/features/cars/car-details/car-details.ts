@@ -23,9 +23,12 @@ import {
 } from '../../../core/models/car.model';
 
 import { CarService } from '../../../core/services/car.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
@@ -50,10 +53,9 @@ export class CarDetails {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly carService = inject(CarService);
- readonly languageService = inject(LanguageService);
+  private readonly seoService = inject(SeoService);
 
-
-
+  readonly languageService = inject(LanguageService);
 
   // ============================================================
   // CAR ID
@@ -63,30 +65,22 @@ export class CarDetails {
     Number(this.route.snapshot.paramMap.get('id'))
   );
 
-
   // ============================================================
   // CAR DATA
   // ============================================================
 
   readonly car = signal<Car | null>(null);
-
   readonly features = signal<CarFeature[] | null>(null);
-
   readonly isLoading = signal(true);
-
   readonly hasError = signal(false);
-
 
   // ============================================================
   // BOOKING DATA
   // ============================================================
 
   readonly pickupDate = signal<string>('');
-
   readonly returnDate = signal<string>('');
-
   readonly pickupLocation = signal<string>('');
-
 
   // ============================================================
   // RENTAL PLAN
@@ -94,20 +88,17 @@ export class CarDetails {
 
   readonly selectedPlan = signal<RentalPlan>('daily');
 
-
   // ============================================================
   // INSURANCE
   // ============================================================
 
   readonly insurancePrice = 1000;
 
-
   // ============================================================
   // CURRENT PRICE
   // ============================================================
 
   readonly currentPrice = computed<number>(() => {
-
     const currentCar = this.car();
 
     if (!currentCar) {
@@ -115,7 +106,6 @@ export class CarDetails {
     }
 
     switch (this.selectedPlan()) {
-
       case 'weekly':
         return currentCar.pricePerWeek;
 
@@ -128,15 +118,12 @@ export class CarDetails {
     }
   });
 
-
   // ============================================================
   // PLAN LABEL
   // ============================================================
 
   readonly currentPlanLabel = computed<string>(() => {
-
     switch (this.selectedPlan()) {
-
       case 'weekly':
         return 'Week';
 
@@ -149,20 +136,13 @@ export class CarDetails {
     }
   });
 
-
   // ============================================================
   // RENTAL DAYS
   // ============================================================
 
   readonly rentalDays = computed<number>(() => {
-
-    const pickup = this.parseDate(
-      this.pickupDate()
-    );
-
-    const returnDate = this.parseDate(
-      this.returnDate()
-    );
+    const pickup = this.parseDate(this.pickupDate());
+    const returnDate = this.parseDate(this.returnDate());
 
     if (!pickup || !returnDate) {
       return 0;
@@ -179,7 +159,6 @@ export class CarDetails {
 
     return Math.max(days, 0);
   });
-
 
   // ============================================================
   // VALIDATION
@@ -203,29 +182,25 @@ export class CarDetails {
   // CALCULATED PLAN
   // ============================================================
 
-  readonly calculatedPlan =
-    computed<RentalPlan>(() => {
+  readonly calculatedPlan = computed<RentalPlan>(() => {
+    const days = this.rentalDays();
 
-      const days = this.rentalDays();
+    if (days < 7) {
+      return 'daily';
+    }
 
-      if (days < 7) {
-        return 'daily';
-      }
+    if (days < 30) {
+      return 'weekly';
+    }
 
-      if (days < 30) {
-        return 'weekly';
-      }
-
-      return 'monthly';
-    });
-
+    return 'monthly';
+  });
 
   // ============================================================
   // ACTIVE RATE
   // ============================================================
 
   readonly activeRate = computed<number>(() => {
-
     const currentCar = this.car();
 
     if (!currentCar) {
@@ -245,13 +220,11 @@ export class CarDetails {
     return currentCar.pricePerMonth;
   });
 
-
   // ============================================================
   // ACTIVE RATE LABEL
   // ============================================================
 
   readonly activeRateLabel = computed<string>(() => {
-
     const days = this.rentalDays();
 
     if (days < 7) {
@@ -265,42 +238,36 @@ export class CarDetails {
     return 'Monthly Rate';
   });
 
-
   // ============================================================
   // EFFECTIVE DAILY RATE
   // ============================================================
 
-  readonly effectiveDailyRate =
-    computed<number>(() => {
+  readonly effectiveDailyRate = computed<number>(() => {
+    const currentCar = this.car();
 
-      const currentCar = this.car();
+    if (!currentCar) {
+      return 0;
+    }
 
-      if (!currentCar) {
-        return 0;
-      }
+    const days = this.rentalDays();
 
-      const days = this.rentalDays();
+    if (days < 7) {
+      return currentCar.pricePerDay;
+    }
 
-      if (days < 7) {
-        return currentCar.pricePerDay;
-      }
+    if (days < 30) {
+      return currentCar.pricePerWeek / 7;
+    }
 
-      if (days < 30) {
-        return currentCar.pricePerWeek / 7;
-      }
-
-      return currentCar.pricePerMonth / 30;
-    });
-
+    return currentCar.pricePerMonth / 30;
+  });
 
   // ============================================================
   // RENTAL TOTAL
   // ============================================================
 
   readonly totalPrice = computed<number>(() => {
-
     const days = this.rentalDays();
-
     const rate = this.effectiveDailyRate();
 
     if (days <= 0 || rate <= 0) {
@@ -310,13 +277,11 @@ export class CarDetails {
     return days * rate;
   });
 
-
   // ============================================================
   // GRAND TOTAL
   // ============================================================
 
   readonly grandTotal = computed<number>(() => {
-
     const rentalTotal = this.totalPrice();
 
     if (rentalTotal <= 0) {
@@ -326,7 +291,6 @@ export class CarDetails {
     return rentalTotal + this.insurancePrice;
   });
 
-
   // ============================================================
   // GALLERY
   // ============================================================
@@ -334,7 +298,6 @@ export class CarDetails {
   readonly selectedImage = signal<string>('');
 
   readonly galleryImages = computed<string[]>(() => {
-
     const currentCar = this.car();
 
     if (!currentCar) {
@@ -354,34 +317,25 @@ export class CarDetails {
       );
   });
 
-
- 
-
   // ============================================================
   // CONSTRUCTOR
   // ============================================================
 
   constructor() {
-
     this.loadRentalPlan();
-
     this.loadCar();
   }
-
 
   // ============================================================
   // LOAD CAR FROM API
   // ============================================================
 
   private loadCar(): void {
-
     const id = this.carId();
 
     if (!id || id <= 0) {
-
       this.isLoading.set(false);
       this.hasError.set(true);
-
       return;
     }
 
@@ -391,9 +345,7 @@ export class CarDetails {
     this.carService
       .getCarById(id)
       .subscribe({
-
-        next: (car) => {
-
+        next: car => {
           this.car.set(car);
 
           const primaryImage =
@@ -404,35 +356,74 @@ export class CarDetails {
             car.images[0]?.imageUrl ??
             '';
 
-          this.selectedImage.set(
-            primaryImage
-          );
-          
+          this.selectedImage.set(primaryImage);
+
+          this.updateCarSeo(car);
+
           this.isLoading.set(false);
         },
 
         error: () => {
-
           this.car.set(null);
-
           this.selectedImage.set('');
-
           this.isLoading.set(false);
-
           this.hasError.set(true);
         }
       });
   }
 
+  // ============================================================
+  // DYNAMIC SEO
+  // ============================================================
+
+  private updateCarSeo(car: Car): void {
+    const carName = this.getCarName(car) ?? 'Car';
+
+    const description =
+      this.getCarDescription(car) ??
+      `Rent ${carName} in Dubai with MYM Car Rental.`;
+
+    const image =
+      car.primaryImageUrl ??
+      car.images.find(image => image.isPrimary)?.imageUrl ??
+      car.images[0]?.imageUrl ??
+      '/assets/images/logo/mym-logo.png';
+
+    this.seoService.update({
+      title: this.languageService.isArabic()
+        ? `${carName} للإيجار في دبي | MYM Car Rental`
+        : `${carName} for Rent in Dubai | MYM Car Rental`,
+
+      description,
+
+      keywords: this.languageService.isArabic()
+        ? `${carName}, تأجير ${carName}, تأجير سيارات دبي, MYM Car Rental`
+        : `${carName}, ${carName} rental, car rental Dubai, MYM Car Rental`,
+
+      image,
+
+      url: `${this.getBaseUrl()}/cars/${car.id}`,
+
+      type: 'product',
+
+      robots: 'index, follow'
+    });
+  }
+
+  private getBaseUrl(): string {
+    if (typeof window === 'undefined') {
+      return 'https://mymcarrental.com';
+    }
+
+    return window.location.origin;
+  }
 
   // ============================================================
   // LOAD PLAN FROM URL
   // ============================================================
 
   private loadRentalPlan(): void {
-
     this.route.queryParams.subscribe(params => {
-
       const plan = params['plan'];
 
       if (
@@ -440,45 +431,41 @@ export class CarDetails {
         plan === 'weekly' ||
         plan === 'monthly'
       ) {
-
         this.selectedPlan.set(plan);
-
       } else {
-
         this.selectedPlan.set('daily');
       }
     });
   }
-
 
   // ============================================================
   // CAR NAME
   // ============================================================
 
   getCarName(car: Car): string | null {
-
-       return this.languageService.isArabic()?car.nameAr:car.nameEn;
-
+    return this.languageService.isArabic()
+      ? car.nameAr
+      : car.nameEn;
   }
-
 
   // ============================================================
   // CAR DESCRIPTION
   // ============================================================
 
   getCarDescription(car: Car): string | null {
-
-    return this.languageService.isArabic()?car.descriptionAr:car.descriptionEn;
+    return this.languageService.isArabic()
+      ? car.descriptionAr
+      : car.descriptionEn;
   }
 
   // ============================================================
-  // CAR Feature
+  // CAR FEATURE
   // ============================================================
 
-  getCarFeature(feature:CarFeature):string{
-
-    return this.languageService.isArabic()?feature.featureAr:feature.featureEn
-    
+  getCarFeature(feature: CarFeature): string {
+    return this.languageService.isArabic()
+      ? feature.featureAr
+      : feature.featureEn;
   }
 
   // ============================================================
@@ -488,9 +475,7 @@ export class CarDetails {
   getTransmissionLabel(
     transmission: Transmission
   ): string {
-
     switch (transmission) {
-
       case Transmission.Automatic:
         return 'Automatic';
 
@@ -502,7 +487,6 @@ export class CarDetails {
     }
   }
 
-
   // ============================================================
   // FUEL TYPE LABEL
   // ============================================================
@@ -510,9 +494,7 @@ export class CarDetails {
   getFuelTypeLabel(
     fuelType: FuelType
   ): string {
-
     switch (fuelType) {
-
       case FuelType.Petrol:
         return 'Petrol';
 
@@ -539,7 +521,6 @@ export class CarDetails {
     this.returnDate.set(value);
   }
 
-
   // ============================================================
   // LOCATION
   // ============================================================
@@ -548,26 +529,21 @@ export class CarDetails {
     this.pickupLocation.set(value);
   }
 
-
   // ============================================================
   // PLAN SELECTION
   // ============================================================
 
   setPlan(plan: RentalPlan): void {
-
     this.selectedPlan.set(plan);
   }
-
 
   // ============================================================
   // IMAGE SELECTION
   // ============================================================
 
   selectImage(image: string): void {
-
     this.selectedImage.set(image);
   }
-
 
   // ============================================================
   // BOOK NOW
@@ -610,7 +586,6 @@ export class CarDetails {
     );
   }
 
-
   // ============================================================
   // DATE PARSER
   // ============================================================
@@ -618,7 +593,6 @@ export class CarDetails {
   private parseDate(
     value: string
   ): Date | null {
-
     if (!value) {
       return null;
     }

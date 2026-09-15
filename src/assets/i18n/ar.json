@@ -24,7 +24,6 @@
       "TOGGLE_MENU_ARIA_LABEL": "تبديل قائمة التنقل"
     }
   },
-
   "ABOUT": {
     "PAGE_HEADER": {
       "EYEBROW": "عن شركتنا",
@@ -545,7 +544,7 @@
       "FUEL_TYPE": {
         "LABEL": "نوع الوقود",
         "OPTIONS": {
-          "ALL":"جميع انواع الوقود",
+          "ALL": "جميع انواع الوقود",
           "PETROL": "بنزين",
           "DIESEL": "ديزل",
           "HYBRID": "هجين"
@@ -591,7 +590,6 @@
       "PRIVACY_POLICY": "سياسة الخصوصية"
     }
   },
- 
   "FOOTER": {
     "BRAND": {
       "HOME_ARIA_LABEL": "الصفحة الرئيسية لتأجير سيارات MYM",
@@ -628,10 +626,72 @@
       "WE_ACCEPT": "نقبل"
     }
   },
-   "NOT_FOUND": {
+  "NOT_FOUND": {
     "EYEBROW": "الصفحة غير موجودة",
     "TITLE": "تعذر العثور على هذه الصفحة",
     "DESCRIPTION": "قد تكون الصفحة التي تبحث عنها قد تم نقلها أو حذفها أو لم تعد موجودة.",
     "BACK_TO_HOME": "العودة إلى الرئيسية"
+  },
+  "SEO": {
+    "HOME": {
+      "TITLE": "تأجير سيارات فاخرة في دبي | MYM Car Rental",
+      "DESCRIPTION": "استأجر سيارات فاخرة وموثوقة في دبي مع MYM Car Rental. اكتشف أسطولنا واحجز سيارتك بسهولة.",
+      "KEYWORDS": "تأجير سيارات دبي, تأجير سيارات فاخرة دبي, سيارات للايجار دبي, MYM Car Rental"
+    },
+    "ABOUT": {
+      "TITLE": "من نحن | MYM Car Rental",
+      "DESCRIPTION": "تعرف على MYM Car Rental وخدمات تأجير السيارات التي نقدمها في دبي.",
+      "KEYWORDS": "من نحن, MYM Car Rental, شركة تأجير سيارات دبي"
+    },
+    "CARS": {
+      "TITLE": "السيارات المتاحة للتأجير | MYM Car Rental",
+      "DESCRIPTION": "استكشف مجموعة السيارات المتاحة للتأجير من MYM Car Rental واختر السيارة المناسبة لاحتياجاتك.",
+      "KEYWORDS": "سيارات للايجار, تأجير سيارات دبي, سيارات فاخرة للايجار, MYM"
+    },
+    "BOOKING": {
+      "TITLE": "حجز سيارة | MYM Car Rental",
+      "DESCRIPTION": "أكمل حجز سيارتك بسهولة مع MYM Car Rental.",
+      "KEYWORDS": "حجز سيارة, تأجير سيارات دبي"
+    },
+    "FAQ": {
+      "TITLE": "الأسئلة الشائعة | MYM Car Rental",
+      "DESCRIPTION": "اعثر على إجابات لأكثر الأسئلة شيوعًا حول تأجير السيارات والحجز مع MYM Car Rental.",
+      "KEYWORDS": "الأسئلة الشائعة, تأجير سيارات دبي, حجز سيارة"
+    },
+    "CONTACT": {
+      "TITLE": "تواصل معنا | MYM Car Rental",
+      "DESCRIPTION": "تواصل مع MYM Car Rental للاستفسار عن السيارات والحجوزات وخدمات تأجير السيارات في دبي.",
+      "KEYWORDS": "تواصل معنا, MYM Car Rental, تأجير سيارات دبي",
+      "FORM": {
+        "SENDING": "جاري الإرسال...",
+        "SUCCESS": "تم إرسال رسالتك بنجاح.",
+        "ERROR": "تعذر إرسال رسالتك. يرجى المحاولة مرة أخرى لاحقًا."
+      }
+    },
+    "SERVICES": {
+      "TITLE": "خدماتنا | MYM Car Rental",
+      "DESCRIPTION": "اكتشف خدمات تأجير السيارات التي تقدمها MYM Car Rental في دبي.",
+      "KEYWORDS": "خدمات تأجير السيارات, تأجير سيارات دبي, MYM Car Rental"
+    },
+    "MY_BOOKINGS": {
+      "TITLE": "حجوزاتي | MYM Car Rental",
+      "DESCRIPTION": "إدارة ومتابعة حجوزات السيارات الخاصة بك.",
+      "KEYWORDS": "حجوزاتي, حجوزات السيارات"
+    },
+    "LOGIN": {
+      "TITLE": "تسجيل الدخول | MYM Car Rental",
+      "DESCRIPTION": "سجل الدخول إلى حسابك في MYM Car Rental.",
+      "KEYWORDS": "تسجيل الدخول, MYM Car Rental"
+    },
+    "ADMIN": {
+      "TITLE": "لوحة التحكم | MYM Car Rental",
+      "DESCRIPTION": "لوحة إدارة MYM Car Rental.",
+      "KEYWORDS": "لوحة التحكم, MYM Car Rental"
+    },
+    "NOT_FOUND": {
+      "TITLE": "الصفحة غير موجودة | MYM Car Rental",
+      "DESCRIPTION": "عذرًا، الصفحة التي تبحث عنها غير موجودة.",
+      "KEYWORDS": "صفحة غير موجودة"
+    }
   }
 }

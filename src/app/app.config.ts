@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection
@@ -34,6 +35,7 @@ import { credentialsInterceptor } from './core/interceptors/credentials-intercep
 import { initializeAuth } from './core/initializers/auth.initializer';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ssrAuthCookieInterceptor } from './core/interceptors/ssr-auth-cookie-interceptor-interceptor';
+import { SeoService } from './core/services/seo.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -73,6 +75,9 @@ export const appConfig: ApplicationConfig = {
 
     provideAppInitializer(
       initializeAuth()
-    )
+    ),
+     provideAppInitializer(() => {
+      inject(SeoService).init();
+    })
   ]
 };
