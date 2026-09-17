@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { RentalPlan } from '../../../core/models/car.model';
 import { CarCategoryService } from '../../../core/services/car-category.service';
 import { Category } from '../../../core/models/car-category.model';
-import { LanguageService } from '../../../core/services/language.service';
+import { LanguageService } from '../../../shared/services/language.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';

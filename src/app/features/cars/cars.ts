@@ -26,7 +26,7 @@ import {
 
 import {
   LanguageService
-} from '../../core/services/language.service';
+} from '../../shared/services/language.service';
 import { CarService } from '../../core/services/car.service';
 import { CarCategoryService } from '../../core/services/car-category.service';
 import { Category } from '../../core/models/car-category.model';

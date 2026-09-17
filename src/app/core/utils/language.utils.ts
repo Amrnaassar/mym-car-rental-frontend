@@ -1,4 +1,4 @@
-import { Language } from '../services/language.service';
+import { Language } from '../../shared/services/language.service';
 
 export function getLocalizedValue(
   language: Language,

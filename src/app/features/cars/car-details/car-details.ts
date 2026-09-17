@@ -23,13 +23,13 @@ import {
 } from '../../../core/models/car.model';
 
 import { CarService } from '../../../core/services/car.service';
-import { SeoService } from '../../../core/services/seo.service';
+import { SeoService } from '../../../shared/services/seo.service';
 
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker';
 
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LanguageService } from '../../../core/services/language.service';
+import { LanguageService } from '../../../shared/services/language.service';
 
 @Component({
   selector: 'app-car-details',

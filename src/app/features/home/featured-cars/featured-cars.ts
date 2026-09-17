@@ -12,7 +12,7 @@ import { Car } from '../../../core/models/car.model';
 
 import { CarService } from '../../../core/services/car.service';
 
-import { LanguageService } from '../../../core/services/language.service';
+import { LanguageService } from '../../../shared/services/language.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 

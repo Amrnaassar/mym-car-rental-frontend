@@ -16,7 +16,7 @@ import {
 import { Car, FuelType, Transmission } from '../../../../core/models/car.model';
 
 import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker';
-import { LanguageService } from '../../../../core/services/language.service';
+import { LanguageService } from '../../../../shared/services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

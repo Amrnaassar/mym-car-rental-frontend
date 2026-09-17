@@ -7,7 +7,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CarCategoryService } from '../../../core/services/car-category.service';
-import { LanguageService } from '../../../core/services/language.service';
+import { LanguageService } from '../../../shared/services/language.service';
 import { Category } from '../../../core/models/car-category.model';
 import { TranslatePipe } from '@ngx-translate/core';
 @Component({

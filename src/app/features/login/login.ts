@@ -18,7 +18,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { GoogleAuthService } from '../../core/services/google-auth.service';
 import { UserRole } from '../../core/models/user.model';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LanguageService } from '../../core/services/language.service';
+import { LanguageService } from '../../shared/services/language.service';
 
 @Component({
   selector: 'app-login',

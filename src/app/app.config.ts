@@ -35,7 +35,7 @@ import { credentialsInterceptor } from './core/interceptors/credentials-intercep
 import { initializeAuth } from './core/initializers/auth.initializer';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ssrAuthCookieInterceptor } from './core/interceptors/ssr-auth-cookie-interceptor-interceptor';
-import { SeoService } from './core/services/seo.service';
+import { SeoService } from './shared/services/seo.service';
 import { loadingInterceptor } from './core/interceptors/loading-interceptor';
 
 export const appConfig: ApplicationConfig = {

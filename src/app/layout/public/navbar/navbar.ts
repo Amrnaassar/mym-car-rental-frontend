@@ -9,7 +9,7 @@ import {
   RouterLinkActive
 } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
-import { LanguageService } from '../../../core/services/language.service';
+import { LanguageService } from '../../../shared/services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

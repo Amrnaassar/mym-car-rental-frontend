@@ -1,0 +1,42 @@
+@if (alertService.alert(); as alert) {
+
+  <div
+    class="luxury-alert"
+    [class.luxury-alert--success]="alert.type === 'success'"
+    [class.luxury-alert--error]="alert.type === 'error'"
+    [class.luxury-alert--warning]="alert.type === 'warning'"
+    [class.luxury-alert--info]="alert.type === 'info'"
+    role="alert"
+    aria-live="polite"
+  >
+
+    <div class="luxury-alert__icon" aria-hidden="true">
+      <i [class]="getIcon(alert.type)"></i>
+    </div>
+
+    <div class="luxury-alert__content">
+
+      <h3 class="luxury-alert__title">
+        {{ alert.title }}
+      </h3>
+
+      @if (alert.message) {
+        <p class="luxury-alert__message">
+          {{ alert.message }}
+        </p>
+      }
+
+    </div>
+
+    <button
+      type="button"
+      class="luxury-alert__close"
+      aria-label="Close notification"
+      (click)="alertService.dismiss()"
+    >
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+
+  </div>
+
+}

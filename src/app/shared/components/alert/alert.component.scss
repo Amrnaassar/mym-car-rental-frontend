@@ -1,0 +1,215 @@
+@use "../../../../styles/abstracts/variables" as *;
+
+:host {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: $z-toast;
+  pointer-events: none;
+}
+
+.luxury-alert {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+
+  width: min(420px, calc(100vw - 32px));
+  padding: 18px 18px 18px 20px;
+
+  background: rgba($color-primary-light, 0.96);
+  border: 1px solid rgba($color-accent, 0.28);
+  border-radius: 14px;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba($color-accent, 0.08);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  pointer-events: auto;
+
+  animation: luxury-alert-enter 0.35s ease-out both;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    inset: 0 auto 0 0;
+
+    width: 3px;
+    border-radius: 14px 0 0 14px;
+
+    background: $color-accent;
+  }
+
+  &--success::before {
+    background: $color-success;
+  }
+
+  &--error::before {
+    background: $color-danger;
+  }
+
+  &--warning::before {
+    background: $color-warning;
+  }
+
+  &--info::before {
+    background: $color-info;
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba($color-accent, 0.22);
+    border-radius: 50%;
+
+    color: $color-accent;
+    background: rgba($color-accent, 0.08);
+
+    font-size: 18px;
+  }
+
+  &--success &__icon {
+    color: $color-success;
+    background: rgba($color-success, 0.08);
+    border-color: rgba($color-success, 0.2);
+  }
+
+  &--error &__icon {
+    color: $color-danger;
+    background: rgba($color-danger, 0.08);
+    border-color: rgba($color-danger, 0.2);
+  }
+
+  &--warning &__icon {
+    color: $color-warning;
+    background: rgba($color-warning, 0.08);
+    border-color: rgba($color-warning, 0.2);
+  }
+
+  &--info &__icon {
+    color: $color-info;
+    background: rgba($color-info, 0.08);
+    border-color: rgba($color-info, 0.2);
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+    padding-top: 1px;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: $color-text-primary;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  &__message {
+    margin: 5px 0 0;
+
+    color: $color-text-muted;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  &__close {
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    width: 30px;
+    height: 30px;
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    color: $color-text-muted;
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+      color 0.2s ease,
+      background 0.2s ease;
+
+    &:hover {
+      color: $color-text-primary;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba($color-accent, 0.7);
+      outline-offset: 2px;
+    }
+  }
+}
+
+@keyframes luxury-alert-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(30px, -10px, 0) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (max-width: 576px) {
+  :host {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+  }
+
+  .luxury-alert {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luxury-alert {
+    animation: none;
+  }
+}
+
+[dir="rtl"] :host {
+  right: auto;
+  left: 24px;
+}
+
+[dir="rtl"] .luxury-alert {
+  padding-right: 20px;
+  padding-left: 18px;
+
+  &::before {
+    right: 0;
+    left: auto;
+
+    border-radius: 0 14px 14px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  [dir="rtl"] :host {
+    right: 16px;
+    left: 16px;
+  }
+}

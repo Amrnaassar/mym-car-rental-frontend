@@ -3,7 +3,7 @@ import {
   Component,
   inject
 } from '@angular/core';
-import { LoadingService } from '../../../core/services/loading.service';
+import { LoadingService } from '../../services/loading.service';
 
 
 @Component({
