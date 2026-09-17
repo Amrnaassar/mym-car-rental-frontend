@@ -18,6 +18,7 @@ import {
 } from '../../../core/models/booking.model';
 
 import { AdminBookingsService } from '../../core/services/admin-bookings';
+import { AlertService } from '../../../shared/services/alert.service';
 @Component({
   selector: 'app-bookings',
   standalone: true,
@@ -31,6 +32,9 @@ import { AdminBookingsService } from '../../core/services/admin-bookings';
 export class Bookings implements OnInit {
   private readonly bookingsService =
     inject(AdminBookingsService);
+
+  private readonly alertService =
+    inject(AlertService);
 
   private readonly router =
     inject(Router);
@@ -147,11 +151,22 @@ export class Bookings implements OnInit {
         },
 
         error: (error: HttpErrorResponse) => {
+          console.error(
+            'Failed to load bookings:',
+            error
+          );
+
           this.loading.set(false);
 
-          this.errorMessage.set(
+          const message =
             error.error?.message ??
-            'Failed to load bookings.'
+            'Failed to load bookings.';
+
+          this.errorMessage.set(message);
+
+          this.alertService.error(
+            'Unable to Load Bookings',
+            message
           );
         }
       });
@@ -186,18 +201,33 @@ export class Bookings implements OnInit {
               bookings.map(item =>
                 item.id == booking.id
                   ? {
-                      ...item,
-                      status
-                    }
+                    ...item,
+                    status
+                  }
                   : item
               )
+          );
+          this.alertService.success(
+            'Booking Status Updated',
+            `Booking ${booking.bookingNumber} status has been updated successfully.`
           );
         },
 
         error: (error: HttpErrorResponse) => {
-          this.errorMessage.set(
+          console.error(
+            'Failed to update booking status:',
+            error
+          );
+
+          const message =
             error.error?.message ??
-            'Failed to update booking status.'
+            'Failed to update booking status.';
+
+          this.errorMessage.set(message);
+
+          this.alertService.error(
+            'Status Update Failed',
+            message
           );
         }
       });
@@ -233,19 +263,34 @@ export class Bookings implements OnInit {
               bookings.map(item =>
                 item.id == booking.id
                   ? {
-                      ...item,
-                      status:
-                        BookingStatus.Cancelled
-                    }
+                    ...item,
+                    status:
+                      BookingStatus.Cancelled
+                  }
                   : item
               )
+          );
+          this.alertService.success(
+            'Booking Cancelled',
+            `Booking ${booking.bookingNumber} has been cancelled successfully.`
           );
         },
 
         error: (error: HttpErrorResponse) => {
-          this.errorMessage.set(
+          console.error(
+            'Failed to cancel booking:',
+            error
+          );
+
+          const message =
             error.error?.message ??
-            'Failed to cancel booking.'
+            'Failed to cancel booking.';
+
+          this.errorMessage.set(message);
+
+          this.alertService.error(
+            'Cancellation Failed',
+            message
           );
         }
       });

@@ -11,6 +11,7 @@ import {
 import { AuthService } from '../../../core/services/auth.service';
 import { LanguageService } from '../../../shared/services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AlertService } from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,10 +28,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class Navbar {
 
   readonly authService = inject(AuthService);
-
-
-  readonly languageService =
-    inject(LanguageService);
+  readonly alertService = inject(AlertService);
+  readonly languageService = inject(LanguageService);
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
@@ -47,18 +46,29 @@ export class Navbar {
     this.isMobileMenuOpen = false;
   }
 
-  logout(): void {
+ logout(): void {
+  this.authService
+    .logout()
+    .subscribe({
+      next: () => {
+        this.closeMobileMenu();
 
-    this.authService.logout()
-      .subscribe({
-        next: () => {
-          this.closeMobileMenu();
-        },
-        error: () => {
-          // حتى لو حصل error نخلي الـ UI يرجع Logged Out
-          this.authService.clearAuthentication();
-          this.closeMobileMenu();
-        }
-      });
-  }
+        this.alertService.success(
+          'Logged Out',
+          'You have been logged out successfully.'
+        );
+      },
+
+      error: () => {
+        // حتى لو حصل error نخلي الـ UI يرجع Logged Out
+        this.authService.clearAuthentication();
+        this.closeMobileMenu();
+
+        this.alertService.success(
+          'Logged Out',
+          'You have been logged out successfully.'
+        );
+      }
+    });
+}
 }

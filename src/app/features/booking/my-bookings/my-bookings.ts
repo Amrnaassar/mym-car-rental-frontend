@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookingResponse, BookingStatus, BookingRentalPlan } from '../../../core/models/booking.model';
 import { BookingService } from '../../../core/services/booking.service';
+import { AlertService } from '../../../shared/services/alert.service';
 
 
 
@@ -15,7 +16,7 @@ import { BookingService } from '../../../core/services/booking.service';
 export class MyBookings implements OnInit {
 
   private readonly bookingService = inject(BookingService);
-
+  private readonly alertService = inject(AlertService);
   bookings: BookingResponse[] = [];
 
   isLoading = true;
@@ -32,7 +33,6 @@ export class MyBookings implements OnInit {
   // ============================================================
   // LOAD MY BOOKINGS
   // ============================================================
-
   loadBookings(): void {
     this.isLoading = true;
     this.errorMessage = '';
@@ -41,7 +41,6 @@ export class MyBookings implements OnInit {
       next: (bookings) => {
         this.bookings = bookings;
         this.isLoading = false;
-        console.log(bookings);
       },
 
       error: (error) => {
@@ -51,16 +50,16 @@ export class MyBookings implements OnInit {
           'Unable to load your bookings. Please try again.';
 
         this.isLoading = false;
+
+        this.alertService.error(
+          'Unable to Load Bookings',
+          'Please try again later.'
+        );
       }
     });
   }
 
-  // ============================================================
-  // CANCEL BOOKING
-  // ============================================================
-
   cancelBooking(booking: BookingResponse): void {
-
     if (!this.canCancel(booking)) {
       return;
     }
@@ -77,11 +76,13 @@ export class MyBookings implements OnInit {
 
     this.bookingService.cancelBooking(booking.id).subscribe({
       next: () => {
-
-        // Update locally instead of making another API request
         booking.status = BookingStatus.Cancelled;
-
         this.cancellingId = null;
+
+        this.alertService.success(
+          'Booking Cancelled',
+          `Booking ${booking.bookingNumber} has been cancelled successfully.`
+        );
       },
 
       error: (error) => {
@@ -89,7 +90,8 @@ export class MyBookings implements OnInit {
 
         this.cancellingId = null;
 
-        window.alert(
+        this.alertService.error(
+          'Cancellation Failed',
           'Unable to cancel this booking. Please try again.'
         );
       }

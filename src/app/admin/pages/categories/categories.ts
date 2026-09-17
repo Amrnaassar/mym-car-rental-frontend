@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 
 import { Category } from '../../../core/models/car-category.model';
 import { AdminCategoriesService } from '../../core/services/admin-categories';
+import { AlertService } from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-categories',
@@ -21,20 +22,17 @@ import { AdminCategoriesService } from '../../core/services/admin-categories';
 })
 export class Categories implements OnInit {
 
-  private readonly categoryService =
-    inject(AdminCategoriesService);
+  private readonly categoryService = inject(AdminCategoriesService);
 
-  private readonly router =
-    inject(Router);
+  private readonly alertService = inject(AlertService);
 
-  readonly categories =
-    signal<Category[]>([]);
+  private readonly router = inject(Router);
 
-  readonly loading =
-    signal(true);
+  readonly categories = signal<Category[]>([]);
 
-  readonly search =
-    signal('');
+  readonly loading = signal(true);
+
+  readonly search = signal('');
 
   readonly filteredCategories = computed(() => {
 
@@ -60,29 +58,61 @@ export class Categories implements OnInit {
   }
 
   loadCategories(): void {
-
     this.loading.set(true);
 
     this.categoryService
       .getAll()
       .subscribe({
-
-        next: categories => {
-
+        next: (categories) => {
           this.categories.set(categories);
-
           this.loading.set(false);
-
         },
 
-        error: () => {
+        error: (error) => {
+          console.error(
+            'Failed to load categories:',
+            error
+          );
 
           this.loading.set(false);
 
+          this.alertService.error(
+            'Unable to Load Categories',
+            'Please try again later.'
+          );
         }
-
       });
+  }
 
+  deleteCategory(id: number): void {
+    if (!confirm('Delete category?')) {
+      return;
+    }
+
+    this.categoryService
+      .delete(id)
+      .subscribe({
+        next: () => {
+          this.alertService.success(
+            'Category Deleted',
+            'The category has been deleted successfully.'
+          );
+
+          this.loadCategories();
+        },
+
+        error: (error) => {
+          console.error(
+            'Failed to delete category:',
+            error
+          );
+
+          this.alertService.error(
+            'Delete Failed',
+            'Unable to delete the category. Please try again.'
+          );
+        }
+      });
   }
 
   createCategory(): void {
@@ -102,19 +132,5 @@ export class Categories implements OnInit {
 
   }
 
-  deleteCategory(id: number): void {
 
-    if (!confirm('Delete category?')) {
-      return;
-    }
-
-    this.categoryService
-      .delete(id)
-      .subscribe(() => {
-
-        this.loadCategories();
-
-      });
-
-  }
 }

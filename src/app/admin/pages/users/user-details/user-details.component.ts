@@ -26,6 +26,7 @@ import {
 import {
   AdminUsersService
 } from '../../../core/services/admin-users';
+import { AlertService } from '../../../../shared/services/alert.service';
 @Component({
   selector: 'app-user-details',
   standalone: true,
@@ -36,23 +37,19 @@ import {
   styleUrl: './user-details.component.scss'
 })
 export class UserDetailsComponent implements OnInit {
-  private readonly usersService =
-    inject(AdminUsersService);
+  private readonly usersService = inject(AdminUsersService);
 
-  private readonly route =
-    inject(ActivatedRoute);
+  private readonly alertService = inject(AlertService);
 
-  private readonly router =
-    inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
-  readonly user =
-    signal<User | null>(null);
+  private readonly router = inject(Router);
 
-  readonly loading =
-    signal(true);
+  readonly user = signal<User | null>(null);
 
-  readonly errorMessage =
-    signal<string | null>(null);
+  readonly loading = signal(true);
+
+  readonly errorMessage = signal<string | null>(null);
 
   private userId = '';
 
@@ -75,17 +72,28 @@ export class UserDetailsComponent implements OnInit {
     this.usersService
       .getById(this.userId)
       .subscribe({
-        next: user => {
+        next: (user) => {
           this.user.set(user);
           this.loading.set(false);
         },
 
         error: (error: HttpErrorResponse) => {
+          console.error(
+            'Failed to load user:',
+            error
+          );
+
           this.loading.set(false);
 
-          this.errorMessage.set(
+          const message =
             error.error?.message ??
-            'Failed to load user.'
+            'Failed to load user.';
+
+          this.errorMessage.set(message);
+
+          this.alertService.error(
+            'Unable to Load User',
+            message
           );
         }
       });

@@ -7,6 +7,7 @@ import {
   ViewChild,
   inject
 } from '@angular/core';
+
 import { isPlatformBrowser } from '@angular/common';
 
 import {
@@ -16,9 +17,12 @@ import {
 
 import { AuthService } from '../../core/services/auth.service';
 import { GoogleAuthService } from '../../core/services/google-auth.service';
+
 import { UserRole } from '../../core/models/user.model';
+
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../shared/services/language.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -36,13 +40,13 @@ export class LoginComponent implements AfterViewInit {
   private readonly languageService = inject(LanguageService);
   private readonly googleAuthService = inject(GoogleAuthService);
   private readonly authService = inject(AuthService);
+  private readonly alertService = inject(AlertService);
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly platformId = inject(PLATFORM_ID);
 
   async ngAfterViewInit(): Promise<void> {
 
-    // منع أي محاولة تنفيذ وقت الـ SSR (مفيش window/document على السيرفر)
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
@@ -57,7 +61,15 @@ export class LoginComponent implements AfterViewInit {
       );
 
     } catch (error) {
-      console.error('Failed to initialize Google Sign-In:', error);
+      console.error(
+        'Failed to initialize Google Sign-In:',
+        error
+      );
+
+      this.alertService.error(
+        'Login Failed',
+        'Google Sign-In could not be initialized.'
+      );
     }
   }
 
@@ -69,6 +81,11 @@ export class LoginComponent implements AfterViewInit {
 
         next: (res) => {
 
+          this.alertService.success(
+            'Welcome Back',
+            'You have been logged in successfully.'
+          );
+
           const returnUrl =
             this.activatedRoute
               .snapshot
@@ -78,8 +95,8 @@ export class LoginComponent implements AfterViewInit {
           const user = res.user;
 
           if (
-            user.role == UserRole.Employee ||
-            user.role == UserRole.Manager
+            user.role === UserRole.Employee ||
+            user.role === UserRole.Manager
           ) {
             this.router.navigate([
               '/admin/dashboard'
@@ -88,13 +105,22 @@ export class LoginComponent implements AfterViewInit {
             return;
           }
 
-          this.router.navigate(['/']);
-          this.router.navigateByUrl(returnUrl || '/');
-
+          this.router.navigateByUrl(
+            returnUrl || '/'
+          );
         },
 
-        error: error => {
-          console.error('Google login failed:', error);
+        error: (error) => {
+
+          console.error(
+            'Google login failed:',
+            error
+          );
+
+          this.alertService.error(
+            'Login Failed',
+            'Unable to sign in with Google. Please try again.'
+          );
         }
       });
   }

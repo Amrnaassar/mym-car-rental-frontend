@@ -17,7 +17,8 @@ import {
 } from '@angular/router';
 
 import { AdminCategoriesService }
-from '../../../core/services/admin-categories';
+  from '../../../core/services/admin-categories';
+import { AlertService } from '../../../../shared/services/alert.service';
 @Component({
   selector: 'app-edit-category',
   standalone: true,
@@ -29,26 +30,21 @@ from '../../../core/services/admin-categories';
 })
 export class EditCategory implements OnInit {
 
-  private readonly fb =
-    inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
 
-  private readonly route =
-    inject(ActivatedRoute);
+  private readonly route = inject(ActivatedRoute);
 
-  private readonly router =
-    inject(Router);
+  private readonly router = inject(Router);
 
-  private readonly categoryService =
-    inject(AdminCategoriesService);
+  private readonly categoryService = inject(AdminCategoriesService);
 
-  readonly loading =
-    signal(false);
+  private readonly alertService = inject(AlertService);
 
-  readonly pageLoading =
-    signal(true);
+  readonly loading = signal(false);
 
-  readonly imagePreview =
-    signal<string | null>(null);
+  readonly pageLoading = signal(true);
+
+  readonly imagePreview = signal<string | null>(null);
 
   private imageFile: File | null = null;
 
@@ -88,27 +84,18 @@ export class EditCategory implements OnInit {
   }
 
   loadCategory(): void {
-
     this.categoryService
       .getById(this.categoryId)
       .subscribe({
-
-        next: category => {
-
+        next: (category) => {
           this.form.patchValue({
-
             nameAr: category.nameAr,
-
             nameEn: category.nameEn,
-
             slug: category.slug,
-
             descriptionAr:
               category.descriptionAr ?? '',
-
             descriptionEn:
               category.descriptionEn ?? ''
-
           });
 
           this.imagePreview.set(
@@ -118,16 +105,24 @@ export class EditCategory implements OnInit {
           this.pageLoading.set(false);
         },
 
-        error: () => {
+        error: (error) => {
+          console.error(
+            'Failed to load category:',
+            error
+          );
+
+          this.pageLoading.set(false);
+
+          this.alertService.error(
+            'Unable to Load Category',
+            'The requested category could not be loaded.'
+          );
 
           this.router.navigate([
             '/admin/categories'
           ]);
-
         }
-
       });
-
   }
 
   onImageSelected(
@@ -159,11 +154,8 @@ export class EditCategory implements OnInit {
   }
 
   submit(): void {
-
     if (this.form.invalid) {
-
       this.form.markAllAsTouched();
-
       return;
     }
 
@@ -197,12 +189,10 @@ export class EditCategory implements OnInit {
     );
 
     if (this.imageFile) {
-
       formData.append(
         'image',
         this.imageFile
       );
-
     }
 
     this.categoryService
@@ -211,25 +201,33 @@ export class EditCategory implements OnInit {
         formData
       )
       .subscribe({
-
         next: () => {
-
           this.loading.set(false);
+
+          this.alertService.success(
+            'Category Updated',
+            'The category has been updated successfully.'
+          );
 
           this.router.navigate([
             '/admin/categories'
           ]);
-
         },
 
-        error: () => {
+        error: (error) => {
+          console.error(
+            'Failed to update category:',
+            error
+          );
 
           this.loading.set(false);
 
+          this.alertService.error(
+            'Update Failed',
+            'Unable to update the category. Please try again.'
+          );
         }
-
       });
-
   }
 
   cancel(): void {

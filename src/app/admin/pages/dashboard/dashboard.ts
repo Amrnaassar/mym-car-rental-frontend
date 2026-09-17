@@ -27,6 +27,8 @@ import {
 } from '../../../core/services/auth.service';
 import { StatCardComponent } from '../../shared/components/stat-card.component/stat-card.component';
 import { RouterLink } from '@angular/router';
+import { AlertService } from '../../../shared/services/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,6 +44,9 @@ import { RouterLink } from '@angular/router';
 export class Dashboard implements OnInit {
   private readonly dashboardService =
     inject(AdminDashboardService);
+
+  private readonly alertService =
+    inject(AlertService);
 
   private readonly authService =
     inject(AuthService);
@@ -176,11 +181,23 @@ export class Dashboard implements OnInit {
           this.loading.set(false);
         },
 
-        error: () => {
+        error: (error: HttpErrorResponse) => {
+          console.error(
+            'Failed to load dashboard:',
+            error
+          );
+
           this.loading.set(false);
 
-          this.errorMessage.set(
-            'Unable to load dashboard data.'
+          const message =
+            error.error?.message ??
+            'Unable to load dashboard data.';
+
+          this.errorMessage.set(message);
+
+          this.alertService.error(
+            'Unable to Load Dashboard',
+            message
           );
         }
       });

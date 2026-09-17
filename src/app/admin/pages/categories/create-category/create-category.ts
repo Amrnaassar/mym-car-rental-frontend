@@ -12,7 +12,8 @@ import {
 
 import { Router } from '@angular/router';
 
-import { AdminCategoriesService }from '../../../core/services/admin-categories';
+import { AdminCategoriesService } from '../../../core/services/admin-categories';
+import { AlertService } from '../../../../shared/services/alert.service';
 @Component({
   selector: 'app-create-category',
   standalone: true,
@@ -24,20 +25,17 @@ import { AdminCategoriesService }from '../../../core/services/admin-categories';
 })
 export class CreateCategory {
 
-  private readonly fb =
-    inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
 
-  private readonly router =
-    inject(Router);
+  private readonly router = inject(Router);
 
-  private readonly categoryService =
-    inject(AdminCategoriesService);
+  private readonly categoryService = inject(AdminCategoriesService);
 
-  readonly loading =
-    signal(false);
+  private readonly alertService = inject(AlertService);
 
-  readonly imagePreview =
-    signal<string | null>(null);
+  readonly loading = signal(false);
+
+  readonly imagePreview = signal<string | null>(null);
 
   private imageFile: File | null = null;
 
@@ -93,11 +91,8 @@ export class CreateCategory {
   }
 
   submit(): void {
-
     if (this.form.invalid) {
-
       this.form.markAllAsTouched();
-
       return;
     }
 
@@ -131,38 +126,43 @@ export class CreateCategory {
     );
 
     if (this.imageFile) {
-
       formData.append(
         'image',
         this.imageFile
       );
-
     }
 
     this.categoryService
       .create(formData)
       .subscribe({
-
         next: () => {
-
           this.loading.set(false);
+
+          this.alertService.success(
+            'Category Created',
+            'The category has been created successfully.'
+          );
 
           this.router.navigate([
             '/admin/categories'
           ]);
-
         },
 
-        error: () => {
+        error: (error) => {
+          console.error(
+            'Failed to create category:',
+            error
+          );
 
           this.loading.set(false);
 
+          this.alertService.error(
+            'Creation Failed',
+            'Unable to create the category. Please try again.'
+          );
         }
-
       });
-
   }
-
   cancel(): void {
 
     this.router.navigate([

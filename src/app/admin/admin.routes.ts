@@ -58,7 +58,7 @@ export const ADMIN_ROUTES: Routes = [
         path: 'bookings/:id',
         loadComponent: () =>
           import(
-            './pages/bookings/booking-details.component/booking-details.component'
+            './pages/bookings/booking-details/booking-details.component'
           ).then(m => m.BookingDetailsComponent)
       },
 

@@ -13,6 +13,7 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { ContactService } from '../../core/services/contact.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-contact',
@@ -26,9 +27,9 @@ import { ContactService } from '../../core/services/contact.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Contact {
-  private readonly fb = inject(FormBuilder);  
+  private readonly fb = inject(FormBuilder);
   private readonly contactService = inject(ContactService);
-
+  private readonly alertService = inject(AlertService);
   readonly contactForm = this.fb.nonNullable.group({
     fullName: [
       '',
@@ -84,10 +85,22 @@ export class Contact {
         next: () => {
           this.isSuccess = true;
           this.contactForm.reset();
+
+          this.alertService.success(
+            'Message Sent',
+            'Your message has been sent successfully.'
+          );
         },
 
-        error: () => {
+        error: (error) => {
+          console.error('Failed to send contact message:', error);
+
           this.errorMessage = 'CONTACT.FORM.ERROR';
+
+          this.alertService.error(
+            'Message Failed',
+            'Unable to send your message. Please try again later.'
+          );
         }
       });
   }

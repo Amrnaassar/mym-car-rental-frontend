@@ -17,6 +17,7 @@ import {
 } from '../../../core/models/car.model';
 import { AdminCarsService } from '../../core/services/admin-cars';
 import { CommonModule } from '@angular/common';
+import { AlertService } from '../../../shared/services/alert.service';
 
 
 @Component({
@@ -30,26 +31,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './cars.scss'
 })
 export class Cars implements OnInit {
-  private readonly carsService =
-    inject(AdminCarsService);
+  private readonly carsService = inject(AdminCarsService);
 
-  private readonly router =
-    inject(Router);
+  private readonly alertService = inject(AlertService);
 
-  readonly cars =
-    signal<Car[]>([]);
+  private readonly router = inject(Router);
 
-  readonly loading =
-    signal(true);
+  readonly cars = signal<Car[]>([]);
 
-  readonly search =
-    signal('');
+  readonly loading = signal(true);
 
-  readonly filterStatus =
-    signal<'all' | 'active' | 'inactive'>('all');
+  readonly search = signal('');
 
-  readonly filterFeatured =
-    signal<'all' | 'featured' | 'regular'>('all');
+  readonly filterStatus = signal<'all' | 'active' | 'inactive'>('all');
+
+  readonly filterFeatured = signal<'all' | 'featured' | 'regular'>('all');
 
   readonly filteredCars =
     computed(() => {
@@ -111,13 +107,63 @@ export class Cars implements OnInit {
     this.carsService
       .getAll()
       .subscribe({
-        next: cars => {
+        next: (cars) => {
           this.cars.set(cars);
           this.loading.set(false);
         },
 
-        error: () => {
+        error: (error) => {
+          console.error(
+            'Failed to load cars:',
+            error
+          );
+
           this.loading.set(false);
+
+          this.alertService.error(
+            'Unable to Load Cars',
+            'Please try again later.'
+          );
+        }
+      });
+  }
+
+  deleteCar(car: Car): void {
+    const confirmed = window.confirm(
+      `Delete "${car.nameEn}"?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.carsService
+      .delete(car.id)
+      .subscribe({
+        next: () => {
+          this.cars.update(
+            (current) =>
+              current.filter(
+                (item) => item.id !== car.id
+              )
+          );
+
+          this.alertService.success(
+            'Car Deleted',
+            `"${car.nameEn}" has been deleted successfully.`
+          );
+        },
+
+        error: (error) => {
+          console.error(
+            'Failed to delete car:',
+            error
+          );
+
+          this.alertService.error(
+            'Delete Failed',
+            'Unable to delete the car. Please try again.'
+          );
         }
       });
   }
@@ -133,34 +179,6 @@ export class Cars implements OnInit {
       '/admin/cars/edit',
       id
     ]);
-  }
-
-  deleteCar(car: Car): void {
-    const confirmed =
-      window.confirm(
-        `Delete "${car.nameEn}"?`
-      );
-
-    if (!confirmed) {
-      return;
-    }
-
-    this.carsService
-      .delete(car.id)
-      .subscribe({
-        next: () => {
-          this.cars.update(
-            current =>
-              current.filter(
-                item => item.id !== car.id
-              )
-          );
-        },
-
-        error: () => {
-          // Keep current data if deletion fails.
-        }
-      });
   }
 
   transmissionLabel(
