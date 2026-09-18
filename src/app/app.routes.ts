@@ -178,13 +178,7 @@ export const routes: Routes = [
 
   {
     path: 'admin',
-    data: {
-      seo: {
-        title: 'SEO.ADMIN.TITLE',
-        description: 'SEO.ADMIN.DESCRIPTION',
-        robots: 'noindex, nofollow'
-      }
-    },
+    
     loadChildren: () =>
       import('./admin/admin.routes')
         .then(m => m.ADMIN_ROUTES)

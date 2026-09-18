@@ -1,17 +1,33 @@
+import {
+  HttpRequest,
+  HttpResponse
+} from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { HttpInterceptorFn } from '@angular/common/http';
 
 import { credentialsInterceptor } from './credentials-interceptor';
 
 describe('credentialsInterceptor', () => {
-  const interceptor: HttpInterceptorFn = (req, next) => 
-    TestBed.runInInjectionContext(() => credentialsInterceptor(req, next));
+  it('should add withCredentials to the request', () => {
+    const request = new HttpRequest(
+      'GET',
+      '/api/cars'
+    );
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-  });
+    const next = jasmine.createSpy('next').and.returnValue(
+      new HttpResponse({
+        status: 200
+      })
+    );
 
-  it('should be created', () => {
-    expect(interceptor).toBeTruthy();
+    TestBed.runInInjectionContext(() => {
+      credentialsInterceptor(request, next);
+    });
+
+    expect(next).toHaveBeenCalled();
+
+    const interceptedRequest =
+      next.calls.mostRecent().args[0];
+
+    expect(interceptedRequest.withCredentials).toBeTrue();
   });
 });
