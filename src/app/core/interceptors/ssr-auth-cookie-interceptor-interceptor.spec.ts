@@ -23,14 +23,14 @@ describe('ssrAuthCookieInterceptor', () => {
       })
     );
 
-    const ssrRequest = new Request(
-      'http://localhost',
-      {
-        headers: {
-          cookie
-        }
+    const ssrRequest = {
+      headers: {
+        get: (name: string) =>
+          name.toLowerCase() === 'cookie'
+            ? cookie
+            : null
       }
-    );
+    };
 
     TestBed.configureTestingModule({
       providers: [

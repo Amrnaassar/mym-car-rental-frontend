@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Categories } from './categories';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 describe('Categories', () => {
   let component: Categories;
@@ -8,7 +10,11 @@ describe('Categories', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Categories]
+      imports: [Categories],
+      providers: [
+        provideHttpClient(),
+        provideRouter([])
+      ]
     })
     .compileComponents();
 

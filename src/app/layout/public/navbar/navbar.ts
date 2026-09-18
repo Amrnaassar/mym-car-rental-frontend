@@ -46,29 +46,29 @@ export class Navbar {
     this.isMobileMenuOpen = false;
   }
 
- logout(): void {
-  this.authService
-    .logout()
-    .subscribe({
-      next: () => {
-        this.closeMobileMenu();
+  logout(): void {
+    this.authService
+      .logout()
+      .subscribe({
+        next: () => {
+          this.closeMobileMenu();
 
-        this.alertService.success(
-          'Logged Out',
-          'You have been logged out successfully.'
-        );
-      },
+          this.alertService.success(
+            'Logged Out',
+            'You have been logged out successfully.'
+          );
+        },
 
-      error: () => {
-        // حتى لو حصل error نخلي الـ UI يرجع Logged Out
-        this.authService.clearAuthentication();
-        this.closeMobileMenu();
+        error: () => {
+          // حتى لو حصل error نخلي الـ UI يرجع Logged Out
+          this.authService.clearAuthentication();
+          this.closeMobileMenu();
 
-        this.alertService.success(
-          'Logged Out',
-          'You have been logged out successfully.'
-        );
-      }
-    });
-}
+          this.alertService.success(
+            'Logged Out',
+            'You have been logged out successfully.'
+          );
+        }
+      });
+  }
 }

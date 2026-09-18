@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Bookings } from './bookings';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('Bookings', () => {
   let component: Bookings;
@@ -8,9 +10,11 @@ describe('Bookings', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Bookings]
+      imports: [Bookings],
+      providers: [provideHttpClient(), provideTranslateService()]
+
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(Bookings);
     component = fixture.componentInstance;

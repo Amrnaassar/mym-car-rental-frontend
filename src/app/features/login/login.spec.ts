@@ -4,6 +4,7 @@ import {
 } from '@angular/core/testing';
 import {
   ActivatedRoute,
+  provideRouter,
   Router
 } from '@angular/router';
 import { of } from 'rxjs';
@@ -13,6 +14,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { GoogleAuthService } from '../../core/services/google-auth.service';
 import { LanguageService } from '../../shared/services/language.service';
 import { AlertService } from '../../shared/services/alert.service';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -38,10 +41,8 @@ describe('LoginComponent', () => {
       ['googleLogin']
     );
 
-    const languageService = jasmine.createSpyObj(
-      'LanguageService',
-      []
-    );
+    const languageService = {};
+
 
     const alertService = jasmine.createSpyObj(
       'AlertService',
@@ -70,6 +71,8 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LoginComponent],
       providers: [
+         provideTranslateService(),
+        
         {
           provide: GoogleAuthService,
           useValue: googleAuthService

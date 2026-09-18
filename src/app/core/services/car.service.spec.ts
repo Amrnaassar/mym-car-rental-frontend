@@ -1,4 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  provideHttpClient
+} from '@angular/common/http';
+import {
+  provideHttpClientTesting
+} from '@angular/common/http/testing';
 
 import { CarService } from './car.service';
 import { Car, RentalPlan } from '../models/car.model';
@@ -9,7 +15,9 @@ describe('CarService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        CarService
+        CarService,
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     });
 

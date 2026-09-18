@@ -37,12 +37,12 @@ describe('SeoService', () => {
 
     translate = jasmine.createSpyObj(
       'TranslateService',
-      []
+      ['get']
     );
 
     router = jasmine.createSpyObj(
       'Router',
-      []
+      ['navigate']
     );
 
     TestBed.configureTestingModule({
@@ -122,4 +122,4 @@ describe('SeoService', () => {
       content: 'https://example.com/cars'
     });
   });
-});
+}); 

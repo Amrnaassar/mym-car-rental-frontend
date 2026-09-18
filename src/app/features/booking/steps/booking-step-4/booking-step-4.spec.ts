@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookingStep4 } from './booking-step-4';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('BookingStep4', () => {
   let component: BookingStep4;
@@ -8,7 +10,9 @@ describe('BookingStep4', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BookingStep4]
+      imports: [BookingStep4],
+            providers: [ provideHttpClient(), provideTranslateService() ]
+
     })
     .compileComponents();
 

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateCarComponent } from './create-car.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('CreateCarComponent', () => {
   let component: CreateCarComponent;
@@ -8,9 +10,11 @@ describe('CreateCarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateCarComponent]
+      imports: [CreateCarComponent],
+      providers: [provideHttpClient(), provideTranslateService()]
+
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CreateCarComponent);
     component = fixture.componentInstance;

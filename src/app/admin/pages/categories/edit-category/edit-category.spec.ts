@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditCategory } from './edit-category';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('EditCategory', () => {
   let component: EditCategory;
@@ -8,7 +11,9 @@ describe('EditCategory', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditCategory]
+      imports: [EditCategory],
+      providers: [provideHttpClient(), provideTranslateService(),
+        provideRouter([])]
     })
     .compileComponents();
 

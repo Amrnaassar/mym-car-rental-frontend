@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { WhyChooseUs } from './why-choose-us';
 
@@ -8,9 +13,11 @@ describe('WhyChooseUs', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WhyChooseUs]
-    })
-    .compileComponents();
+      imports: [WhyChooseUs],
+      providers: [
+        provideTranslateService()
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(WhyChooseUs);
     component = fixture.componentInstance;

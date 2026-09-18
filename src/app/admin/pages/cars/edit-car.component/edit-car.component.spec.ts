@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditCarComponent } from './edit-car.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideRouter } from '@angular/router';
 
 describe('EditCarComponent', () => {
   let component: EditCarComponent;
@@ -8,7 +11,10 @@ describe('EditCarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditCarComponent]
+      imports: [EditCarComponent],
+            providers: [ provideHttpClient(), provideTranslateService(),
+        provideRouter([]) ]
+
     })
     .compileComponents();
 

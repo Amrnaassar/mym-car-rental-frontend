@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateCategory } from './create-category';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('CreateCategory', () => {
   let component: CreateCategory;
@@ -8,9 +10,11 @@ describe('CreateCategory', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateCategory]
+      imports: [CreateCategory],
+      providers: [provideHttpClient(), provideTranslateService()]
+
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CreateCategory);
     component = fixture.componentInstance;
