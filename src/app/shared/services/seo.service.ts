@@ -28,6 +28,7 @@ import {
   filter,
   take
 } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface SeoData {
   title: string;
@@ -66,8 +67,7 @@ export class SeoService {
   private readonly defaultImage =
     '/assets/images/logo/mym-logo.png';
 
-  private readonly defaultUrl =
-    'http://localhost:4200';
+  private readonly defaultUrl =environment.siteUrl;
 
   init(): void {
     this.router.events

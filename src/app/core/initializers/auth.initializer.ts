@@ -1,6 +1,11 @@
 import {
-  inject
+  inject,
+  PLATFORM_ID
 } from '@angular/core';
+
+import {
+  isPlatformBrowser
+} from '@angular/common';
 
 import {
   firstValueFrom
@@ -14,8 +19,13 @@ export function initializeAuth(): () => Promise<void> {
 
   return async () => {
 
-    const authService =
-      inject(AuthService);
+    const platformId = inject(PLATFORM_ID);
+
+    if (!isPlatformBrowser(platformId)) {
+      return;
+    }
+
+    const authService = inject(AuthService);
 
     await firstValueFrom(
       authService.initialize()
