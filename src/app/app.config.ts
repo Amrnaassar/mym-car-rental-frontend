@@ -37,6 +37,7 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ssrAuthCookieInterceptor } from './core/interceptors/ssr-auth-cookie-interceptor-interceptor';
 import { SeoService } from './shared/services/seo.service';
 import { loadingInterceptor } from './core/interceptors/loading-interceptor';
+import { errorInterceptor } from './core/interceptors/error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -64,8 +65,8 @@ export const appConfig: ApplicationConfig = {
         ssrAuthCookieInterceptor,
         credentialsInterceptor,
         refreshTokenInterceptor,
-        loadingInterceptor
-      ])
+        loadingInterceptor,
+        errorInterceptor])
     ),
 
     provideTranslateService({
@@ -78,7 +79,7 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(
       initializeAuth()
     ),
-     provideAppInitializer(() => {
+    provideAppInitializer(() => {
       inject(SeoService).init();
     })
   ]

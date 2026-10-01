@@ -6,17 +6,31 @@ import {
 } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
+import { map } from 'rxjs';
 
-export const authGuard: CanActivateFn = (
-  route,
-  state
-) => {
+export const authGuard: CanActivateFn = (route,state) => {
 
-  const authService =
-    inject(AuthService);
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-  const router =
-    inject(Router);
+  if (!authService.initialized()) {
+    return authService.initialize().pipe(
+      map(() => {
+        if (authService.currentUser()) {
+          return true;
+        }
+
+        return router.createUrlTree(
+          ['/login'],
+          {
+            queryParams: {
+              returnUrl: state.url
+            }
+          }
+        );
+      })
+    );
+  }
 
   if (authService.currentUser()) {
     return true;
