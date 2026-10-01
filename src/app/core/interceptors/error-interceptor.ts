@@ -6,8 +6,8 @@ import {
 import { inject } from '@angular/core';
 
 import { catchError, throwError } from 'rxjs';
-import { AlertService } from '../../shared/services/alert.service';
 
+import { AlertService } from '../../shared/services/alert.service';
 
 export const errorInterceptor: HttpInterceptorFn = (
   req,
@@ -19,6 +19,12 @@ export const errorInterceptor: HttpInterceptorFn = (
   return next(req).pipe(
 
     catchError((error: HttpErrorResponse) => {
+
+      // 401 is handled by the authentication/refresh flow.
+      // Do not show a generic error alert to the user.
+      if (error.status === 401) {
+        return throwError(() => error);
+      }
 
       handleError(error, alertService);
 
