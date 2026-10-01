@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
 
-    apiUrl: 'http://localhost:5145/api',
+    apiUrl: 'https://mym-car-rental-api-g4f4dqdacvbyagce.westcentralus-01.azurewebsites.net/api',
     siteUrl: 'http://localhost:4200',
 
   googleClientId:
