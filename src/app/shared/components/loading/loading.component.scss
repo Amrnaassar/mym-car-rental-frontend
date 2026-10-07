@@ -1,9 +1,12 @@
-
 @use '../../../../styles/abstracts/variables' as *;
 
 :host {
   display: block;
 }
+
+// ==========================================================
+// LOADER
+// ==========================================================
 
 .loader {
   position: fixed;
@@ -15,21 +18,19 @@
   justify-content: center;
 
   background:
-    radial-gradient(
-      circle at center,
-      rgba($color-accent, 0.07) 0%,
+    radial-gradient(circle at center,
+      rgba($color-accent, 0.08) 0%,
       rgba($color-primary, 0.97) 38%,
-      rgba($color-primary-dark, 0.995) 100%
-    );
+      rgba($color-primary-dark, 0.995) 100%);
 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
   overflow: hidden;
 
-  // ==========================================================
+  // ========================================================
   // CONTENT
-  // ==========================================================
+  // ========================================================
 
   &__content {
     width: min(540px, 86vw);
@@ -39,9 +40,9 @@
     align-items: center;
   }
 
-  // ==========================================================
+  // ========================================================
   // ROAD
-  // ==========================================================
+  // ========================================================
 
   &__road {
     position: relative;
@@ -55,6 +56,10 @@
     overflow: hidden;
   }
 
+  // ========================================================
+  // ROAD LINE
+  // ========================================================
+
   &__road-line {
     position: absolute;
 
@@ -64,25 +69,52 @@
 
     height: 1px;
 
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba($color-accent, 0.04) 8%,
-      rgba($color-accent, 0.3) 30%,
-      rgba($color-accent, 0.75) 50%,
-      rgba($color-accent, 0.3) 70%,
-      rgba($color-accent, 0.04) 92%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba($color-accent, 0.03) 6%,
+        rgba($color-accent, 0.18) 20%,
+        rgba($color-accent, 0.55) 40%,
+        rgba($color-accent, 0.8) 50%,
+        rgba($color-accent, 0.55) 60%,
+        rgba($color-accent, 0.18) 80%,
+        rgba($color-accent, 0.03) 94%,
+        transparent 100%);
 
     box-shadow:
       0 0 8px rgba($color-accent, 0.25),
       0 0 24px rgba($color-accent, 0.12);
+
+    opacity: 0.9;
   }
 
-  // ==========================================================
+  // ========================================================
+  // ROAD GLOW
+  // ========================================================
+
+  &__road::after {
+    content: '';
+
+    position: absolute;
+
+    left: 8%;
+    right: 8%;
+    bottom: 20px;
+
+    height: 18px;
+
+    background: radial-gradient(ellipse,
+        rgba($color-accent, 0.08) 0%,
+        rgba($color-accent, 0.03) 45%,
+        transparent 75%);
+
+    filter: blur(7px);
+
+    pointer-events: none;
+  }
+
+  // ========================================================
   // CAR
-  // ==========================================================
+  // ========================================================
 
   &__car {
     position: absolute;
@@ -98,12 +130,18 @@
     align-items: center;
 
     filter:
-      drop-shadow(0 0 5px rgba($color-accent, 0.9))
-      drop-shadow(0 0 14px rgba($color-accent, 0.45))
-      drop-shadow(0 0 28px rgba($color-accent, 0.15));
+      drop-shadow(0 0 5px rgba($color-accent, 0.9)) drop-shadow(0 0 14px rgba($color-accent, 0.45)) drop-shadow(0 0 28px rgba($color-accent, 0.15));
 
+    /*
+     * The animation is based on the road width,
+     * not viewport width.
+     *
+     * This keeps the animation responsive.
+     */
     animation:
-      carDrive 3.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+      carDrive 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+    will-change: transform;
 
     img {
       display: block;
@@ -115,15 +153,16 @@
     }
   }
 
-  // ==========================================================
+  // ========================================================
   // LIGHT TRAILS
-  // ==========================================================
+  // ========================================================
 
   &__lights {
     position: absolute;
 
     left: 0;
     right: 0;
+
     bottom: 49px;
 
     height: 38px;
@@ -132,50 +171,55 @@
 
     pointer-events: none;
 
+    z-index: 2;
+
     span {
       position: absolute;
 
-      right: -140px;
+      right: -160px;
 
       height: 1px;
 
       border-radius: 999px;
 
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba($color-accent, 0.12) 25%,
-        rgba($color-accent, 0.8) 100%
-      );
+      background: linear-gradient(90deg,
+          transparent 0%,
+          rgba($color-accent, 0.08) 20%,
+          rgba($color-accent, 0.35) 55%,
+          rgba($color-accent, 0.9) 100%);
 
       box-shadow:
-        0 0 7px rgba($color-accent, 0.3);
+        0 0 7px rgba($color-accent, 0.3),
+        0 0 14px rgba($color-accent, 0.1);
 
-      animation: lightTrail 2s linear infinite;
+      animation:
+        lightTrail 1.5s linear infinite;
+
+      will-change: right, opacity;
 
       &:nth-child(1) {
-        width: 130px;
+        width: 135px;
         top: 5px;
         animation-delay: 0s;
       }
 
       &:nth-child(2) {
-        width: 90px;
+        width: 95px;
         top: 17px;
-        animation-delay: 0.22s;
+        animation-delay: 0.28s;
       }
 
       &:nth-child(3) {
-        width: 55px;
+        width: 60px;
         top: 29px;
-        animation-delay: 0.44s;
+        animation-delay: 0.56s;
       }
     }
   }
 
-  // ==========================================================
+  // ========================================================
   // TEXT
-  // ==========================================================
+  // ========================================================
 
   &__text {
     position: relative;
@@ -191,6 +235,7 @@
     font-weight: 600;
 
     letter-spacing: 0.38em;
+
     text-transform: uppercase;
 
     opacity: 0.82;
@@ -198,6 +243,10 @@
     text-shadow:
       0 0 10px rgba($color-accent, 0.25);
   }
+
+  // ========================================================
+  // LOADING DOTS
+  // ========================================================
 
   &__dots {
     display: inline-flex;
@@ -211,7 +260,8 @@
 
       opacity: 0.15;
 
-      animation: dotPulse 1.4s ease-in-out infinite;
+      animation:
+        dotPulse 1.4s ease-in-out infinite;
 
       &:nth-child(1) {
         animation-delay: 0s;
@@ -229,68 +279,102 @@
 }
 
 // ==========================================================
-// CAR MOVEMENT - DESKTOP
+// CAR MOVEMENT
+// ==========================================================
+//
+// The car moves relative to .loader__road.
+// This makes it responsive on desktop + tablet + mobile.
+//
+// Timeline:
+// 0%   = outside left
+// 12%  = enters smoothly
+// 38%  = reaches center
+// 48%  = short pause
+// 58%  = accelerates
+// 88%  = leaves road
+// 100% = completely outside right
+//
 // ==========================================================
 
 @keyframes carDrive {
   0% {
-    transform: translate3d(-130px, 1px, 0);
+    transform: translate3d(-130px, 0, 0);
   }
 
-  12% {
-    transform: translate3d(-60px, 0, 0);
+  10% {
+    transform: translate3d(-50px, 0, 0);
   }
 
-  35% {
-    transform: translate3d(calc(50vw - 52px), -1px, 0);
+  25% {
+    transform: translate3d(20%, -1px, 0);
   }
 
-  50% {
-    transform: translate3d(calc(50vw - 52px), 0, 0);
+  40% {
+    transform: translate3d(50%, 0, 0);
   }
 
-  65% {
-    transform: translate3d(calc(50vw - 52px), -1px, 0);
+  44% {
+    transform: translate3d(50%, 0, 0);
+  }
+
+  48% {
+    transform: translate3d(50%, -0.5px, 0);
+  }
+
+  60% {
+    transform: translate3d(65%, 0, 0);
+  }
+
+  75% {
+    transform: translate3d(82%, 0, 0);
   }
 
   88% {
-    transform: translate3d(calc(100vw - 20px), 0, 0);
+    transform: translate3d(100%, 0, 0);
   }
 
   100% {
-    transform: translate3d(calc(100vw + 130px), 1px, 0);
+    transform: translate3d(calc(100% + 130px), 0, 0);
   }
 }
 
 // ==========================================================
-// LIGHT TRAIL
+// LIGHT TRAIL ANIMATION
 // ==========================================================
 
 @keyframes lightTrail {
   0% {
-    right: -140px;
+    right: -160px;
     opacity: 0;
+    transform: scaleX(0.65);
   }
 
-  15% {
-    opacity: 0.75;
+  12% {
+    opacity: 0.8;
+    transform: scaleX(1);
   }
 
-  55% {
-    opacity: 0.45;
+  45% {
+    opacity: 0.55;
+  }
+
+  70% {
+    opacity: 0.25;
   }
 
   100% {
-    right: calc(100% + 140px);
+    right: calc(100% + 160px);
     opacity: 0;
+    transform: scaleX(1.15);
   }
 }
 
 // ==========================================================
-// DOTS
+// DOT ANIMATION
 // ==========================================================
 
 @keyframes dotPulse {
+
   0%,
   60%,
   100% {
@@ -299,6 +383,40 @@
 
   30% {
     opacity: 1;
+  }
+}
+
+// ==========================================================
+// TABLET
+// ==========================================================
+
+@media (max-width: 768px) {
+  .loader {
+    &__content {
+      width: 88vw;
+    }
+
+    &__road {
+      height: 110px;
+    }
+
+    &__car {
+      width: 92px;
+      bottom: 29px;
+    }
+
+    &__road-line {
+      bottom: 23px;
+    }
+
+    &__lights {
+      bottom: 47px;
+    }
+
+    &__text {
+      font-size: 9.5px;
+      letter-spacing: 0.34em;
+    }
   }
 }
 
@@ -318,59 +436,82 @@
 
     &__car {
       width: 82px;
-
       bottom: 27px;
-      left: 0;
-
-      animation-name: carDriveMobile;
     }
 
     &__road-line {
       bottom: 21px;
     }
 
+    &__road::after {
+      bottom: 16px;
+      height: 15px;
+    }
+
     &__lights {
       bottom: 43px;
+      height: 34px;
+
+      span {
+        right: -110px;
+
+        &:nth-child(1) {
+          width: 105px;
+          top: 5px;
+        }
+
+        &:nth-child(2) {
+          width: 75px;
+          top: 16px;
+        }
+
+        &:nth-child(3) {
+          width: 48px;
+          top: 27px;
+        }
+      }
     }
 
     &__text {
-      font-size: 9px;
-      letter-spacing: 0.3em;
+      margin-top: 2px;
+
+      font-size: 8px;
+      letter-spacing: 0.28em;
     }
   }
 }
 
 // ==========================================================
-// CAR MOVEMENT - MOBILE
+// VERY SMALL MOBILE
 // ==========================================================
 
-@keyframes carDriveMobile {
-  0% {
-    transform: translate3d(-100px, 1px, 0);
-  }
+@media (max-width: 380px) {
+  .loader {
+    &__content {
+      width: 90vw;
+    }
 
-  12% {
-    transform: translate3d(-45px, 0, 0);
-  }
+    &__road {
+      height: 92px;
+    }
 
-  35% {
-    transform: translate3d(calc(50vw - 41px), -1px, 0);
-  }
+    &__car {
+      width: 72px;
+      bottom: 25px;
+    }
 
-  50% {
-    transform: translate3d(calc(50vw - 41px), 0, 0);
-  }
+    &__road-line {
+      bottom: 19px;
+    }
 
-  65% {
-    transform: translate3d(calc(50vw - 41px), -1px, 0);
-  }
+    &__lights {
+      bottom: 40px;
+    }
 
-  88% {
-    transform: translate3d(calc(100vw - 10px), 0, 0);
-  }
-
-  100% {
-    transform: translate3d(calc(100vw + 100px), 1px, 0);
+    &__text {
+      font-size: 7.5px;
+      letter-spacing: 0.24em;
+    }
   }
 }
 
@@ -380,6 +521,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .loader {
+
     &__car,
     &__lights span,
     &__dots span {
