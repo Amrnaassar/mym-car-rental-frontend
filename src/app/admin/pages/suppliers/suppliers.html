@@ -1,0 +1,203 @@
+
+<section class="suppliers-page">
+  <header class="page-header">
+    <div>
+      <span class="page-eyebrow">FLEET MANAGEMENT</span>
+      <h1>Suppliers</h1>
+      <p>Manage external vehicle suppliers and their contact details.</p>
+    </div>
+
+    <button
+      type="button"
+      class="btn-primary"
+      (click)="openForm()">
+      <i class="fa-solid fa-plus"></i>
+      Add Supplier
+    </button>
+  </header>
+
+  @if (successMessage) {
+    <div class="alert alert-success">{{ successMessage }}</div>
+  }
+
+  @if (errorMessage) {
+    <div class="alert alert-error">{{ errorMessage }}</div>
+  }
+
+  <div class="toolbar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        type="search"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+        placeholder="Search by company, contact, phone or email..."
+        aria-label="Search suppliers" />
+    </div>
+
+    <span class="results-count">
+      {{ suppliers.length }} suppliers
+    </span>
+  </div>
+
+  <div class="table-card">
+    @if (isLoading) {
+      <div class="state-message">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Loading suppliers...
+      </div>
+    } @else if (suppliers.length === 0) {
+      <div class="state-message empty-state">
+        <i class="fa-solid fa-truck-field"></i>
+        <h3>No suppliers found</h3>
+        <p>Add your first supplier to get started.</p>
+      </div>
+    } @else {
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Added On</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (
+              supplier of suppliers;
+              track trackBySupplierId($index, supplier)
+            ) {
+              <tr>
+                <td>
+                  <div class="company-cell">
+                    <span class="company-icon">
+                      <i class="fa-solid fa-building"></i>
+                    </span>
+                    <strong>{{ supplier.name }}</strong>
+                  </div>
+                </td>
+
+                <td>{{ supplier.phone }}</td>
+                <td>{{ supplier.email || '—' }}</td>
+                <td>
+                  {{ supplier.createdAt | date: 'dd MMM yyyy' }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</section>
+
+@if (showForm) {
+  <div class="modal-backdrop" (click)="closeForm()">
+    <section
+      class="supplier-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="supplier-modal-title"
+      (click)="$event.stopPropagation()">
+
+      <header class="modal-header">
+        <div>
+          <span class="page-eyebrow">SUPPLIER MANAGEMENT</span>
+          <h2 id="supplier-modal-title">Add Supplier</h2>
+          <p>Enter the supplier's company and contact details.</p>
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          aria-label="Close"
+          (click)="closeForm()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </header>
+
+      <form (ngSubmit)="createSupplier()">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="companyName">Company Name *</label>
+            <input
+              id="companyName"
+              name="companyName"
+              [(ngModel)]="supplierForm.name"
+              required
+              maxlength="200"
+              placeholder="e.g. Premium Auto Trading" />
+          </div>
+
+          
+
+          <div class="form-field">
+            <label for="supplierPhone">Phone *</label>
+            <input
+              id="supplierPhone"
+              name="supplierPhone"
+              [(ngModel)]="supplierForm.phone"
+              required
+              maxlength="30"
+              type="tel"
+              placeholder="+971..." />
+          </div>
+
+          <div class="form-field">
+            <label for="supplierEmail">Email</label>
+            <input
+              id="supplierEmail"
+              name="supplierEmail"
+              [(ngModel)]="supplierForm.email"
+              type="email"
+              maxlength="254"
+              placeholder="supplier@example.com" />
+          </div>
+
+         
+
+          <div class="form-field full-width">
+            <label for="supplierNotes">Notes</label>
+            <textarea
+              id="supplierNotes"
+              name="supplierNotes"
+              [(ngModel)]="supplierForm.notes"
+              rows="3"
+              maxlength="2000"
+              placeholder="Additional information (optional)"></textarea>
+          </div>
+        </div>
+
+        @if (errorMessage) {
+          <div class="alert alert-error">{{ errorMessage }}</div>
+        }
+
+        <footer class="modal-actions">
+          <button
+            type="button"
+            class="btn-secondary"
+            [disabled]="isSaving"
+            (click)="closeForm()">
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn-primary"
+            [disabled]="isSaving">
+            @if (isSaving) {
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              Saving...
+            } @else {
+              <i class="fa-solid fa-check"></i>
+              Save Supplier
+            }
+          </button>
+        </footer>
+      </form>
+    </section>
+  </div>
+}

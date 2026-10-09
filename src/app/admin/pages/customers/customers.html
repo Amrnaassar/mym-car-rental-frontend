@@ -1,0 +1,203 @@
+<section class="customers-page">
+  <header class="page-header">
+    <div class="page-heading">
+      <span class="page-eyebrow">CUSTOMER MANAGEMENT</span>
+      <h1>Customers</h1>
+      <p>Manage customer information and driving license details.</p>
+    </div>
+
+
+<button class="btn-primary" type="button" (click)="openForm()">
+  <span class="btn-icon">+</span>
+  Add Customer
+</button>
+
+
+  </header>
+
+@if (successMessage) { <div class="feedback feedback-success" role="status">
+{{ successMessage }}
+<button type="button" class="feedback-close"
+aria-label="Dismiss message"
+(click)="successMessage = ''">×</button> </div>
+}
+
+@if (errorMessage) { <div class="feedback feedback-error" role="alert">
+{{ errorMessage }}
+<button type="button" class="feedback-close"
+aria-label="Dismiss message"
+(click)="errorMessage = ''">×</button> </div>
+}
+
+  <div class="customers-toolbar">
+    <label class="search-box">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        name="customerSearch"
+        placeholder="Search by name, phone, or license..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+        aria-label="Search customers"
+      />
+      @if (searchTerm) {
+        <button type="button" class="clear-search"
+          aria-label="Clear search"
+          (click)="searchTerm = ''; loadCustomers()">×</button>
+      }
+    </label>
+
+
+<span class="results-count">
+  {{ customers.length }} {{ customers.length === 1 ? 'customer' : 'customers' }}
+</span>
+
+
+  </div>
+
+  <div class="customers-card">
+    @if (isLoading) {
+      <div class="state-container">
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <p>Loading customers...</p>
+      </div>
+    } @else if (customers.length === 0) {
+      <div class="state-container empty-state">
+        <div class="empty-icon" aria-hidden="true">♙</div>
+        <h2>No customers found</h2>
+        <p>
+          {{ searchTerm ? 'Try a different search term.' : 'Add your first customer to get started.' }}
+        </p>
+        @if (!searchTerm) {
+          <button type="button" class="btn-secondary" (click)="openForm()">
+            Add First Customer
+          </button>
+        }
+      </div>
+    } @else {
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Nationality</th>
+              <th>Driving License</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+
+      <tbody>
+        @for (customer of customers; track trackByCustomerId($index, customer)) {
+          <tr>
+            <td>
+              <div class="customer-name">
+                <span class="customer-avatar">
+                  {{ customer.fullName.charAt(0).toUpperCase() }}
+                </span>
+                <span>{{ customer.fullName }}</span>
+              </div>
+            </td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.nationality }}</td>
+            <td>
+              <span class="license-value">
+                {{ customer.drivingLicenseNumber }}
+              </span>
+            </td>
+            <td>{{ customer.email || '—' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+
+
+  </div>
+</section>
+
+@if (showForm) {
+
+  <div class="modal-backdrop" (click)="closeForm()">
+    <section
+      class="customer-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="customer-modal-title"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="modal-header">
+        <div>
+          <span class="page-eyebrow">CUSTOMER DETAILS</span>
+          <h2 id="customer-modal-title">Add Customer</h2>
+          <p>Enter the customer's information below.</p>
+        </div>
+
+
+    <button type="button" class="modal-close"
+      aria-label="Close form"
+      (click)="closeForm()">×</button>
+  </header>
+
+  <form #customerNgForm="ngForm" (ngSubmit)="createCustomer()">
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="fullName">Full Name <span>*</span></label>
+        <input id="fullName" name="fullName" type="text"
+          [(ngModel)]="customerForm.fullName"
+          required maxlength="150"
+          placeholder="Enter full name" />
+      </div>
+
+      <div class="form-field">
+        <label for="phone">Phone <span>*</span></label>
+        <input id="phone" name="phone" type="tel"
+          [(ngModel)]="customerForm.phone"
+          required maxlength="30"
+          placeholder="Enter phone number" />
+      </div>
+
+      <div class="form-field">
+        <label for="nationality">Nationality <span>*</span></label>
+        <input id="nationality" name="nationality" type="text"
+          [(ngModel)]="customerForm.nationality"
+          required maxlength="100"
+          placeholder="Enter nationality" />
+      </div>
+
+      <div class="form-field">
+        <label for="drivingLicenseNumber">Driving License <span>*</span></label>
+        <input id="drivingLicenseNumber" name="drivingLicenseNumber"
+          type="text"
+          [(ngModel)]="customerForm.drivingLicenseNumber"
+          required maxlength="100"
+          placeholder="Enter license number" />
+      </div>
+
+      <div class="form-field form-field-full">
+        <label for="email">Email <span class="optional">(Optional)</span></label>
+        <input id="email" name="email" type="email"
+          [(ngModel)]="customerForm.email"
+          maxlength="254"
+          placeholder="customer@example.com" />
+      </div>
+    </div>
+
+    <footer class="modal-actions">
+      <button type="button" class="btn-secondary"
+        [disabled]="isSaving" (click)="closeForm()">
+        Cancel
+      </button>
+
+      <button type="submit" class="btn-primary"
+        [disabled]="isSaving || customerNgForm.invalid">
+        {{ isSaving ? 'Saving...' : 'Save Customer' }}
+      </button>
+    </footer>
+  </form>
+</section>
+
+
+  </div>
+}

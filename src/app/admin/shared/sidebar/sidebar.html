@@ -7,40 +7,28 @@
 
   <nav class="sidebar__nav">
 
-    <a
-      routerLink="/admin/dashboard"
-      routerLinkActive="active"
-      class="sidebar__link">
+    <a routerLink="/admin/dashboard" routerLinkActive="active" class="sidebar__link">
 
       <i class="fa-solid fa-chart-line"></i>
       <span>Dashboard</span>
 
     </a>
 
-    <a
-      routerLink="/admin/bookings"
-      routerLinkActive="active"
-      class="sidebar__link">
+    <a routerLink="/admin/bookings" routerLinkActive="active" class="sidebar__link">
 
       <i class="fa-solid fa-calendar-check"></i>
       <span>Bookings</span>
 
     </a>
 
-    <a
-      routerLink="/admin/cars"
-      routerLinkActive="active"
-      class="sidebar__link">
+    <a routerLink="/admin/cars" routerLinkActive="active" class="sidebar__link">
 
       <i class="fa-solid fa-car"></i>
       <span>Cars</span>
 
     </a>
 
-    <a
-      routerLink="/admin/categories"
-      routerLinkActive="active"
-      class="sidebar__link">
+    <a routerLink="/admin/categories" routerLinkActive="active" class="sidebar__link">
 
       <i class="fa-solid fa-layer-group"></i>
       <span>Categories</span>
@@ -49,23 +37,38 @@
 
     @if (isManager()) {
 
-      <a
-        routerLink="/admin/users"
-        routerLinkActive="active"
-        class="sidebar__link">
+    <a routerLink="/admin/users" routerLinkActive="active" class="sidebar__link">
 
-        <i class="fa-solid fa-users"></i>
-        <span>Users</span>
+      <i class="fa-solid fa-users"></i>
+      <span>Users</span>
 
-      </a>
+    </a>
 
     }
+    <a routerLink="/admin/customers" routerLinkActive="active" class="sidebar__link">
 
+      <i class="fa-solid fa-address-book"></i>
+      <span>Customers</span>
+
+    </a>
+
+    <a routerLink="/admin/suppliers" routerLinkActive="active" class="sidebar__link">
+
+      <i class="fa-solid fa-truck-field"></i>
+      <span>Suppliers</span>
+
+    </a>
+    <a routerLink="/admin/rental-contracts" routerLinkActive="active" class="sidebar__link">
+
+      <i class="fa-solid fa-file-contract"></i>
+      <span>Rental Contracts</span>
+
+    </a>
   </nav>
 
-  <button
-    class="sidebar__logout"
-    (click)="logout()">
+
+
+  <button class="sidebar__logout" (click)="logout()">
 
     <i class="fa-solid fa-right-from-bracket"></i>
 

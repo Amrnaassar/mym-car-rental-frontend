@@ -1,0 +1,158 @@
+
+<section class="contracts-page">
+  <header class="page-header">
+    <div>
+      <span class="page-eyebrow">RENTAL MANAGEMENT</span>
+      <h1>Rental Contracts</h1>
+      <p>Manage rental agreements, costs, and profitability.</p>
+    </div>
+  </header>
+
+  @if (errorMessage) {
+    <div class="alert alert-error">
+      {{ errorMessage }}
+      <button type="button" (click)="loadContracts()">
+        Retry
+      </button>
+    </div>
+  }
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-icon">
+        <i class="fa-solid fa-file-contract"></i>
+      </span>
+      <div>
+        <p>Total Contracts</p>
+        <h2>{{ contracts.length }}</h2>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon">
+        <i class="fa-solid fa-coins"></i>
+      </span>
+      <div>
+        <p>Total Revenue</p>
+        <h2>{{ getTotalRevenue() | number: '1.2-2' }} AED</h2>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon">
+        <i class="fa-solid fa-chart-line"></i>
+      </span>
+      <div>
+        <p>Net Profit</p>
+        <h2>{{ getTotalProfit() | number: '1.2-2' }} AED</h2>
+      </div>
+    </article>
+  </div>
+
+  <div class="table-card">
+    <div class="table-heading">
+      <div>
+        <h2>All Contracts</h2>
+        <p>Review your rental agreements and financial details.</p>
+      </div>
+
+      <button
+        type="button"
+        class="btn-secondary"
+        (click)="loadContracts()"
+        [disabled]="isLoading">
+        <i class="fa-solid fa-rotate"></i>
+        Refresh
+      </button>
+    </div>
+
+    @if (isLoading) {
+      <div class="state-message">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Loading contracts...
+      </div>
+    } @else if (contracts.length === 0 && !errorMessage) {
+      <div class="state-message">
+        <i class="fa-solid fa-file-circle-plus"></i>
+        <h3>No rental contracts yet</h3>
+        <p>Rental agreements will appear here once created.</p>
+      </div>
+    } @else if (contracts.length > 0) {
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Contract</th>
+              <th>Customer</th>
+              <th>Vehicle</th>
+              <th>Period</th>
+              <th>Plan</th>
+              <th>Total (AED)</th>
+              <th>Profit (AED)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (
+              contract of contracts;
+              track trackByContractId($index, contract)
+            ) {
+              <tr>
+                <td>
+                  <strong class="contract-number">
+                    {{ contract.contractNumber }}
+                  </strong>
+                  <small>{{ contract.createdAt | date: 'dd MMM yyyy' }}</small>
+                </td>
+
+                <td>
+                  <strong>{{ contract.customerName }}</strong>
+                  <small>{{ contract.customerPhone }}</small>
+                </td>
+
+                <td>
+                  <strong>{{ contract.carName }}</strong>
+                  <small>{{ contract.plateNumber }}</small>
+                </td>
+
+                <td>
+                  <span>{{ contract.startDate | date: 'dd MMM yyyy' }}</span>
+                  <small>to {{ contract.endDate | date: 'dd MMM yyyy' }}</small>
+                  <small>{{ contract.rentalDays }} days</small>
+                </td>
+
+                <td>
+                  <span class="plan-badge">
+                    {{ getPlanLabel(contract.rentalPlan) }}
+                  </span>
+                </td>
+
+                <td class="money-cell">
+                  {{ contract.grandTotal | number: '1.2-2' }}
+                </td>
+
+                <td
+                  class="money-cell"
+                  [class.profit-positive]="contract.netProfit >= 0"
+                  [class.profit-negative]="contract.netProfit < 0">
+                  {{ contract.netProfit | number: '1.2-2' }}
+                </td>
+
+                <td>
+                  <span
+                    class="status-badge"
+                    [class.status-active]="contract.status === RentalContractStatus.Active"
+                    [class.status-completed]="contract.status === RentalContractStatus.Completed"
+                    [class.status-cancelled]="contract.status === RentalContractStatus.Cancelled">
+                    {{ getStatusLabel(contract.status) }}
+                  </span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</section>

@@ -141,7 +141,26 @@ export const ADMIN_ROUTES: Routes = [
           import(
             './pages/users/user-details/user-details.component'
           ).then(m => m.UserDetailsComponent)
-      }
+      },
+      {
+        path: 'customers',
+        loadComponent: () =>
+          import('./pages/customers/customers')
+            .then(m => m.CustomersComponent)
+      },
+
+      {
+        path: 'suppliers',
+        loadComponent: () =>
+          import('./pages/suppliers/suppliers')
+            .then(m => m.SuppliersComponent)
+      },
+      {
+        path: 'rental-contracts',
+        loadComponent: () =>
+          import('./pages/rental-contracts/rental-contracts')
+            .then(m => m.RentalContractsComponent)
+      },
     ]
   }
 ];
